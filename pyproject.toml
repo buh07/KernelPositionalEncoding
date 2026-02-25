@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kernel-pe"
+version = "0.1.0"
+description = "Shared utilities for positional-kernel experiments"
+authors = [{name = "Kernel PE Team"}]
+requires-python = ">=3.10"
+dependencies = [
+    "torch",
+    "transformers",
+    "datasets",
+    "numpy",
+    "scipy",
+    "pandas",
+    "pyarrow",
+    "tqdm",
+]
+
+[tool.setuptools]
+packages = ["shared", "experiment1"]

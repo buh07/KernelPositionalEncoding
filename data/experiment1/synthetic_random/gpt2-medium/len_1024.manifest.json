@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "model": "gpt2-medium",
+  "dataset": "synthetic_random",
+  "sequence_length": 1024,
+  "seed": 307844518,
+  "needs_center_split": false,
+  "center_count": 0,
+  "eval_count": 200,
+  "expected_center": 0,
+  "expected_eval": 200,
+  "total_records": 200,
+  "total_required": 200
+}

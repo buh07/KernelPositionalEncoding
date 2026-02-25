@@ -1,0 +1,8 @@
+{
+  "dataset": "codesearchnet_python_snapshot",
+  "hf_id": "codeparrot/github-code",
+  "strategy": "snapshot",
+  "allow_patterns": [
+    "data/train-*.parquet"
+  ]
+}
