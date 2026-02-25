@@ -1,0 +1,8 @@
+.venv/
+models/
+gpu*_log.txt
+rerun*_log.txt
+__pycache__/
+.pytest_cache/
+*.pyc
+kernel_pe.egg-info/

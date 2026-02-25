@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "model": "gpt2-small",
+  "dataset": "codesearchnet_python_snapshot",
+  "sequence_length": 256,
+  "seed": 901058166,
+  "needs_center_split": true,
+  "center_count": 100,
+  "eval_count": 100,
+  "expected_center": 100,
+  "expected_eval": 100,
+  "total_records": 200,
+  "total_required": 200
+}

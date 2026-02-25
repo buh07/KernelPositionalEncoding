@@ -1,0 +1,6 @@
+{
+  "dataset": "wiki40b_en_pre2019",
+  "hf_id": "wiki40b",
+  "split": "train",
+  "config": "en"
+}
