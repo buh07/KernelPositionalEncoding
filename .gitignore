@@ -1,5 +1,13 @@
 .venv/
 models/
+logs/
+trackb_canperpos*.log
+trackb_canperpos_resume*.log
+results/track_b_smoke_*/
+results/track_b_canonical_perpos_v1/**/centering_means.pt
+results/track_b_canonical_perpos_v1/**/gram_matrices.pt
+results/track_b_canonical_perpos_v1/**/summary.parquet
+results/spectral_canonical_perpos_v1_t0/**/spectral.parquet
 gpu*_log.txt
 rerun*_log.txt
 __pycache__/

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import math
+from functools import lru_cache
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List
@@ -10,6 +11,7 @@ import numpy as np
 import pandas as pd
 from transformers import AutoConfig
 
+from shared.config import default_paths
 from shared.specs import DatasetSpec, ModelSpec, SequenceLengthSpec
 from shared.utils.logging import get_logger
 
@@ -24,6 +26,8 @@ class SpectralConfig:
     pad_multiplier: int = 4
     top_k: int = 5
     gate_threshold: float = 0.60
+    track_b_group: str = "track_b"
+    output_group: str = "spectral"
 
 
 class SpectralRunner:
@@ -38,7 +42,13 @@ class SpectralRunner:
         self.dataset_spec = dataset
         self.seq_len = seq_len
         self.config = config
-        self.output_dir = spectral_dir(config.results_root, model, dataset, seq_len)
+        self.output_dir = spectral_dir(
+            config.results_root,
+            model,
+            dataset,
+            seq_len,
+            group=config.output_group,
+        )
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def run(self) -> None:
@@ -114,7 +124,13 @@ class SpectralRunner:
         return pd.read_parquet(path)
 
     def _load_track_b(self) -> pd.DataFrame | None:
-        path = track_b_dir(self.config.results_root, self.model_spec, self.dataset_spec, self.seq_len) / "summary.parquet"
+        path = track_b_dir(
+            self.config.results_root,
+            self.model_spec,
+            self.dataset_spec,
+            self.seq_len,
+            group=self.config.track_b_group,
+        ) / "summary.parquet"
         if not path.exists():
             return None
         return pd.read_parquet(path)
@@ -225,5 +241,14 @@ def _rope_frequencies(head_dim: int) -> list[float]:
 
 
 def _infer_head_dim(model: ModelSpec) -> int:
-    config = AutoConfig.from_pretrained(model.hf_id)
+    config = _load_model_config(model)
     return int(config.hidden_size // config.num_attention_heads)
+
+
+@lru_cache(maxsize=16)
+def _load_model_config(model: ModelSpec):
+    paths = default_paths()
+    local_dir = paths.models_dir / model.name
+    if (local_dir / "config.json").exists():
+        return AutoConfig.from_pretrained(local_dir, local_files_only=True)
+    return AutoConfig.from_pretrained(model.hf_id)

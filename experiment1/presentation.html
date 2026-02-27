@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment 1 Results — Shift-Invariant Positional Kernels</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; }
+
+  /* Slide system */
+  .slide {
+    min-height: 100vh; padding: 48px 64px; display: flex; flex-direction: column;
+    justify-content: center; border-bottom: 2px solid #30363d;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .slide.title-slide { text-align: center; justify-content: center; }
+  .slide h1 { font-size: 2.6em; margin-bottom: 16px; color: #58a6ff; font-weight: 700; }
+  .slide h2 { font-size: 2em; margin-bottom: 24px; color: #58a6ff; font-weight: 600; }
+  .slide h3 { font-size: 1.3em; margin-bottom: 16px; color: #79c0ff; font-weight: 600; }
+  .slide p, .slide li { font-size: 1.15em; line-height: 1.65; color: #c9d1d9; }
+  .slide ul, .slide ol { margin-left: 28px; margin-bottom: 16px; }
+  .slide li { margin-bottom: 8px; }
+  .slide img { max-width: 100%; border-radius: 8px; margin: 16px 0; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+  .slide .subtitle { font-size: 1.3em; color: #8b949e; margin-bottom: 8px; }
+  .slide .author { font-size: 1.1em; color: #8b949e; margin-top: 16px; }
+
+  /* Layout helpers */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .two-col.wide-right { grid-template-columns: 2fr 3fr; }
+  .two-col.wide-left { grid-template-columns: 3fr 2fr; }
+  .card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 24px; margin: 12px 0;
+  }
+  .highlight { color: #58a6ff; font-weight: 600; }
+  .green { color: #3fb950; }
+  .yellow { color: #d29922; }
+  .red { color: #f85149; }
+  .dim { color: #8b949e; }
+
+  /* Metric boxes */
+  .metric-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
+  .metric {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 16px 24px; text-align: center; flex: 1; min-width: 140px;
+  }
+  .metric .value { font-size: 2em; font-weight: 700; }
+  .metric .label { font-size: 0.85em; color: #8b949e; margin-top: 4px; }
+
+  /* Table */
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 0.95em; }
+  th { background: #161b22; color: #79c0ff; padding: 10px 14px; text-align: left; border-bottom: 2px solid #30363d; }
+  td { padding: 8px 14px; border-bottom: 1px solid #21262d; }
+  tr:hover td { background: #161b22; }
+
+  /* Slide number */
+  .slide-num { position: relative; top: -24px; text-align: right; font-size: 0.85em; color: #484f58; }
+
+  /* Key finding callout */
+  .callout {
+    border-left: 4px solid #58a6ff; background: #161b22; padding: 16px 20px;
+    border-radius: 0 8px 8px 0; margin: 16px 0;
+  }
+  .callout.warning { border-left-color: #d29922; }
+  .callout.success { border-left-color: #3fb950; }
+  .callout.danger { border-left-color: #f85149; }
+
+  @media print {
+    .slide { page-break-after: always; min-height: auto; padding: 32px; }
+    body { background: white; color: #1c1c1c; }
+    .slide h1, .slide h2 { color: #0366d6; }
+    .card, .metric, th { background: #f6f8fa; border-color: #d0d7de; }
+    .slide p, .slide li, td { color: #1c1c1c; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SLIDE 1: Title -->
+<!-- ============================================================ -->
+<div class="slide title-slide">
+  <h1>Experiment 1 Results</h1>
+  <p class="subtitle">Estimating the Positional Kernel from Queries and Keys</p>
+  <p class="author">
+    Testing whether attention logits in transformer models<br>
+    are approximately shift-invariant functions of relative position
+  </p>
+  <p class="dim" style="margin-top: 32px;">
+    6 models &middot; 3 datasets &middot; 2 sequence lengths &middot; 36 experimental conditions<br>
+    Track A (raw logits) &middot; Track B (averaged Gram matrix) &middot; Boundary analysis &middot; Spectral gating
+  </p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 2: The Big Idea -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">2</div>
+  <h2>The Core Question</h2>
+  <div class="two-col wide-left">
+    <div>
+      <p>Modern transformers use <span class="highlight">Rotary Position Embeddings (RoPE)</span> to encode where tokens are in a sequence. RoPE has a mathematical property:</p>
+      <div class="callout" style="margin: 20px 0;">
+        <p><strong>RoPE Shift-Invariance (Proposition 2a):</strong><br>
+        The inner product &#x27E8;R(i)q, R(j)k&#x27E9; depends only on the <em>difference</em> i&minus;j, not on absolute positions i and j separately.</p>
+      </div>
+      <p>This means the positional component of attention should behave like a <span class="highlight">shift-invariant kernel</span> &mdash; a function g(&Delta;) of relative offset alone, similar to convolutions.</p>
+      <p style="margin-top: 16px;"><strong>Experiment 1 asks:</strong> How much of the actual attention logit matrix is explained by fitting a 1D function g(&Delta;)?</p>
+      <p>We measure this with <span class="highlight">R&sup2;</span>: the fraction of variance in the logit matrix explained by g(&Delta;).</p>
+    </div>
+    <div>
+      <div class="card">
+        <h3>What R&sup2; tells us</h3>
+        <ul>
+          <li><span class="green">R&sup2; &gt; 0.80</span> &mdash; Strong support: logits are mostly a function of relative position</li>
+          <li><span class="yellow">R&sup2; 0.40&ndash;0.80</span> &mdash; Partial: shift-invariant structure exists but content matters too</li>
+          <li><span class="red">R&sup2; &lt; 0.40</span> &mdash; Weak: content dominates, position is not the primary driver</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Why it matters</h3>
+        <p>If attention is approximately shift-invariant, it connects transformers to classical kernel theory (Bochner's theorem, Fourier features). This would mean attention heads implement something like <em>learned convolutional filters</em> in position space &mdash; a powerful interpretability lens.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3: Experimental Design -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">3</div>
+  <h2>Experimental Design</h2>
+  <div class="two-col">
+    <div>
+      <h3>6 Models (2&times;3 Norm &times; PE grid)</h3>
+      <table>
+        <tr><th>Model</th><th>PE</th><th>Norm</th></tr>
+        <tr><td>LLaMA-3.2-1B</td><td>RoPE</td><td>RMSNorm</td></tr>
+        <tr><td>OLMo-1B</td><td>RoPE</td><td>LayerNorm</td></tr>
+        <tr><td>TinyLlama-1.1B</td><td>RoPE</td><td>RMSNorm</td></tr>
+        <tr><td>TinyLlama-NoPE</td><td>None</td><td>RMSNorm</td></tr>
+        <tr><td>GPT-2 Small</td><td>Learned Abs</td><td>LayerNorm</td></tr>
+        <tr><td>GPT-2 Medium</td><td>Learned Abs</td><td>LayerNorm</td></tr>
+      </table>
+      <p class="dim" style="margin-top: 12px;">TinyLlama-NoPE is architecture-matched to TinyLlama &mdash; the only difference is RoPE removed.</p>
+    </div>
+    <div>
+      <h3>3 Datasets</h3>
+      <div class="card">
+        <p><strong>Wikipedia</strong> &mdash; natural prose, tests real-world content</p>
+        <p><strong>Code (Python)</strong> &mdash; structured, repetitive tokens</p>
+        <p><strong>Random tokens</strong> &mdash; i.i.d. uniform from vocabulary, isolates architecture-only effects</p>
+      </div>
+      <h3>2 Sequence Lengths</h3>
+      <div class="card">
+        <p><strong>256 tokens</strong> (short) and <strong>1024 tokens</strong> (long)</p>
+        <p>200 sequences per condition (100 centering + 100 evaluation)</p>
+      </div>
+      <h3>2 Measurement Tracks</h3>
+      <div class="card">
+        <p><strong>Track A:</strong> Fit g(&Delta;) directly to raw attention logits per sequence</p>
+        <p><strong>Track B:</strong> Average Q&middot;K Gram matrix across sequences, then fit g(&Delta;)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4: Implementation -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">4</div>
+  <h2>How It Works</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Pipeline (<code>experiment1/run.py</code>)</h3>
+      <ol>
+        <li><strong>Tokenize</strong> &mdash; Each model's tokenizer processes all datasets to exactly 256 or 1024 tokens with fixed centering/eval split</li>
+        <li><strong>Track A</strong> &mdash; Forward pass each eval sequence, extract pre-softmax logit matrix A[layer, head, T, T], fit g(&Delta;) to lower-triangular entries (causal mask), compute per-sequence R&sup2;</li>
+        <li><strong>Track B</strong> &mdash; Compute centering means from centering set, subtract from Q/K, accumulate averaged Gram matrix, fit g(&Delta;) on the averaged matrix <em>(canonical rerun complete: legacy and canonical per-position centered Track B are near-identical; centered natural-text results remain methodology-sensitive because both variants still use per-position centering)</em></li>
+        <li><strong>Boundary</strong> &mdash; Refit R&sup2; restricted to boundary (pos 0&ndash;49) and interior (pos 50+) windows</li>
+        <li><strong>Spectral</strong> &mdash; Gate check on early-layer R&sup2;; if passed, DFT of g(&Delta;) and match peaks to RoPE frequencies</li>
+      </ol>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Key Implementation Details</h3>
+        <ul>
+          <li><strong>Shift-kernel estimator</strong> (<code>shift_kernels.py</code>): PE-aware &mdash; RoPE estimator keeps top-8 Fourier components; absolute PE uses raw diagonal means; NoPE applies centering</li>
+          <li><strong>Norm reconciliation</strong> (<code>norm_utils.py</code>): RMSNorm logits get double-centered (row + column mean removal) to match LayerNorm's centering</li>
+          <li><strong>Causal restriction</strong>: Only lower-triangular entries (s &lt; t, positive lags) used &mdash; one-sided shift-invariance</li>
+          <li><strong>GQA handling</strong>: LLaMA's 32 query heads map to 8 KV heads; R&sup2; computed per query head but grouped by shared KV head for reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5: Headline Result -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">5</div>
+  <h2>Headline Result: Partial Support for Shift-Invariance</h2>
+
+  <div class="metric-row">
+    <div class="metric"><div class="value" style="color:#2196F3;">0.56</div><div class="label">LLaMA-3.2-1B<br>Early-layer R&sup2;</div></div>
+    <div class="metric"><div class="value" style="color:#4CAF50;">0.37</div><div class="label">OLMo-1B<br>Early-layer R&sup2;</div></div>
+    <div class="metric"><div class="value" style="color:#FF9800;">0.33</div><div class="label">TinyLlama<br>Early-layer R&sup2;</div></div>
+    <div class="metric"><div class="value" style="color:#9C27B0;">0.39</div><div class="label">GPT-2 Small<br>Early-layer R&sup2;</div></div>
+    <div class="metric"><div class="value" style="color:#E91E63;">0.24</div><div class="label">GPT-2 Medium<br>Early-layer R&sup2;</div></div>
+    <div class="metric"><div class="value" style="color:#607D8B;">0.005</div><div class="label">NoPE Control<br>Early-layer R&sup2;</div></div>
+  </div>
+
+  <img src="figures/fig3_model_comparison.png" alt="Figure 3: Model Comparison">
+
+  <div class="callout warning">
+    <p><strong>Key takeaway:</strong> All RoPE models fall in the <span class="yellow">partial/exploratory band (0.3&ndash;0.6)</span>, well below the 0.80 strong-support threshold. Shift-invariant structure is real and measurable, but it explains roughly half of logit variance at best &mdash; content contributions are substantial even at the earliest layers.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 6: Per-head heatmaps -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">6</div>
+  <h2>R&sup2; Across Every Layer and Head</h2>
+
+  <img src="figures/fig1_r2_heatmaps.png" alt="Figure 1: R² Heatmaps">
+
+  <p>Each cell shows the pooled R&sup2; for one (layer, head) pair on synthetic random tokens at len=256. Key observations:</p>
+  <ul>
+    <li><strong>LLaMA-3.2-1B</strong> shows the strongest and most spatially distributed shift-invariant structure, with many heads at R&sup2; &gt; 0.5</li>
+    <li><strong>TinyLlama and OLMo</strong> show patchier patterns &mdash; some heads are high, many are low</li>
+    <li><strong>GPT-2</strong> models show moderate structure despite using absolute (not relative) PEs</li>
+    <li><strong>NoPE control</strong> is uniformly near-zero &mdash; confirming the metric works</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 7: Depth profiles -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">7</div>
+  <h2>How R&sup2; Changes with Layer Depth</h2>
+
+  <img src="figures/fig2_r2_vs_depth_len256.png" alt="Figure 2: R² vs Depth, len=256">
+
+  <div class="two-col">
+    <div class="callout">
+      <p><strong>Prediction:</strong> The framework predicts that R&sup2; should be highest at early layers (where content and position are independent) and decay monotonically as residual connections and MLPs accumulate content-position entanglement.</p>
+    </div>
+    <div class="callout warning">
+      <p><strong>Reality:</strong> The depth profiles are <em>non-monotone</em>. LLaMA shows early-layer dominance as expected, but TinyLlama and GPT-2 show rising R&sup2; at intermediate layers. Some heads at depth appear to <em>specialize</em> as positional processors.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 8: NoPE paired control -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">8</div>
+  <h2>The NoPE Control: Strongest Result</h2>
+
+  <img src="figures/fig4_nope_paired.png" alt="Figure 4: NoPE Paired Control">
+
+  <div class="callout success">
+    <p><strong>TinyLlama-NoPE produces R&sup2; &lt; 0.01 at early layers</strong> &mdash; essentially zero. The architecture is identical to TinyLlama-RoPE except that rotary embeddings are patched out. This 25&ndash;40x gap proves that the shift-invariant structure measured by Track A is <em>caused by</em> the positional encoding, not by causal masking, tokenization, or any other architectural feature.</p>
+  </div>
+
+  <p>This is the cleanest confirmation of the framework's core claim: <strong>positional encoding scheme determines whether attention logits exhibit shift-invariant structure.</strong> It also validates the measurement methodology &mdash; the R&sup2; metric does not produce false positives on models that lack PE-induced positional structure.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 9: Centering collapse -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">9</div>
+  <h2>Track B Legacy vs Canonical: What Changed?</h2>
+
+  <img src="figures/fig10_trackb_variant_equivalence.png" alt="Figure 10: Track B Variant Equivalence">
+
+  <div class="two-col">
+    <div>
+      <h3>What happened</h3>
+      <p>The canonical per-position rerun is complete and can now be compared directly to legacy Track B:</p>
+      <ul>
+        <li><strong>Legacy centered vs canonical centered:</strong> near-identical (centered MAE = 9.41e-08, max = 9.83e-06)</li>
+        <li><strong>Legacy raw vs canonical raw:</strong> effectively identical (raw MAE &asymp; 9.64e-18)</li>
+        <li><strong>Canonical vs Track A:</strong> synthetic raw/centered &asymp; 0.0057 difference; natural raw &asymp; 0.013; natural centered &asymp; 0.273</li>
+      </ul>
+      <p>Centered collapse on natural/code persists even after canonical rerun, while synthetic remains centered &asymp; raw.</p>
+    </div>
+    <div>
+      <div class="callout danger">
+        <h3>Interpretation (finalized, caveated)</h3>
+        <p>The rerun resolves frame-placement ambiguity: the centered natural-text collapse is <strong>not</strong> primarily a legacy-vs-canonical frame mismatch.</p>
+        <p style="margin-top: 8px;">However, both variants still subtract per-position means, so centered natural-text values remain methodology-sensitive and are not a clean standalone test of content removal.</p>
+        <p style="margin-top: 8px;">Track B raw remains the stable comparator to Track A in this deck.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 10: Track A vs B -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">10</div>
+  <h2>Track A vs Track B Agreement</h2>
+
+  <img src="figures/fig5_track_a_vs_b.png" alt="Figure 5: Track A vs Track B">
+
+  <p>Track A (per-sequence raw logits) and Track B raw (averaged Gram matrix) agree well across datasets; most points remain close to the diagonal. With canonical rerun complete, this agreement remains stable.</p>
+  <p>Concrete agreement levels from current canonical outputs: natural combined <strong>|A - raw| &asymp; 0.013</strong>, natural combined <strong>|A - centered| &asymp; 0.273</strong>, synthetic <strong>|A - raw| = |A - centered| &asymp; 0.0057</strong>.</p>
+  <p>Conclusion: Track B raw is the stable cross-track comparator, while centered natural-text results remain caveated because both legacy and canonical centered variants use per-position subtraction.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 11: Track B Methodology Deep Dive -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">11</div>
+  <h2>Track B Methodologies: Definitions and Failure Modes</h2>
+
+  <div class="two-col wide-left">
+    <div>
+      <table>
+        <tr><th>Variant</th><th>What is computed</th><th>Primary use</th><th>Main weakness</th></tr>
+        <tr>
+          <td><strong>Track B raw</strong></td>
+          <td>Average Gram matrix from captured Q/K without centering</td>
+          <td>Most stable comparator to Track A</td>
+          <td>Retains global content and position-dependent mean biases</td>
+        </tr>
+        <tr>
+          <td><strong>Legacy centered</strong><br><span class="dim">(per-position)</span></td>
+          <td>Subtract mean_q[layer,head,t,:], mean_k[layer,head,t,:] in captured frame (RoPE models use post-RoPE capture)</td>
+          <td>Attempt to remove content offsets before fit</td>
+          <td>Can subtract large absolute-position-structured energy on natural text, lowering centered SNR</td>
+        </tr>
+        <tr>
+          <td><strong>Canonical centered</strong><br><span class="dim">(per-position)</span></td>
+          <td>Unrotate to canonical frame, subtract per-position means, rotate back, then average Gram</td>
+          <td>Diagnostic check for frame-placement dependence</td>
+          <td>Still per-position subtraction, so core attenuation/confound remains</td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <p><strong>Observed equivalence:</strong> legacy and canonical per-position are near-identical (centered MAE 9.41e-08, max 9.83e-06; raw MAE ~9.64e-18). This rules out frame placement as the dominant cause.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>Where each method is strong</h3>
+        <ul>
+          <li><strong>Raw:</strong> preserves the best cross-track agreement signal (natural |A-raw| ~0.013; synthetic ~0.0057)</li>
+          <li><strong>Legacy centered:</strong> strong stress-test for sensitivity to mean subtraction</li>
+          <li><strong>Canonical centered:</strong> isolates whether RoPE coordinate frame is the issue (it is not, by current data)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Where each method is weak</h3>
+        <ul>
+          <li><strong>Raw:</strong> not a content-removed estimate</li>
+          <li><strong>Legacy centered:</strong> most sensitive to RoPE natural-text attenuation when per-position means are large</li>
+          <li><strong>Canonical centered:</strong> does not fix per-position confound; only verifies near-equivalence under frame change</li>
+        </ul>
+      </div>
+
+      <div class="callout warning">
+        <p><strong>Practical interpretation rule:</strong> for current Experiment 1, use Track B raw as primary comparator and treat centered variants as methodology-sensitivity diagnostics, especially for RoPE natural-text conditions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 12: Boundary analysis -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">12</div>
+  <h2>Boundary Analysis: Causal Masking Effects</h2>
+
+  <img src="figures/fig7_boundary.png" alt="Figure 7: Boundary Analysis">
+
+  <div class="two-col">
+    <div class="callout success">
+      <h3>Confirmed: Proposition 4</h3>
+      <p>The framework predicts that causal masking breaks shift-invariance near the sequence start because the softmax normalization denominator depends on absolute position. The boundary analysis confirms this:</p>
+      <ul>
+        <li><strong>Interior R&sup2; &gt; Full R&sup2; &gt; Boundary R&sup2;</strong> across all models</li>
+        <li>Boundary penalty is ~0.10&ndash;0.15 on average</li>
+        <li>Effect is strongest on random tokens (where content noise is minimal)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Implications</h3>
+      <p>Tokens in the first ~50 positions systematically depress the overall R&sup2; measurement. The "true" shift-invariant fit quality in the sequence interior is modestly higher than the full-sequence numbers reported in the Track A tables.</p>
+      <p>This is consistent with known "primacy bias" in language models and supports the framework's distinction between pre-softmax shift-invariance (which RoPE guarantees) and post-softmax stationarity (which causal masking breaks near boundaries).</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: Per-sequence stability -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">13</div>
+  <h2>Content Stability: Per-Sequence R&sup2; Distributions</h2>
+
+  <img src="figures/fig8_per_seq_distributions.png" alt="Figure 8: Per-Sequence Distributions">
+
+  <p>Each violin shows the distribution of per-sequence R&sup2; values across all evaluation sequences for early-layer heads on synthetic random tokens. If shift-invariance is a stable architectural property, the distributions should be <em>tight</em>.</p>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>What we see</h3>
+      <ul>
+        <li><strong>LLaMA</strong>: Moderate spread with median around 0.55&ndash;0.65, indicating reasonably stable shift-invariance</li>
+        <li><strong>GPT-2 / OLMo / TinyLlama</strong>: Wider distributions with longer tails, indicating more content-dependent variability</li>
+        <li><strong>NoPE</strong>: Tightly concentrated near zero, confirming the absence of positional structure is consistent across sequences</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Interpretation</h3>
+      <p>The per-sequence variability suggests that shift-invariance is partly content-dependent even on random tokens &mdash; different token sequences activate different patterns in the Q/K projections. This is expected from the framework: even at layer 0, W_Q and W_K are trained on content+position jointly, so different content vectors produce different cross-term contributions.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 14: Pre-registration scorecard -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">14</div>
+  <h2>Pre-Registered Criteria: Scorecard</h2>
+
+  <img src="figures/fig9_preregistration.png" alt="Figure 9: Pre-Registration Summary">
+
+  <table>
+    <tr><th>Criterion</th><th>Threshold</th><th>Observed</th><th>Verdict</th></tr>
+    <tr><td>RoPE early-layer R&sup2;</td><td>&gt; 0.80</td><td>0.26&ndash;0.62</td><td><span class="yellow">Partial</span></td></tr>
+    <tr><td>NoPE early-layer R&sup2;</td><td>&lt; 0.40</td><td>0.002&ndash;0.009</td><td><span class="green">Passed</span></td></tr>
+    <tr><td>Track A &asymp; Track B raw (natural)</td><td>&lt; 0.10</td><td>~0.013</td><td><span class="green">Passed</span></td></tr>
+    <tr><td>Track A &asymp; Track B centered (natural)</td><td>&lt; 0.10</td><td>~0.273</td><td><span class="red">Failed*</span></td></tr>
+    <tr><td>Track A &asymp; Track B (synthetic)</td><td>&lt; 0.10</td><td>~0.0057</td><td><span class="green">Passed</span></td></tr>
+    <tr><td>Legacy &asymp; Canonical Track B</td><td>near-zero delta</td><td>centered MAE 9.41e-08; raw ~0</td><td><span class="green">Passed</span></td></tr>
+    <tr><td>Random&ndash;Wiki gap</td><td>&lt; 0.10</td><td>0.08&ndash;0.17</td><td><span class="yellow">Marginal</span></td></tr>
+    <tr><td>Spectral gate (historical prereg run)</td><td>&gt; 0.60</td><td>0.543 max</td><td><span class="red">Not met</span></td></tr>
+    <tr><td>Depth decay (RoPE)</td><td>Negative slope</td><td>Model-dependent</td><td><span class="yellow">Partial</span></td></tr>
+  </table>
+
+  <div class="callout" style="margin-top: 12px;">
+    <p><strong>Note:</strong> The centered natural-text Track B failure remains caveated: both legacy and canonical reruns use per-position centering, so this row is methodology-sensitive rather than a standalone falsification. Track B raw remains close to Track A on natural text.</p>
+    <p style="margin-top: 8px;"><strong>Namespace provenance:</strong> historical gated metadata (`results/spectral/**`) and exploratory ungated metadata (`results/spectral_canonical_perpos_v1_t0/**`) diverge for several combos; keep them separated in interpretation.</p>
+  </div>
+
+  <img src="figures/fig12_spectral_namespace_gate_drift.png" alt="Figure 12: Spectral Namespace Gate Drift" style="margin-top: 10px;">
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 15: Connection to theory -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">15</div>
+  <h2>Connection to the Theoretical Framework</h2>
+  <div class="two-col">
+    <div>
+      <h3>What the theory predicted</h3>
+      <div class="card">
+        <p><strong>Prop 2a (RoPE):</strong> Positional contribution to logits is exactly shift-invariant by construction.</p>
+        <p style="margin-top:8px"><strong>Prop 1 (LayerNorm):</strong> Representations constrained to centered sphere; direction dominates over norm.</p>
+        <p style="margin-top:8px"><strong>Prop 4 (Causal mask):</strong> Post-softmax stationarity breaks near boundaries, recovers in interior.</p>
+        <p style="margin-top:8px"><strong>Section 5 (Entanglement):</strong> R&sup2; should decay with depth as residuals and MLPs accumulate cross-terms.</p>
+      </div>
+    </div>
+    <div>
+      <h3>What we actually found</h3>
+      <div class="card">
+        <p><span class="green">&#10003;</span> <strong>Prop 2a:</strong> Confirmed indirectly &mdash; RoPE models show R&sup2; 0.3&ndash;0.6; NoPE gives &sim;0.</p>
+        <p style="margin-top:8px"><span class="yellow">&#8776;</span> <strong>Prop 1:</strong> Not clearly supported &mdash; RMSNorm models (LLaMA) outperform LayerNorm (OLMo).</p>
+        <p style="margin-top:8px"><span class="green">&#10003;</span> <strong>Prop 4:</strong> Confirmed &mdash; interior R&sup2; &gt; full R&sup2; &gt; boundary R&sup2; everywhere.</p>
+        <p style="margin-top:8px"><span class="yellow">&#8776;</span> <strong>Section 5:</strong> Partially confirmed &mdash; depth profiles are non-monotone; some deep heads specialize.</p>
+      </div>
+      <div class="callout danger" style="margin-top: 12px;">
+        <p><strong>Centered RoPE Track B interpretation (updated):</strong> canonical rerun confirms legacy and canonical per-position centered results are near-identical.</p>
+        <p style="margin-top: 8px;">The natural-text centered collapse remains methodology-sensitive in both variants (per-position subtraction), so theory adjudication should prioritize Track A + Track B raw + boundary evidence.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 16: Key explanations -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">16</div>
+  <h2>Why Are R&sup2; Values Lower Than Expected?</h2>
+  <div class="two-col">
+    <div>
+      <h3>Possible explanations</h3>
+      <ol>
+        <li style="margin-bottom: 12px;"><strong>Content-position entanglement is substantial even at layer 0.</strong> The theory assumes W_Q and W_K project content and position into nearly-orthogonal subspaces. In practice, these projections are trained end-to-end and the cross-terms |r(i,j)| are large.</li>
+        <li style="margin-bottom: 12px;"><strong>Superposition.</strong> If models encode more features than dimensions (Elhage et al.), content and positional features overlap even at initialization, making the product kernel an approximation from the start.</li>
+        <li style="margin-bottom: 12px;"><strong>GQA may contribute (but is not sufficient).</strong> LLaMA's 8 shared KV heads may constrain key-side variability and make positional structure easier to recover, but this alone does not explain LLaMA vs TinyLlama. Treat this as a hypothesis pending targeted ablations.</li>
+        <li style="margin-bottom: 12px;"><strong>The 0.80 threshold was miscalibrated.</strong> With no empirical null distribution, the "strong support" threshold was set by theoretical intuition. The NoPE empirical null (~0.005) suggests that 0.3&ndash;0.6 is actually a strong signal relative to the true baseline.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Centered Track B (RoPE) Interpretation &mdash; Finalized Caveat</h3>
+      <div class="card">
+        <p><strong>What canonical equivalence resolved:</strong> the legacy-vs-canonical frame choice is not driving the centered natural-text collapse (differences are near numerical zero).</p>
+        <p style="margin-top: 8px;"><strong>What remains unresolved:</strong> both variants still apply per-position centering, so centered natural-text attenuation remains a methodological confound.</p>
+        <p style="margin-top: 8px;"><strong>Why this matters:</strong> next ablations should target the centering definition itself (shared-mean and related canonical-frame variants), while Track B raw remains the stable comparator.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 17: Implications -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">17</div>
+  <h2>Implications for Experiment 2 and Beyond</h2>
+
+  <img src="figures/fig11_spectral_exploratory_summary.png" alt="Figure 11: Exploratory Spectral Summary">
+
+  <div class="two-col">
+    <div>
+      <h3>What Experiment 1 established</h3>
+      <ul>
+        <li>Shift-invariant structure is <strong>real, PE-specific, and measurable</strong> (NoPE control)</li>
+        <li>It explains <strong>30&ndash;60% of logit variance</strong> at early layers, depending on model</li>
+        <li>The remaining variance is the domain of Experiment 2's <strong>product kernel decomposition</strong>: K &asymp; k<sub>content</sub> &middot; k<sub>pos</sub></li>
+        <li>Causal masking boundary effects are confirmed and quantified</li>
+        <li>Exploratory spectral shows strong RoPE-aligned structure, but remains <strong>non-confirmatory</strong> because the exploratory run used gate=0.0</li>
+        <li>In exploratory spectral, non-RoPE models report matched_count=0 by design under the current RoPE-frequency matching rule; this is not a full cross-family spectral verdict</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Open questions for follow-on work</h3>
+      <div class="card">
+        <ol>
+          <li><strong>Why does LLaMA outperform other RoPE models?</strong> GQA may be part of the story, but not the whole explanation (TinyLlama complicates it). Follow-on tests: KV-group-level re-aggregation, within-group vs across-group head similarity, and key-space rank/anisotropy comparisons.</li>
+          <li><strong>How to return to confirmatory spectral testing?</strong> Historical prereg gate max was 0.543 (&lt;0.60), while exploratory gate=0.0 enabled full runs; define a prereg-compatible follow-on threshold and protocol.</li>
+          <li><strong>What are the non-monotone depth heads doing?</strong> Cross-reference with induction head / positional head classifications.</li>
+          <li><strong>Why does GPT-2 (absolute PE) show shift-invariant structure?</strong> Learned PEs may converge to approximately shift-invariant functions through training.</li>
+          <li><strong>Centering methodology:</strong> Compare shared-mean and canonical-frame variants beyond per-position centering, while keeping Track B raw as the primary comparator.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 16px;">
+    <p><strong>Bottom line:</strong> The framework's first link &mdash; that attention logits are approximately shift-invariant under RoPE &mdash; is confirmed as a real effect but at moderate strength (R&sup2; 0.3&ndash;0.6 rather than &gt;0.8). The NoPE control decisively shows this is PE-driven. These intermediate R&sup2; values are exactly the regime that motivates Experiment 2's product kernel decomposition.</p>
+    <p style="margin-top: 8px;"><strong>Provenance risk to preserve:</strong> historical (`results/spectral/**`) and exploratory (`results/spectral_canonical_perpos_v1_t0/**`) spectral metadata differ on several combos, so namespace-scoped interpretation is required.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 18: Summary -->
+<!-- ============================================================ -->
+<div class="slide title-slide">
+  <h1>Summary</h1>
+  <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+    <div class="metric-row" style="margin-bottom: 24px;">
+      <div class="metric"><div class="value green">&#10003;</div><div class="label">NoPE control<br>confirms PE-specificity</div></div>
+      <div class="metric"><div class="value yellow">~</div><div class="label">R&sup2; 0.3&ndash;0.6<br>partial support</div></div>
+      <div class="metric"><div class="value green">&#10003;</div><div class="label">Boundary effects<br>confirmed (Prop 4)</div></div>
+      <div class="metric"><div class="value yellow">~</div><div class="label">Centered Track B (RoPE)<br>methodology-sensitive</div></div>
+      <div class="metric"><div class="value yellow">~</div><div class="label">Exploratory spectral<br>informative, not confirmatory</div></div>
+    </div>
+    <p style="font-size: 1.2em; text-align: center; color: #c9d1d9;">
+      Shift-invariant positional kernels are a real and measurable feature of RoPE-based transformers,<br>
+      but they coexist with substantial content contributions even at the earliest layers.<br>
+      Canonical and legacy per-position Track B are near-identical, so frame placement is not the main issue;<br>
+      Track B raw remains the stable comparator to Track A while centered natural-text results stay caveated.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
