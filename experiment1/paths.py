@@ -15,9 +15,21 @@ def track_a_dir(results_root: Path, model: ModelSpec, dataset: DatasetSpec, seq_
     return results_root / "track_a" / model.name / dataset.name / f"len_{seq_len.tokens}"
 
 
-def track_b_dir(results_root: Path, model: ModelSpec, dataset: DatasetSpec, seq_len: SequenceLengthSpec) -> Path:
-    return results_root / "track_b" / model.name / dataset.name / f"len_{seq_len.tokens}"
+def track_b_dir(
+    results_root: Path,
+    model: ModelSpec,
+    dataset: DatasetSpec,
+    seq_len: SequenceLengthSpec,
+    group: str = "track_b",
+) -> Path:
+    return results_root / group / model.name / dataset.name / f"len_{seq_len.tokens}"
 
 
-def spectral_dir(results_root: Path, model: ModelSpec, dataset: DatasetSpec, seq_len: SequenceLengthSpec) -> Path:
-    return results_root / "spectral" / model.name / dataset.name / f"len_{seq_len.tokens}"
+def spectral_dir(
+    results_root: Path,
+    model: ModelSpec,
+    dataset: DatasetSpec,
+    seq_len: SequenceLengthSpec,
+    group: str = "spectral",
+) -> Path:
+    return results_root / group / model.name / dataset.name / f"len_{seq_len.tokens}"

@@ -17,6 +17,8 @@ from experiment1.norm_utils import normalize_logits_for_norm
 from experiment1.shift_kernels import BaseEstimator, KernelFit, get_kernel_estimator
 
 LOGGER = get_logger("experiment1.track_b")
+CENTERING_LEGACY_PER_POSITION = "legacy_per_position"
+CENTERING_CANONICAL_PER_POSITION = "canonical_per_position"
 
 
 @dataclass
@@ -34,6 +36,8 @@ class TrackBConfig:
     limit_center_sequences: int | None = None
     device: str = "cpu"
     full_matrix_max_length: int = 256
+    centering_mode: str = CENTERING_LEGACY_PER_POSITION
+    output_group: str = "track_b"
 
 
 class TrackBRunner:
@@ -49,12 +53,14 @@ class TrackBRunner:
         self.seq_len = seq_len
         self.config = config
         self.device = torch.device(config.device)
-        self.output_dir = track_b_dir(config.results_root, model, dataset, seq_len)
+        self.output_dir = track_b_dir(config.results_root, model, dataset, seq_len, group=config.output_group)
         self.output_dir.mkdir(parents=True, exist_ok=True)
         self.store_full = seq_len.tokens <= config.full_matrix_max_length
         self.q_mean: torch.Tensor | None = None
         self.k_mean: torch.Tensor | None = None
         self.kernel_estimator = get_kernel_estimator(model.pe_scheme)
+        self.centering_frame = "none"
+        self.rope_canonical_applied = False
 
     def run(self) -> None:
         jsonl_path = tokenized_path(
@@ -74,10 +80,11 @@ class TrackBRunner:
         adapter.register(model)
         if self.dataset_spec.needs_center_split:
             LOGGER.info(
-                "Track B centering start model=%s dataset=%s len=%s",
+                "Track B centering start model=%s dataset=%s len=%s mode=%s",
                 self.model_spec.name,
                 self.dataset_spec.name,
                 self.seq_len.tokens,
+                self.config.centering_mode,
             )
             self._compute_centering_means(jsonl_path, model, adapter)
         else:
@@ -116,6 +123,9 @@ class TrackBRunner:
             if accum_q is None:
                 accum_q = torch.zeros_like(q)
                 accum_k = torch.zeros_like(k)
+            if self.config.centering_mode == CENTERING_CANONICAL_PER_POSITION:
+                q, k, applied = _canonicalize_capture_qk(capture, q, k)
+                self.rope_canonical_applied = self.rope_canonical_applied or applied
             accum_q += q
             accum_k += k
             if self.device.type == "cuda" and torch.cuda.is_available():
@@ -124,8 +134,16 @@ class TrackBRunner:
             raise RuntimeError("No centering sequences processed; unable to compute Track B means.")
         self.q_mean = (accum_q / count).to(torch.float32).cpu()
         self.k_mean = (accum_k / count).to(torch.float32).cpu()
+        self.centering_frame = "canonical" if self.rope_canonical_applied else "captured"
         torch.save(
-            {"q_mean": self.q_mean, "k_mean": self.k_mean, "count": count},
+            {
+                "q_mean": self.q_mean,
+                "k_mean": self.k_mean,
+                "count": count,
+                "centering_mode": self.config.centering_mode,
+                "frame": self.centering_frame,
+                "per_position": True,
+            },
             self.output_dir / "centering_means.pt",
         )
 
@@ -147,6 +165,7 @@ class TrackBRunner:
                     store_full=self.store_full,
                     estimator=self.kernel_estimator,
                     norm=self.model_spec.norm,
+                    centering_mode=self.config.centering_mode,
                 )
             accumulator.update(capture, self.q_mean, self.k_mean)
             del capture
@@ -180,6 +199,24 @@ class TrackBRunner:
         summary_df = pd.DataFrame(summary_rows)
         summary_df = _merge_track_a(summary_df, self.model_spec, self.dataset_spec, self.seq_len, self.config.results_root)
         summary_df.to_parquet(self.output_dir / "summary.parquet", engine="pyarrow", index=False)
+        with (self.output_dir / "track_b_run.json").open("w", encoding="utf-8") as handle:
+            json.dump(
+                {
+                    "model": self.model_spec.name,
+                    "dataset": self.dataset_spec.name,
+                    "seq_len": self.seq_len.tokens,
+                    "centering_mode": self.config.centering_mode,
+                    "output_group": self.config.output_group,
+                    "rope_canonical_applied": bool(self.rope_canonical_applied),
+                    "notes": (
+                        "Diagnostic canonical-frame per-position centering ablation"
+                        if self.config.centering_mode == CENTERING_CANONICAL_PER_POSITION
+                        else "Legacy Track B centering behavior"
+                    ),
+                },
+                handle,
+                indent=2,
+            )
         if stats.accumulator.full_centered is not None:
             torch.save(
                 {
@@ -207,6 +244,7 @@ class GramAccumulator:
         store_full: bool,
         estimator: BaseEstimator,
         norm: str | None,
+        centering_mode: str,
     ) -> None:
         self.num_layers = num_layers
         self.num_heads = num_heads
@@ -216,6 +254,7 @@ class GramAccumulator:
         self.store_full = store_full
         self.norm = norm
         self.estimator = estimator
+        self.centering_mode = centering_mode
         self.centered_stats = [
             [DiagonalStats(seq_len, estimator) for _ in range(num_heads)] for _ in range(num_layers)
         ]
@@ -244,8 +283,20 @@ class GramAccumulator:
                 if q_mean is not None and k_mean is not None:
                     mean_q = q_mean[layer_idx, head_idx].to(q.device)
                     mean_k = k_mean[layer_idx, head_idx].to(k.device)
-                    centered_q = q - mean_q
-                    centered_k = k - mean_k
+                    if (
+                        self.centering_mode == CENTERING_CANONICAL_PER_POSITION
+                        and getattr(capture, "rope_cos", None) is not None
+                        and getattr(capture, "rope_sin", None) is not None
+                    ):
+                        cos = capture.rope_cos[layer_idx]
+                        sin = capture.rope_sin[layer_idx]
+                        q_canon = invert_rope_heads(q, cos, sin)
+                        k_canon = invert_rope_heads(k, cos, sin)
+                        centered_q = apply_rope_heads(q_canon - mean_q, cos, sin)
+                        centered_k = apply_rope_heads(k_canon - mean_k, cos, sin)
+                    else:
+                        centered_q = q - mean_q
+                        centered_k = k - mean_k
                 else:
                     centered_q = q
                     centered_k = k
@@ -284,6 +335,56 @@ class DiagonalStats:
 
     def fit(self) -> KernelFit:
         return self.estimator.fit_from_stats(sums=self.sum, sq_sums=self.sq_sum, counts=self.count)
+
+
+def rotate_half(x: torch.Tensor) -> torch.Tensor:
+    half = x.shape[-1] // 2
+    x1 = x[..., :half]
+    x2 = x[..., half:]
+    return torch.cat((-x2, x1), dim=-1)
+
+
+def _prepare_rope_terms(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    cos_t = cos.to(device=x.device, dtype=x.dtype)
+    sin_t = sin.to(device=x.device, dtype=x.dtype)
+    while cos_t.dim() > x.dim() and cos_t.shape[0] == 1:
+        cos_t = cos_t.squeeze(0)
+    while sin_t.dim() > x.dim() and sin_t.shape[0] == 1:
+        sin_t = sin_t.squeeze(0)
+    while cos_t.dim() < x.dim():
+        cos_t = cos_t.unsqueeze(0)
+    while sin_t.dim() < x.dim():
+        sin_t = sin_t.unsqueeze(0)
+    return cos_t, sin_t
+
+
+def apply_rope_heads(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+    cos_t, sin_t = _prepare_rope_terms(x, cos, sin)
+    return (x * cos_t) + (rotate_half(x) * sin_t)
+
+
+def invert_rope_heads(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+    cos_t, sin_t = _prepare_rope_terms(x, cos, sin)
+    return (x * cos_t) - (rotate_half(x) * sin_t)
+
+
+def _canonicalize_capture_qk(
+    capture,
+    q: torch.Tensor,
+    k: torch.Tensor,
+) -> tuple[torch.Tensor, torch.Tensor, bool]:
+    rope_cos = getattr(capture, "rope_cos", None)
+    rope_sin = getattr(capture, "rope_sin", None)
+    if rope_cos is None or rope_sin is None:
+        return q, k, False
+    q_out = torch.empty_like(q)
+    k_out = torch.empty_like(k)
+    for layer_idx in range(q.shape[0]):
+        cos = rope_cos[layer_idx]
+        sin = rope_sin[layer_idx]
+        q_out[layer_idx] = invert_rope_heads(q[layer_idx], cos, sin)
+        k_out[layer_idx] = invert_rope_heads(k[layer_idx], cos, sin)
+    return q_out, k_out, True
 
 
 def _iter_sequences(jsonl_path: Path, split: str, limit: int | None) -> Iterator[SequenceRecord]:

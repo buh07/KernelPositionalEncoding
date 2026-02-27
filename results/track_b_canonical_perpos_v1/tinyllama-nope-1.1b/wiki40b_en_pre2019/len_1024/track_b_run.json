@@ -1,0 +1,9 @@
+{
+  "model": "tinyllama-nope-1.1b",
+  "dataset": "wiki40b_en_pre2019",
+  "seq_len": 1024,
+  "centering_mode": "canonical_per_position",
+  "output_group": "track_b_canonical_perpos_v1",
+  "rope_canonical_applied": false,
+  "notes": "Diagnostic canonical-frame per-position centering ablation"
+}

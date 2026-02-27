@@ -80,6 +80,19 @@ def parse_args() -> argparse.Namespace:
         help="Disable optional Track A heatmap tensor dumps",
     )
     parser.add_argument(
+        "--track-b-centering-mode",
+        dest="track_b_centering_mode",
+        choices=["legacy_per_position", "canonical_per_position"],
+        default="legacy_per_position",
+        help="Track B centering mode to use.",
+    )
+    parser.add_argument(
+        "--track-b-output-group",
+        dest="track_b_output_group",
+        default="track_b",
+        help="Track B results subdirectory under results/ (default: track_b).",
+    )
+    parser.add_argument(
         "--download-names",
         nargs="*",
         default=None,
@@ -94,6 +107,25 @@ def parse_args() -> argparse.Namespace:
         "--download-datasets-only",
         action="store_true",
         help="Download stage: only fetch datasets",
+    )
+    parser.add_argument(
+        "--spectral-gate-threshold",
+        dest="spectral_gate_threshold",
+        type=float,
+        default=0.60,
+        help="Spectral stage gate threshold on Track A early-layer mean R^2 (use 0.0 to run all combos).",
+    )
+    parser.add_argument(
+        "--spectral-track-b-group",
+        dest="spectral_track_b_group",
+        default="track_b",
+        help="Track B results subdirectory to read for spectral analysis (default: track_b).",
+    )
+    parser.add_argument(
+        "--spectral-output-group",
+        dest="spectral_output_group",
+        default="spectral",
+        help="Spectral results subdirectory under results/ (default: spectral).",
     )
     return parser.parse_args()
 
@@ -235,6 +267,8 @@ def run_track_b(
     limit_eval_sequences: int | None,
     limit_center_sequences: int | None,
     device: str,
+    centering_mode: str,
+    output_group: str,
 ) -> None:
     paths = default_paths()
     resolved_device = _resolve_device(device)
@@ -255,6 +289,8 @@ def run_track_b(
             limit_eval_sequences=limit_eval_sequences,
             limit_center_sequences=limit_center_sequences,
             device=resolved_device,
+            centering_mode=centering_mode,
+            output_group=output_group,
         )
         runner = TrackBRunner(model, dataset, seq_len, config)
         runner.run()
@@ -265,9 +301,18 @@ def run_spectral(
     model_filter: str,
     dataset_filter: str,
     length_filter: str,
+    *,
+    gate_threshold: float,
+    track_b_group: str,
+    output_group: str,
 ) -> None:
     paths = default_paths()
-    config = SpectralConfig(results_root=paths.results_dir)
+    config = SpectralConfig(
+        results_root=paths.results_dir,
+        gate_threshold=gate_threshold,
+        track_b_group=track_b_group,
+        output_group=output_group,
+    )
     for model, dataset, seq_len in filter_specs(grid, model_filter, dataset_filter, length_filter):
         runner = SpectralRunner(model, dataset, seq_len, config)
         runner.run()
@@ -360,6 +405,8 @@ def main() -> None:
             limit_eval_sequences=args.limit_seqs,
             limit_center_sequences=args.max_centering,
             device=args.device,
+            centering_mode=args.track_b_centering_mode,
+            output_group=args.track_b_output_group,
         )
     if args.stage in ("spectral", "all"):
         run_spectral(
@@ -367,6 +414,9 @@ def main() -> None:
             args.model,
             args.dataset,
             args.seq_len,
+            gate_threshold=args.spectral_gate_threshold,
+            track_b_group=args.spectral_track_b_group,
+            output_group=args.spectral_output_group,
         )
     if args.stage == "boundary":
         run_boundary(

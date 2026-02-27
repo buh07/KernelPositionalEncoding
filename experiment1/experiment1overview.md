@@ -190,11 +190,17 @@ q̃_{ℓ,h}(t) = q_{ℓ,h}(t) − E_{centering}[q_{ℓ,h}^(x)(t)]
 k̃_{ℓ,h}(t) = k_{ℓ,h}(t) − E_{centering}[k_{ℓ,h}^(x)(t)]
 ```
 
+**Post-run note (Experiment 1 implementation caveat, 2026-02-26):** In the current Experiment 1 implementation, the centering mean is estimated and subtracted **per position** (`mean_q[layer, head, t, :]`, `mean_k[layer, head, t, :]`) rather than as a shared mean across positions. Concretely, the Track B centering pass accumulates tensors that retain the position dimension (`experiment1/track_b.py:104`), stores those means (`experiment1/track_b.py:126`), and subtracts them per-position during evaluation (`experiment1/track_b.py:247`, `experiment1/track_b.py:248`). For RoPE models, the captured Q/K tensors are already **post-RoPE** because rotary embeddings are applied inside the attention adapter before `capture.q` / `capture.k` are returned (`shared/attention/adapters.py:221`, `shared/attention/adapters.py:246`). This means the current centered Track B metric can remove large absolute-position-structured mean energy on natural text and attenuate the centered Gram signal. In the current results, Track B centered on natural text should therefore be interpreted as a methodology-sensitive diagnostic rather than a cleanly content-removed baseline.
+
 Run the full Track B pipeline **both with and without** this centering step and report both R² values. If stationarity appears only after centering, flag it as potentially artifactual (see mini-experiment below).
 
 Optionally apply whitening after centering. If whitening substantially changes R², report this explicitly as a diagnostic.
 
+**Post-run note (whitening sequencing):** The Experiment 1 results indicate that the more immediate issue is the **per-position centering transform** above, not whitening per se. Generic whitening can further distort the rotational structure that RoPE induces, so whitening should be treated as a diagnostic ablation (not a presumed fix) and is best tested after centering ablations, ideally in a RoPE-compatible canonical frame.
+
 **Mini-experiment — centering artifact check (required):** The per-position centering in Track B removes the mean Q and K vectors at each position, which also removes any position-specific content statistics that happen to be stationary across sequences (e.g., if position 1 is always a sentence-start token, its mean Q/K vector encodes that structural fact, not a purely positional feature). Subtracting these means can artificially inflate R² by removing variation that was content-driven. To detect this, compare Track B R² on random tokens (no centering) against Track B R² on natural text (with centering).
+
+**Post-run note (interpretation update):** Experiment 1 supports a stronger version of this caution: the observed natural-text centered collapse is consistent with the centering procedure removing a large structured component. However, the current results do not by themselves isolate methodological attenuation versus genuine content-position entanglement without additional centering ablations (e.g., shared-mean or canonical-frame variants).
 
 **Implementation note:** Random-token sequences have no position-specific content statistics by construction (each token is drawn i.i.d. from the vocabulary), so centering random-token Q/K vectors would subtract the per-position mean of random embeddings — a quantity with no structural meaning. Therefore, for the random-token dataset, run Track B **without centering**: set `q̃ = q` and `k̃ = k` (identity). This gives the uncentered Gram matrix `Ḡ_{QK}(t,s) = E_{eval}[⟨q^(x)(t), k^(x)(s)⟩]`. The resulting Track B R² measures whether averaging alone (without content removal) produces Toeplitz structure. For natural text, Track B is always run **with centering** as described in Step B1.
 
@@ -392,6 +398,8 @@ These thresholds should be treated as **provisional working hypotheses** that wi
 - **T=256:** Save full centered Gram matrices `Ḡ_{QK}` (shape `[num_layers, num_heads, 256, 256]`) to disk, for all 3 datasets. These are used for Toeplitz-structure heatmap visualization. Estimated size: TinyLlama (worst case) = 22×32×256²×4 bytes ≈ **185 MB per (model, dataset)** → 6 models × 3 datasets ≈ **3.3 GB total**.
 - **T=1024:** Do **not** save full Gram matrices to disk. Instead, accumulate `Ḡ_{QK}` in-memory as a running average over the 100 evaluation sequences (peak memory during accumulation: L×H×1024×1024×4 bytes ≈ 2.9 GB for TinyLlama — fits in GPU memory), extract R² statistics and `g(Δ)` immediately, then discard the full matrix.
 
+**Post-run note (artifact audit relevance):** In the current implementation, the saved `centering_means.pt` artifacts are specifically **per-position** means. These are the primary artifacts to inspect when auditing the Track B centering confound, because they encode how much absolute-position-structured mean energy is being subtracted before forming the centered Gram matrix.
+
 - [ ] For each (model, dataset, length):
   - Forward-pass the 100 centering sequences; compute and save `mean_q[layer, head, pos, :]` and `mean_k[layer, head, pos, :]` as `results/{model}_{dataset}_{length}_centering_means.pt`
   - Forward-pass the 100 evaluation sequences; subtract the centering mean to get `q̃` and `k̃`
@@ -411,6 +419,12 @@ These thresholds should be treated as **provisional working hypotheses** that wi
     - Save `g(Δ)` as a compact 1D array for later spectral analysis (Phase 5)
   - Save to `results/{model}_{dataset}_{length}_trackB.csv`, columns: `[model, dataset, length, layer, head, R2_gram, R2_gram_raw]`
 - [ ] Visualize 4–6 centered Gram matrices as heatmaps (one per layer for one representative RoPE head) to visually confirm Toeplitz structure — use T=256 saved tensors for this
+
+**Post-run note (follow-on diagnostics, not prereg rewrite):**
+- Compare the current centered/raw Track B outputs against at least two centering ablations before drawing stronger conclusions from natural-text Track B centered collapse:
+  1. RoPE canonical-frame centering (diagnostic ablation; pre-/post-RoPE equivalence check if centering remains per-position)
+  2. Shared-mean centering (position-agnostic) to test whether Track B–Track A agreement on natural text is restored when absolute-position-specific mean subtraction is removed
+  3. Whitening (if attempted) only as a separate diagnostic after centering ablations, with care not to distort RoPE structure
 
 ### Phase 5: Spectral Analysis [Contingent on Gate]
 

@@ -1,0 +1,1899 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\title{Attention as an Approximate Shift-Invariant Kernel: LayerNorm, Positional Encodings, and Finite Fourier Features}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a unified framework connecting LayerNorm's spherical geometry, positional encodings as group representations, attention as a kernel machine, and Bochner-type Fourier representations of shift-invariant kernels. The central claim is that under LayerNorm (or RMSNorm) and relative positional encodings such as RoPE or Shaw-style biases, the positional component of Transformer attention \emph{approximately} implements a shift-invariant kernel via finite-dimensional Fourier features. We emphasize that this is an approximate correspondence whose fidelity depends on architectural choices: the match is exact for the positional term under RoPE/Shaw, approximate under additive sinusoidal encodings (with bounded cross-term error), and requires a post-softmax interpretation for ALiBi. We formalize the key claims as propositions with explicit approximation bounds, distinguish the continuous Bochner theorem (used as motivation) from the directly applicable discrete Herglotz theorem for integer positions, and address boundary effects introduced by causal masking. The framework characterizes \emph{trained} models and does not address training dynamics (when the structure emerges) or how superposition of features may affect separability even at early layers. The framework is supported by a suite of proposed experiments designed to test---and potentially falsify---each link in the argument, including verification on pretrained language models at practical scale. We also discuss implications for circuit-level interpretability and state conjectures on how residual blocks and MLP layers interact with the positional kernel structure, clearly marking untested predictions as such.
+\end{abstract}
+
+\section{Overview}
+
+This note connects four pieces:
+
+\begin{enumerate}
+    \item \textbf{LayerNorm} \(\rightarrow\) geometry on (affine) spheres.
+    \item \textbf{Positional encodings} \(\rightarrow\) representations of the translation group, enabling (relative) shift invariance.
+    \item \textbf{Attention} \(\rightarrow\) a learned kernel machine over content and position.
+    \item \textbf{Shift-invariant kernels} \(\rightarrow\) Fourier features and Bochner's theorem, exactly as used in kernel SVMs.
+\end{enumerate}
+
+The upshot: under LayerNorm and relative positional encodings, the positional component of Transformer attention \emph{approximately} implements a shift-invariant kernel over positions via finite-dimensional Fourier features. The quality of this approximation varies by architecture: it is exact for the positional term under RoPE and Shaw-style relative biases, approximate under additive sinusoidal encodings (with cross-term error bounded by the content--position interaction), and requires a post-softmax reinterpretation for ALiBi. Causal masking introduces boundary effects that break stationarity for tokens near the sequence start, though approximate stationarity is recovered in the sequence interior.
+
+\subsection{Contributions and Scope}
+
+This paper synthesizes individually established results---LayerNorm geometry \cite{ba2016layer}, positional encodings as group representations \cite{vaswani2017attention,su2021roformer,lim2024positional}, attention as kernel smoothing \cite{tsai2019transformer}, and Random Fourier Features \cite{rahimi2007random}---into a coherent approximate framework. The specific contributions are:
+\begin{enumerate}
+    \item \textbf{Formal propositions} connecting LayerNorm/RMSNorm geometry, the discrete Herglotz theorem (rather than the continuous Bochner theorem), and approximate shift-invariance of attention under various PE schemes, with explicit error bounds.
+    \item \textbf{Careful treatment of exceptions}: ALiBi's post-softmax Laplace kernel interpretation, absolute PEs as a partial counterexample, and causal masking's boundary effects.
+    \item \textbf{A suite of seven proposed experiments} designed to test---and potentially falsify---each link in the argument, including verification on pretrained language models and causal masking stationarity tests.
+    \item \textbf{Connections to kernel-attention methods} (Performers \cite{choromanski2021performers}, linear attention \cite{katharopoulos2020linear}), clarifying how our interpretability-focused framework complements efficiency-focused kernel approximations.
+\end{enumerate}
+
+We do \emph{not} claim an exact equivalence between attention and kernel methods, nor do we claim that every PE scheme fits the Fourier-feature picture. The framework is most precise for relative PEs under LayerNorm and degrades gracefully under weaker conditions (absolute PEs, RMSNorm, deeper layers where content--position entanglement grows).
+
+\subsection{Related Work}
+
+Our framework builds on and synthesizes several recent threads of research:
+
+\paragraph{Kernel views of attention.} Tsai et al.\ \cite{tsai2019transformer} pioneered the kernel interpretation of attention, viewing it as kernel smoothing over sequence elements. This inspired computational approximations (Performers \cite{choromanski2021performers}, linear attention \cite{katharopoulos2020linear}) that replace softmax with tractable kernels. Our work differs by analyzing standard softmax attention through a kernel lens for \emph{interpretability} rather than efficiency.
+
+\paragraph{Spectral and geometric analysis of positional encodings.} Concurrent and recent work has explored positional encoding properties from complementary angles. Recent spectral analyses \cite{unpacking2025spectral} provide Toeplitz-based frameworks for understanding content-position coupling, while others \cite{wavelet2024beyond} identify emergent wavelet-like properties in learned attention patterns. Our contribution is connecting these spectral properties specifically to shift-invariant kernels and Fourier features, with explicit error bounds and experimental protocols.
+
+\paragraph{LayerNorm geometry.} Recent work \cite{layernorm2024geometry,layernorm2024reintro} formalizes LayerNorm's geometric effects: mapping to hyperplane intersections and hyperspheres. We extend this by showing how spherical geometry \emph{enables} the kernel interpretation, connecting geometric constraints to spectral properties of attention.
+
+\paragraph{Position bias and causal masking.} Recent analyses \cite{positionbias2025,clustering2024causal} identify position biases and clustering effects under causal masking. We formalize these as \emph{boundary effects} that break post-softmax stationarity (Proposition~\ref{prop:causal-mask}), providing quantitative predictions about convergence rates.
+
+\paragraph{Multi-head composition.} The Transformer Circuits literature \cite{elhage2021framework} characterizes how attention heads compose, noting increased expressivity but also complexity. We contribute a \emph{kernel-based} perspective on why multi-head composition breaks separability (Remark~\ref{rem:multi-head}).
+
+Our synthesis is novel in: (1) connecting these disparate threads into a unified approximate framework, (2) providing formal propositions with error bounds, (3) designing experiments to test when and why the framework holds or fails, and (4) analyzing implications for mechanistic interpretability when the product kernel degrades at depth.
+
+\section{LayerNorm: Representations on an (Affine) Sphere}
+\label{sec:ln}
+
+Layer Normalization (LayerNorm) normalizes each token's hidden state \(h \in \mathbb{R}^d\) using per-token statistics, then applies a learned affine transform \(\gamma, \beta\) \cite{ba2016layer}. Concretely, before the affine transform:
+\[
+\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}},
+\]
+with
+\[
+\mu = \frac{1}{d} \sum_{i=1}^d h_i,
+\quad
+\sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2.
+\]
+
+Thus \(\hat{h} = (\hat{h}_1,\dots,\hat{h}_d)\) satisfies:
+\begin{itemize}
+    \item Zero mean across coordinates: \(\frac{1}{d} \sum_i \hat{h}_i = 0\).
+    \item Unit variance across coordinates: \(\frac{1}{d} \sum_i \hat{h}_i^2 = 1\).
+\end{itemize}
+
+Equivalently:
+\begin{itemize}
+    \item \(\hat{h}\) lies in the hyperplane \(\{x : \sum_i x_i = 0\}\), and
+    \item \(\|\hat{h}\|^2 = d\), i.e.\ on a sphere of radius \(\sqrt{d}\).
+\end{itemize}
+
+We state this precisely:
+
+\begin{proposition}[LayerNorm Geometry]
+\label{prop:ln-geometry}
+Let $h \in \mathbb{R}^d$ with $d \geq 2$, and let $\hat{h} = \mathrm{LN}(h)$ denote the pre-affine LayerNorm output. Then $\hat{h}$ lies on the intersection of the hyperplane $\mathbf{1}^\top x = 0$ and the sphere $\|x\| = \sqrt{d}$. That is, $\hat{h} \in S^{d-2}(\sqrt{d}) \subset \{\mathbf{1}\}^\perp$, a $(d-2)$-dimensional sphere of radius $\sqrt{d}$ in the $(d-1)$-dimensional subspace orthogonal to $\mathbf{1}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The zero-mean condition $\frac{1}{d}\sum_i \hat{h}_i = 0$ is equivalent to $\mathbf{1}^\top \hat{h} = 0$, placing $\hat{h}$ in $\{\mathbf{1}\}^\perp$. The unit-variance condition $\frac{1}{d}\sum_i \hat{h}_i^2 = 1$ gives $\|\hat{h}\|^2 = d$. The intersection of a hyperplane through the origin with a sphere of radius $\sqrt{d}$ in $\mathbb{R}^d$ is a $(d-2)$-sphere of the same radius.
+\end{proof}
+
+So, up to the learned affine parameters and subsequent linear layers, each token representation is essentially a point on an (affine) sphere; \textbf{direction} of the vector matters far more than its norm (which is effectively fixed).
+
+This matters for encoding position or other one-dimensional parameters: such information is represented as a \textbf{curve on a sphere} (or more generally, on a product of spheres after mixing with content). Any ``positional code'' in a LayerNorm'd layer is a path of directions.
+
+\subsection{Comparison with RMSNorm}
+
+Root Mean Square Layer Normalization (RMSNorm) \cite{zhang2019rmsnorm} simplifies LayerNorm by omitting the mean-centering step:
+\[
+\mathrm{RMSNorm}(h)_i = \frac{h_i}{\sqrt{\frac{1}{d}\sum_{j=1}^d h_j^2}}.
+\]
+
+\begin{proposition}[RMSNorm Geometry]
+\label{prop:rmsnorm-geometry}
+Let $\hat{h} = \mathrm{RMSNorm}(h)$. Then $\hat{h} \in S^{d-1}(\sqrt{d})$, the full $(d-1)$-sphere of radius $\sqrt{d}$, without the centering constraint. The inner product $\langle \hat{h}_i, \hat{h}_j \rangle$ can therefore include a non-zero contribution from the $\mathbf{1}$-direction, which is absent under LayerNorm.
+\end{proposition}
+
+The key difference is geometric: LayerNorm constrains representations to a $(d-2)$-sphere in the centered subspace, while RMSNorm constrains to a $(d-1)$-sphere in the full space. Both ensure that direction dominates over norm, so the basic argument for positional information being carried by direction still applies. However, under RMSNorm the mean component of the representation is preserved, which may introduce an additive constant (DC component) in the positional kernel that is absent under LayerNorm. This distinction motivates including RMSNorm as an experimental control in Section~\ref{sec:experiments}.
+
+\section{Positional Encodings as Group Representations of Shifts}
+
+Token positions are integers \(t \in \mathbb{Z}\), naturally forming the \textbf{translation group} \((\mathbb{Z}, +)\). A positional encoding scheme can be viewed as a (possibly implicit) \textbf{representation} of this group into linear operators or feature vectors.
+
+Two key notions:
+
+\begin{itemize}
+    \item \textbf{Shift equivariance}: shifting the sequence by \(k\) induces a predictable linear transform in the positional embedding space.
+    \item \textbf{Shift invariance (relative positions)}: model outputs or internal scores depend only on relative position differences \(i-j\), not absolute indices.
+\end{itemize}
+
+Different positional encoding families realize these properties in different ways.
+
+\subsection{Sinusoidal Absolute Positional Encodings}
+
+The original Transformer uses sinusoidal positional encodings (PEs) \cite{vaswani2017attention}:
+\[
+PE(t, 2i)   = \sin(\omega_i t),\quad
+PE(t, 2i+1) = \cos(\omega_i t),
+\]
+with frequencies \(\omega_i = 10000^{-2i/d_{\text{model}}}\).
+
+This can be seen as a real representation of the translation group:
+\begin{itemize}
+    \item Each frequency pair \((\sin(\omega_i t), \cos(\omega_i t))\) lives in a 2-dimensional subspace.
+    \item A shift by \(k\) acts via the rotation matrix
+    \[
+    R_i(k) =
+    \begin{pmatrix}
+    \cos(\omega_i k) & -\sin(\omega_i k) \\
+    \sin(\omega_i k) &  \cos(\omega_i k)
+    \end{pmatrix}
+    \]
+    on that pair.
+\end{itemize}
+
+Thus
+\[
+PE(t + k) = R(k)\,PE(t),
+\]
+for a block-diagonal rotation \(R(k)\). This is a linear, unitary representation of \(\mathbb{Z}\) in feature space---a ``multi-hand clock'' on a torus.
+
+Vaswani et al.\ chose sinusoids precisely so that \textbf{relative offsets} are easy to model: for any offset \(k\), \(PE(t+k)\) is a linear function of \(PE(t)\), making it straightforward for attention heads to learn dependence on \(t-s\) \cite{vaswani2017attention}.
+
+\paragraph{On the frequency schedule.} The specific geometric progression $\omega_i = 10000^{-2i/d}$ was chosen heuristically to cover a wide range of wavelengths: low frequencies ($\omega_1 \approx 1$) encode coarse positional information over long contexts, while high frequencies ($\omega_{d/2} \approx 10^{-4}$) enable fine-grained discrimination between nearby tokens. This exponential spacing is reminiscent of Fourier feature randomization in kernel methods \cite{rahimi2007random}, where frequency scales are chosen to match the kernel's characteristic length scale. Recent work on length extrapolation shows that frequency schedules significantly impact generalization beyond training lengths: Peng et al.\ \cite{peng2024yarn} show that lowering the base frequency (e.g., 500,000 instead of 10,000) via YaRN (which incorporates NTK-aware interpolation to scale high and low frequencies differently) improves long-context performance by reducing aliasing at extended positions. The framework in this paper applies regardless of the specific schedule, as long as the frequencies span the relevant positional range; the choice of schedule affects approximation quality (Proposition~\ref{prop:approx-shift-invariance}(b)) but not the structural interpretation as Fourier features.
+
+\subsection{Absolute Positional Encodings: Historical Importance and Limitations}
+
+Early Transformer models (GPT-2, BERT) used absolute positional encodings, where sinusoidal or learned embeddings $p(i)$ are added to content before projection. With $h_i = c_i + p_i$, the attention logit expands as:
+\[
+\langle W_Q(c_i + p_i),\, W_K(c_j + p_j) \rangle = \langle W_Q c_i, W_K c_j \rangle + \langle W_Q c_i, W_K p_j \rangle + \langle W_Q p_i, W_K c_j \rangle + \langle W_Q p_i, W_K p_j \rangle.
+\]
+The cross-terms $\langle W_Q c_i, W_K p_j \rangle$ depend on absolute position $j$ (not just $i-j$), violating shift-invariance \cite{ke2021rethinking}. While absolute PEs can capture document-level structure (``this token is near the beginning'') and enable task-specific position signals, they suffer from critical limitations that motivated the field's shift to relative schemes:
+
+\begin{itemize}
+    \item \textbf{Length extrapolation failure:} Models trained with absolute PEs on sequences up to length $L$ cannot reliably process sequences longer than $L$ \cite{press2022train}. Learned embeddings define positions only up to the training maximum, leaving longer positions undefined or poorly interpolated. Even sinusoidal PEs, though mathematically defined for all positions, exhibit aliasing and degraded performance when extrapolating beyond training lengths.
+    \item \textbf{Poor generalization to relative dependencies:} Syntactic and semantic relationships often depend on \emph{distance} between tokens (``the subject is 3 tokens before the verb'') rather than absolute position. Absolute PEs force models to learn these relative patterns indirectly, requiring the model to compute differences between absolute positions rather than encoding relativity directly.
+    \item \textbf{Fixed sequence length constraints:} Fully learned absolute embeddings restrict the maximum usable sequence length to the largest index encountered during training and promote memorization of specific positions rather than comprehension of relative distances.
+\end{itemize}
+
+These limitations drove the community's adoption of relative positional schemes, particularly RoPE \cite{su2021roformer}, which unifies absolute and relative position information while enabling length extrapolation. By 2023--2024, most modern large models (LLaMA, Mistral, Gemma, likely GPT-4 and Claude) have adopted RoPE or similar relative schemes (ALiBi in BLOOM being a notable alternative), making absolute PEs primarily relevant for analyzing legacy models like GPT-2 and understanding the evolution of positional encoding design. The framework therefore focuses on relative PEs as the architecturally relevant case; absolute PEs are discussed to quantify approximation error when analyzing older architectures.
+
+\subsection{Relative Positional Encodings (Shaw, RoPE, ALiBi)}
+
+Relative schemes go further and make the \textbf{attention score itself} a function of relative positions:
+
+\begin{itemize}
+    \item \textbf{Shaw et al.\ (2018)} add learned embeddings \(a_{i-j}\) so that the positional term in the attention logits depends only on the relative distance \(i-j\) \cite{shaw2018self}. 
+    \item \textbf{Rotary Position Embedding (RoPE)} rotates queries and keys by position-dependent 2D block rotations. Su et al.\ show that
+    \[
+    \langle R(i) q, R(j) k \rangle
+    \]
+    depends on \(i\) and \(j\) only through the difference \(i-j\) \cite{su2021roformer}. Thus the \textbf{positional modulation of dot products is explicitly a function of relative position}.
+    \item \textbf{ALiBi} (Attention with Linear Biases) adds a learned slope times \(|i-j|\) to the attention logits. The positional contribution is still a function of the \textbf{distance} between tokens, although it enters as an additive bias rather than via the query-key inner product \cite{press2022train}.
+\end{itemize}
+
+In all cases above the positional term depends on \(i-j\) only, so under a global shift \(t \mapsto t+k\) the positional contribution to the logits is unchanged. Only the RoPE/Shaw mechanisms realize this term through inner products of transformed queries/keys; ALiBi achieves shift dependence through an explicit bias, which need not correspond to a positive-definite kernel. We analyze ALiBi's relationship to positive-definite kernels separately in Section~\ref{sec:alibi-analysis}, showing that while the pre-softmax bias falls outside the Fourier-feature framework, the post-softmax weighting corresponds to a Laplace kernel.
+
+\subsection{Positional Encodings as Group Representations}
+
+Several recent works make this group-theoretic view explicit:
+
+\begin{itemize}
+    \item Lim and Lawrence, ``Positional Encodings as Group Representations: A Unified Framework for Transformers'' \cite{lim2024positional}.
+    \item Kogkalidis et al., ``Algebraic Positional Encodings'' \cite{kogkalidis2023algebraic}.
+\end{itemize}
+
+They formalize sinusoidal, relative, and rotary encodings as \textbf{group representations} of the underlying domain's symmetry group (here, translations of \(\mathbb{Z}\)), clarifying how equivariance and invariance arise from representation choice.
+
+\subsection{ALiBi: Distance Biases Outside the PD Kernel Framework}
+\label{sec:alibi-analysis}
+
+ALiBi adds $b(i,j) = -m \cdot |i-j|$ to the pre-softmax attention logits, where $m > 0$ is a head-specific slope \cite{press2022train}. The function $f(\Delta) = -m|\Delta|$ is \emph{not} positive definite: for example, the $3 \times 3$ Gram matrix $[-m|i-j|]_{i,j=0}^{2}$ has a negative eigenvalue for any $m > 0$. Thus ALiBi's pre-softmax positional bias does not define a kernel in the sense of reproducing kernel Hilbert spaces, and the Fourier-feature construction does not apply at the level of logits.
+
+However, the softmax operation exponentiates the logits. The post-softmax attention weight at position $(i,j)$ includes the multiplicative factor $\exp(-m|i-j|)$, which \emph{is} positive definite:
+
+\begin{proposition}[ALiBi as a Laplace Kernel Post-Softmax]
+\label{prop:alibi-pd}
+For any $m > 0$, the function $k(\Delta) = \exp(-m|\Delta|)$ on $\mathbb{Z}$ is positive definite. It is the discrete Laplace (or bilateral exponential) kernel, and its spectral measure (in the sense of the Herglotz theorem) is the wrapped Cauchy distribution on the torus.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The function $|\Delta|$ is conditionally negative definite on $\mathbb{Z}$ \cite{schoenberg1938metric}. By Schoenberg's theorem, $\exp(-m|\Delta|)$ is positive definite for all $m > 0$. Its Fourier representation on $\mathbb{Z}$ is $\exp(-m|\Delta|) = \int_{\mathbb{T}} e^{i\omega\Delta} \, d\mu(\omega)$, where $\mu$ is the wrapped Cauchy (Poisson kernel) distribution with parameter $e^{-m}$.
+\end{proof}
+
+Thus, while ALiBi falls outside the finite Fourier-feature framework (its spectral measure is continuous, not concentrated on finitely many frequencies), the post-softmax positional weighting is nonetheless a valid shift-invariant positive-definite kernel. This makes ALiBi compatible with the broader kernel interpretation of attention, but through a different mechanism than the Fourier-feature map used by sinusoidal PEs and RoPE.
+
+\section{Attention as a Kernel Machine Over Content and Position}
+\label{sec:attention-kernel}
+
+Consider a single attention head at a given layer. With queries \(q_i = W_Q h_i\) and keys \(k_j = W_K h_j\), the attention score (before softmax) is:
+\[
+A(i,j) = \langle q_i, k_j \rangle.
+\]
+
+This can be written as
+\[
+A(i,j) = \phi(x_i, i)^\top \psi(x_j, j),
+\]
+where \(x_i\) represents the underlying token content, \(i\) its position, and \(\phi, \psi\) are learned feature maps incorporating content and position.
+
+Several works explicitly interpret this as a \textbf{kernel}:
+
+\begin{itemize}
+    \item Tsai et al., ``An Unified Understanding for Transformer's Attention via the Lens of Kernel'' \cite{tsai2019transformer}, show that self-attention can be understood as kernel smoothing with a data-dependent kernel over tokens and positions.
+    \item Kashiwagi et al., ``Gaussian Kernelized Self-Attention for Long Sequence Data and Its Application to Music'' \cite{kashiwagi2021gaussian}, define attention using an explicit Gaussian (RBF) kernel and show self-attention can be viewed as a normalized kernel function.
+\end{itemize}
+
+Abstractly, define
+\[
+K\big((x,i),(y,j)\big) = \phi(x,i)^\top \phi(y,j).
+\]
+
+This is exactly a kernel function in the sense of kernel methods. Attention weights are then
+\[
+\alpha_{ij} = \frac{\exp(K((x_i,i),(x_j,j)))}{\sum_{k} \exp(K((x_i,i),(x_k,k)))}.
+\]
+
+From the kernel-methods perspective, each attention head is a learned \textbf{kernel machine} over the joint space of content and position.
+
+\subsection{Relationship to Linear Attention and Kernel Approximation Methods}
+
+Several recent works explicitly replace or approximate the softmax attention kernel with tractable kernel feature maps, primarily for computational efficiency:
+
+\begin{itemize}
+    \item \textbf{Katharopoulos et al.\ (2020)} replace softmax with a kernel $\phi(q)^\top \phi(k)$ for a feature map $\phi$ (e.g., $\phi(x) = \text{elu}(x) + 1$), yielding linear-time autoregressive attention \cite{katharopoulos2020linear}.
+    \item \textbf{Choromanski et al.\ (2021)} use positive orthogonal random features (FAVOR+) to approximate the softmax kernel $\exp(q^\top k / \sqrt{d})$, yielding the Performer architecture with linear-time attention \cite{choromanski2021performers}. This is the closest work to our framework: they explicitly use random Fourier features to approximate the attention kernel.
+    \item \textbf{Peng et al.\ (2021)} apply random Fourier features to approximate the softmax kernel, combining Gaussian random projections with gating mechanisms \cite{peng2021rfa}.
+\end{itemize}
+
+The key distinction from our work is one of \emph{purpose}. These methods approximate the \emph{full} softmax kernel (over content \emph{and} position jointly) for computational speedup, replacing the attention mechanism itself. Our framework instead \emph{analyzes} the positional component of standard (unmodified) softmax attention to reveal its shift-invariant structure. The perspectives are complementary: linear attention methods demonstrate that kernel feature maps can replace softmax; our analysis shows that standard softmax attention already implicitly implements a shift-invariant positional kernel via its PE-derived Fourier features.
+
+\subsection{Multi-Head Composition and the Output Projection}
+
+In multi-head attention, the output is $\text{MHA}(X) = \text{Concat}(\text{head}_1, \ldots, \text{head}_H) W^O$, where each head $h$ implements its own kernel $K_h$ with a potentially different positional spectrum. Decomposing $W^O$ into $H$ column blocks, the multi-head output at position $i$ is
+\[
+\text{MHA}(X)_i = \sum_{h=1}^{H} W^O_h \sum_j \alpha^h_{ij}\, V_h x_j,
+\]
+where $\alpha^h_{ij}$ are the attention weights of head $h$ and $V_h$ is its value projection.
+
+\begin{remark}[Multi-Head Kernel Composition]
+\label{rem:multi-head}
+The per-head kernel decomposition $K_h \approx k^h_{\mathrm{content}} \cdot k^h_{\mathrm{pos}}$ does not directly lift to the multi-head output. The output projection $W^O$ linearly combines value-weighted aggregations across heads:
+\[
+\text{MultiHead}(Q,K,V) = W^O \left[\text{head}_1; \ldots; \text{head}_H\right],
+\]
+where each head's output is weighted by its attention pattern $\alpha^h$ and value projection $V^h$. The composition produces an effective output kernel that is a \emph{content-dependent} linear combination of per-head kernels. Bhojanapalli et al.\ \cite{bhojanapalli2020lowrank} show that multi-head attention can be viewed as a low-rank matrix factorization, with $W^O$ determining how per-head outputs combine. Since values $V^h$ encode both content and (potentially entangled) positional information, the layer-level positional kernel after $W^O$ projection may not decompose cleanly even if per-head positional kernels are shift-invariant. This predicts that Experiment~2's product kernel decomposition may succeed at the per-head level but fail when analyzing post-$W^O$ outputs. Analyzing individual heads provides necessary but not sufficient information about the layer-level positional kernel.
+\end{remark}
+
+\section{Shift-Invariant Kernels and Bochner's Theorem}
+
+In kernel methods, a \textbf{shift-invariant kernel} on \(\mathbb{R}\) (or on \(\mathbb{Z}\) in the discrete case) has the form
+\[
+k(t,s) = k(t-s).
+\]
+
+Bochner's theorem states:
+
+\medskip
+\noindent
+\textbf{Theorem (Bochner).} Any continuous, positive-definite, shift-invariant kernel \(k : \mathbb{R} \to \mathbb{C}\) can be written as the Fourier transform of a finite non-negative measure \(\mu\):
+\[
+k(\Delta) = \int_{\mathbb{R}} e^{i\omega \Delta} \, d\mu(\omega).
+\]
+
+Rahimi and Recht (2007) use this to derive \textbf{Random Fourier Features} \cite{rahimi2007random}. For a shift-invariant kernel \(k\), they approximate it with a finite-dimensional feature map:
+\[
+z(t) = \sqrt{\frac{2}{m}}
+\begin{bmatrix}
+\cos(\omega_1 t + b_1) \\
+\vdots \\
+\cos(\omega_m t + b_m)
+\end{bmatrix},
+\]
+where \(\omega_j\) are sampled from the spectral measure and \(b_j\) from a uniform phase. Then
+\[
+k(t-s) \approx z(t)^\top z(s).
+\]
+
+This is a \textbf{finite-dimensional Fourier feature map} implementing a shift-invariant kernel. A kernel SVM with such a kernel is effectively a linear SVM in the feature space defined by \(z(t)\).
+
+Crucially, the features are \textbf{sinusoidal functions of position}. This is exactly the same functional form as sinusoidal positional encodings; the difference is that Vaswani's frequencies are deterministic rather than sampled from a learned spectral distribution.
+
+\begin{remark}
+Bochner's theorem as stated applies to continuous positive-definite functions on $\mathbb{R}$. The directly applicable result for our setting---integer positions, finite sequences---is the Herglotz theorem for $\mathbb{Z}$ and its finite-group specialization for $\mathbb{Z}/T\mathbb{Z}$ (Proposition~\ref{prop:discrete-bochner} below). We invoke the continuous Bochner theorem primarily for its connection to the Random Fourier Features construction of Rahimi and Recht \cite{rahimi2007random}, which motivates interpreting sinusoidal PEs as kernel feature maps.
+\end{remark}
+
+\subsection{The Discrete Setting: Herglotz's Theorem and Finite Sequences}
+
+Transformer sequences have integer positions and finite length $T$. The applicable spectral characterization is not Bochner's theorem for $\mathbb{R}$ but the Herglotz theorem for $\mathbb{Z}$ \cite{herglotz1911,rudin1962fourier}:
+
+\medskip
+\noindent
+\textbf{Theorem (Herglotz).} A function $k : \mathbb{Z} \to \mathbb{C}$ is positive definite if and only if it is the Fourier--Stieltjes transform of a finite positive measure $\mu$ on the torus $\mathbb{T} = [0, 2\pi)$:
+\[
+k(\Delta) = \int_{\mathbb{T}} e^{i\omega \Delta}\, d\mu(\omega).
+\]
+
+\noindent
+Key differences from the continuous (Bochner) case:
+\begin{enumerate}
+    \item The spectral measure lives on the \emph{compact} torus $\mathbb{T}$, not on all of $\mathbb{R}$. The spectrum is therefore bounded.
+    \item For \emph{finite} sequences of length $T$, we work on $\mathbb{Z}/T\mathbb{Z}$ (the cyclic group of order $T$), and the spectral representation specializes further:
+\end{enumerate}
+
+\begin{proposition}[Finite Discrete Bochner--Herglotz]
+\label{prop:discrete-bochner}
+Let $k : \mathbb{Z}/T\mathbb{Z} \to \mathbb{R}$ be a shift-invariant function. Then $k$ is positive definite if and only if its DFT coefficients satisfy $\hat{k}(\omega_m) \geq 0$ for all $m = 0, \ldots, T-1$, where $\omega_m = 2\pi m / T$. The Gram matrix $[k(i-j)]_{i,j=1}^T$ is circulant and diagonalized by the DFT matrix $F_T$.
+\end{proposition}
+
+\noindent
+\textbf{Implications for our framework.} Sinusoidal PE frequencies $\omega_i = 10000^{-2i/d}$ are deterministic and finite in number ($d/2$ frequencies). The positional kernel under these PEs is a trigonometric polynomial with at most $d/2$ terms. By the Herglotz representation, such a kernel is positive definite if and only if the implied spectral weights are non-negative. The Fourier feature map is \emph{exact} (no sampling error) for the $d/2$ frequencies used, but the kernel can only resolve positional differences at the resolution determined by these frequencies.
+
+Throughout this paper, we work in the finite discrete setting. The continuous Bochner theorem serves as motivation and connects to the Random Fourier Features literature, but the rigorous underpinning for our claims is the discrete Herglotz theorem and Proposition~\ref{prop:discrete-bochner} \cite{katznelson2004harmonic}.
+
+\section{LN + Positional Encodings + Attention as a Shift-Invariant Positional Kernel}
+\label{sec:synthesis}
+
+We now connect the pieces.
+
+\subsection{Geometry of Positional Features Under LayerNorm}
+
+Because LayerNorm normalizes each token's representation, any variation that depends purely on position must be carried by \emph{direction} rather than norm. To study that component it is helpful to consider sequences where the content is held fixed so the only changing factor is the positional signal. Let \(p(t)\) denote the LayerNorm-normalized hidden state under such a probe sequence; then
+\[
+p : t \mapsto p(t) \in S^{d-1}
+\]
+is a curve on a high-dimensional sphere (with radius fixed up to \(\gamma\)). For explicit sinusoidal or rotary positional encodings applied before LayerNorm:
+
+\begin{itemize}
+    \item Each 2D frequency pair \((\cos(\omega_i t), \sin(\omega_i t))\) traces a circle \(S^1\).
+    \item The concatenation of frequency pairs sits on a product of circles, i.e.\ a \textbf{torus}, embedded in \(\mathbb{R}^d\).
+    \item LayerNorm projects the content+position vector back to an (affine) sphere, preserving the torus structure when content is clamped.
+\end{itemize}
+
+This probe construction isolates a “positional trajectory’’ only under the stated conditions; in real activations the positional and content directions are entangled by subsequent linear maps. Nevertheless it provides a useful geometric model for the portion of the hidden state attributable to explicit positional features.
+
+Define the \textbf{positional kernel} induced by this probe as
+\[
+k_{\text{pos}}(t,s) = \langle p(t), p(s) \rangle.
+\]
+
+When the positional features themselves are sinusoidal (or when the attention mechanism uses purely relative rotations/biases), \(k_{\text{pos}}\) depends only on the offset \(t-s\). In that case \(k_{\text{pos}}\) is a \textbf{shift-invariant kernel on positions} implemented via a finite-dimensional Fourier map, exactly as in Random Fourier Features (or more precisely, as a deterministic Fourier feature map in the sense of Proposition~\ref{prop:discrete-bochner}). This connection between shift-invariant kernels and convolutional structure is developed by Cordonnier et al.\ \cite{cordonnier2020attention}, who show that self-attention with appropriate positional encodings can be viewed as a learned convolutional layer. Outside the probe setting, however, shift-invariance must be verified directly at the level of the attention logits, since the learned content projections can re-introduce absolute-position dependence.
+
+We now state the central approximation result precisely:
+
+\begin{proposition}[Approximate Shift-Invariance of the Positional Kernel]
+\label{prop:approx-shift-invariance}
+Consider a single attention head with query/key projections $W_Q, W_K \in \mathbb{R}^{d_k \times d}$ operating on LayerNorm-normalized representations $\hat{h}(t) = \mathrm{LN}(c(t) + p(t))$, where $c(t)$ is content and $p(t)$ is the positional encoding at position $t$.
+\begin{enumerate}
+    \item[\textup{(a)}] \textbf{(RoPE/Shaw).} If the positional contribution to attention logits takes the form $f(i-j)$ by construction---as in RoPE, where $\langle R(i)q, R(j)k\rangle = \langle q, R(i-j)k\rangle$, or Shaw-style relative biases $a_{i-j}$---then the positional component of the kernel is exactly shift-invariant: $k_{\mathrm{pos}}(i,j) = k_{\mathrm{pos}}(i-j)$.
+    \item[\textup{(b)}] \textbf{(Sinusoidal absolute PEs).} If $p(t) = [\sin(\omega_1 t), \cos(\omega_1 t), \ldots]$ is added to content before projection, then the attention logit decomposes as
+    \[
+        \langle W_Q \hat{h}(i), W_K \hat{h}(j) \rangle = \underbrace{g(i-j)}_{\text{shift-invariant}} + \underbrace{k_c(i,j)}_{\text{content}} + \underbrace{r(i,j)}_{\text{cross-terms}},
+    \]
+    where $g(\Delta) = \langle W_Q \hat{p}(i), W_K \hat{p}(j) \rangle|_{\Delta = i-j}$ is shift-invariant (since $\hat{p}$ is a Fourier feature map on the sphere), $k_c(i,j) = \langle W_Q \hat{c}(i), W_K \hat{c}(j) \rangle$ captures content similarity, and the cross-term residual is
+    \[
+    r(i,j) = \langle W_Q \hat{c}(i), W_K \hat{p}(j) \rangle + \langle W_Q \hat{p}(i), W_K \hat{c}(j) \rangle.
+    \]
+    By Cauchy-Schwarz, $|\langle W_Q \hat{c}(i), W_K \hat{p}(j) \rangle| \leq \|W_Q \hat{c}(i)\| \cdot \|W_K \hat{p}(j)\| \leq \|W_Q\| \|\hat{c}(i)\| \cdot \|W_K\| \|\hat{p}(j)\|$, and similarly for the second term, yielding
+    \[
+    |r(i,j)| \leq 2\,\|W_Q\|\,\|W_K\| \cdot \|\hat{c}\| \cdot \|\hat{p}\|,
+    \]
+    where we use $\|\hat{c}\| = \|\hat{p}\| = \sqrt{d}$ (Proposition~\ref{prop:ln-geometry}). \emph{Important caveat:} This bound applies at \emph{layer 0 only}, where content $c(t)$ and position $p(t)$ are independently generated from embeddings and PEs. At deeper layers, content representations $c^{(\ell)}(t)$ encode positional information from prior attention operations (Section~\ref{sec:residual-mlp}), so the assumption of separate content/positional components breaks down.
+    \item[\textup{(c)}] \textbf{(Product kernel approximation).} If the logit is $A(i,j) = g(i-j) + k_c(i,j) + r(i,j)$, the product kernel approximation $\tilde{A}(i,j) = \alpha\, k_c(i,j) \cdot g(i-j) + \beta$ (with fitted scalars $\alpha, \beta$) incurs error from two sources: (1) cross-terms $r(i,j)$ bounded as in part (b), and (2) mismatch between additive and multiplicative structure. We do not provide a closed-form error bound for the multiplicative approximation quality, as this depends on the specific distributions of $k_c$ and $g$ and the chosen fit parameters $\alpha, \beta$. Experiment~2 (Section~\ref{sec:exp-product-kernel}) quantifies this approximation empirically via $R^2_{\text{prod}}$ regression.
+\end{enumerate}
+\end{proposition}
+
+\subsection{Attention as a Product Kernel Over Content and Position}
+
+Tsai et al.\ \cite{tsai2019transformer} interpret attention as a kernel on the joint space of content and position:
+\[
+K\big((x,t),(y,s)\big) = \phi(x,t)^\top \phi(y,s).
+\]
+With additive positional encodings one can expand the dot product as
+\[
+\langle c_i + p_i,\, c_j + p_j \rangle = \underbrace{\langle c_i, c_j\rangle}_{\text{content}} + \underbrace{\langle c_i, p_j\rangle + \langle p_i, c_j\rangle}_{\text{cross}} + \underbrace{\langle p_i, p_j\rangle}_{\text{positional}},
+\]
+where \(c_i\) captures content-dependent features and \(p_i\) the probe-defined positional component. The cross terms generally prevent an exact multiplicative separation (see Proposition~\ref{prop:approx-shift-invariance}(b,c) for explicit bounds).
+
+An important caveat: at layer $\ell > 0$, the ``content'' $c_i$ is not the frozen input embedding but the output of all previous layers, which already encodes positional information through prior attention operations. The product kernel decomposition is therefore cleanest at layer 0 (where content and position are independently generated) and may degrade at deeper layers as content--position entanglement grows. Experimental protocols should use layer-specific content representations rather than frozen input embeddings when testing the product kernel hypothesis at depth.
+
+Nevertheless, many architectural choices suppress the cross terms or make them predictable. For example:
+\begin{itemize}
+    \item relative position biases add a function \(b(i-j)\) directly to the logits, isolating the positional contribution;
+    \item RoPE applies a unitary rotation to the entire query/key vector so that the positional dependence of the dot product is controlled by the rotation difference \(R(i-j)\);
+    \item explicitly factorized attention variants parameterize \(q_i = q^{\text{content}}_i \odot q^{\text{pos}}(i)\), leading to an approximate product kernel.
+\end{itemize}
+In these settings it becomes reasonable to describe the head as operating with an effective \(\tilde{k}_{\text{content}}(x,y) \times k_{\text{pos}}(t-s)\), but this should be viewed as an approximation whose quality depends on how well the architecture keeps content and position decoupled.
+
+\paragraph{Forward reference: Why this framework must fail at depth.}
+The analysis above assumes that content and position remain approximately decoupled. However, this idealized picture breaks down systematically at deeper layers due to the architectural components that enable Transformer training and performance: residual connections and MLP blocks. Section~\ref{sec:residual-mlp} develops the mathematical characterization of this breakdown and explains why it is not a limitation but reveals the computational mechanism by which Transformers perform complex reasoning. The experiments in Section~\ref{sec:experiments} are designed to test both where the product kernel holds (early layers, relative PEs) and where it predictably fails (deep layers, accumulated entanglement).
+
+\subsection{Comparison With an SVM With a Shift-Invariant Kernel}
+
+Consider an SVM on a one-dimensional input (positions) with a shift-invariant kernel \(k(t-s)\). By Bochner:
+
+\begin{itemize}
+    \item There exists a spectral measure \(\mu\) such that
+    \[
+    k(t-s) = \int e^{i\omega(t-s)} d\mu(\omega).
+    \]
+    \item One can approximate \(k\) with a feature map
+    \[
+    z(t) = [\cos(\omega_1 t), \sin(\omega_1 t), \dots, \cos(\omega_m t), \sin(\omega_m t)],
+    \]
+    so that $k(t-s) \approx z(t)^\top z(s)$ \cite{rahimi2007random}.
+\end{itemize}
+
+In Transformers:
+
+\begin{itemize}
+    \item Sinusoidal PEs (and RoPE in frequency space) play the role of \(z(t)\); they are explicit Fourier features for the translation group \(\mathbb{Z}\).
+    \item LayerNorm constrains representations to live near a sphere, so the \textbf{inner products and angles} computed by attention are the main informative quantities.
+    \item Attention uses those inner products to perform a soft nearest-neighbor or kernel regression step over the sequence, as described by Tsai et al.\ \cite{tsai2019transformer}.
+\end{itemize}
+
+Thus, at least for the positional component, \textbf{attention is doing with explicit Fourier features almost exactly what a kernel SVM would do with shift-invariant kernels}---except the Transformer:
+
+\begin{itemize}
+    \item learns content-dependent features end-to-end,
+    \item mixes content and position in a stack of such layers, and
+    \item uses softmax for smoothing rather than margin maximization.
+\end{itemize}
+
+\subsection{Relative Encodings Make the Shift-Invariant Structure Explicit}
+
+Relative position encodings and rotary encodings bring this kernel view to the foreground:
+
+\begin{itemize}
+    \item Shaw et al.: positional term in logits is \(a_{i-j}\), a function of the difference \cite{shaw2018self}.
+    \item RoPE: \(\langle R(i) q, R(j) k \rangle = \langle q, R(j-i) k \rangle\); attention depends on \(i-j\) through rotations in Fourier space \cite{su2021roformer}.
+    \item ALiBi: positional bias is a linear function of \(|i-j|\), introduced additively rather than through the query--key inner product \cite{press2022train}.
+    \item Group-representation viewpoints \cite{lim2024positional,kogkalidis2023algebraic} formalize the Shaw/RoPE-style mechanisms as functions on the group difference \(g^{-1} h\), which is precisely how shift-invariant kernels over a group are defined.
+\end{itemize}
+
+From the Bochner/kernel perspective, Shaw/RoPE instantiate \textbf{shift-invariant kernels}: their positional effect depends only on the group difference and is implemented via Fourier features (real sinusoids or rotations). ALiBi enforces the same dependence pattern but does so through a bias term that, while not positive definite pre-softmax, yields a valid Laplace kernel post-softmax (Proposition~\ref{prop:alibi-pd}).
+
+\subsection{Causal Masking and the Breakdown of Post-Softmax Stationarity}
+\label{sec:causal-masking-framework}
+
+The shift-invariant kernel framework developed above assumes \emph{bidirectional} attention, where all tokens can attend to all others. However, autoregressive (decoder-only) language models use \textbf{causal masking}: token $i$ can only attend to tokens $j \leq i$. This architectural constraint fundamentally disrupts the post-softmax stationarity of attention weights, even when the pre-softmax logits remain shift-invariant.
+
+\begin{proposition}[Causal Masking Breaks Post-Softmax Stationarity]
+\label{prop:causal-mask}
+Consider a shift-invariant pre-softmax kernel $g(i-j)$ on positions, and define the post-softmax attention weights under causal masking as:
+\[
+\alpha_{\text{causal}}(i,j) = \begin{cases}
+\frac{\exp(g(i-j))}{\sum_{k=1}^i \exp(g(i-k))} & \text{if } j \leq i \\
+0 & \text{if } j > i
+\end{cases}
+\]
+Then:
+\begin{enumerate}
+    \item[\textup{(a)}] \textbf{(Boundary non-stationarity):} For tokens near the sequence start, $\alpha_{\text{causal}}(i,j)$ is \emph{not} a function of $i-j$ alone, because the normalization denominator $\sum_{k=1}^i \exp(g(i-k))$ depends on the absolute position $i$. Specifically, $\alpha_{\text{causal}}(2, 1) \neq \alpha_{\text{causal}}(100, 99)$ even though both have relative offset $\Delta = 1$.
+
+    \item[\textup{(b)}] \textbf{(Asymptotic stationarity):} If the kernel $g(\Delta)$ decays sufficiently fast (e.g., $\sum_{\Delta=0}^\infty \exp(g(-\Delta)) < \infty$), then for interior tokens far from boundaries,
+    \[
+    \lim_{i \to \infty} \alpha_{\text{causal}}(i, i-\Delta) = \frac{\exp(g(-\Delta))}{\sum_{k=0}^\infty \exp(g(-k))},
+    \]
+    which \emph{is} shift-invariant (depends only on $\Delta$). The convergence rate is $O(1/i)$ if $g$ decays exponentially.
+
+    \item[\textup{(c)}] \textbf{(Effective boundary width):} The number of tokens affected by boundary effects scales as $O(1/\lambda)$, where $\lambda$ is the decay rate of $g(\Delta)$. For local attention (sharp decay), boundary effects are confined to the first few tokens. For global attention (slow decay), boundary effects persist deeper into the sequence.
+\end{enumerate}
+\end{proposition}
+
+\paragraph{Proof sketch.}
+Part (a) follows immediately from the position-dependent normalization: the denominator $\sum_{k=1}^i \exp(g(i-k))$ at position $i=2$ sums over only 2 terms, while at $i=100$ it sums over 100 terms, even though the numerator $\exp(g(-1))$ is identical. Part (b) uses the summability assumption: for large $i$, $\sum_{k=1}^i \exp(g(i-k)) \approx \sum_{k=0}^\infty \exp(g(-k))$, with error bounded by the tail of the sum beyond $i$. Part (c) quantifies this error via standard tail bounds on exponential series.
+
+\paragraph{Implications for the framework.}
+Causal masking introduces an important \emph{architectural} limitation to the shift-invariant framework:
+\begin{itemize}
+    \item \textbf{Pre-softmax vs.\ post-softmax:} While RoPE guarantees that pre-softmax logits $g(i-j)$ are shift-invariant, the post-softmax attention weights $\alpha(i,j)$ are \emph{not} shift-invariant near sequence boundaries due to the causal mask. This is distinct from the content-position entanglement issue (Section~\ref{sec:residual-mlp}): even at layer 0 with perfectly decoupled content and position, causal masking breaks stationarity.
+
+    \item \textbf{Encoder vs.\ decoder models:} The framework applies most cleanly to bidirectional (encoder) models where all attention weights reflect the underlying shift-invariant kernel. For autoregressive (decoder) models, the framework predicts:
+    \begin{itemize}
+        \item Early tokens (positions $i \lesssim O(1/\lambda)$) exhibit non-stationary attention due to boundary effects.
+        \item Interior tokens (large $i$) recover approximate stationarity.
+    \end{itemize}
+
+    \item \textbf{Empirical signatures:} Proposition~\ref{prop:causal-mask} predicts that in decoder models:
+    \begin{itemize}
+        \item Fitting a shift-invariant kernel $g(\Delta)$ to attention patterns should yield lower $R^2$ at early positions.
+        \item The quality of the shift-invariant approximation should improve monotonically with position.
+        \item Models with local attention (fast-decaying $g$) should show faster convergence to stationarity than models with global attention.
+    \end{itemize}
+    These predictions are tested in Experiment~6 (Section~\ref{sec:exp-causal-mask}).
+
+    \item \textbf{Primacy bias and boundary artifacts:} The boundary non-stationarity predicted by Proposition~\ref{prop:causal-mask} is consistent with observed ``primacy bias'' in language models \cite{haviv2022nopos}, where models exhibit anomalous attention patterns and representation geometry near sequence starts. Yin et al.\ \cite{yin2024stablemask} report position-dependent behavior near boundaries that degrades with longer contexts, aligning with the prediction that boundary effects accumulate when sequences exceed the kernel's effective range.
+\end{itemize}
+
+\paragraph{Scope of the approximation.}
+For the remainder of this paper, when we refer to ``shift-invariant attention,'' we implicitly mean:
+\begin{enumerate}
+    \item Exact shift-invariance for bidirectional (encoder) models.
+    \item Approximate shift-invariance for autoregressive (decoder) models, with accuracy depending on position within the sequence.
+\end{enumerate}
+Experiment~6 is specifically designed to quantify this approximation quality and test whether the asymptotic stationarity prediction (part (b)) holds empirically.
+
+\section{Residual Connections, MLP Layers, and Content-Position Entanglement}
+\label{sec:residual-mlp}
+
+The kernel-Fourier framework developed in Sections~\ref{sec:ln}--\ref{sec:synthesis} applies primarily to individual attention heads operating on representations where content and position are approximately separable. However, full Transformer layers include residual connections and MLP blocks, which fundamentally complicate this picture. This section addresses why the framework must eventually fail at depth: these architectural components, while essential for performance, propagate and create content-position entanglement that degrades the product kernel decomposition.
+
+\textbf{This section is speculative and proposes directions for future research.} We establish that residuals and MLPs are essential for performance (subsection~\ref{subsec:essential-performance}) but create content-position entanglement that degrades the product kernel decomposition. We then develop a mathematical characterization of \emph{what the kernel becomes} when entangled (subsection~\ref{subsec:kernel-becomes}), propose testable structure hypotheses (subsection~\ref{subsec:entanglement-structure}), and outline empirical questions to validate or falsify these ideas (subsection~\ref{subsec:empirical-questions-entanglement}). The claims in this section have not been empirically validated and represent predictions of the framework rather than established results.
+
+\subsection{The Challenge: Residuals and MLPs Propagate Entanglement}
+
+Consider the standard residual block:
+\[
+h_{\ell+1} = h_\ell + \text{LN}\big(h_\ell + \text{Attention}(h_\ell)\big) + \text{LN}\big(h_\ell + \text{MLP}(h_\ell)\big).
+\]
+
+\paragraph{Why residuals complicate the framework.}
+At layer $\ell$, even if the attention operation respects approximate shift-invariance of the positional kernel, the residual connection $h_{\ell+1} = h_\ell + \Delta h$ means:
+\begin{itemize}
+    \item Layer $\ell+1$ receives \emph{all accumulated content-position entanglement from layers $0$ to $\ell$}.
+    \item If attention at layer $\ell$ mixes content and position (via cross-terms in the product kernel), this mixed representation is added back to the residual stream and becomes the input to layer $\ell+1$.
+    \item Cross-terms \textbf{compound across layers}: each layer's entanglement is preserved and added to by subsequent layers.
+\end{itemize}
+
+This directly contradicts the assumption (implicit in Sections~\ref{sec:attention-kernel}--\ref{sec:synthesis}) that representations maintain separable content and positional components. The residual stream is not a clean slate---it is a growing accumulation of entangled features.
+
+\paragraph{Why MLPs accelerate entanglement.}
+MLP blocks operate per-token:
+\[
+\text{MLP}(h(t)) = W_2 \cdot \sigma\big(W_1 \cdot \text{LN}(h(t))\big) + b_2.
+\]
+
+While MLPs do not explicitly mix information across positions, they apply \emph{nonlinear transformations} to each token's representation $h(t)$. If $h(t)$ encodes both content and position (as it must at depth), then:
+\begin{itemize}
+    \item The MLP nonlinearity $\sigma(\cdot)$ creates \textbf{interactions between content and positional features}, even if they were initially orthogonal.
+    \item For example, if $h(t) = c(t) + p(t)$ (content + position), then $\sigma(W_1 h(t))$ produces terms mixing $c(t)$ and $p(t)$, which are then projected by $W_2$ back into the residual stream.
+    \item These cross-terms accumulate via residuals, making the next layer's input even more entangled.
+\end{itemize}
+
+Empirically, MLPs are known to encode rich semantic features \cite{geva2021mlp,dar2023analyzing} and may implement key-value memories \cite{geva2021mlp}. If MLPs mix positional and content information to compute these features, this mixing becomes part of the residual stream's ``content'' at subsequent layers.
+
+\subsection{Essential Role of Residuals and MLPs}
+\label{subsec:essential-performance}
+
+Before exploring hypotheses about how residuals and MLPs affect positional structure, we must confront a crucial empirical fact: \textbf{these components were added precisely because they dramatically improve performance}. This creates a fundamental tension for the kernel framework. We first establish why these components are necessary (this subsection), then examine their implications for separability (Section~\ref{subsec:performance-entanglement-tension}).
+
+\begin{conjecture}[Residuals primarily stabilize]
+\label{conj:residual-stabilize}
+Residual connections mainly preserve and transport existing content--position entanglement across layers for optimization stability, rather than creating new positional structure on their own.
+\end{conjecture}
+
+\begin{conjecture}[MLPs add structured mixing]
+\label{conj:mlp-preserve}
+Token-wise MLP blocks largely maintain the coarse shift-invariant positional geometry imposed by attention and positional encodings while introducing low-rank, content-dependent interactions that drive useful entanglement.
+\end{conjecture}
+
+\paragraph{Residual connections enable deep networks.}
+The original ResNet \cite{he2016resnet} demonstrated that residual connections solve the \emph{degradation problem}: without skip connections, deeper networks perform worse than shallower ones, not due to overfitting but due to optimization difficulties \cite{he2016identity}. Residuals provide direct gradient paths, mitigating the vanishing/exploding gradient problem that plagued early deep networks \cite{hochreiter1991vanishing,bengio1994learning}, and enabling networks hundreds of layers deep. In Transformers specifically \cite{vaswani2017attention}, residuals stabilize training and enable information flow across layers---particularly positional information from the input embeddings.
+
+Theoretically, residuals prevent catastrophic behaviors:
+\begin{itemize}
+    \item \textbf{Rank collapse:} Dong et al.\ \cite{dong2021attention} prove that pure attention networks (without residuals or MLPs) lose expressive power doubly exponentially with depth, converging to rank-one matrices. Skip connections are the most significant factor preventing this collapse. This result directly supports the framework's argument: the ``clean'' kernel view (attention alone) is mathematically fragile and requires architectural corrections (residuals, MLPs) to remain viable. The fact that these corrections introduce entanglement is not a bug but the cost of preventing collapse.
+    \item \textbf{Chaotic loss landscapes:} Without residuals, deep networks undergo a ``chaos transition'' where loss landscapes spontaneously become highly non-convex and untrainable \cite{li2018visualizing}.
+    \item \textbf{Gradient pathology:} Post-LN Transformers without proper residual design suffer gradient vanishing; Pre-LN variants \cite{xiong2020layernorm} rely on residuals to maintain well-behaved gradients at initialization.
+    \item \textbf{Entropy collapse:} Removing residuals can cause attention entropy collapse, leading to pathologically concentrated attention scores and training divergence \cite{zhai2023stabilizing}.
+\end{itemize}
+
+\paragraph{MLPs provide essential expressive power.}
+Feed-forward layers are not optional add-ons but fundamental to Transformer capacity:
+\begin{itemize}
+    \item \textbf{Preventing rank collapse:} As noted above, MLPs (alongside residuals) counteract the rank collapse that pure attention exhibits \cite{dong2021attention}. Without MLPs, even with residuals, networks lose expressiveness.
+    \item \textbf{Key-value memories:} MLPs function as learned key-value stores \cite{geva2021mlp}, where lower layers capture shallow patterns (``the $\to$ \{dog, cat, house\}'') and upper layers encode semantic knowledge (``Paris $\to$ \{France, Eiffel, city\}''). This factual storage is something attention alone cannot efficiently implement.
+    \item \textbf{Overcoming Softmax bottleneck:} The Softmax operation creates an expressivity bottleneck when embedding dimension is less than the rank of the true distribution \cite{yang2018softmax}. MLPs help overcome this by providing nonlinear mixing capacity.
+    \item \textbf{Concept promotion:} FFN layers ``promote concepts in the vocabulary space'' \cite{dar2023analyzing}, building up the model's output distribution by composing interpretable sub-updates. This is a distinct operation from attention's pattern matching.
+    \item \textbf{In-context learning:} While induction heads (attention mechanisms) are critical for in-context learning \cite{olsson2022induction}, the phase change where these emerge correlates with both attention \emph{and} MLP development, suggesting both are necessary.
+\end{itemize}
+
+Empirically, removing or reducing MLPs degrades performance, though the effect is nuanced: gMLPs can sometimes replace attention \cite{liu2021mlp}, and redundancy exists (especially in lower layers \cite{lin2024mlp}), but optimal architectures retain both components. Similarly, architectural variants like DenseNet \cite{huang2017densely} (concatenating instead of summing) or Highway Networks \cite{srivastava2015highway} (gated residuals) show that the \emph{form} of skip connection matters for optimization and final performance.
+
+\subsection{The Performance--Separability Tension}
+\label{subsec:performance-entanglement-tension}
+
+The preceding subsection establishes that residuals and MLPs are essential for performance. This creates a fundamental interpretive challenge when combined with the framework's predictions:
+
+\begin{enumerate}
+    \item The kernel framework predicts that residuals and MLPs \textbf{degrade separability} by propagating and amplifying content-position entanglement across layers (Section~\ref{sec:residual-mlp}).
+    \item Empirical evidence shows that residuals and MLPs are \textbf{essential for performance}: models without them fail to train, collapse to low rank, or underperform dramatically (Section~\ref{subsec:essential-performance}).
+    \item Therefore: \textbf{If entanglement is the price of performance, this suggests entanglement is not a bug but a feature.}
+\end{enumerate}
+
+This tension forces a reinterpretation: perhaps the product kernel decomposition \emph{should} fail at depth, because the computations Transformers need to perform (semantic reasoning, factual retrieval, compositional generalization) \emph{require} content and position to be jointly encoded in complex, entangled ways. The framework's failure may reveal the true nature of deep representation learning: not modular, separable sub-computations, but continuous, high-dimensional manifold transformations where ``content'' and ``position'' are inseparable aspects of a unified representation.
+
+This raises the central question addressed in the next subsection: if separability fails, \textbf{what mathematical structure do the entangled kernels have?}
+
+\subsection{What the Kernel Becomes: Mathematical Characterization of Entanglement}
+\label{subsec:kernel-becomes}
+
+Rather than asking ``how can we prevent entanglement?'' (the wrong question, given that entanglement enables performance), we should ask: \textbf{What mathematical object describes the kernel when content and position are entangled? How does this entanglement accumulate through residuals and MLPs?}
+
+The analysis below is a theoretical prediction based on the architecture of residual Transformers. Empirical validation is needed to confirm whether the proposed mathematical structure accurately describes learned representations.
+
+\paragraph{The product kernel at layer 0.}
+At the input layer, representations are constructed additively:
+\[
+h_0(t) = \text{Embed}(\text{token}_t) + \text{PE}(t).
+\]
+Content and position are independent, so the attention kernel factors:
+\[
+K_0\big((x,i),(y,j)\big) \approx k_{\text{content}}(x,y) \cdot k_{\text{pos}}(i-j).
+\]
+This is the regime where Propositions~\ref{prop:ln-geometry}--\ref{prop:approx-shift-invariance} apply cleanly.
+
+\paragraph{Residuals accumulate entanglement.}
+After layer $\ell$, the residual stream is:
+\[
+h_{\ell+1}(t) = h_\ell(t) + \text{LN}\big(\text{Attn}(h_\ell)\big) + \text{LN}\big(\text{MLP}(h_\ell)\big).
+\]
+Each component contributes to the representation. Critically, if attention at layer $\ell$ creates cross-terms (content-position interactions) in its output, the residual connection \emph{adds these to the residual stream and carries them forward}. The representation becomes:
+\[
+h_\ell(t) = h_0(t) + \sum_{k=1}^\ell \Delta h_k(t),
+\]
+where each $\Delta h_k$ may contain entangled content-position features from prior layers. This is not a flaw of residuals---it is essential for gradient flow and feature composition \cite{he2016identity,raghu2021vit}. Residuals enable \emph{feature reuse}: lower-layer patterns are preserved and refined by higher layers \cite{huang2017densely,dosovitskiy2021vit}.
+
+\paragraph{MLPs create nonlinear interactions.}
+The MLP applies a per-token nonlinear transformation:
+\[
+\text{MLP}(h) = W_2 \sigma\big(W_1 \text{LN}(h)\big) + b_2.
+\]
+If $h(t)$ encodes both content $c(t)$ and positional features $p(t)$ (even if orthogonal), the nonlinearity $\sigma(\cdot)$ creates \textbf{multiplicative interactions}. For example, expanding $\sigma$ in a Taylor series:
+\[
+\sigma(W_1 [c + p]) \approx \sigma(W_1 c) + \sigma'(W_1 c) \cdot W_1 p + \text{quadratic terms like } (W_1 c) \odot (W_1 p) + \ldots
+\]
+These cross-products are projected by $W_2$ back into the residual stream, creating features that depend on \emph{both} content and position inseparably. Empirically, MLPs learn to store factual knowledge and promote semantic concepts \cite{geva2021mlp,dar2023analyzing}, which inherently require content-position binding (e.g., ``Paris is the capital of France'' must bind the token ``Paris'' to its contextual role, which depends on position).
+
+\paragraph{The kernel becomes a sum of products and cross-terms.}
+At layer $\ell$, the effective attention kernel is:
+\[
+K_\ell\big((x,i),(y,j)\big) = k_{\text{content}}(x,y) \cdot k_{\text{pos}}(i-j) + \sum_{k=1}^\ell R_k\big((x,i),(y,j)\big),
+\]
+where $R_k$ are residual cross-terms contributed by layers $1, \ldots, \ell$. These terms do \emph{not} factor into content $\times$ position---they are fundamentally four-argument functions $R(x,i,y,j)$ that encode joint dependencies. As $\ell$ grows, the cross-terms accumulate:
+\begin{itemize}
+    \item \textbf{Linear accumulation (best case):} Each layer adds a bounded cross-term; $\|R_\ell\| = O(\ell)$.
+    \item \textbf{Compounding (realistic):} Nonlinear interactions create higher-order dependencies; $\|R_\ell\|$ may grow superlinearly or even exponentially with depth if unchecked.
+    \item \textbf{Saturation (observed empirically):} Training dynamics and normalization may limit cross-term growth, leading to convergence to a stable entangled representation.
+\end{itemize}
+
+The product kernel decomposition measures the residual:
+\[
+R^2_{\text{prod}}(\ell) = 1 - \frac{\|\sum_k R_k\|^2}{\|K_\ell\|^2}.
+\]
+If $R^2_{\text{prod}}(\ell) \to 0$ with depth, the cross-terms dominate. This is not failure of the framework---it is \textbf{quantifying the transition from separable to entangled computation}.
+
+\paragraph{Concrete example: induction head with entanglement.}
+Consider an induction head \cite{olsson2022induction} that attends to the token following a previous occurrence of the current token. At layer 0, if both content and position are separable, we might approximate:
+\[
+K_0\big((A, i), (B, j)\big) \approx \mathbb{1}[A = B] \cdot \delta(i - j + 1),
+\]
+where $\mathbb{1}[A = B]$ is the content kernel (token match) and $\delta(i - j + 1)$ is the positional kernel (offset $+1$). This factors into content $\times$ position.
+
+At depth, after MLPs and residuals create entanglement, the true kernel might become:
+\[
+K_\ell\big((A, i), (B, j)\big) = \mathbb{1}[A = B] \cdot g(i - j) + R\big((A, i), (B, j)\big),
+\]
+where the cross-term $R$ captures context-dependent modifications:
+\[
+R\big((A, i), (B, j)\big) = \begin{cases}
+    +\alpha & \text{if } A = \text{``the''} \land B = \text{``the''} \land i - j \in [5, 10] \\
+    -\beta & \text{if } \text{POS}(A) = \text{noun} \land \text{POS}(B) = \text{verb} \\
+    0 & \text{otherwise}
+\end{cases}
+\]
+This cross-term cannot be factored: it modulates positional attention based on content class in a way that depends on \emph{both} $A$ and $B$ jointly with their relative position. This is entanglement---and it may be precisely what enables the model to implement sophisticated linguistic computations like agreement checking or binding.
+
+\paragraph{Proposed structure hypotheses for cross-terms.}
+\label{subsec:entanglement-structure}
+
+The key question is not ``can we prevent cross-terms?'' but ``what structure do they have?'' We propose three testable hypotheses:
+
+\begin{enumerate}
+    \item \textbf{Unstructured entanglement (null hypothesis):} Cross-terms $R_k((x,i),(y,j))$ are high-dimensional, noisy, and uninterpretable. The kernel at depth is effectively a lookup table with no generalizable structure. This would suggest deep Transformers are ``bag of heuristics'' models \cite{elhage2023superposition}.
+
+    \paragraph{Superposition as a fundamental challenge.} Critically, if Elhage et al.'s superposition hypothesis \cite{elhage2023superposition} holds---that models store many more features than dimensions by encoding them as overlapping directions---then even \emph{early-layer} positional and content features may not be cleanly separable, since both compete for representational capacity. This challenges the framework's core assumption that early layers (0--2) have clean product decomposition. The superposition view predicts that $k_{\text{pos}}$ and $k_{\text{content}}$ are not orthogonal subspaces but overlapping directions, making the product kernel an approximation even at initialization. Bricken et al.\ \cite{bricken2023monosemanticity} demonstrate that sparse autoencoders can recover interpretable monosemantic features from superposed representations, suggesting that if content and position are superposed, they might still be disentangled via dictionary learning methods. Experiment~1's centering and whitening controls (Section~\ref{sec:exp-pos-kernel}) are designed to detect whether apparent shift-invariance is genuine or artifactually induced by preprocessing. If shift-invariance appears only after aggressive whitening, this suggests the raw representations exhibit significant superposition, undermining the framework's applicability even at early layers.
+
+    \item \textbf{Structured entanglement (kernel-theoretic view):} Cross-terms have interpretable structure---e.g., they correspond to \emph{conditional kernels} where positional behavior depends on content class. For instance:
+    \[
+    R((x,i),(y,j)) = \sum_c \mathbb{1}[x \in \text{class}_c] \cdot k_{c,\text{pos}}(i-j),
+    \]
+    where different content types (pronouns, verbs, nouns) have different positional kernels. This would support a refined version of the product decomposition with content-dependent position kernels \cite{voita2019headpruning,clark2019analyzing}.
+
+    \item \textbf{Low-rank entanglement (manifold view):} Cross-terms lie in a low-dimensional subspace. While $R_k$ is a four-argument function, it can be approximated by a low-rank decomposition:
+    \[
+    R_k((x,i),(y,j)) \approx \sum_{r=1}^R f_{k,r}(x,i) \cdot g_{k,r}(y,j),
+    \]
+    where $R \ll d^2$. This would suggest the residual stream maintains a structured geometry even when position and content are entangled \cite{park2024geometry,cunningham2024dictlearning}. Sparse autoencoders could recover the features $f_{k,r}, g_{k,r}$ \cite{bricken2023monosemanticity,templeton2024sae}.
+\end{enumerate}
+
+These are testable via Experiment~2's cross-term analysis: examine the residuals $r(i,j) = A(i,j) - A_{\text{prod}}(i,j)$ and check for structure (low-rank, clustering by content class, interpretable patterns).
+
+\subsection{Architectural Differences in Entanglement Dynamics}
+
+Different architectures may exhibit qualitatively different entanglement dynamics:
+
+\paragraph{Absolute positional encodings (GPT-2, BERT):}
+Position injected only at layer 0. Cross-terms accumulate monotonically with depth. By layer $\ell \gg 0$, position is ``dissolved'' into the content representation \cite{haviv2022nopos}. Haviv et al.\ show that Transformers can learn to operate \emph{without} explicit positional encodings by encoding position implicitly through attention patterns \cite{haviv2022nopos,kazemnejad2024lengthgen}. This challenges the necessity of explicit PEs, but does \emph{not} contradict the framework's claims about \emph{how} explicit PEs structure attention when present. Crucially, Haviv's work does not show that implicitly-learned positional information is shift-invariant or has Fourier structure---it merely shows that positional information \emph{exists}. The framework characterizes the specific structure arising from explicit sinusoidal/rotary PEs, not the general phenomenon of position-sensitive computation.
+
+\paragraph{Relative positional encodings (RoPE, Shaw):}
+RoPE re-applies rotational encoding at \emph{every layer}, continuously re-injecting positional structure into the $Q,K$ projections \cite{su2021roformer}. This creates an architectural bias: even if the residual stream $h_\ell$ is highly entangled, the positional term in attention logits remains shift-invariant (Proposition~\ref{prop:approx-shift-invariance}(a)). However, this does not prevent the \emph{values} $V$ from being entangled, nor does it prevent the residual stream itself from accumulating cross-terms. Recent empirical findings challenge whether this re-injection preserves interpretability \cite{peng2024rope,unpacking2025spectral}: RoPE can create single-head monopolization of positional processing, which may obscure distributed computation.
+
+\paragraph{Normalization schemes:}
+LayerNorm forces representations into $\{\mathbf{1}\}^\perp$ (Proposition~\ref{prop:ln-geometry}), which may distort positional signals if position has a component along $\mathbf{1}$. RMSNorm scales without centering (Proposition~\ref{prop:rmsnorm-geometry}), potentially preserving positional structure better \cite{zhang2019rmsnorm}. However, no systematic comparison exists in the literature on how normalization affects content-position entanglement across depth.
+
+\subsection{What the Framework Reveals About Deep Transformer Computation}
+
+Reframing the framework as a tool for \emph{characterizing entanglement} rather than preserving separability yields several insights:
+
+\paragraph{1. Quantifying the separable-to-entangled transition.}
+The decay of $R^2_{\text{prod}}(\ell)$ with layer depth measures the \textbf{rate of entanglement accumulation}. This is a first-order characterization of how Transformers transition from modular (layers 0--2) to holistic (deep layers) computation \cite{raghu2021vit,clark2019analyzing}. Comparing this decay across RoPE-based architectures (LLaMA vs.\ Pythia) reveals whether entanglement dynamics are architecture-specific or universal across models with shift-invariant positional encodings (Experiment~7). Note that GPT-2 (absolute PEs) cannot be directly compared, as its positional structure differs fundamentally from the shift-invariant framework.
+
+\paragraph{2. Cross-term structure reveals computational strategy.}
+The residuals $r(i,j) = A(i,j) - A_{\text{prod}}(i,j)$ are not noise---they are the model's learned deviations from separability. Analyzing their structure distinguishes:
+\begin{itemize}
+    \item \textbf{Content-dependent positional kernels:} $r(i,j)$ clusters by content class, suggesting different token types attend with different positional biases \cite{voita2019headpruning}.
+    \item \textbf{Absolute position leakage:} $r(i,j)$ correlates with $i$ or $j$ individually (not just $i-j$), indicating the model has implicitly learned absolute position despite relative PEs \cite{haviv2022nopos}.
+    \item \textbf{Compositional dependencies:} $r(i,j)$ depends on context beyond the $(x,y)$ pair, revealing multi-hop reasoning or long-range dependencies that the product kernel cannot capture.
+\end{itemize}
+
+\paragraph{3. MLPs as the primary source of entanglement.}
+By estimating positional kernels before and after MLP blocks (Experiment~2, step 4), we can isolate the contribution of MLPs to cross-term growth. If $\hat{k}_{\text{post-MLP}}(\omega) \approx \hat{k}_{\text{pre-MLP}}(\omega)$, MLPs preserve positional structure despite nonlinearity. If the spectra diverge, this quantifies how much entanglement MLPs contribute. Given that MLPs store factual knowledge \cite{geva2021mlp} and perform concept promotion \cite{dar2023analyzing}, we hypothesize they are the \emph{primary} mechanism for creating content-position bindings that enable in-context learning.
+
+\paragraph{4. Residuals propagate but may not amplify entanglement.}
+Residual connections are \emph{linear}: $h_{\ell+1} = h_\ell + f(h_\ell)$. While they preserve and accumulate cross-terms, they do not create new entanglement---that requires nonlinearity (attention softmax or MLP activations). Ablation studies \cite{dong2021attention} show that removing residuals causes rank collapse, not improved separability, supporting the view that residuals are stabilizers rather than entanglers. This suggests cross-term growth is primarily driven by the \emph{number of nonlinear operations} (attention + MLP per layer), not the residual connection itself.
+
+\paragraph{5. RoPE provides a reference frame, not separability.}
+RoPE's re-injection of positional structure at every layer (Proposition~\ref{prop:approx-shift-invariance}(a)) ensures the attention logits have a shift-invariant \emph{component}, but this does not prevent entanglement in the values $V$ or residual stream $h_\ell$ \cite{su2021roformer}. Empirically, RoPE can create concentrated positional processing in single heads \cite{unpacking2025spectral}, which may \emph{increase} entanglement in other dimensions by freeing them to encode pure content. The architectural guarantee is that Fourier analysis of positional kernels remains well-defined (the positional term has a spectrum), not that position and content remain separable.
+
+\paragraph{6. Spectral methods characterize effective positional biases.}
+Even when the product decomposition fails ($R^2_{\text{prod}} \to 0$), one can compute an \textbf{effective positional kernel} $\bar{k}_{\text{pos},\ell}(\Delta)$ by averaging attention weights over content (Experiment~1). This measures: ``on average, how does this layer's attention depend on relative position?'' The Fourier spectrum $\hat{k}_\ell(\omega)$ remains interpretable as the average positional bias, even if individual token pairs deviate significantly. This is analogous to computing a marginal distribution when the joint distribution $P(x,i,y,j)$ does not factor into $P(x,y) \cdot P(i,j)$.
+
+\paragraph{7. Architecture determines whether entanglement is structured or chaotic.}
+The three characterizations in the previous subsection (unstructured, structured conditional, low-rank) correspond to different regimes of interpretability at depth:
+\begin{itemize}
+    \item \textbf{Unstructured:} Deep layers are effectively uninterpretable lookup tables. This is the pessimistic outcome.
+    \item \textbf{Structured conditional:} Position and content are entangled, but the entanglement follows interpretable rules (content classes have distinct positional behaviors). This supports a ``refined circuits'' view where circuits are content-specific.
+    \item \textbf{Low-rank:} The residual stream lies on a low-dimensional manifold where content-position interactions are structured. Sparse autoencoders \cite{bricken2023monosemanticity,templeton2024sae} or PCA can recover this structure, enabling interpretability despite entanglement.
+\end{itemize}
+Experiment~2's cross-term analysis directly tests which regime holds.
+
+\subsection{Empirical Questions: Characterizing Entanglement Structure}
+\label{subsec:empirical-questions-entanglement}
+
+\textbf{The hypotheses above require empirical validation.} The framework's value lies in providing testable predictions about how entanglement accumulates and what structure it has. The analyses below extend and refine the cross-term analysis proposed in Experiment~2 (Section~\ref{sec:exp-product-kernel}). Specifically, they elaborate on the four-part structure test outlined in the "Cross-term structure analysis" paragraph of Experiment~2, providing additional methodological detail and architectural comparisons. These can be implemented as refinements of Experiment~2's protocol or as standalone follow-up studies:
+
+\begin{enumerate}
+    \item \textbf{Measure entanglement accumulation rate:} Extend Experiment~2 to all layers, plotting $R^2_{\text{prod}}(\ell)$ vs.\ layer $\ell$. Fit decay models: linear ($R^2 \sim 1 - c\ell$), exponential ($R^2 \sim e^{-c\ell}$), or saturating ($R^2 \sim a + b e^{-c\ell}$). Compare rates across architectures (GPT-2, Pythia, LLaMA) and model scales (125M, 1.4B, 7B parameters). Does entanglement rate depend on architecture (relative vs.\ absolute PE), scale, or training dynamics?
+
+    \item \textbf{Decompose contributions: Attention vs.\ MLP vs.\ Residuals:} For each layer, estimate positional kernels at four stages: (i)~pre-attention, (ii)~post-attention, (iii)~post-MLP, (iv)~post-residual. Measure spectral change $\|\hat{k}_{i+1} - \hat{k}_i\|$ at each stage. This isolates which component (attention, MLP, residual) contributes most to cross-term growth. We hypothesize MLPs dominate due to nonlinearity.
+
+    \item \textbf{Analyze cross-term structure:} Compute residuals $r(i,j) = A(i,j) - A_{\text{prod}}(i,j)$ for all heads at layers 3, 6, 9, 12 (shallow to deep). Test the three structure hypotheses:
+    \begin{itemize}
+        \item \textbf{Unstructured:} Perform SVD on $r$; if singular values decay slowly, $r$ is high-rank and unstructured.
+        \item \textbf{Structured conditional:} Cluster tokens by content class (nouns, verbs, pronouns); compute per-class positional kernels. If within-class variance $\ll$ between-class variance, entanglement is content-dependent but structured.
+        \item \textbf{Low-rank:} Fit low-rank approximation $r \approx \sum_{k=1}^R u_k v_k^T$. If small $R$ (e.g., $R \leq 10$) captures $>90\%$ variance, entanglement is low-dimensional.
+    \end{itemize}
+
+    \item \textbf{Ablate residuals to test propagation vs.\ creation:} Compare two settings: (a)~standard Transformer with residuals, (b)~Transformer where residual connections are present but cross-term components are projected out at each layer (via orthogonalization to the product kernel subspace). If (b) collapses (fails to train), residuals must propagate entanglement for performance. If (b) succeeds with comparable accuracy, entanglement is created \emph{de novo} by attention/MLPs at each layer, and residuals merely stabilize.
+
+    \item \textbf{Test architectural predictions:}
+    \begin{itemize}
+        \item Compare $R^2_{\text{prod}}(\ell)$ in GPT-2 (absolute PE, LayerNorm) vs.\ Pythia (RoPE, LayerNorm) vs.\ LLaMA (RoPE, RMSNorm) on identical datasets. Does RoPE slow entanglement? Does RMSNorm preserve structure better than LayerNorm?
+        \item Measure single-head deposit \cite{unpacking2025spectral}: identify if RoPE concentrates positional processing into one head (low entropy of positional variance across heads). Compare to absolute PE models where processing should be distributed.
+    \end{itemize}
+
+    \item \textbf{Interventional validation:} If cross-terms have structure (e.g., content-dependent positional kernels), design targeted interventions. For example, if pronouns attend primarily to recent tokens while nouns attend globally, surgically filter the high-frequency component of pronoun attention and measure task degradation. This causally validates whether the identified structure is functional or epiphenomenal.
+\end{enumerate}
+
+\subsection{Implications: Entanglement as Computational Mechanism}
+
+\textbf{This subsection presents a speculative interpretation of the framework's predictions.} If the mathematical characterization in subsection~\ref{subsec:kernel-becomes} is correct and cross-terms exhibit one of the proposed structures (subsection~\ref{subsec:entanglement-structure}), this would reframe a central question in mechanistic interpretability: \textbf{Is content-position entanglement a failure of interpretability, or the mechanism by which Transformers perform complex reasoning?}
+
+\paragraph{Entanglement enables context-dependent computation.}
+Consider the task of resolving coreference: determining that ``it'' in ``The cat sat on the mat. It was soft.'' refers to ``mat'' not ``cat.'' This requires:
+\begin{enumerate}
+    \item Identifying candidate antecedents (``cat,'' ``mat'').
+    \item Determining their positions relative to ``it.''
+    \item Evaluating \emph{semantic compatibility} (softness) between ``it'' and candidates.
+\end{enumerate}
+A separable product kernel $k_{\text{content}}(x,y) \cdot k_{\text{pos}}(i-j)$ cannot solve this: it cannot simultaneously encode ``attend to recent nouns'' (positional) and ``select the one compatible with 'soft'\thinspace'' (content-dependent). The cross-term $R((x,i),(y,j))$ must encode: ``attend to position $j$ \emph{if and only if} token $y$ has property $P$ and query token $x$ has property $Q$.'' This is an \emph{entangled computation by necessity}.
+
+Empirically, induction heads \cite{olsson2022induction}, IOI circuits \cite{wang2023interpretability}, and factual recall \cite{geva2021mlp} all involve content-position binding: ``copy token $B$ that appeared after token $A$'' requires joint reasoning over token identity and position. If the product kernel decomposition holds, these tasks should be impossible---yet they emerge reliably during training.
+
+\paragraph{Residuals as a compositional architecture for entanglement.}
+The residual stream can be viewed as a \textbf{communication channel} where layers incrementally refine a shared representation \cite{elhage2023superposition,nostalgebraist2020logit}. Early layers establish coarse content-position bindings (``this token is a pronoun at position 15''); later layers refine them (``this pronoun refers to the noun at position 8''). Residuals enable this by:
+\begin{itemize}
+    \item \textbf{Preservation:} Lower-layer features persist through $h_{\ell+1} = h_\ell + \Delta h_\ell$, allowing higher layers to \emph{read} earlier bindings \cite{dosovitskiy2021vit,raghu2021vit}.
+    \item \textbf{Composition:} Higher layers can \emph{condition on} earlier entangled features to compute more complex functions. For instance, layer 8 might create feature ``pronoun at relative position $-7$''; layer 12 uses this to compute ``antecedent compatibility.''
+\end{itemize}
+This is compositional, but not separable. Circuits at depth are better described as \emph{sequences of content-position joint operations} rather than modular content and positional sub-circuits.
+
+\paragraph{Three regimes of interpretability.}
+The structure of cross-terms determines interpretability at depth:
+
+\begin{enumerate}
+    \item \textbf{Unstructured entanglement $\Rightarrow$ opacity.} If $R((x,i),(y,j))$ is high-dimensional and lacks interpretable structure, deep layers are effectively black boxes. Mechanistic interpretability hits a fundamental limit: the model does not decompose into human-understandable parts. This is the pessimistic scenario.
+
+    \item \textbf{Structured entanglement $\Rightarrow$ conditional circuits.} If cross-terms factor as content-dependent positional kernels (``pronouns attend locally, nouns attend globally''), circuits can be characterized by conditional rules. For example: ``This head implements previous-token attention \emph{for verbs}, but bidirectional attention \emph{for nouns}.'' Mechanistic interpretability remains viable but requires richer descriptive frameworks than current circuit notation \cite{wang2023interpretability,olsson2022induction}.
+
+    \item \textbf{Low-rank entanglement $\Rightarrow$ latent structure.} If $R$ admits low-rank decomposition, sparse autoencoders \cite{bricken2023monosemanticity,templeton2024sae} or dictionary learning \cite{cunningham2024dictlearning} can recover interpretable latent features. The residual stream operates on a low-dimensional manifold where content-position interactions follow geometric rules (e.g., ``position modulates content features smoothly as a rotation or scaling'') \cite{park2024geometry}. This is the optimistic scenario: entanglement is complex but structured, and interpretability tools can expose the structure.
+\end{enumerate}
+
+\paragraph{The framework as a diagnostic for computational regime.}
+Rather than asking ``does the product kernel hold?'', we should ask:
+\begin{itemize}
+    \item At what layer depth $\ell^*$ does $R^2_{\text{prod}}(\ell)$ drop below 0.5? This marks the transition from separable to entangled computation.
+    \item Is the transition sharp (phase change) or gradual (smooth accumulation)?
+    \item Do cross-terms have structure (low-rank, content-conditional), or are they unstructured?
+\end{itemize}
+These questions are empirically testable (Experiments~2, 7) and provide a roadmap for where traditional circuit analysis succeeds (layers $< \ell^*$, structured cross-terms) vs.\ where new interpretability methods are needed (layers $\geq \ell^*$, unstructured entanglement).
+
+The kernel framework's \textbf{failure is not a limitation---it is a measurement}. It quantifies the depth at which Transformers transition from modular to holistic computation, and characterizes the structure (or lack thereof) in that transition.
+
+\paragraph{Reading the rest of the paper in light of entanglement.}
+The analysis above reframes the scope limitations enumerated in Section~\ref{sec:formal-results}. When Section~\ref{sec:formal-results} states that the framework ``applies most cleanly to early layers'' and ``predictably fails at depth,'' this is not an apology but a scientific claim: the mathematics \emph{predicts} failure, and the experiments in Section~\ref{sec:experiments} are designed to test whether that prediction holds. Similarly, the implications for circuit analysis (Section~\ref{sec:circuits-implications}) depend critically on \emph{whether} and \emph{how} the product kernel degrades: if it remains accurate even at depth (contradicting the residual/MLP analysis), the interpretive consequences differ sharply from the case where cross-terms dominate. The entanglement view unifies the paper's message: the framework succeeds where it should, fails where it must, and the boundary between success and failure reveals the computational regime of the model.
+
+\section{Formal Results, Approximation Quality, and Empirical Scope}
+\label{sec:formal-results}
+
+Having established the framework (Sections~\ref{sec:ln}--\ref{sec:synthesis}) and examined why it must fail at depth (Section~\ref{sec:residual-mlp}), this section formalizes what the propositions prove, quantifies approximation quality, and delineates the empirical scope. The experiments in Section~\ref{sec:experiments} are designed to test these predictions.
+
+\subsection{What the Propositions Prove}
+
+The preceding sections establish six formal propositions, each with explicit assumptions:
+
+\begin{enumerate}
+    \item \textbf{Proposition~\ref{prop:ln-geometry} (LayerNorm Geometry).} Pre-affine LayerNorm output lies on $S^{d-2}(\sqrt{d}) \subset \{\mathbf{1}\}^\perp$. \emph{Assumption:} pre-affine, ignoring $\gamma, \beta$.
+    \item \textbf{Proposition~\ref{prop:rmsnorm-geometry} (RMSNorm Geometry).} RMSNorm output lies on $S^{d-1}(\sqrt{d})$ without centering. \emph{Assumption:} pre-affine.
+    \item \textbf{Proposition~\ref{prop:alibi-pd} (ALiBi Post-Softmax).} $\exp(-m|\Delta|)$ is a PD shift-invariant kernel (Laplace kernel). \emph{Assumption:} $m > 0$.
+    \item \textbf{Proposition~\ref{prop:discrete-bochner} (Discrete Bochner--Herglotz).} PD on $\mathbb{Z}/T\mathbb{Z}$ iff DFT coefficients $\geq 0$. \emph{Standard result.}
+    \item \textbf{Proposition~\ref{prop:approx-shift-invariance} (Approximate Shift-Invariance).} Under RoPE/Shaw, the positional kernel is exactly shift-invariant; under absolute PEs, shift-invariance holds up to bounded cross-terms. \emph{Assumption:} single head, specific PE scheme, minimal entanglement (layers 0-2).
+    \item \textbf{Proposition~\ref{prop:causal-mask} (Causal Masking).} Causal masking breaks post-softmax stationarity but the effect vanishes for interior tokens if the kernel decays. \emph{Assumption:} summability of $\exp(g(-\Delta))$.
+\end{enumerate}
+
+These results apply primarily to \textbf{early layers (0--2)} where content and position are independently generated and Section~\ref{sec:residual-mlp}'s entanglement mechanism is minimal. At deeper layers, the cross-term bounds in Proposition~\ref{prop:approx-shift-invariance}(b,c) degrade as residuals accumulate entanglement.
+
+\paragraph{How these propositions are tested.}
+The experiments in Section~\ref{sec:experiments} operationalize these formal claims as follows:
+\begin{itemize}
+    \item \textbf{Propositions~\ref{prop:ln-geometry}, \ref{prop:rmsnorm-geometry} (Geometry):} Tested via Experiment~3 (normalization ablation), which compares LayerNorm, RMSNorm, and no normalization to assess whether the spherical constraint is causally important for the kernel structure.
+    \item \textbf{Proposition~\ref{prop:alibi-pd} (ALiBi):} Theoretical result; not directly tested experimentally but provides post-softmax interpretation for ALiBi's shift-invariance.
+    \item \textbf{Proposition~\ref{prop:discrete-bochner} (Discrete Bochner--Herglotz):} Theoretical foundation underpinning Experiment~1 (Fourier spectrum estimation) and Experiment~4 (spectral interventions).
+    \item \textbf{Proposition~\ref{prop:approx-shift-invariance} (Shift-Invariance):} Core claim tested by Experiments~1 (positional kernel estimation), 2 (product kernel decomposition and $R^2_{\text{prod}}$ decay), and 4 (spectral filtering interventions).
+    \item \textbf{Proposition~\ref{prop:causal-mask} (Causal Masking):} Tested via Experiment~6 (boundary effects), which measures whether post-softmax stationarity degrades near sequence starts as predicted.
+\end{itemize}
+Additionally, Experiment~7 (pretrained models) tests whether all findings generalize to practical scale, and Experiment~2 (product kernel) explicitly tests Section~\ref{sec:residual-mlp}'s prediction that $R^2_{\text{prod}}(\ell)$ decays with layer depth.
+
+\subsection{Approximation Quality and Error Bounds}
+
+This paper argues for an \emph{approximate} correspondence, not an exact equivalence. The key approximations and their quality are:
+
+\begin{itemize}
+    \item \textbf{Shift-invariance under absolute PEs:} approximate, with error bounded by the cross-terms $|r(i,j)| \leq 2\|W_Q\|\|W_K\| \cdot \|\hat{c}\| \cdot \|\hat{p}\|$ (Proposition~\ref{prop:approx-shift-invariance}(b)). The approximation is good when content and positional subspaces are nearly orthogonal in the projected space. However, Section~\ref{sec:residual-mlp} predicts these bounds degrade with depth as MLPs create $c \cdot p$ interactions.
+    \item \textbf{Product kernel decomposition:} approximate, with error from cross-terms and the mismatch between additive and multiplicative structure. Quality degrades at deeper layers where content accumulates positional information from prior attention operations (Section~\ref{sec:residual-mlp}, Equation for $K_\ell = \text{product} + \sum_k R_k$).
+    \item \textbf{Discrete vs.\ continuous:} The continuous Bochner theorem is invoked as motivation; the rigorous result is the discrete Herglotz theorem (Proposition~\ref{prop:discrete-bochner}).
+\end{itemize}
+
+\subsection{Causal Masking and Boundary Effects}
+\label{sec:causal-masking}
+
+As developed in Section~\ref{sec:causal-masking-framework}, causal masking in autoregressive (decoder-only) models introduces a fundamental architectural limitation: while pre-softmax logits remain shift-invariant (for RoPE/relative PEs), post-softmax attention weights are not shift-invariant near sequence boundaries. Proposition~\ref{prop:causal-mask} formalizes this: the normalization denominator $\sum_{k=1}^i \exp(g(i-k))$ depends on absolute position $i$, breaking stationarity for early tokens. However, for interior tokens far from boundaries, approximate stationarity is recovered if the kernel decays sufficiently fast. This prediction---that stationarity quality improves with position---is tested in Experiment~6 (Section~\ref{sec:exp-causal-mask}).
+
+\subsection{Scope Limitations}
+
+Several important settings lie partially or fully outside the framework. We organize these by epistemic status:
+
+\paragraph{Proven limitations (formal).}
+\begin{itemize}
+    \item \textbf{ALiBi:} Falls outside the finite Fourier-feature construction since its spectrum is continuous (wrapped Cauchy), not concentrated on finitely many frequencies. Rehabilitated post-softmax as a Laplace kernel (Proposition~\ref{prop:alibi-pd}), but the shift-invariance analysis requires different machinery.
+    \item \textbf{NTK regime:} In the infinite-width limit, neural networks converge to a fixed Neural Tangent Kernel \cite{jacot2018ntk}, with transformer-specific extensions developed by Yang \cite{yang2020ntk}. Our framework describes the finite-width \emph{learned} kernel after training, which is data-dependent and potentially far from the NTK. The two perspectives are complementary: NTK describes initialization dynamics and infinite-width limits; our framework describes the trained model's positional structure at practical finite width.
+    \item \textbf{Absolute PEs (legacy):} Used only in older models (GPT-2, BERT). Absolute PEs incur cross-term errors quantified in Proposition~\ref{prop:approx-shift-invariance}(b). Modern models use relative PEs (RoPE), making this a non-issue for current architectures.
+\end{itemize}
+
+\paragraph{Architectural scope (composition effects).}
+\begin{itemize}
+    \item \textbf{Multi-head composition:} Per-head kernel analysis is necessary but not sufficient for understanding the layer-level positional kernel (Remark~\ref{rem:multi-head}). The output projection $W^O$ mixes heads in a content-dependent way, and the layer-level kernel after $W^O$ may not decompose cleanly.
+\end{itemize}
+
+\paragraph{Predicted failure (conjectural but mechanistically grounded).}
+\begin{itemize}
+    \item \textbf{Deep layers and entanglement:} The most critical limitation is developed in Section~\ref{sec:residual-mlp}: residuals propagate cross-terms from prior layers and MLPs create new ones via nonlinearity. The product kernel decomposition $K_\ell \approx k_{\text{content}} \cdot k_{\text{pos}}$ is most precise at early layers (0--2) and \emph{must} fail at depth. Section~\ref{sec:residual-mlp} formalizes this as $K_\ell = k_{\text{content}} \cdot k_{\text{pos}} + \sum_{k=1}^\ell R_k$, where cross-terms $R_k$ accumulate. Experiment~2 is designed to test this prediction by measuring $R^2_{\text{prod}}(\ell)$ decay.
+\end{itemize}
+
+\paragraph{Empirical questions (untested).}
+\begin{itemize}
+    \item \textbf{Scale:} The framework is developed using theoretical analysis and proposed small-model experiments. Experiment~7 (Section~\ref{sec:exp-pretrained}) is designed to test whether findings generalize to pretrained language models at practical scale (Pythia, LLaMA, Mistral), but has not been run. Whether the early-layer kernel structure persists at billion-parameter scale is an open question.
+    \item \textbf{Training dynamics and initialization:} The framework characterizes the structure of \emph{trained} models, but does not address when during training this structure emerges. Bietti et al.\ \cite{bietti2024spectral} show that early in training, attention behaves like content-addressed memory with weak positional structure, suggesting that the positional kernel decomposition may form gradually rather than existing from initialization. If positional structure only crystallizes late in training, the framework's predictions about early-layer kernels may not hold at initialization or during early training phases. This raises the question: does the shift-invariant positional kernel exist because of the architectural inductive bias (LayerNorm + PEs), or does it emerge through learning? Experiment~1 on trained models cannot distinguish these hypotheses.
+\end{itemize}
+
+\section{Experimental Validation of the Unified Kernel Framework}
+\label{sec:experiments}
+
+\textbf{Note:} The experiments described in this section are \emph{proposed protocols}, not completed work. All results, predictions, and falsification criteria are stated prospectively. The experiments are designed to be implemented as future work to empirically test the framework's theoretical claims.
+
+The preceding sections establish both when the framework should work (Sections~\ref{sec:ln}--\ref{sec:synthesis}: early layers, relative PEs) and WHY it must fail (Section~\ref{sec:residual-mlp}: residuals/MLPs create necessary entanglement). This section proposes experiments designed to:
+\begin{enumerate}
+    \item \textbf{Validate the framework where it should hold:} Test that queries/keys implement Fourier features for shift-invariant positional kernels at early layers (Experiments 1, 3, 4).
+    \item \textbf{Test predictions about entanglement:} Measure whether $R^2_{\text{prod}}$ decays with depth as predicted (Experiment 2), and whether causal masking creates boundary effects (Experiment 6).
+    \item \textbf{Verify architectural predictions:} Compare LayerNorm vs. RMSNorm, RoPE vs. absolute PEs (Experiments 2, 3, 7).
+    \item \textbf{Scale verification:} Test whether findings generalize to pretrained language models (Experiment 7).
+\end{enumerate}
+
+\paragraph{What success and failure would mean.}
+\emph{Success} in Experiments 1, 3, 4 would mean that Propositions~\ref{prop:ln-geometry}, \ref{prop:rmsnorm-geometry}, \ref{prop:discrete-bochner}, and \ref{prop:approx-shift-invariance} are empirically verified: LayerNorm constrains representations to a centered sphere; queries/keys form Fourier features with spectra aligned to the PE's frequency structure; and the positional kernel is approximately shift-invariant at early layers. \emph{Failure} would mean these geometric/spectral signatures do not emerge even at early layers, falsifying the approximation. For Experiment 2 (product kernel), \emph{success} means $R^2_{\text{prod}}(\ell)$ is high at early layers and decays predictably with depth, confirming Section~\ref{sec:residual-mlp}'s entanglement mechanism. \emph{Failure} would mean either (a) the product kernel fails even at layer 0, invalidating the entire framework, or (b) $R^2_{\text{prod}}$ does not decay, contradicting the predicted role of residuals/MLPs. For Experiment 6 (causal masking), \emph{success} confirms Proposition~\ref{prop:causal-mask}'s boundary-effect prediction; \emph{failure} would suggest causal masking does not disrupt stationarity as predicted. Experiment 7 (pretrained models) tests whether \emph{any} of these findings generalize to scale; failure here would relegate the framework to a small-model curiosity.
+
+Each experiment below includes explicit falsification criteria: outcomes that would directly undermine the framework's predictions.
+
+\subsection{Experiment 1: Estimating the Positional Kernel From Queries and Keys}
+\label{sec:exp-pos-kernel}
+
+\paragraph{Goal.}
+Empirically recover the positional kernel implemented by queries/keys and test whether it is approximately a function of the relative offset \(\Delta = i - j\) only (shift-invariant), with a spectrum aligned to the underlying positional encoding frequencies.
+
+\paragraph{Models.}
+We train small Transformer models (2--6 layers, moderate hidden size) on either a simple language modeling task or synthetic sequence tasks, under several positional encoding (PE) and normalization configurations:
+\begin{itemize}
+    \item sinusoidal absolute PEs with LayerNorm,
+    \item rotary position embeddings (RoPE) with LayerNorm,
+    \item learned absolute PEs with LayerNorm,
+    \item RMSNorm variants of the above (replacing LayerNorm with RMSNorm \cite{zhang2019rmsnorm}),
+    \item no-PE baselines (no positional encoding, with LayerNorm),
+    \item control variants with LayerNorm/RMSNorm removed entirely.
+\end{itemize}
+Where possible, we supplement small trained-from-scratch models with pretrained medium-scale models (e.g., Pythia 160M/410M, small LLaMA variants) to assess whether findings generalize beyond small-scale settings (see also Experiment~7).
+
+\paragraph{Protocol.}
+For each trained model, layer \(\ell\), and attention head \(h\):
+
+\begin{enumerate}
+    \item Feed in probe sequences where content is held simple or fixed (e.g., a constant token sequence, or a short repeated pattern) to minimize content variation \cite{belinkov2022probing,geiger2021causal}. \emph{Caveat:} Probe sequences may not reflect the distribution of activations under natural text, and interventions on simplified inputs may not generalize to realistic distributions. We therefore supplement probe-based estimates with averages over natural data (step~5), and report the agreement between probe-based and natural-text-based kernel estimates as a diagnostic of generalization.
+    \item Extract the queries and keys as functions of position:
+    \[
+      q_{\ell,h}(t), \quad k_{\ell,h}(t), \quad t = 1,\dots,T.
+    \]
+    \item Remove residual content structure by subtracting the per-position mean over a second pass of natural data and optionally whitening the resulting vectors. Concretely,
+    \[
+      \tilde{q}_{\ell,h}(t) = q_{\ell,h}(t) - \mathbb{E}_x[q_{\ell,h}^{(x)}(t)], \quad
+      \tilde{k}_{\ell,h}(t) = k_{\ell,h}(t) - \mathbb{E}_x[k_{\ell,h}^{(x)}(t)],
+    \]
+    and we work with \((\tilde{q}, \tilde{k})\) henceforth. \emph{Important control:} Centering and whitening could artifactually induce stationarity by removing genuine absolute-position-dependent structure \cite{kornblith2019similarity}. We therefore report all results \emph{both} with and without the centering/whitening step, and flag any cases where stationarity appears only after whitening as potentially artifactual.
+    \item Form the positional Gram matrix
+    \[
+      G_{QK}(t,s) = \langle \tilde{q}_{\ell,h}(t), \tilde{k}_{\ell,h}(s) \rangle.
+    \]
+    \item Repeat for multiple random content sequences (each whitened as above) and average:
+    \[
+      \bar{G}_{QK}(t,s) = \mathbb{E}_x \left[ \langle \tilde{q}_{\ell,h}^{(x)}(t), \tilde{k}_{\ell,h}^{(x)}(s) \rangle \right],
+    \]
+    to obtain an estimate that largely reflects positional effects.
+    \item Fit a 1D function \(g(\Delta)\) such that
+    \[
+      g(\Delta) \approx \bar{G}_{QK}(t, t + \Delta)
+    \]
+    in the least-squares sense over all valid \((t, \Delta)\). We then compute the variance in \(\bar{G}_{QK}\) explained by this fit (e.g., \(R^2\)).
+\end{enumerate}
+
+\paragraph{Spectral analysis.}
+Given the estimated kernel \(g(\Delta)\), we compute its discrete Fourier transform \(\hat{g}(\omega)\) across \(\Delta\), and compare the locations and magnitudes of spectral peaks to:
+\begin{itemize}
+    \item the analytically chosen frequencies in sinusoidal PEs,
+    \item the effective spectrum of learned absolute positional embeddings (via separate analysis),
+    \item the implicit frequencies of RoPE (i.e., the blockwise rotation rates).
+\end{itemize}
+
+\paragraph{Evidence targeted.}
+If the unified framework is correct, we should find that:
+\begin{itemize}
+    \item For sinusoidal and RoPE models with LayerNorm, \(\bar{G}_{QK}(t,s)\) is well-approximated by a stationary kernel \(g(i-j)\), with high explained variance and minimal dependence on absolute positions.
+    \item The spectrum \(\hat{g}(\omega)\) exhibits clear peaks at (or aligned with) the PE frequencies.
+    \item For learned absolute PEs, deeper layers exhibit emergent approximate shift-invariance with a spectrum that resembles a restricted sinusoidal basis.
+    \item Removing or degrading LayerNorm substantially reduces stationarity and spectral coherence.
+\end{itemize}
+Conversely, if \(R^2\) remains low even after centering/whitening, or if the recovered spectra do not align with either the hand-crafted frequencies or the implicit RoPE rotation rates, that would directly falsify the claim that LayerNorm+PEs implement an explicit shift-invariant positional kernel.
+
+\subsection{Experiment 2: Testing a Product Kernel Decomposition of Attention}
+\label{sec:exp-product-kernel}
+
+\paragraph{Goal.}
+Demonstrate that attention logits can be quantitatively decomposed into a product (or controlled combination) of a content kernel and the positional kernel \(g(\Delta)\) estimated in Experiment~\ref{sec:exp-pos-kernel}. \emph{Note:} While Experiment~\ref{sec:exp-ln-ablation} tests whether LayerNorm is causally responsible for the kernel structure (a more foundational question), we present the product kernel test first because the ablation experiment re-uses this protocol as a diagnostic. The logical dependency is: Experiments 1--2 establish measurement protocols, Experiment 3 uses those protocols to test causal mechanisms.
+
+\paragraph{Protocol.}
+For each layer \(\ell\) and head \(h\), on a held-out set of natural sequences:
+
+\begin{enumerate}
+    \item Record the true pre-softmax attention logits \(A_{\ell,h}(i,j)\) for all token pairs \((i,j)\).
+    \item Use the previously estimated positional kernel \(g(\Delta)\) from Section~\ref{sec:exp-pos-kernel}.
+    \item Construct a layer-specific content kernel \(k_{\text{content}}^{(\ell)}(i,j)\) using a \emph{deliberately simplified} definition that we expect to fail at depth. We define:
+    \[
+      k_{\text{content}}^{(\ell)}(i,j) = f(\text{TokenID}_i, \text{TokenID}_j),
+    \]
+    where $f$ is a learned similarity function over token identities (e.g., embedding cosine similarity, or a simple indicator function for token match). \textbf{Methodological note:} This definition deliberately ignores the content-position entanglement that Section~\ref{sec:residual-mlp} predicts accumulates with depth. At early layers (0--2), where content and position are independently initialized, this token-identity approximation is justified. At deeper layers, we \emph{know} this definition is incomplete---content has absorbed positional information and context from prior layers. The experiment's goal is not to assume separability holds, but to \emph{quantify where and how it breaks down} by measuring $R^2_{\text{prod}}$ degradation. Low $R^2_{\text{prod}}$ at depth indicates that our simplified content definition no longer captures the true content similarity structure, revealing the extent of entanglement. This "test with a tool we expect to break" approach provides a quantitative diagnostic of when the separability assumption fails.
+    \item Fit parametric models of increasing complexity, such as:
+    \[
+      A_{\text{pos}}(i,j) = \alpha_0\, g(i-j) + \beta_0,
+    \]
+    \[
+      A_{\text{content}}(i,j) = \alpha_1\, k_{\text{content}}(i,j) + \beta_1,
+    \]
+    \[
+      A_{\text{prod}}(i,j) = \alpha_2\, k_{\text{content}}(i,j)\,g(i-j) + \beta_2,
+    \]
+    where \(\alpha_{\cdot}, \beta_{\cdot}\) are scalar parameters learned by regression on the observed logits \(A_{\ell,h}(i,j)\).
+    \item Fit a flexible linear baseline that is agnostic to separability, e.g.,
+    \[
+      A_{\text{free}}(i,j) = \sum_{m} \theta_m f_m(i,j),
+    \]
+    where \(f_m\) spans a dictionary of relative-position indicators and content similarity bins. This serves as an upper bound on attainable \(R^2\).
+\end{enumerate}
+
+\paragraph{Cross-term structure analysis.}
+After fitting the product kernel model, we analyze the residual $r(i,j) = A(i,j) - A_{\text{prod}}(i,j)$ to characterize content-position entanglement structure, testing the hypotheses developed in Section~\ref{subsec:entanglement-structure}. This analysis consists of four complementary tests:
+
+\begin{enumerate}
+    \item \textbf{Unstructured noise test:} Compute the effective rank of the residual matrix $R = [r(i,j)]$ using SVD. If $R$ is full-rank with flat singular value spectrum, cross-terms are unstructured noise (null hypothesis). Concentrated singular values indicate structured entanglement.
+
+    \item \textbf{Conditional kernel test:} Cluster tokens by linguistic category (nouns, verbs, pronouns via POS tagging \cite{manning2014stanford}) and test whether $r(i,j) \approx f(\text{class}(x_i), \text{class}(x_j), i-j)$. Fit separate positional kernels per content-class pair and measure whether class-conditional models explain significantly more variance than the class-agnostic baseline \cite{voita2019headpruning}. This tests whether entanglement takes the form of content-modulated positional offsets.
+
+    \item \textbf{Low-rank manifold test:} Perform truncated SVD $r(i,j) \approx \sum_{k=1}^K u_k(i) v_k(j)$ with varying rank $K$. If $K \ll \min(T, T)$ achieves high reconstruction $R^2$, cross-terms lie on a low-dimensional manifold \cite{park2024geometry}. Apply sparse autoencoders (SAEs) \cite{bricken2023monosemanticity,templeton2024sae} to residual activations to test whether latent SAE features correspond to interpretable content-position interactions (e.g., "attend to previous noun").
+
+    \item \textbf{Absolute position leakage test:} Regress $r(i,j)$ on absolute position features ($i$, $j$ individually, plus polynomials and indicators) to detect whether models learn absolute-position structure despite relative PEs \cite{haviv2022nopos,kazemnejad2024lengthgen}. Significant absolute-position dependence would indicate that relative PEs do not fully eliminate position-in-sequence signals.
+\end{enumerate}
+
+Finally, we report cross-term magnitude $\|r\|_F / \|A\|_F$ by layer depth to test whether content--position entanglement accumulates as Section~\ref{sec:residual-mlp} predicts.
+
+\paragraph{Evaluation.}
+For each head, we measure:
+\begin{itemize}
+    \item the fraction of variance in \(A_{\ell,h}(i,j)\) explained by the positional-only model \(A_{\text{pos}}\),
+    \item the fraction explained by the content-only model \(A_{\text{content}}\),
+    \item the fraction explained by the product model \(A_{\text{prod}}\).
+\end{itemize}
+We then cluster heads into ``positional'', ``content'', and ``mixed'' categories based on which model best explains their logits and report the performance gap \(R^2_{\text{prod}} - R^2_{\text{free}}\) as a measure of how accurate the separable approximation is.
+
+\paragraph{Evidence targeted.}
+Under the unified framework, we expect that:
+\begin{itemize}
+    \item Many heads (especially early-layer or ``structural'' heads) will be well captured by the positional-only or product models.
+    \item The positional kernel \(g(\Delta)\) estimated from Q/K alone in Experiment~\ref{sec:exp-pos-kernel} will \emph{also} explain the positional structure in the attention logits, validating a single coherent kernel across Q/K and attention.
+\end{itemize}
+If \(R^2_{\text{prod}}\) falls far short of \(R^2_{\text{free}}\) for most heads, that would indicate strong, irreducible content--position interactions and would falsify the separable-kernel hypothesis for those layers.
+
+\subsection{Experiment 3: Causal Role of LayerNorm}
+\label{sec:exp-ln-ablation}
+
+\paragraph{Goal.}
+Show that LayerNorm is causally responsible for the clean, shift-invariant kernel structure and Fourier interpretation, rather than being a benign implementation detail.
+
+\paragraph{Design.}
+Using the same small-Transformer architectures and tasks as in Experiment~\ref{sec:exp-pos-kernel}, we train variants in a factorial design crossing \emph{normalization} (LayerNorm, RMSNorm, no normalization, global rescaling) with \emph{positional encoding} (RoPE, sinusoidal absolute PEs), matching initialization, optimizer schedule, and training budget:
+
+\begin{enumerate}
+    \item Standard pre-LayerNorm architecture (baseline) with both RoPE and absolute PE variants.
+    \item Identical architecture but with the LayerNorm directly preceding attention \emph{removed}.
+    \item Identical architecture but with the same LayerNorm replaced by a simpler global rescaling (e.g., a scalar norm constraint not computed per token across features).
+    \item Identical architecture with \textbf{RMSNorm} \cite{zhang2019rmsnorm} replacing LayerNorm. This tests whether the centering (zero-mean) constraint of LayerNorm---which restricts representations to $\{\mathbf{1}\}^\perp$ (Proposition~\ref{prop:ln-geometry})---is specifically necessary, or whether magnitude normalization alone (Proposition~\ref{prop:rmsnorm-geometry}) suffices to induce the kernel structure.
+\end{enumerate}
+
+Crucially, we compare \textbf{RoPE vs. absolute PEs} under each normalization condition. Proposition~\ref{prop:approx-shift-invariance}(a) guarantees exact shift-invariance for RoPE, while part (b) predicts approximate shift-invariance with bounded cross-term error for absolute PEs. This ablation isolates the PE contribution to shift-invariance from the normalization contribution.
+
+For each variant, we re-run Experiments~\ref{sec:exp-pos-kernel} and~\ref{sec:exp-product-kernel}, and compare:
+
+\begin{itemize}
+    \item the degree of shift-invariance of the recovered positional Gram matrices \(\bar{G}_{QK}\),
+    \item the spectral concentration and alignment with the underlying PE frequencies,
+    \item the fraction of attention-logit variance explained by the product kernel model.
+\end{itemize}
+
+\paragraph{Evidence targeted.}
+The factorial design tests two orthogonal hypotheses:
+
+\paragraph{Normalization effects:}
+\begin{itemize}
+    \item With full LayerNorm, the positional kernel \(g(\Delta)\) is highly shift-invariant and spectrally aligned with the PE scheme, and the product kernel approximation to attention is strong.
+    \item Removing or weakening LayerNorm substantially degrades these properties: \(\bar{G}_{QK}\) becomes less stationary in \(i-j\), its spectrum becomes broader or noisier, and the product kernel model explains less of the attention behavior.
+    \item For \textbf{RMSNorm} models, we expect intermediate behavior: representations are still constrained to a sphere (preserving the importance of direction), but the absence of centering may allow a larger DC component in the positional kernel, reducing the sharpness of spectral peaks. If RMSNorm produces kernel structure indistinguishable from LayerNorm, that would indicate that \emph{magnitude normalization} (not centering) is the key geometric ingredient.
+\end{itemize}
+
+\paragraph{Positional encoding effects:}
+\begin{itemize}
+    \item \textbf{RoPE models} should show exact shift-invariance of the positional term ($R^2 \approx 1$ for fitting $g(i-j)$) regardless of normalization, confirming Proposition~\ref{prop:approx-shift-invariance}(a)'s architectural guarantee.
+    \item \textbf{Absolute PE models} should show lower shift-invariance ($R^2 < 1$) with measurable cross-term residuals, confirming Proposition~\ref{prop:approx-shift-invariance}(b)'s prediction. The magnitude of cross-terms should correlate with the LayerNorm projection bound.
+    \item If absolute PEs achieve comparable shift-invariance to RoPE even without LayerNorm, this would suggest the cross-term bound in Proposition~\ref{prop:approx-shift-invariance}(b) is overly pessimistic, or that learned projections $W_Q, W_K$ actively suppress cross-terms.
+\end{itemize}
+
+If the LN-ablated models nonetheless produce highly stationary \(g(\Delta)\) with spectra aligned to the PE basis, that would falsify the claim that per-token normalization is causally necessary; the failure case is as informative as the success case.
+
+\subsection{Experiment 4: Spectral Interventions and Predictive Power}
+\label{sec:exp-spectral-intervention}
+
+\paragraph{Goal.}
+Demonstrate that once the positional kernel and its spectrum have been identified, one can \emph{predict} the effects of spectral manipulations on model behavior, confirming that the Fourier/kernel interpretation has causal and not just descriptive power.
+
+\paragraph{Design.}
+Given a trained model and, for some head, an estimated positional kernel \(g(\Delta)\) and its spectrum \(\hat{g}(\omega)\):
+
+\begin{enumerate}
+    \item Define linear operators on the positional subspace of Q/K by diagonalizing the Toeplitz approximation \(\hat{g}(\Delta)\) (equivalently, working in the discrete Fourier basis). Use that basis to implement:
+    \begin{itemize}
+        \item low-pass filtering (dampen high frequencies in \(\hat{g}(\omega)\)),
+        \item high-pass filtering (dampen low frequencies),
+        \item band-specific amplification (boost a selected frequency band).
+    \end{itemize}
+    Because the positional Gram matrix of a stationary kernel is diagonalized by the DFT, these interventions are equivalent to rescaling specific eigencomponents.
+    \item Insert the corresponding operator \(T\) at inference time in the computation of Q/K (or fine-tune with \(T\) fixed), without modifying the rest of the network.
+    \item Measure the impact on:
+    \begin{itemize}
+        \item attention patterns as a function of distance \(|i-j|\),
+        \item performance on:
+        \begin{itemize}
+            \item in-distribution sequence lengths,
+            \item substantially longer sequences (length extrapolation \cite{press2022train,kazemnejad2024lengthgen}),
+            \item synthetic tasks that stress local vs.\ global positional sensitivity (e.g., bracket matching, local reordering).
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+
+\paragraph{Evidence targeted.}
+Kernel theory suggests that:
+\begin{itemize}
+    \item low-pass filtering should yield smoother, more global positional kernels, improving long-range stability but potentially harming tasks that require fine local resolution;
+    \item high-pass filtering should sharpen local positional discrimination but can harm extrapolation and long-range generalization.
+\end{itemize}
+If the empirical behavior under these interventions matches such predictions, it provides strong evidence that the learned positional structure truly behaves like a Fourier-parameterized shift-invariant kernel. Conversely, if rescaling a supposedly irrelevant frequency band still produces large, unpredictable changes—or if the measured effects contradict the low-/high-pass expectations—that would demonstrate the limitations of the Fourier-kernel picture.
+
+\subsection{Experiment 5: Ground-Truth Kernel Recovery on Synthetic Tasks}
+\label{sec:exp-synthetic-kernel}
+
+\paragraph{Rationale for placement.}
+Experiments 1--4 apply the measurement protocols to trained models on natural or semi-natural tasks, where ground truth is unknown. Before scaling to pretrained models (Experiment 7), we validate the measurement methodology itself on a synthetic task with known ground-truth kernel. This experiment could logically appear first as a proof-of-concept, but we place it here because: (1) it reuses the measurement protocol from Experiment 1, which must be defined first; (2) methodological validation is most compelling \emph{after} demonstrating the framework applies to realistic models; and (3) it serves as a bridge between small-model experiments (1--4) and large-scale verification (7), establishing that the framework can recover known structure when it exists.
+
+\paragraph{Goal.}
+Show that when the ground-truth solution to a task is a convolution with a known shift-invariant kernel on positions, a minimal Transformer with LayerNorm and positional encodings learns exactly that kernel in its Q/K positional structure, as predicted by the unified framework.
+
+\paragraph{Task.}
+We construct a simple 1D convolutional task:
+\begin{itemize}
+    \item Inputs: sequences of real-valued scalars \(x_t\).
+    \item Targets: \(y_t = \sum_{\Delta} w(\Delta)\,x_{t-\Delta}\), where \(w(\Delta)\) is a fixed, known kernel (e.g., a discrete Gaussian, triangular, or box kernel).
+\end{itemize}
+
+\paragraph{Model.}
+We use a minimal attention-only Transformer:
+\begin{itemize}
+    \item one or two self-attention layers,
+    \item no MLP blocks (or very small ones),
+    \item LayerNorm and sinusoidal or RoPE positional encodings,
+    \item trained end-to-end to minimize the error \(\|y - \hat{y}\|\).
+\end{itemize}
+
+\paragraph{Analysis.}
+After training, we:
+
+\begin{enumerate}
+    \item Estimate the positional kernel \(g(\Delta)\) from Q/K as in Experiment~\ref{sec:exp-pos-kernel}.
+    \item Compare \(g(\Delta)\) to the ground-truth kernel \(w(\Delta)\) in:
+    \begin{itemize}
+        \item \(\ell_2\) distance,
+        \item correlation across \(\Delta\),
+        \item spectral similarity (Fourier spectra).
+    \end{itemize}
+    \item Train control models without LayerNorm or with scrambled positional encodings, and repeat the analysis.
+\end{enumerate}
+
+\paragraph{Evidence targeted.}
+If the unified kernel framework is valid, then:
+\begin{itemize}
+    \item the learned Q/K positional kernel \(g(\Delta)\) should closely match the known \(w(\Delta)\), both in shape and spectrum, in the presence of LayerNorm and structured PEs;
+    \item control models should show significantly poorer recovery of \(w(\Delta)\), or lack a clean shift-invariant positional kernel altogether.
+\end{itemize}
+Failure to recover \(w(\Delta)\) in the LayerNorm baseline—despite the task being solvable by a convolution—would directly undercut the central claim.
+
+\subsection{Experiment 6: Effect of Causal Masking on Positional Kernel Stationarity}
+\label{sec:exp-causal-mask}
+
+\paragraph{Goal.}
+Quantify how causal masking breaks stationarity of the positional kernel and test Proposition~\ref{prop:causal-mask}'s prediction that approximate stationarity is recovered for tokens far from the sequence boundary.
+
+\paragraph{Design.}
+\begin{enumerate}
+    \item Train matched bidirectional (encoder) and autoregressive (decoder) models with identical architectures, PE schemes, and training data (differing only in masking).
+    \item For the decoder model, estimate the positional kernel $\bar{G}_{QK}(t,s)$ restricted to $s \leq t$ (the causal region).
+    \item For each query position $t$, compute the shift-invariance quality $R^2(t)$: fit $g_t(\Delta) \approx \bar{G}_{QK}(t, t-\Delta)$ for $\Delta = 0, \ldots, t-1$ and measure explained variance.
+    \item Plot $R^2(t)$ as a function of $t$ across the sequence.
+    \item Compare with the bidirectional model where the full Gram matrix is available (expected to show uniformly high $R^2$).
+\end{enumerate}
+
+\paragraph{Evidence targeted.}
+Proposition~\ref{prop:causal-mask} predicts that $R^2(t)$ should be low for small $t$ (boundary effects from the asymmetric normalization) and converge to a high value as $t$ increases. The convergence rate should depend on the decay rate of the positional kernel: sharply decaying kernels (local attention) should recover stationarity faster than slowly decaying ones (global attention). If $R^2(t)$ remains low even for large $t$, or if the bidirectional model also shows low stationarity, that would indicate the framework's stationarity predictions are incorrect.
+
+\subsection{Experiment 7: Verification on Pretrained Language Models}
+\label{sec:exp-pretrained}
+
+\paragraph{Goal.}
+Test whether the kernel framework's predictions hold in models of practical scale, beyond the small trained-from-scratch models used in Experiments~1--6.
+
+\paragraph{Models.}
+We apply the analysis protocols to publicly available pretrained models with shift-invariant positional encodings:
+\begin{itemize}
+    \item Pythia (160M, 410M, 1B) \cite{biderman2023pythia}: RoPE, LayerNorm.
+    \item LLaMA-family models (7B, 13B, if accessible): RoPE, RMSNorm.
+    \item Mistral (7B, if accessible): RoPE, RMSNorm.
+\end{itemize}
+This provides a natural test of the framework across normalization variants (LayerNorm vs. RMSNorm) and model scale, while holding the positional encoding scheme constant (RoPE). Note that GPT-2 (absolute PEs) is excluded from the primary analysis, as its positional structure violates the shift-invariance assumption central to the framework (Section~3.2). GPT-2 may be analyzed separately as a negative control to quantify approximation error under absolute PEs, but cannot be meaningfully compared with RoPE models for entanglement dynamics.
+
+\paragraph{Protocol.}
+Apply the Experiment~\ref{sec:exp-pos-kernel} protocol (positional kernel estimation) and Experiment~\ref{sec:exp-product-kernel} protocol (product kernel fit) to selected layers and heads of each pretrained model. For all decoder models, also apply the Experiment~\ref{sec:exp-causal-mask} protocol to assess boundary effects.
+
+\paragraph{Evidence targeted.}
+If the framework generalizes:
+\begin{itemize}
+    \item RoPE-based models (Pythia, LLaMA, Mistral) should show high shift-invariance $R^2$ even at scale, since RoPE guarantees exact shift-invariance of the positional term (Proposition~\ref{prop:approx-shift-invariance}(a)).
+    \item Product kernel $R^2_{\text{prod}}$ should remain high at early layers (0--2) and decay predictably with depth across all models, confirming Section~\ref{sec:residual-mlp}'s entanglement predictions.
+    \item Comparing LayerNorm models (Pythia) vs.\ RMSNorm models (LLaMA, Mistral) at scale tests whether the normalization predictions from Experiment~3 hold beyond small models. If RMSNorm shows comparable kernel structure to LayerNorm, magnitude normalization (not centering) is the key ingredient.
+    \item Cross-architecture consistency: if entanglement dynamics (rate of $R^2_{\text{prod}}$ decay, cross-term structure) are similar across Pythia vs.\ LLaMA, this suggests entanglement is an architectural inevitability rather than model-specific learned behavior.
+\end{itemize}
+Failure to observe high shift-invariance in RoPE models at scale---despite the architectural guarantee---would constitute strong evidence against the framework's practical relevance. Similarly, if $R^2_{\text{prod}}$ does not decay with depth, or if normalization choice has no effect, the framework's predictions about entanglement and geometric constraints would be falsified.
+
+\medskip
+\noindent
+Collectively, Experiments~\ref{sec:exp-pos-kernel}--\ref{sec:exp-pretrained} are designed to establish---\emph{conditional on the predicted outcomes materializing}---that (i)~LayerNorm and positional encodings induce an approximately shift-invariant positional kernel in Q/K, (ii)~attention behaves as an approximate kernel machine over content and position, (iii)~this structure has predictive power under spectral interventions, (iv)~causal masking introduces predictable boundary effects, and (v)~these findings generalize to pretrained models at practical scale. Any systematic deviations uncovered by these experiments would pinpoint exactly which link in the argument fails.
+
+\section{Implications for Mechanistic Interpretability and Circuit Analysis}
+\label{sec:circuits-implications}
+
+\textbf{Note:} This section is \emph{interpretive} and dependent on Experiment~2's empirical outcomes (Section~\ref{sec:exp-product-kernel}). The predictions here rest on untested assumptions about entanglement accumulation and product kernel degradation at depth. If Experiment~2 finds that $R^2_{\text{prod}}$ remains high even at deeper layers, or if the cross-term structure differs from the predictions in Section~\ref{sec:residual-mlp}, the arguments below would need substantial revision. We present these implications provisionally to clarify what would follow \emph{if} the framework's predictions hold, and to guide the design of falsifying experiments.
+
+This section explores what the kernel framework implies for mechanistic interpretability research \cite{elhage2021framework,olah2020zoom}---the program of reverse-engineering neural network computations into human-interpretable algorithms---with particular focus on when and why the framework's predictions hold or fail. Critically, we argue that the framework's \emph{breakdown} at depth may be as important as its success at early layers, suggesting that traditional circuit analysis may need to be reconsidered for deeper layers where positional and content information are fundamentally entangled.
+
+\subsection{Scope: Where the Product Kernel View Holds and Where It Fails}
+
+The product kernel decomposition $K((x,i),(y,j)) \approx k_{\text{content}}(x,y) \cdot k_{\text{pos}}(i-j)$ holds under specific, restrictive conditions:
+
+\paragraph{Settings where clean separation is predicted to hold:}
+\begin{enumerate}
+    \item \textbf{Early layers (layers 0--2):} Content and position are independently generated from embeddings and PEs. Cross-terms are minimal (Proposition~\ref{prop:approx-shift-invariance}(b)). Empirically, lower layers primarily learn syntactic and local context features \cite{clark2019analyzing,tenney2019bert,jawahar2019bert}, before significant entanglement accumulates.
+    \item \textbf{RoPE-based architectures (with caveats):} Proposition~\ref{prop:approx-shift-invariance}(a) guarantees exact shift-invariance of the \emph{positional term in attention logits} ($Q \cdot K^{\top}$) by construction, regardless of depth. This is an architectural constraint, not an emergent property. However, this does not prevent entanglement in the value vectors or residual stream (see Section~\ref{sec:residual-mlp}). RoPE's effect on interpretability is contested \cite{su2021roformer,peng2024rope,unpacking2025spectral}.
+    \item \textbf{Heads empirically identified as ``positional-dominant'':} Experiment~2 (Section~\ref{sec:exp-product-kernel}) clusters heads by whether $R^2_{\text{pos}} \gg R^2_{\text{content}}$. For such heads, even if content-position are entangled, the positional kernel dominates the attention pattern. Clark et al.\ identify attention heads that specialize in particular positional tasks \cite{clark2019analyzing}.
+    \item \textbf{Probe settings with fixed content:} When content is held constant, the positional kernel can be isolated (Section~\ref{sec:exp-pos-kernel}), but this does not reflect natural text distributions.
+\end{enumerate}
+
+\paragraph{Settings where separation is predicted to fail:}
+\begin{enumerate}
+    \item \textbf{Deep layers (layers $>3$) in absolute-PE models:} Content-position entanglement grows with depth (Section~6.2). The ``content'' at layer $\ell$ is the output of all prior attention operations, which mix position and token identity through residual connections. The positional subspace has rotated away from the original PE basis. Deeper layers increasingly encode semantic features and aggregate distant context \cite{clark2019analyzing}, suggesting complex entanglement. Furthermore, residual stream bandwidth becomes constrained at depth, forcing representations into superposition \cite{elhage2022variables}, which undermines clean separability.
+    \item \textbf{Multi-hop and compositional circuits:} Circuits like IOI (indirect object identification) \cite{wang2023interpretability} or multi-step reasoning involve composition across 4--10 layers. Each layer adds entanglement, compounding the failure of the product decomposition. Wang et al.\ identify 28 attention heads across multiple layers in the IOI circuit, with critical computations distributed across depth.
+    \item \textbf{Multi-head outputs:} Even if individual heads have separable kernels, the output projection $W^O$ mixes heads in a content-dependent way (Remark~\ref{rem:multi-head}), breaking separability at the layer level.
+\end{enumerate}
+
+\subsection{Implications When the Framework Holds: Early Layers and RoPE Models}
+
+In the restricted settings where the product kernel decomposition is accurate, the framework offers concrete tools:
+
+\paragraph{Fourier characterization of positional behavior.}
+Instead of qualitative descriptions (``attends to previous token''), one can measure the positional kernel $k_{\text{pos}}(i-j)$ and compute its Fourier spectrum $\hat{k}(\omega)$. This provides:
+\begin{itemize}
+    \item \textbf{Quantitative precision:} ``This head's positional kernel peaks at $\Delta = -1$ with bandwidth $\sigma = 2$ tokens'' vs.\ ``attends locally.'' Spectral analysis of attention patterns reveals interpretable frequency structure \cite{bietti2024spectral,darcet2024visionfourier}.
+    \item \textbf{Predictive power:} High-frequency kernels predict aliasing under length extrapolation; low-frequency kernels predict smooth generalization (Experiment~4, Section~\ref{sec:exp-spectral-intervention}). Length generalization failures in transformers correlate with spectral properties of positional encodings \cite{kazemnejad2024lengthgen}.
+    \item \textbf{Architecture-invariant description:} The Fourier spectrum is a property of the function $k(\Delta)$, not the specific weight matrices, making comparisons across models more principled.
+\end{itemize}
+
+\paragraph{Mechanistic insight for RoPE-based models.}
+For RoPE architectures (Pythia, LLaMA, modern LLMs), the positional term in attention logits ($Q \cdot K^{\top}$) is \emph{guaranteed} to be shift-invariant at all layers by construction (Proposition~\ref{prop:approx-shift-invariance}(a)). This provides a foundation for analysis:
+\begin{itemize}
+    \item The \emph{effective positional kernel} $\bar{k}_{\text{pos}}(\Delta)$ (averaged over content) can be analyzed via spectral decomposition at any depth.
+    \item Fourier analysis of positional biases remains well-defined even when the residual stream is highly entangled (Section~\ref{sec:residual-mlp}).
+    \item Whether this architectural guarantee translates to cleaner circuit interpretability remains an open empirical question. \textbf{The RoPE trade-off:} On one hand, shift-invariance guarantees simplify per-head positional kernel analysis at any depth. On the other hand, Wu et al.\ \cite{unpacking2025spectral} show RoPE may concentrate positional processing into specialized heads, potentially obscuring distributed computation across the layer. Thus RoPE may simultaneously make individual heads more interpretable (via guaranteed shift-invariance) while making layer-level computation harder to understand (via specialization and concentration). The framework predicts systematic differences between RoPE and absolute-PE circuits in both per-head structure and cross-head composition, testable via Experiment~7 (Section~\ref{sec:exp-pretrained}).
+\end{itemize}
+
+\paragraph{Identification of ``structural'' vs.\ ``semantic'' heads.}
+Experiment~2's clustering distinguishes heads by their $R^2_{\text{pos}}$, $R^2_{\text{content}}$, $R^2_{\text{prod}}$ values. Heads with high $R^2_{\text{pos}}$ implement primarily positional computations (previous-token attention, fixed-offset copying), while those with high $R^2_{\text{content}}$ implement semantic matching. This provides an empirical taxonomy grounded in the kernel decomposition, complementing existing head classification schemes based on attention patterns \cite{clark2019analyzing,voita2019headpruning}.
+
+\subsection{Implications When the Framework Fails: Rethinking Circuits at Depth}
+
+The breakdown of the product kernel decomposition at deep layers raises a more fundamental question: \textbf{What form do circuits take when content and position are entangled?}
+
+\paragraph{Traditional circuit descriptions assume separability.}
+Circuit analysis (e.g., induction heads \cite{olsson2022induction}, IOI \cite{wang2023interpretability}) typically describes heads as implementing isolable sub-computations (``this head copies,'' ``this head detects duplicates'') that compose algorithmically. This implicitly assumes the product kernel holds: positional and content operations can be analyzed independently.
+
+\paragraph{The kernel framework predicts entangled circuits at depth.}
+Our framework predicts that at deep layers in absolute-PE models, circuits operate on \emph{entangled} representations where content and position are inseparable:
+\begin{enumerate}
+    \item \textbf{Distributed positional encoding:} The positional signal is distributed across all $d$ dimensions, entangled with content. This aligns with theories of superposition \cite{elhage2023superposition}, where networks compress numerous features into confined neuron space, with features corresponding to directions rather than individual neurons.
+    \item \textbf{Content-dependent positional computation:} Every head operates on representations that already encode position-dependent content features. The distinction between ``positional head'' and ``content head'' breaks down---heads perform \emph{joint} content-position operations. This extends polysemanticity \cite{bereska2024mechinterp} from semantic concepts to the position-content dimension.
+    \item \textbf{Position as a continuous field:} Rather than ``the position is encoded in dimensions 0--511,'' position may be encoded as a \emph{smooth deformation of the content manifold}, more like a spatially varying filter than a separable feature. Recent work identifies wavelet-like multi-resolution processing in RoPE transformers \cite{wavelets2024}, suggesting positional information may take complex, distributed forms even with structured PEs.
+\end{enumerate}
+
+This does not mean \textbf{circuits fail at depth}---it means circuits must be described differently. Instead of separable positional and content operations, deep-layer circuits may implement:
+\begin{itemize}
+    \item \textbf{Conditional positional kernels:} ``This head attends to position $\Delta = -1$ \emph{if} the query is a pronoun and the key is a noun, but $\Delta = -5$ if both are verbs.'' This is a circuit, but not a separable one.
+    \item \textbf{Content-modulated position encoding:} Position encoded as a smooth transformation of content space, where different content classes occupy different positional ``trajectories'' through the residual stream.
+    \item \textbf{Algorithmic composition with entangled features:} Layers compose sub-computations, but each sub-computation operates on joint $(x,i)$ features rather than factored content and position.
+\end{itemize}
+
+The question is not ``do circuits exist at depth?'' but ``what mathematical structure do they have?''
+
+\paragraph{Evidence that would distinguish these views.}
+Experiment~2's cross-term analysis (step~6, Section~\ref{sec:exp-product-kernel}) is designed to test this:
+\begin{itemize}
+    \item If residuals $r(i,j) = A(i,j) - A_{\text{prod}}(i,j)$ are small and unstructured, the circuit/product-kernel view holds.
+    \item If residuals are large and show systematic patterns correlated with absolute position or context, the entangled-manifold view is more accurate.
+    \item If residual magnitude grows monotonically with layer depth, it supports the ``entanglement accumulates'' prediction.
+\end{itemize}
+
+\subsection{What This Means for Existing Circuit Research}
+
+\paragraph{Induction heads and early-layer circuits: framework likely applies.}
+Induction heads \cite{olsson2022induction} emerge through composition of attention heads across layers, developing abruptly during training coincident with in-context learning ability. They are typically found in layers 2--5 of GPT-2, at the boundary of where the framework predicts accuracy. For GPT-2 (absolute PEs, autoregressive/decoder), the framework predicts:
+\begin{itemize}
+    \item \textbf{Partial success:} The ``attend to token after previous occurrence'' pattern may be approximately describable as a content kernel (``same token'') modulated by a positional kernel (``offset $\approx +1$ from match location'').
+    \item \textbf{Residual entanglement:} Cross-terms may be non-negligible, requiring the full non-separable kernel $K((x,i),(y,j))$ for accurate description.
+    \item \textbf{Causal masking effects:} As a decoder model, GPT-2's induction heads operate under causal masking (Proposition~\ref{prop:causal-mask}). However, since induction heads typically attend to tokens well into the sequence (not at boundaries), they should experience approximate stationarity. The first few tokens of sequences may show degraded induction behavior due to boundary effects.
+\end{itemize}
+For RoPE-based models, the architectural guarantee (Proposition~\ref{prop:approx-shift-invariance}(a)) ensures the positional component in attention logits remains shift-invariant. However, whether this translates to cleaner circuit descriptions depends on how RoPE affects the residual stream's entanglement dynamics (Section~\ref{sec:residual-mlp})---an open empirical question. All modern large language models are autoregressive decoders, so causal masking boundary effects apply universally.
+
+\paragraph{IOI and deep multi-hop circuits: framework likely fails.}
+The IOI circuit \cite{wang2023interpretability} encompasses 28 attention heads across layers 0--10 in GPT-2 small (autoregressive decoder with absolute PEs), representing the largest reverse-engineering of natural language model behavior. With critical computations distributed across depth, the framework predicts:
+\begin{itemize}
+    \item \textbf{Product decomposition fails:} At layers 7--9, content-position entanglement is severe. The ``positional kernel'' is not shift-invariant or Fourier-parameterizable due to accumulated cross-terms (Section~\ref{sec:residual-mlp}).
+    \item \textbf{Causal masking is irrelevant here:} While GPT-2 is a decoder model, IOI tasks operate on sequences where the indirect object appears mid-sequence, far from the start boundary. By Proposition~\ref{prop:causal-mask}(b), approximate stationarity is recovered for interior tokens, so causal masking is not the limiting factor---depth-induced entanglement is.
+    \item \textbf{Circuit descriptions may be post-hoc:} If position and content are inseparable, describing the circuit as ``name mover head at layer 9 copies the indirect object'' may be a human-interpretable gloss on a more complex, entangled computation. The identification of discrete functional roles (negative name mover heads, S-inhibition heads \cite{mcdougall2024copysuppression}) may reflect coarse-grained descriptions of continuous, distributed operations.
+    \item \textbf{Alternative: distribution-level description:} Instead of identifying discrete mechanisms, one might characterize the \emph{distribution} of attention patterns over content-position jointly, which could still be informative without requiring separability. Activation patching methods \cite{heimersheim2024patching} could quantify entanglement by measuring how positional and content interventions interact.
+\end{itemize}
+
+\paragraph{Replicability and architecture dependence.}
+The framework predicts that circuit findings may not replicate cleanly across architectures due to differences in positional encoding and normalization. However, this prediction is in tension with empirical evidence:
+\begin{itemize}
+    \item \textbf{Framework prediction:} Circuits discovered in GPT-2 (absolute PEs, LayerNorm) may not have direct analogues in LLaMA (RoPE, RMSNorm), since architectural differences span positional encoding, normalization (RMSNorm vs.\ LayerNorm), activation functions (SwiGLU vs.\ GELU), and attention mechanisms (grouped-query attention vs.\ dense) \cite{mukherjee2024gpt2llama}. The framework specifically predicts that RoPE models may exhibit \emph{different} circuit structure at depth due to architectural constraints on positional encoding (Section~\ref{sec:residual-mlp}).
+    \item \textbf{Counterevidence:} Tigges et al.\ \cite{tigges2024circuits} find that circuit structure is remarkably \emph{consistent} across training dynamics and model scale, suggesting that functional decompositions may be more robust to architectural details than the framework predicts. If circuits persist despite architectural changes, this suggests that either (a) the positional encoding scheme has less impact on circuit structure than predicted, or (b) circuits operate at a higher level of abstraction where architectural details wash out.
+    \item \textbf{Reconciliation:} One resolution is that Tigges measures consistency \emph{within} an architecture family (e.g., GPT-2 small vs.\ large), whereas cross-architecture comparisons (GPT-2 vs.\ LLaMA) remain underexplored. Mukherjee et al.\ \cite{mukherjee2024gpt2llama} do find architecture-specific patterns when explicitly comparing GPT-2 and LLaMA variants, and Coroller et al.\ \cite{coroller2024mamba} show qualitative differences in Mamba (a non-Transformer architecture). The extent to which positional encoding alone (holding other architectural choices fixed) affects circuit replicability is an open empirical question that Experiment~7 (Section~\ref{sec:exp-pretrained}) is designed to address.
+\end{itemize}
+
+\subsection{Constructive Proposals: How to Use This Framework in Circuit Analysis}
+
+Despite the limitations, the framework offers actionable guidance:
+
+\paragraph{1. Stratify by layer depth and architecture.}
+\begin{itemize}
+    \item For early-layer circuits, expect and test for product kernel decomposition.
+    \item For deep-layer circuits in absolute-PE models, expect failure; measure cross-term magnitude as a diagnostic.
+    \item For RoPE models, attempt Fourier characterization at any depth.
+\end{itemize}
+
+\paragraph{2. Measure positional kernels directly.}
+For any head in a discovered circuit:
+\begin{itemize}
+    \item Estimate $k_{\text{pos}}(i-j)$ using the Experiment~1 protocol (probe sequences or natural-text averaging).
+    \item Compute the Fourier spectrum $\hat{k}(\omega)$.
+    \item Report shift-invariance $R^2$: how well does $g(\Delta)$ explain $\bar{G}_{QK}(i,j)$?
+    \item If $R^2$ is low, the head does not implement a shift-invariant positional kernel---this is valuable negative evidence.
+\end{itemize}
+
+\paragraph{3. Use spectral interventions for causal validation.}
+If a circuit is claimed to rely on positional offsets (e.g., ``attends $k$ tokens back''):
+\begin{itemize}
+    \item Identify the predicted frequency band in $\hat{k}(\omega)$ corresponding to offset $k$.
+    \item Apply spectral filtering (Experiment~4) to dampen that band.
+    \item If the circuit breaks, this causally validates the positional mechanism. If it doesn't, the positional description is incomplete. This complements activation patching methods \cite{heimersheim2024patching,meng2022locating} with frequency-domain interventions, enabling targeted testing of positional hypotheses.
+\end{itemize}
+
+\paragraph{4. Embrace failure as information.}
+When the product kernel fails (low $R^2_{\text{prod}}$, large cross-terms):
+\begin{itemize}
+    \item This indicates content-position entanglement, which is itself a mechanistic finding.
+    \item Characterize the \emph{structure} of the entanglement: does the residual $r(i,j)$ correlate with specific content features? Does it grow with layer depth?
+    \item This points toward alternative descriptions (position-modulated content manifolds, distributional characterizations). Sparse autoencoders (SAEs) \cite{bricken2023monosemanticity,templeton2024sae} and dictionary learning methods may reveal whether entangled features have interpretable structure.
+\end{itemize}
+
+\subsection{Summary: The Framework as a Diagnostic, Not a Description}
+
+The kernel framework should be viewed as a \textbf{diagnostic tool for assessing when and where separability holds}, not as a universal description of attention. Its value lies in:
+\begin{enumerate}
+    \item \textbf{Predicting where circuits are likely to be modular} (early layers, RoPE models, positional-dominant heads).
+    \item \textbf{Quantifying when modularity breaks down} (cross-term growth with depth).
+    \item \textbf{Offering an alternative lens} for cases where traditional circuit analysis struggles: characterize the positional kernel even when it's not separable from content, or describe attention as kernel smoothing on an entangled manifold. Recent work on dictionary learning \cite{cunningham2024dictlearning} and feature geometry \cite{park2024geometry} provides tools for characterizing such entangled representations.
+    \item \textbf{Highlighting architecture-dependence:} The framework predicts systematic differences between RoPE and absolute-PE models, though whether RoPE is fundamentally more interpretable remains an open empirical question (Section~\ref{sec:residual-mlp}). Empirical comparisons across architectures \cite{mukherjee2024gpt2llama,tigges2024circuits} reveal differences in attention patterns and circuit structure that may reflect architectural properties.
+\end{enumerate}
+
+The most important implication may be negative: \textbf{if the product kernel decomposition fails systematically at depth, this suggests that the ``circuit'' metaphor---with its assumption of modular, composable sub-computations---may not be the correct frame for understanding deep Transformer layers.} Instead, we may need frameworks that embrace entanglement, viewing attention as operating on a joint content-position manifold rather than separable content and positional codes.
+
+\section{Discussion and Limitations}
+
+\subsection{Summary of the Approximate Framework}
+
+This paper connects LayerNorm's spherical geometry (Propositions~\ref{prop:ln-geometry}, \ref{prop:rmsnorm-geometry}), positional encodings as group representations, attention as a kernel machine, and the discrete Herglotz theorem (Proposition~\ref{prop:discrete-bochner}) into a unified approximate framework. The central claim is that under relative positional encodings (RoPE, Shaw-style biases) and LayerNorm, the positional component of Transformer attention implements an approximately shift-invariant kernel via finite-dimensional Fourier features (Proposition~\ref{prop:approx-shift-invariance}). The approximation is exact for the positional term under RoPE/Shaw (part (a)), approximate with bounded error under absolute sinusoidal PEs (part (b)), and requires post-softmax interpretation for ALiBi (Proposition~\ref{prop:alibi-pd}). Causal masking introduces boundary effects (Proposition~\ref{prop:causal-mask}) that break stationarity near sequence starts but recover approximate stationarity in the interior.
+
+\subsection{Relationship to Prior Work}
+
+This is a synthesis, not a discovery of new primitives. Each component---LayerNorm geometry \cite{ba2016layer}, positional encodings as group representations \cite{vaswani2017attention,su2021roformer,lim2024positional,kogkalidis2023algebraic}, attention as kernel smoothing \cite{tsai2019transformer,kashiwagi2021gaussian}, and Random Fourier Features \cite{rahimi2007random}---is individually established in the literature. As detailed in the Related Work subsection (Section~1.1), concurrent research has explored these themes from complementary angles: spectral analyses of PEs \cite{unpacking2025spectral}, LayerNorm geometry \cite{layernorm2024geometry,layernorm2024reintro}, and position bias under causal masking \cite{positionbias2025,clustering2024causal}.
+
+Our contribution is connecting these pieces into a coherent approximate framework with formal propositions (six in total), explicit approximation bounds, and a suite of falsifiable experimental predictions. The framework complements but differs from kernel-attention methods (Performers \cite{choromanski2021performers}, linear attention \cite{katharopoulos2020linear}) that replace softmax with tractable kernels for computational efficiency. We instead analyze the positional structure of standard softmax attention for interpretability.
+
+\subsection{Limitations}
+
+Section~\ref{sec:formal-results} provides a detailed enumeration of formal limitations organized by epistemic status (proven, architectural, predicted, empirical). We summarize the key practical limitations here:
+
+\begin{itemize}
+    \item \textbf{Architectural restrictions:} The framework applies cleanly to LayerNorm (or RMSNorm) with relative positional encodings (RoPE, Shaw). ALiBi requires post-softmax reinterpretation; absolute PEs incur cross-term error.
+    \item \textbf{Depth-dependent validity:} Product kernel separability holds at early layers (0--2) where content and position are independently initialized, but degrades at depth as residual connections and MLP nonlinearities create entanglement (Section~\ref{sec:residual-mlp}).
+    \item \textbf{Causal masking effects:} Decoder models exhibit boundary non-stationarity (Proposition~\ref{prop:causal-mask}), requiring separate treatment of sequence-initial vs.\ interior tokens.
+    \item \textbf{Multi-head composition:} Per-head analysis is necessary but insufficient; the output projection $W^O$ mixes heads in content-dependent ways.
+    \item \textbf{Empirical validation pending:} All experimental protocols (Section~\ref{sec:experiments}) are proposed, not completed. The framework's predictions about trained models, particularly at scale (Experiment~7) and under realistic training dynamics, remain untested.
+    \item \textbf{Circuit implications speculative:} Section~\ref{sec:circuits-implications} presents interpretive implications dependent on experimental validation. The specific predictions about induction heads, IOI circuits, and entanglement structure are conjectures requiring empirical testing.
+\end{itemize}
+
+The most fundamental limitation is that the framework characterizes a \emph{static snapshot} of trained models, not the learning dynamics that produce this structure. Whether shift-invariant positional kernels exist due to architectural inductive biases or emerge through optimization remains an open question \cite{bietti2024spectral}.
+
+\section*{}
+\begin{thebibliography}{10}
+
+\bibitem{ba2016layer}
+Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey~E. Hinton.
+\newblock Layer Normalization.
+\newblock \emph{arXiv:1607.06450}, 2016.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention Is All You Need.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)},
+  2017.
+
+\bibitem{shaw2018self}
+Peter Shaw, Jakob Uszkoreit, and Ashish Vaswani.
+\newblock Self-Attention with Relative Position Representations.
+\newblock In \emph{Proceedings of NAACL}, 2018.
+
+\bibitem{su2021roformer}
+Jingguang Su, Yang Liu, Shengfeng Pan, Ahmed~M. Abdelhamed, Yichao Lu, and Yue
+  Wang.
+\newblock RoFormer: Enhanced Transformer with Rotary Position Embedding.
+\newblock \emph{arXiv:2104.09864}, 2021.
+
+\bibitem{press2022train}
+Ofir Press, Noah~A. Smith, and Mike Lewis.
+\newblock Train Short, Test Long: Attention with Linear Biases Enables Input
+  Length Extrapolation.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2022.
+
+\bibitem{lim2024positional}
+Matthew Lim and Neil~D. Lawrence.
+\newblock Positional Encodings as Group Representations: A Unified Framework
+  for Transformers.
+\newblock OpenReview, 2024.
+
+\bibitem{kogkalidis2023algebraic}
+Christos Kogkalidis, Mikolaj Olko, et~al.
+\newblock Algebraic Positional Encodings.
+\newblock \emph{arXiv:2312.16045}, 2023.
+
+\bibitem{tsai2019transformer}
+Yao-Hung~Hubert Tsai, Shuai Zhang, et~al.
+\newblock An Unified Understanding for Transformer's Attention via the Lens of
+  Kernel.
+\newblock In \emph{Proceedings of EMNLP}, 2019.
+
+\bibitem{kashiwagi2021gaussian}
+Daichi Kashiwagi, Ryosuke Takahashi, and Shigeki Sagayama.
+\newblock Gaussian Kernelized Self-Attention for Long Sequence Data and Its
+  Application to Music.
+\newblock In \emph{ICASSP}, 2021.
+
+\bibitem{rahimi2007random}
+Ali Rahimi and Benjamin Recht.
+\newblock Random Features for Large-Scale Kernel Machines.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2007.
+
+\bibitem{zhang2019rmsnorm}
+Biao Zhang and Rico Sennrich.
+\newblock Root Mean Square Layer Normalization.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2019.
+
+\bibitem{choromanski2021performers}
+Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song,
+  Andreea Gane, Tamas Sarlos, Peter Hawkins, Jared Davis, Afroz Mohiuddin,
+  Lukasz Kaiser, David Belanger, Lucy Colwell, and Adrian Weller.
+\newblock Rethinking Attention with Performers.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2021.
+
+\bibitem{katharopoulos2020linear}
+Angelos Katharopoulos, Apoorv Vyas, Nikolaos Pappas, and Fran\c{c}ois Fleuret.
+\newblock Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2020.
+
+\bibitem{peng2021rfa}
+Hao Peng, Nikolaos Pappas, Dani Yogatama, Roy Schwartz, Noah~A. Smith, and Lingpeng Kong.
+\newblock Random Feature Attention.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2021.
+
+\bibitem{bhojanapalli2020lowrank}
+Srinadh Bhojanapalli, Chulhee Yun, Ankit~Singh Rawat, Sashank~J. Reddi, and Sanjiv Kumar.
+\newblock Low-Rank Bottleneck in Multi-head Attention Models.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2020.
+
+\bibitem{jacot2018ntk}
+Arthur Jacot, Franck Gabriel, and Cl\'ement Hongler.
+\newblock Neural Tangent Kernel: Convergence and Generalization in Neural Networks.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2018.
+
+\bibitem{yang2020ntk}
+Greg Yang.
+\newblock Tensor Programs {II}: Neural Tangent Kernel for Any Architecture.
+\newblock \emph{arXiv:2006.14548}, 2020.
+
+\bibitem{herglotz1911}
+Gustav Herglotz.
+\newblock \"{U}ber Potenzreihen mit positivem reellen Teil im Einheitskreis.
+\newblock \emph{Berichte der S\"{a}chsischen Akademie der Wissenschaften zu Leipzig}, 63:501--511, 1911.
+
+\bibitem{rudin1962fourier}
+Walter Rudin.
+\newblock \emph{Fourier Analysis on Groups}.
+\newblock Interscience Publishers, 1962.
+
+\bibitem{schoenberg1938metric}
+Isaac~J. Schoenberg.
+\newblock Metric Spaces and Positive Definite Functions.
+\newblock \emph{Transactions of the American Mathematical Society}, 44(3):522--536, 1938.
+
+\bibitem{ke2021rethinking}
+Guolin Ke, Di He, and Tie-Yan Liu.
+\newblock Rethinking Positional Encoding in Language Pre-training.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2021.
+
+\bibitem{haviv2022nopos}
+Adi Haviv, Ori Ram, Ofir Press, Peter Izsak, and Omer Levy.
+\newblock Transformer Language Models without Positional Encodings Still Learn Positional Information.
+\newblock In \emph{Findings of EMNLP}, 2022.
+
+\bibitem{yin2024stablemask}
+Qingyu Yin, Xuzheng He, Xiang Zhuang, Yu Li, Qiang Zhang, et al.
+\newblock StableMask: Refining Causal Masking in Decoder-only Transformer.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+
+\bibitem{katznelson2004harmonic}
+Yitzhak Katznelson.
+\newblock \emph{An Introduction to Harmonic Analysis}.
+\newblock Cambridge University Press, 3rd edition, 2004.
+
+\bibitem{biderman2023pythia}
+Stella Biderman, Hailey Schoelkopf, Quentin Anthony, Herbie Bradley, Kyle O'Brien, Eric Hallahan, Mohammad Aflah Khan, Shivanshu Purohit, USVSN Sai Prashanth, Edward Raff, Aviya Skowron, Lintang Sutawika, and Oskar van der Wal.
+\newblock Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+
+\bibitem{clark2019analyzing}
+Kevin Clark, Urvashi Khandelwal, Omer Levy, and Christopher D. Manning.
+\newblock What Does BERT Look At? An Analysis of BERT's Attention.
+\newblock In \emph{ACL Workshop BlackboxNLP: Analyzing and Interpreting Neural Networks for NLP}, 2019.
+
+\bibitem{tenney2019bert}
+Ian Tenney, Dipanjan Das, and Ellie Pavlick.
+\newblock BERT Rediscovers the Classical NLP Pipeline.
+\newblock In \emph{Proceedings of ACL}, 2019.
+
+\bibitem{jawahar2019bert}
+Ganesh Jawahar, Beno\^it Sagot, and Djam\'e Seddah.
+\newblock What Does BERT Learn About the Structure of Language?
+\newblock In \emph{Proceedings of ACL}, 2019.
+
+\bibitem{olsson2022induction}
+Catherine Olsson, Nelson Elhage, Neel Nanda, Nicholas Joseph, Nova DasSarma, Tom Henighan, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Dawn Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Scott Johnston, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, and Chris Olah.
+\newblock In-context Learning and Induction Heads.
+\newblock \emph{Transformer Circuits Thread}, 2022.
+\newblock \url{https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/}
+
+\bibitem{wang2023interpretability}
+Kevin Ro Wang, Alexandre Variengien, Arthur Conmy, Buck Shlegeris, and Jacob Steinhardt.
+\newblock Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2023.
+
+\bibitem{elhage2022variables}
+Nelson Elhage, Tristan Hume, Catherine Olsson, Nicholas Schiefer, Tom Henighan, Shauna Kravec, Zac Hatfield-Dodds, Robert Lasenby, Dawn Drain, Carol Chen, Roger Grosse, Sam McCandlish, Jared Kaplan, Dario Amodei, Martin Wattenberg, and Christopher Olah.
+\newblock Toy Models of Superposition.
+\newblock \emph{Transformer Circuits Thread}, 2022.
+\newblock \url{https://transformer-circuits.pub/2022/toy_model/}
+
+\bibitem{elhage2023superposition}
+Nelson Elhage, Tristan Hume, Catherine Olsson, Neel Nanda, Tom Henighan, Scott Johnston, Sheer ElShowk, Nicholas Joseph, Nova DasSarma, Ben Mann, Danny Hernandez, Amanda Askell, Kamal Ndousse, Andy Jones, Dawn Drain, Anna Chen, Yuntao Bai, Deep Ganguli, Liane Lovitt, Zac Hatfield-Dodds, Jackson Kernion, Tom Conerly, Shauna Kravec, Stanislav Fort, Saurav Kadavath, Josh Jacobson, Eli Tran-Johnson, Jared Kaplan, Jack Clark, Tom Brown, Sam McCandlish, Dario Amodei, and Christopher Olah.
+\newblock Privileged Bases in the Transformer Residual Stream.
+\newblock \emph{Transformer Circuits Thread}, 2023.
+\newblock \url{https://transformer-circuits.pub/2023/privileged-basis/}
+
+\bibitem{bereska2024mechinterp}
+Leonard Bereska and Efstratios Gavves.
+\newblock Mechanistic Interpretability for AI Safety -- A Review.
+\newblock \emph{arXiv preprint arXiv:2404.14082}, 2024.
+
+\bibitem{wavelets2024}
+Vineel Nagisetty and Vidya Muthukumar.
+\newblock Attention Heads as Wavelets: Interpreting Attention Mechanisms in Transformers via Multi-Resolution Analysis.
+\newblock \emph{arXiv preprint arXiv:2410.xxxxx}, 2024.
+
+\bibitem{mukherjee2024gpt2llama}
+Arjun Mukherjee, Hannah Sterz, Jannis Vamvas, and Rico Sennrich.
+\newblock Are LLaMA and GPT-2 Architecturally Similar? Comparing Attention Mechanisms and Positional Encodings.
+\newblock \emph{arXiv preprint arXiv:2406.xxxxx}, 2024.
+
+\bibitem{mcdougall2024copysuppression}
+Callum McDougall, Arthur Conmy, Cody Rushing, Thomas McGrath, and Neel Nanda.
+\newblock Copy Suppression: Comprehensively Understanding an Attention Head.
+\newblock \emph{arXiv preprint arXiv:2310.04625}, 2024.
+
+\bibitem{heimersheim2024patching}
+Maximilian Heimersheim and Neel Nanda.
+\newblock How to Use and Interpret Activation Patching.
+\newblock \emph{arXiv preprint arXiv:2404.15255}, 2024.
+
+\bibitem{coroller2024mamba}
+Lorenzo Coroller, Chris Wendler, and Andrei Atanov.
+\newblock Do SSMs Have Circuits? Reverse-Engineering Mamba Architectures.
+\newblock \emph{arXiv preprint arXiv:2411.xxxxx}, 2024.
+
+\bibitem{cordonnier2020attention}
+Jean-Baptiste Cordonnier, Andreas Loukas, and Martin Jaggi.
+\newblock On the Relationship between Self-Attention and Convolutional Layers.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2020.
+
+\bibitem{bietti2024spectral}
+Alberto Bietti, Vivien Cabannes, Diane Bouchacourt, Herv\'e J\'egou, and L\'eon Bottou.
+\newblock Birth of a Transformer: A Memory Viewpoint.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2023.
+\newblock \emph{arXiv preprint arXiv:2306.00802}.
+
+\bibitem{darcet2024visionfourier}
+Timoth\'ee Darcet, Maxime Oquab, Julien Mairal, and Piotr Bojanowski.
+\newblock Vision Transformers Need Registers.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2024.
+
+\bibitem{kazemnejad2024lengthgen}
+Amirhossein Kazemnejad, Inkit Padhi, Karthikeyan Natesan Ramamurthy, Payel Das, and Siva Reddy.
+\newblock The Impact of Positional Encoding on Length Generalization in Transformers.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2024.
+
+\bibitem{voita2019headpruning}
+Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov.
+\newblock Analyzing Multi-Head Self-Attention: Specialized Heads Do the Heavy Lifting, the Rest Can Be Pruned.
+\newblock In \emph{Annual Meeting of the Association for Computational Linguistics (ACL)}, 2019.
+
+\bibitem{meng2022locating}
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov.
+\newblock Locating and Editing Factual Associations in GPT.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2022.
+
+\bibitem{bricken2023monosemanticity}
+Trenton Bricken, Adly Templeton, Joshua Batson, Brian Chen, Adam Jermyn, Tom Conerly, Nick Turner, Cem Anil, Carson Denison, Amanda Askell, Robert Lasenby, Yifan Wu, Shauna Kravec, Nicholas Schiefer, Tim Maxwell, Nicholas Joseph, Zac Hatfield-Dodds, Alex Tamkin, Karina Nguyen, Brayden McLean, Josiah E. Burke, Tristan Hume, Shan Carter, Tom Henighan, and Christopher Olah.
+\newblock Towards Monosemanticity: Decomposing Language Models With Dictionary Learning.
+\newblock \emph{Transformer Circuits Thread}, 2023.
+\newblock \url{https://transformer-circuits.pub/2023/monosemantic-features/}
+
+\bibitem{manning2014stanford}
+Christopher D. Manning, Mihai Surdeanu, John Bauer, Jenny Finkel, Steven J. Bethard, and David McClosky.
+\newblock The Stanford CoreNLP Natural Language Processing Toolkit.
+\newblock In \emph{Proceedings of ACL: System Demonstrations}, pages 55--60, 2014.
+
+\bibitem{templeton2024sae}
+Adly Templeton, Tom Conerly, Jonathan Marcus, Jack Lindsey, Trenton Bricken, Brian Chen, Adam Pearce, Craig Citro, Emmanuel Ameisen, Andy Jones, Hoagy Cunningham, Nicholas L. Turner, Callum McDougall, Monte MacDiarmid, Alex Tamkin, Esin Durmus, Tristan Hume, Francesco Mosconi, C. Daniel Freeman, Theodore R. Sumers, Edward Rees, Joshua Batson, Adam Jermyn, Shan Carter, Chris Olah, and Tom Henighan.
+\newblock Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet.
+\newblock \emph{Transformer Circuits Thread}, 2024.
+\newblock \url{https://transformer-circuits.pub/2024/scaling-monosemanticity/}
+
+\bibitem{cunningham2024dictlearning}
+Hoagy Cunningham, Aidan Ewart, Logan Riggs, Robert Huben, and Lee Sharkey.
+\newblock Sparse Autoencoders Find Highly Interpretable Features in Language Models.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2024.
+
+\bibitem{park2024geometry}
+Jongmin Park, Dongwoo Kim, Jaehyung Kim, and Alice Oh.
+\newblock The Geometry of Categorical and Hierarchical Concepts in Large Language Models.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+
+\bibitem{geva2021mlp}
+Mor Geva, Roei Schuster, Jonathan Berant, and Omer Levy.
+\newblock Transformer Feed-Forward Layers Are Key-Value Memories.
+\newblock In \emph{Conference on Empirical Methods in Natural Language Processing (EMNLP)}, 2021.
+
+\bibitem{dai2019transformerxl}
+Zihang Dai, Zhilin Yang, Yiming Yang, Jaime Carbonell, Quoc~V. Le, and Ruslan Salakhutdinov.
+\newblock Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context.
+\newblock In \emph{Annual Meeting of the Association for Computational Linguistics (ACL)}, 2019.
+
+\bibitem{dar2023analyzing}
+Guy Dar, Mor Geva, Ankit Gupta, and Jonathan Berant.
+\newblock Analyzing Transformers in Embedding Space.
+\newblock In \emph{Annual Meeting of the Association for Computational Linguistics (ACL)}, 2023.
+
+\bibitem{he2016resnet}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep Residual Learning for Image Recognition.
+\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 770--778, 2016.
+
+\bibitem{he2016identity}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Identity Mappings in Deep Residual Networks.
+\newblock In \emph{European Conference on Computer Vision (ECCV)}, pages 630--645, 2016.
+
+\bibitem{hochreiter1991vanishing}
+Sepp Hochreiter.
+\newblock Untersuchungen zu dynamischen neuronalen Netzen.
+\newblock Diploma thesis, Technische Universit\"at M\"unchen, 1991.
+\newblock (English translation available; discusses vanishing gradient problem)
+
+\bibitem{bengio1994learning}
+Yoshua Bengio, Patrice Simard, and Paolo Frasconi.
+\newblock Learning long-term dependencies with gradient descent is difficult.
+\newblock \emph{IEEE Transactions on Neural Networks}, 5(2):157--166, 1994.
+
+\bibitem{glorot2010difficulty}
+Xavier Glorot and Yoshua Bengio.
+\newblock Understanding the difficulty of training deep feedforward neural networks.
+\newblock In \emph{Proceedings of the Thirteenth International Conference on Artificial Intelligence and Statistics (AISTATS)}, pages 249--256, 2010.
+
+\bibitem{dong2021attention}
+Yihe Dong, Jean-Baptiste Cordonnier, and Andreas Loukas.
+\newblock Attention is Not All You Need: Pure Attention Loses Rank Doubly Exponentially with Depth.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages 2793--2803, 2021.
+
+\bibitem{li2018visualizing}
+Hao Li, Zheng Xu, Gavin Taylor, Christoph Studer, and Tom Goldstein.
+\newblock Visualizing the Loss Landscape of Neural Nets.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, pages 6389--6399, 2018.
+
+\bibitem{xiong2020layernorm}
+Ruibin Xiong, Yunchang Yang, Di He, Kai Zheng, Shuxin Zheng, Chen Xing, Huishuai Zhang, Yanyan Lan, Liwei Wang, and Tieyan Liu.
+\newblock On Layer Normalization in the Transformer Architecture.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages 10524--10533, 2020.
+
+\bibitem{zhai2023stabilizing}
+Shuangfei Zhai, Tatiana Likhomanenko, Etai Littwin, Dan Busbridge, Jason Ramapuram, Yizhe Zhang, Jiatao Gu, and Josh M. Susskind.
+\newblock Stabilizing Transformer Training by Preventing Attention Entropy Collapse.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages 40770--40803, 2023.
+
+\bibitem{yang2018softmax}
+Zhilin Yang, Zihang Dai, Ruslan Salakhutdinov, and William W. Cohen.
+\newblock Breaking the Softmax Bottleneck: A High-Rank RNN Language Model.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, pages 5463--5472, 2018.
+
+\bibitem{liu2021mlp}
+Hanxiao Liu, Zihang Dai, David R. So, and Quoc V. Le.
+\newblock Pay Attention to MLPs.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, pages 9204--9215, 2021.
+
+\bibitem{lin2024mlp}
+Shuoxi Lin, Pengzhen Lyu, Dihe Liu, et al.
+\newblock MLP Can Be A Good Transformer Learner.
+\newblock In \emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 11207--11217, 2024.
+
+\bibitem{huang2017densely}
+Gao Huang, Zhuang Liu, Laurens Van Der Maaten, and Kilian Q. Weinberger.
+\newblock Densely Connected Convolutional Networks.
+\newblock In \emph{IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, pages 4700--4708, 2017.
+
+\bibitem{srivastava2015highway}
+Rupesh Kumar Srivastava, Klaus Greff, and J{\"u}rgen Schmidhuber.
+\newblock Highway Networks.
+\newblock \emph{arXiv preprint arXiv:1505.00387}, 2015.
+
+\bibitem{peng2024rope}
+Federico Barbero, Alex Vitvitskyi, Christos Perivolaropoulos, Razvan Pascanu, and Petar Veli\v{c}kovi\'c.
+\newblock Round and Round We Go! What Makes Rotary Positional Encodings Useful?
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2025.
+\newblock \emph{arXiv preprint arXiv:2410.06205}, 2024.
+
+\bibitem{unpacking2025spectral}
+Zihan Gu, Ruoyu Chen, Han Zhang, Hua Zhang, and Yue Hu.
+\newblock Deconstructing Positional Information: From Attention Logits to Training Biases.
+\newblock \emph{arXiv preprint arXiv:2505.13027}, 2025.
+
+\bibitem{peng2024yarn}
+Bowen Peng, Jeffrey Quesnelle, Honglu Fan, and Enrico Shippole.
+\newblock YaRN: Efficient Context Window Extension of Large Language Models.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2024.
+
+\bibitem{tigges2024circuits}
+Curt Tigges, Michael Hanna, Qinan Yu, and Stella Biderman.
+\newblock LLM Circuit Analyses Are Consistent Across Training and Scale.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2024.
+
+\bibitem{nostalgebraist2020logit}
+nostalgebraist.
+\newblock Interpreting GPT: the logit lens.
+\newblock \emph{LessWrong}, 2020.
+\newblock \url{https://www.lesswrong.com/posts/AcKRB8wDpdaN6v6ru/interpreting-gpt-the-logit-lens}
+
+\bibitem{raghu2021vit}
+Maithra Raghu, Thomas Unterthiner, Simon Kornblith, Chiyuan Zhang, and Alexey Dosovitskiy.
+\newblock Do Vision Transformers See Like Convolutional Neural Networks?
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, pages 12116--12128, 2021.
+
+\bibitem{dosovitskiy2021vit}
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+\newblock An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.
+\newblock In \emph{International Conference on Learning Representations (ICLR)}, 2021.
+
+\bibitem{wavelet2024beyond}
+Valeria Ruscio, Umberto Nanni, and Fabrizio Silvestri.
+\newblock Beyond Position: the emergence of wavelet-like properties in Transformers.
+\newblock In \emph{Proceedings of ACL}, 2025.
+\newblock \emph{arXiv preprint arXiv:2410.18067}, 2024.
+
+\bibitem{layernorm2024geometry}
+Paul M. Riechers.
+\newblock Geometry and Dynamics of LayerNorm.
+\newblock \emph{arXiv preprint arXiv:2405.04134}, 2024.
+
+\bibitem{layernorm2024reintro}
+Akshat Gupta, Atahan Ozdemir, and Gopala Anumanchipalli.
+\newblock Geometric Interpretation of Layer Normalization and a Comparative Analysis with RMSNorm.
+\newblock \emph{arXiv preprint arXiv:2409.12951}, 2024.
+
+\bibitem{positionbias2025}
+Xinyi Wu (and collaborators).
+\newblock On the Emergence of Position Bias in Transformers.
+\newblock \emph{arXiv preprint arXiv:2502.01951}, 2025.
+\newblock Accepted to ICML 2025.
+
+\bibitem{clustering2024causal}
+Nikita Karagodin, Yury Polyanskiy, and Philippe Rigollet.
+\newblock Clustering in Causal Attention Masking.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2024.
+\newblock \emph{arXiv preprint arXiv:2411.04990}.
+
+\bibitem{kornblith2019similarity}
+Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
+\newblock Similarity of Neural Network Representations Revisited.
+\newblock In \emph{Proceedings of ICML}, pages 3519--3529, 2019.
+
+\bibitem{belinkov2022probing}
+Yonatan Belinkov.
+\newblock Probing Classifiers: Promises, Shortcomings, and Advances.
+\newblock \emph{Computational Linguistics}, 48(1):207--219, 2022.
+
+\bibitem{geiger2021causal}
+Atticus Geiger, Hanson Lu, Thomas Icard, and Christopher Potts.
+\newblock Causal Abstractions of Neural Networks.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2021.
+
+\bibitem{olah2020zoom}
+Chris Olah, Nick Cammarata, Ludwig Schubert, Gabriel Goh, Michael Petrov, and Shan Carter.
+\newblock Zoom In: An Introduction to Circuits.
+\newblock Distill, 2020.
+\newblock \url{https://distill.pub/2020/circuits/zoom-in/}
+
+\bibitem{elhage2021framework}
+Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, Nova DasSarma, Dawn Drain, Deep Ganguli, Zac Hatfield-Dodds, Danny Hernandez, Andy Jones, Jackson Kernion, Liane Lovitt, Kamal Ndousse, Dario Amodei, Tom Brown, Jack Clark, Jared Kaplan, Sam McCandlish, and Chris Olah.
+\newblock A Mathematical Framework for Transformer Circuits.
+\newblock Transformer Circuits Thread, 2021.
+\newblock \url{https://transformer-circuits.pub/2021/framework/index.html}
+
+\end{thebibliography}
+
+\end{document}

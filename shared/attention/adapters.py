@@ -22,6 +22,8 @@ class LayerCapture:
     q: torch.Tensor  # [heads, seq, head_dim]
     k: torch.Tensor
     logits: torch.Tensor  # [heads, seq, seq]
+    rope_cos: torch.Tensor | None = None
+    rope_sin: torch.Tensor | None = None
 
 
 @dataclass
@@ -29,6 +31,8 @@ class CaptureRecord:
     q: torch.Tensor  # [layers, heads, seq, head_dim]
     k: torch.Tensor
     logits: torch.Tensor  # [layers, heads, seq, seq]
+    rope_cos: torch.Tensor | None = None
+    rope_sin: torch.Tensor | None = None
 
 
 class AttentionCaptureAdapter(ABC):
@@ -176,7 +180,13 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
         q = torch.stack([cap.q for cap in captures], dim=0)
         k = torch.stack([cap.k for cap in captures], dim=0)
         logits = torch.stack([cap.logits for cap in captures], dim=0)
-        return CaptureRecord(q=q, k=k, logits=logits)
+        rope_cos = None
+        rope_sin = None
+        if all(cap.rope_cos is not None for cap in captures):
+            rope_cos = torch.stack([cap.rope_cos for cap in captures if cap.rope_cos is not None], dim=0)
+        if all(cap.rope_sin is not None for cap in captures):
+            rope_sin = torch.stack([cap.rope_sin for cap in captures if cap.rope_sin is not None], dim=0)
+        return CaptureRecord(q=q, k=k, logits=logits, rope_cos=rope_cos, rope_sin=rope_sin)
 
     def _attach(self, model) -> Iterable[RemovableHandle]:
         handles: list[RemovableHandle] = []
@@ -218,11 +228,21 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
             raise RuntimeError(f"Layer {layer_idx} missing q/k projections.")
         q_heads = self._reshape_heads(data["q"], self._num_query_heads)
         k_heads = self._reshape_heads(data["k"], self._num_kv_heads)
+        rope_cos = None
+        rope_sin = None
         if self._rope_fn is not None and "cos" in data and "sin" in data:
             q_heads, k_heads = self._apply_rope(q_heads, k_heads, data)
+            rope_cos = data["cos"].to(torch.float32).cpu()
+            rope_sin = data["sin"].to(torch.float32).cpu()
         k_expanded = self._align_kv_heads(k_heads)
         logits = torch.matmul(q_heads, k_expanded.transpose(-1, -2)) / math.sqrt(self._head_dim or 1)
-        return LayerCapture(q=q_heads.cpu(), k=k_expanded.cpu(), logits=logits.cpu())
+        return LayerCapture(
+            q=q_heads.cpu(),
+            k=k_expanded.cpu(),
+            logits=logits.cpu(),
+            rope_cos=rope_cos,
+            rope_sin=rope_sin,
+        )
 
     def _reshape_heads(self, raw: torch.Tensor, num_heads: int | None) -> torch.Tensor:
         num_heads = num_heads or 1
