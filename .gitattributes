@@ -1,5 +1,2 @@
-data/**/*.arrow filter=lfs diff=lfs merge=lfs -text
-data/**/*.parquet filter=lfs diff=lfs merge=lfs -text
-data/**/*.jsonl filter=lfs diff=lfs merge=lfs -text
-results/**/*.parquet filter=lfs diff=lfs merge=lfs -text
-results/**/*.pt filter=lfs diff=lfs merge=lfs -text
+# LFS tracking intentionally disabled in this repository.
+# Large generated artifacts should remain local and be excluded via .gitignore.
