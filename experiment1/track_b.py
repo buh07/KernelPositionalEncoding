@@ -13,12 +13,13 @@ from shared.specs import DatasetSpec, ModelSpec, SequenceLengthSpec
 from shared.utils.logging import get_logger
 
 from experiment1.paths import tokenized_path, track_a_dir, track_b_dir
-from experiment1.norm_utils import normalize_logits_for_norm
 from experiment1.shift_kernels import BaseEstimator, KernelFit, get_kernel_estimator
 
 LOGGER = get_logger("experiment1.track_b")
 CENTERING_LEGACY_PER_POSITION = "legacy_per_position"
 CENTERING_CANONICAL_PER_POSITION = "canonical_per_position"
+CENTERING_SHARED_MEAN = "shared_mean"
+CENTERING_BUCKETED_MEAN = "bucketed_mean"
 
 
 @dataclass
@@ -37,7 +38,11 @@ class TrackBConfig:
     device: str = "cpu"
     full_matrix_max_length: int = 256
     centering_mode: str = CENTERING_LEGACY_PER_POSITION
+    bucket_size: int = 32
     output_group: str = "track_b"
+    artifact_level: str = "full"
+    save_centering_means: bool = True
+    save_full_grams: bool = True
 
 
 class TrackBRunner:
@@ -55,11 +60,12 @@ class TrackBRunner:
         self.device = torch.device(config.device)
         self.output_dir = track_b_dir(config.results_root, model, dataset, seq_len, group=config.output_group)
         self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.store_full = seq_len.tokens <= config.full_matrix_max_length
+        self.store_full = (seq_len.tokens <= config.full_matrix_max_length) and config.save_full_grams
         self.q_mean: torch.Tensor | None = None
         self.k_mean: torch.Tensor | None = None
         self.kernel_estimator = get_kernel_estimator(model.pe_scheme)
         self.centering_frame = "none"
+        self.centering_per_position = True
         self.rope_canonical_applied = False
 
     def run(self) -> None:
@@ -112,37 +118,107 @@ class TrackBRunner:
         sequences = _iter_sequences(jsonl_path, split="centering", limit=self.config.limit_center_sequences)
         accum_q = None
         accum_k = None
-        count = 0
+        sequence_count = 0
+        token_count = 0
+        bucket_token_counts: torch.Tensor | None = None
         for record in sequences:
-            count += 1
+            sequence_count += 1
             inputs = torch.tensor(record.tokens, dtype=torch.long, device=self.device).unsqueeze(0)
             attention_mask = torch.ones_like(inputs, device=self.device)
-            capture = adapter.capture(model, input_ids=inputs, attention_mask=attention_mask)
+            capture = adapter.capture(
+                model,
+                input_ids=inputs,
+                attention_mask=attention_mask,
+                include_logits=False,
+                output_device=self.device,
+            )
             q = capture.q.to(torch.float64)
             k = capture.k.to(torch.float64)
-            if accum_q is None:
-                accum_q = torch.zeros_like(q)
-                accum_k = torch.zeros_like(k)
             if self.config.centering_mode == CENTERING_CANONICAL_PER_POSITION:
                 q, k, applied = _canonicalize_capture_qk(capture, q, k)
                 self.rope_canonical_applied = self.rope_canonical_applied or applied
-            accum_q += q
-            accum_k += k
-            if self.device.type == "cuda" and torch.cuda.is_available():
-                torch.cuda.empty_cache()
-        if count == 0:
+            if self.config.centering_mode == CENTERING_SHARED_MEAN:
+                if accum_q is None:
+                    accum_q = torch.zeros(q.shape[0], q.shape[1], q.shape[3], dtype=torch.float64, device=q.device)
+                    accum_k = torch.zeros(k.shape[0], k.shape[1], k.shape[3], dtype=torch.float64, device=k.device)
+                accum_q += q.sum(dim=2)
+                accum_k += k.sum(dim=2)
+                token_count += q.shape[2]
+            elif self.config.centering_mode == CENTERING_BUCKETED_MEAN:
+                if self.config.bucket_size <= 0:
+                    raise ValueError("Track B bucket_size must be > 0 when using bucketed_mean.")
+                num_buckets = math.ceil(q.shape[2] / self.config.bucket_size)
+                if accum_q is None:
+                    accum_q = torch.zeros(
+                        q.shape[0],
+                        q.shape[1],
+                        num_buckets,
+                        q.shape[3],
+                        dtype=torch.float64,
+                        device=q.device,
+                    )
+                    accum_k = torch.zeros(
+                        k.shape[0],
+                        k.shape[1],
+                        num_buckets,
+                        k.shape[3],
+                        dtype=torch.float64,
+                        device=k.device,
+                    )
+                    bucket_token_counts = torch.zeros(num_buckets, dtype=torch.float64, device=q.device)
+                for bucket_idx, start in enumerate(range(0, q.shape[2], self.config.bucket_size)):
+                    end = min(start + self.config.bucket_size, q.shape[2])
+                    accum_q[:, :, bucket_idx, :] += q[:, :, start:end, :].sum(dim=2)
+                    accum_k[:, :, bucket_idx, :] += k[:, :, start:end, :].sum(dim=2)
+                    bucket_token_counts[bucket_idx] += end - start
+                token_count += q.shape[2]
+            else:
+                if accum_q is None:
+                    accum_q = torch.zeros_like(q)
+                    accum_k = torch.zeros_like(k)
+                accum_q += q
+                accum_k += k
+        if sequence_count == 0:
             raise RuntimeError("No centering sequences processed; unable to compute Track B means.")
-        self.q_mean = (accum_q / count).to(torch.float32).cpu()
-        self.k_mean = (accum_k / count).to(torch.float32).cpu()
-        self.centering_frame = "canonical" if self.rope_canonical_applied else "captured"
+        if self.config.centering_mode == CENTERING_SHARED_MEAN:
+            if token_count == 0:
+                raise RuntimeError("No centering tokens processed; unable to compute shared means.")
+            self.q_mean = (accum_q / token_count).to(torch.float32)
+            self.k_mean = (accum_k / token_count).to(torch.float32)
+            self.centering_per_position = False
+            self.centering_frame = "captured"
+        elif self.config.centering_mode == CENTERING_BUCKETED_MEAN:
+            if bucket_token_counts is None or bucket_token_counts.numel() == 0:
+                raise RuntimeError("No bucket counts were collected for bucketed centering.")
+            if torch.any(bucket_token_counts == 0):
+                raise RuntimeError("Encountered empty bucket in bucketed centering means.")
+            denom = bucket_token_counts.view(1, 1, -1, 1)
+            self.q_mean = (accum_q / denom).to(torch.float32)
+            self.k_mean = (accum_k / denom).to(torch.float32)
+            self.centering_per_position = False
+            self.centering_frame = "captured"
+        else:
+            self.q_mean = (accum_q / sequence_count).to(torch.float32)
+            self.k_mean = (accum_k / sequence_count).to(torch.float32)
+            self.centering_per_position = True
+            self.centering_frame = "canonical" if self.rope_canonical_applied else "captured"
+        if not self.config.save_centering_means:
+            return
         torch.save(
             {
-                "q_mean": self.q_mean,
-                "k_mean": self.k_mean,
-                "count": count,
+                "q_mean": self.q_mean.detach().cpu(),
+                "k_mean": self.k_mean.detach().cpu(),
+                "count": sequence_count,
+                "token_count": token_count if self.config.centering_mode == CENTERING_SHARED_MEAN else None,
                 "centering_mode": self.config.centering_mode,
                 "frame": self.centering_frame,
-                "per_position": True,
+                "per_position": self.centering_per_position,
+                "bucket_size": self.config.bucket_size if self.config.centering_mode == CENTERING_BUCKETED_MEAN else None,
+                "bucket_token_counts": (
+                    bucket_token_counts.to(torch.int64).cpu()
+                    if self.config.centering_mode == CENTERING_BUCKETED_MEAN and bucket_token_counts is not None
+                    else None
+                ),
             },
             self.output_dir / "centering_means.pt",
         )
@@ -155,7 +231,13 @@ class TrackBRunner:
             eval_sequences += 1
             inputs = torch.tensor(record.tokens, dtype=torch.long, device=self.device).unsqueeze(0)
             attention_mask = torch.ones_like(inputs, device=self.device)
-            capture = adapter.capture(model, input_ids=inputs, attention_mask=attention_mask)
+            capture = adapter.capture(
+                model,
+                input_ids=inputs,
+                attention_mask=attention_mask,
+                include_logits=False,
+                output_device=self.device,
+            )
             if accumulator is None:
                 accumulator = GramAccumulator(
                     num_layers=capture.q.shape[0],
@@ -166,11 +248,11 @@ class TrackBRunner:
                     estimator=self.kernel_estimator,
                     norm=self.model_spec.norm,
                     centering_mode=self.config.centering_mode,
+                    bucket_size=self.config.bucket_size,
+                    device=self.device,
                 )
             accumulator.update(capture, self.q_mean, self.k_mean)
             del capture
-            if self.device.type == "cuda" and torch.cuda.is_available():
-                torch.cuda.empty_cache()
         if accumulator is None:
             raise RuntimeError("No evaluation sequences processed for Track B.")
         accumulator.finalize(eval_sequences)
@@ -180,8 +262,8 @@ class TrackBRunner:
         summary_rows = []
         for layer_idx in range(stats.accumulator.num_layers):
             for head_idx in range(stats.accumulator.num_heads):
-                centered_fit = stats.accumulator.centered_stats[layer_idx][head_idx].fit()
-                raw_fit = stats.accumulator.raw_stats[layer_idx][head_idx].fit()
+                centered_fit = stats.accumulator.fit_centered(layer_idx, head_idx)
+                raw_fit = stats.accumulator.fit_raw(layer_idx, head_idx)
                 summary_rows.append(
                     {
                         "model": self.model_spec.name,
@@ -207,17 +289,27 @@ class TrackBRunner:
                     "seq_len": self.seq_len.tokens,
                     "centering_mode": self.config.centering_mode,
                     "output_group": self.config.output_group,
+                    "artifact_level": self.config.artifact_level,
+                    "bucket_size": self.config.bucket_size if self.config.centering_mode == CENTERING_BUCKETED_MEAN else None,
                     "rope_canonical_applied": bool(self.rope_canonical_applied),
                     "notes": (
                         "Diagnostic canonical-frame per-position centering ablation"
                         if self.config.centering_mode == CENTERING_CANONICAL_PER_POSITION
-                        else "Legacy Track B centering behavior"
+                        else (
+                            "Bucketed-mean centering ablation (intermediate granularity)"
+                            if self.config.centering_mode == CENTERING_BUCKETED_MEAN
+                            else (
+                            "Shared-mean centering ablation (position-agnostic)"
+                            if self.config.centering_mode == CENTERING_SHARED_MEAN
+                            else "Legacy Track B centering behavior"
+                            )
+                        )
                     ),
                 },
                 handle,
                 indent=2,
             )
-        if stats.accumulator.full_centered is not None:
+        if self.config.save_full_grams and stats.accumulator.full_centered is not None:
             torch.save(
                 {
                     "gram_centered": stats.accumulator.full_centered.to(torch.float32),
@@ -245,6 +337,8 @@ class GramAccumulator:
         estimator: BaseEstimator,
         norm: str | None,
         centering_mode: str,
+        bucket_size: int,
+        device: torch.device,
     ) -> None:
         self.num_layers = num_layers
         self.num_heads = num_heads
@@ -255,17 +349,25 @@ class GramAccumulator:
         self.norm = norm
         self.estimator = estimator
         self.centering_mode = centering_mode
-        self.centered_stats = [
-            [DiagonalStats(seq_len, estimator) for _ in range(num_heads)] for _ in range(num_layers)
-        ]
-        self.raw_stats = [
-            [DiagonalStats(seq_len, estimator) for _ in range(num_heads)] for _ in range(num_layers)
-        ]
+        self.bucket_size = bucket_size
+        self.device = device
+        diag_count = seq_len - 1
+        stats_shape = (num_layers, num_heads, diag_count)
+        self.centered_sum = torch.zeros(stats_shape, dtype=torch.float64, device=device)
+        self.centered_sq_sum = torch.zeros(stats_shape, dtype=torch.float64, device=device)
+        self.centered_count = torch.zeros(stats_shape, dtype=torch.float64, device=device)
+        self.raw_sum = torch.zeros(stats_shape, dtype=torch.float64, device=device)
+        self.raw_sq_sum = torch.zeros(stats_shape, dtype=torch.float64, device=device)
+        self.raw_count = torch.zeros(stats_shape, dtype=torch.float64, device=device)
         self.full_centered = (
-            torch.zeros(num_layers, num_heads, seq_len, seq_len, dtype=torch.float64) if store_full else None
+            torch.zeros(num_layers, num_heads, seq_len, seq_len, dtype=torch.float64, device=device)
+            if store_full
+            else None
         )
         self.full_raw = (
-            torch.zeros(num_layers, num_heads, seq_len, seq_len, dtype=torch.float64) if store_full else None
+            torch.zeros(num_layers, num_heads, seq_len, seq_len, dtype=torch.float64, device=device)
+            if store_full
+            else None
         )
 
     def update(
@@ -274,67 +376,94 @@ class GramAccumulator:
         q_mean: torch.Tensor | None,
         k_mean: torch.Tensor | None,
     ) -> None:
-        for layer_idx in range(self.num_layers):
-            for head_idx in range(self.num_heads):
-                q = capture.q[layer_idx, head_idx].to(torch.float64)
-                k = capture.k[layer_idx, head_idx].to(torch.float64)
-                raw_matrix = torch.matmul(q, k.transpose(0, 1)) * self.scale
-                raw_matrix = normalize_logits_for_norm(raw_matrix, self.norm)
-                if q_mean is not None and k_mean is not None:
-                    mean_q = q_mean[layer_idx, head_idx].to(q.device)
-                    mean_k = k_mean[layer_idx, head_idx].to(k.device)
-                    if (
-                        self.centering_mode == CENTERING_CANONICAL_PER_POSITION
-                        and getattr(capture, "rope_cos", None) is not None
-                        and getattr(capture, "rope_sin", None) is not None
-                    ):
-                        cos = capture.rope_cos[layer_idx]
-                        sin = capture.rope_sin[layer_idx]
-                        q_canon = invert_rope_heads(q, cos, sin)
-                        k_canon = invert_rope_heads(k, cos, sin)
-                        centered_q = apply_rope_heads(q_canon - mean_q, cos, sin)
-                        centered_k = apply_rope_heads(k_canon - mean_k, cos, sin)
-                    else:
-                        centered_q = q - mean_q
-                        centered_k = k - mean_k
-                else:
-                    centered_q = q
-                    centered_k = k
-                centered_matrix = torch.matmul(centered_q, centered_k.transpose(0, 1)) * self.scale
-                centered_matrix = normalize_logits_for_norm(centered_matrix, self.norm)
-                self.raw_stats[layer_idx][head_idx].update(raw_matrix)
-                self.centered_stats[layer_idx][head_idx].update(centered_matrix)
-                if self.store_full:
-                    self.full_raw[layer_idx, head_idx] += raw_matrix
-                    self.full_centered[layer_idx, head_idx] += centered_matrix
+        q = capture.q.to(device=self.device, dtype=torch.float64)
+        k = capture.k.to(device=self.device, dtype=torch.float64)
+        raw_matrix = torch.matmul(q, k.transpose(-1, -2)) * self.scale
+        raw_matrix = _normalize_logits_for_norm_batch(raw_matrix, self.norm)
+
+        centered_q = q
+        centered_k = k
+        if q_mean is not None and k_mean is not None:
+            mean_q = q_mean.to(device=self.device, dtype=torch.float64)
+            mean_k = k_mean.to(device=self.device, dtype=torch.float64)
+            if (
+                self.centering_mode == CENTERING_CANONICAL_PER_POSITION
+                and getattr(capture, "rope_cos", None) is not None
+                and getattr(capture, "rope_sin", None) is not None
+            ):
+                centered_q = torch.empty_like(q)
+                centered_k = torch.empty_like(k)
+                for layer_idx in range(self.num_layers):
+                    cos = capture.rope_cos[layer_idx]
+                    sin = capture.rope_sin[layer_idx]
+                    q_canon = invert_rope_heads(q[layer_idx], cos, sin)
+                    k_canon = invert_rope_heads(k[layer_idx], cos, sin)
+                    centered_q[layer_idx] = apply_rope_heads(q_canon - mean_q[layer_idx], cos, sin)
+                    centered_k[layer_idx] = apply_rope_heads(k_canon - mean_k[layer_idx], cos, sin)
+            elif self.centering_mode == CENTERING_BUCKETED_MEAN:
+                expanded_q = _expand_bucketed_mean(mean_q, seq_len=q.shape[2], bucket_size=self.bucket_size)
+                expanded_k = _expand_bucketed_mean(mean_k, seq_len=k.shape[2], bucket_size=self.bucket_size)
+                centered_q = q - expanded_q
+                centered_k = k - expanded_k
+            elif mean_q.dim() == 3 and mean_k.dim() == 3:
+                centered_q = q - mean_q.unsqueeze(2)
+                centered_k = k - mean_k.unsqueeze(2)
+            else:
+                centered_q = q - mean_q
+                centered_k = k - mean_k
+
+        centered_matrix = torch.matmul(centered_q, centered_k.transpose(-1, -2)) * self.scale
+        centered_matrix = _normalize_logits_for_norm_batch(centered_matrix, self.norm)
+
+        self._accumulate_diagonals(raw_matrix, self.raw_sum, self.raw_sq_sum, self.raw_count)
+        self._accumulate_diagonals(centered_matrix, self.centered_sum, self.centered_sq_sum, self.centered_count)
+        if self.store_full and self.full_raw is not None and self.full_centered is not None:
+            self.full_raw += raw_matrix
+            self.full_centered += centered_matrix
 
     def finalize(self, eval_sequences: int) -> None:
         if self.store_full and eval_sequences > 0:
             self.full_raw /= eval_sequences
             self.full_centered /= eval_sequences
 
-
-class DiagonalStats:
-    def __init__(self, seq_len: int, estimator: BaseEstimator) -> None:
-        self.seq_len = seq_len
-        self.sum = torch.zeros(seq_len - 1, dtype=torch.float64)
-        self.sq_sum = torch.zeros(seq_len - 1, dtype=torch.float64)
-        self.count = torch.zeros(seq_len - 1, dtype=torch.float64)
-        self.estimator = estimator
-
-    def update(self, matrix: torch.Tensor) -> None:
+    def _accumulate_diagonals(
+        self,
+        matrix: torch.Tensor,
+        sum_acc: torch.Tensor,
+        sq_acc: torch.Tensor,
+        count_acc: torch.Tensor,
+    ) -> None:
         for delta in range(1, self.seq_len):
-            diag = torch.diagonal(matrix, offset=-delta)
-            if diag.numel() == 0:
-                continue
+            diag = torch.diagonal(matrix, offset=-delta, dim1=-2, dim2=-1)
             idx = delta - 1
-            diag = diag.to(torch.float64)
-            self.sum[idx] += diag.sum()
-            self.sq_sum[idx] += torch.sum(diag * diag)
-            self.count[idx] += diag.numel()
+            sum_acc[:, :, idx] += diag.sum(dim=-1)
+            sq_acc[:, :, idx] += (diag * diag).sum(dim=-1)
+            count_acc[:, :, idx] += float(diag.shape[-1])
 
-    def fit(self) -> KernelFit:
-        return self.estimator.fit_from_stats(sums=self.sum, sq_sums=self.sq_sum, counts=self.count)
+    def fit_raw(self, layer_idx: int, head_idx: int) -> KernelFit:
+        return self.estimator.fit_from_stats(
+            sums=self.raw_sum[layer_idx, head_idx].detach().cpu(),
+            sq_sums=self.raw_sq_sum[layer_idx, head_idx].detach().cpu(),
+            counts=self.raw_count[layer_idx, head_idx].detach().cpu(),
+        )
+
+    def fit_centered(self, layer_idx: int, head_idx: int) -> KernelFit:
+        return self.estimator.fit_from_stats(
+            sums=self.centered_sum[layer_idx, head_idx].detach().cpu(),
+            sq_sums=self.centered_sq_sum[layer_idx, head_idx].detach().cpu(),
+            counts=self.centered_count[layer_idx, head_idx].detach().cpu(),
+        )
+
+
+def _normalize_logits_for_norm_batch(logits: torch.Tensor, norm_name: str | None) -> torch.Tensor:
+    if norm_name and norm_name.lower().startswith("rms"):
+        return (
+            logits
+            - logits.mean(dim=-1, keepdim=True)
+            - logits.mean(dim=-2, keepdim=True)
+            + logits.mean(dim=(-1, -2), keepdim=True)
+        )
+    return logits
 
 
 def rotate_half(x: torch.Tensor) -> torch.Tensor:
@@ -385,6 +514,18 @@ def _canonicalize_capture_qk(
         q_out[layer_idx] = invert_rope_heads(q[layer_idx], cos, sin)
         k_out[layer_idx] = invert_rope_heads(k[layer_idx], cos, sin)
     return q_out, k_out, True
+
+
+def _expand_bucketed_mean(mean: torch.Tensor, seq_len: int, bucket_size: int) -> torch.Tensor:
+    if bucket_size <= 0:
+        raise ValueError("bucket_size must be > 0 for bucketed centering.")
+    expected_buckets = math.ceil(seq_len / bucket_size)
+    if mean.shape[-2] != expected_buckets:
+        raise ValueError(
+            f"Bucketed mean shape mismatch: expected {expected_buckets} buckets for seq_len={seq_len}, "
+            f"got {mean.shape[-2]}."
+        )
+    return mean.repeat_interleave(bucket_size, dim=-2)[..., :seq_len, :]
 
 
 def _iter_sequences(jsonl_path: Path, split: str, limit: int | None) -> Iterator[SequenceRecord]:

@@ -21,7 +21,7 @@ from shared.specs import ModelSpec
 class LayerCapture:
     q: torch.Tensor  # [heads, seq, head_dim]
     k: torch.Tensor
-    logits: torch.Tensor  # [heads, seq, seq]
+    logits: torch.Tensor | None = None  # [heads, seq, seq]
     rope_cos: torch.Tensor | None = None
     rope_sin: torch.Tensor | None = None
 
@@ -30,7 +30,7 @@ class LayerCapture:
 class CaptureRecord:
     q: torch.Tensor  # [layers, heads, seq, head_dim]
     k: torch.Tensor
-    logits: torch.Tensor  # [layers, heads, seq, seq]
+    logits: torch.Tensor | None = None  # [layers, heads, seq, seq]
     rope_cos: torch.Tensor | None = None
     rope_sin: torch.Tensor | None = None
 
@@ -41,6 +41,8 @@ class AttentionCaptureAdapter(ABC):
     def __init__(self) -> None:
         self._handles: list[RemovableHandle] = []
         self._suspend_hooks = False
+        self._include_logits = True
+        self._output_device = torch.device("cpu")
 
     def register(self, model) -> None:
         if self._handles:
@@ -52,8 +54,12 @@ class AttentionCaptureAdapter(ABC):
         model,
         input_ids: torch.Tensor,
         attention_mask: torch.Tensor | None = None,
+        include_logits: bool = True,
+        output_device: str | torch.device = "cpu",
         **forward_kwargs,
     ) -> CaptureRecord:
+        self._include_logits = include_logits
+        self._output_device = output_device if isinstance(output_device, torch.device) else torch.device(output_device)
         self._reset()
         with torch.no_grad():
             model(
@@ -65,6 +71,12 @@ class AttentionCaptureAdapter(ABC):
                 **forward_kwargs,
             )
         return self._finalize_record()
+
+    def _move_output(self, tensor: torch.Tensor) -> torch.Tensor:
+        out = tensor.detach().to(torch.float32)
+        if out.device != self._output_device:
+            out = out.to(self._output_device, non_blocking=self._output_device.type == "cuda")
+        return out
 
     def cleanup(self) -> None:
         for handle in self._handles:
@@ -119,7 +131,11 @@ class GPT2Adapter(AttentionCaptureAdapter):
         ordered = [self._layers[idx] for idx in sorted(self._layers)]
         q = torch.stack([layer.q for layer in ordered], dim=0)
         k = torch.stack([layer.k for layer in ordered], dim=0)
-        logits = torch.stack([layer.logits for layer in ordered], dim=0)
+        logits = None
+        if self._include_logits:
+            if any(layer.logits is None for layer in ordered):
+                raise RuntimeError("GPT-2 capture requested logits but one or more layers did not capture them.")
+            logits = torch.stack([layer.logits for layer in ordered if layer.logits is not None], dim=0)
         return CaptureRecord(q=q, k=k, logits=logits)
 
     def _make_hook(self, layer_idx: int, attn_module) -> callable:
@@ -133,11 +149,13 @@ class GPT2Adapter(AttentionCaptureAdapter):
             q, k, _ = output.split(attn_module.split_size, dim=2)
             q_heads = self._reshape_heads(q, num_heads, head_dim)
             k_heads = self._reshape_heads(k, num_heads, head_dim)
-            logits = torch.matmul(q_heads, k_heads.transpose(-1, -2)) * scale
+            logits = None
+            if self._include_logits:
+                logits = torch.matmul(q_heads, k_heads.transpose(-1, -2)) * scale
             self._layers[layer_idx] = LayerCapture(
-                q=q_heads.cpu(),
-                k=k_heads.cpu(),
-                logits=logits.cpu(),
+                q=self._move_output(q_heads),
+                k=self._move_output(k_heads),
+                logits=self._move_output(logits) if logits is not None else None,
             )
 
         return hook
@@ -179,7 +197,11 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
             captures.append(self._finalize_layer(layer_idx, self._raw[layer_idx]))
         q = torch.stack([cap.q for cap in captures], dim=0)
         k = torch.stack([cap.k for cap in captures], dim=0)
-        logits = torch.stack([cap.logits for cap in captures], dim=0)
+        logits = None
+        if self._include_logits:
+            if any(cap.logits is None for cap in captures):
+                raise RuntimeError("Projection capture requested logits but one or more layers did not capture them.")
+            logits = torch.stack([cap.logits for cap in captures if cap.logits is not None], dim=0)
         rope_cos = None
         rope_sin = None
         if all(cap.rope_cos is not None for cap in captures):
@@ -201,7 +223,7 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
         def hook(module, inputs, output):
             if self._suspend_hooks:
                 return
-            self._raw.setdefault(layer_idx, {})[kind] = output.detach().to(torch.float32).cpu()
+            self._raw.setdefault(layer_idx, {})[kind] = self._move_output(output)
 
         return hook
 
@@ -218,8 +240,8 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
                 return
             cos, sin = position_embeddings
             entry = self._raw.setdefault(layer_idx, {})
-            entry["cos"] = cos.detach().to(torch.float32).cpu()
-            entry["sin"] = sin.detach().to(torch.float32).cpu()
+            entry["cos"] = self._move_output(cos)
+            entry["sin"] = self._move_output(sin)
 
         return hook
 
@@ -232,14 +254,16 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
         rope_sin = None
         if self._rope_fn is not None and "cos" in data and "sin" in data:
             q_heads, k_heads = self._apply_rope(q_heads, k_heads, data)
-            rope_cos = data["cos"].to(torch.float32).cpu()
-            rope_sin = data["sin"].to(torch.float32).cpu()
+            rope_cos = self._move_output(data["cos"])
+            rope_sin = self._move_output(data["sin"])
         k_expanded = self._align_kv_heads(k_heads)
-        logits = torch.matmul(q_heads, k_expanded.transpose(-1, -2)) / math.sqrt(self._head_dim or 1)
+        logits = None
+        if self._include_logits:
+            logits = torch.matmul(q_heads, k_expanded.transpose(-1, -2)) / math.sqrt(self._head_dim or 1)
         return LayerCapture(
-            q=q_heads.cpu(),
-            k=k_expanded.cpu(),
-            logits=logits.cpu(),
+            q=q_heads,
+            k=k_expanded,
+            logits=logits,
             rope_cos=rope_cos,
             rope_sin=rope_sin,
         )
