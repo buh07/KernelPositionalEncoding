@@ -3,11 +3,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 import pandas as pd
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from experiment2.stats import holm_bonferroni, paired_sign_flip_pvalue
 
@@ -222,7 +227,7 @@ def main() -> None:
     family_df.to_parquet(args.output_dir / "floor_exclusion_summary.parquet", engine="pyarrow", index=False)
 
     summary = {
-        "generated_at": pd.Timestamp.utcnow().isoformat(),
+        "generated_at": pd.Timestamp.now("UTC").isoformat(),
         "source": str(args.aggregate_task_metrics),
         "mc_method": "holm",
         "floor_threshold": floor_threshold,
