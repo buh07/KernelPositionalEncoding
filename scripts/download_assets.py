@@ -5,10 +5,11 @@ import argparse
 import importlib
 import json
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 from datasets import load_dataset
+from huggingface_hub.errors import GatedRepoError, HfHubHTTPError
 from huggingface_hub import snapshot_download
-from huggingface_hub.utils import GatedRepoError, HfHubHTTPError
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
@@ -18,8 +19,10 @@ from shared.config import default_paths
 from shared.specs import DatasetSpec, ExperimentGrid, ModelSpec
 
 
-def load_grid(module_name: str) -> ExperimentGrid:
+def load_grid(module_name: str, *, model_profile: str) -> ExperimentGrid:
     module = importlib.import_module(f"{module_name}.config")
+    if hasattr(module, "get_experiment_grid"):
+        return module.get_experiment_grid(model_profile)
     return module.EXPERIMENT_GRID
 
 
@@ -34,9 +37,11 @@ def download_models(
             continue
         target_dir = models_dir / model.name
         target_dir.mkdir(parents=True, exist_ok=True)
-        if target_dir.exists() and any(target_dir.iterdir()) and not force:
+        if _model_dir_has_weights(target_dir) and not force:
             print(f"[download] model {model.name} already present, skipping")
             continue
+        if target_dir.exists() and any(target_dir.iterdir()) and not force:
+            print(f"[download] model {model.name} has partial files; attempting resume")
         print(f"[download] model {model.name} -> {target_dir}")
         snapshot_kwargs, runtime_only = _partition_model_kwargs(model)
         if runtime_only:
@@ -51,8 +56,11 @@ def download_models(
                 force_download=force,
                 **snapshot_kwargs,
             )
-        except (GatedRepoError, HfHubHTTPError) as exc:
-            if isinstance(exc, HfHubHTTPError) and getattr(exc.response, "status_code", None) != 403:
+        except Exception as exc:
+            status_code = getattr(getattr(exc, "response", None), "status_code", None)
+            gated = isinstance(exc, GatedRepoError)
+            auth_block = isinstance(exc, HfHubHTTPError) and status_code in {401, 403}
+            if not gated and not auth_block:
                 raise
             print(
                 f"[download] warning: access denied for {model.hf_id}. "
@@ -140,6 +148,11 @@ def main() -> None:
         default=["experiment1"],
         help="Experiment modules to pull specs from",
     )
+    parser.add_argument(
+        "--model-profile",
+        default="legacy_1b",
+        help="Model profile for modules that support profile resolution (default: legacy_1b).",
+    )
     parser.add_argument("--force", action="store_true", help="Redownload assets even if cached")
     parser.add_argument(
         "--models-only",
@@ -166,7 +179,7 @@ def main() -> None:
 
     paths = default_paths()
     for exp in args.experiments:
-        grid = load_grid(exp)
+        grid = load_grid(exp, model_profile=args.model_profile)
         if not args.datasets_only:
             download_models(grid, paths.models_dir, args.force, allowed_names)
         if not args.models_only:
@@ -179,6 +192,10 @@ def _should_process(name: str, allowed_names: set[str] | None) -> bool:
     return name in allowed_names
 
 
+def _model_dir_has_weights(path: Path) -> bool:
+    return any(path.glob("*.safetensors")) or any(path.glob("*.bin")) or any(path.glob("*.pt"))
+
+
 def _write_sentinel(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
@@ -187,10 +204,16 @@ def _write_sentinel(path: Path, payload: dict) -> None:
 
 def _partition_model_kwargs(model: ModelSpec) -> tuple[dict, dict]:
     allowed_keys = {"revision", "allow_patterns", "ignore_patterns"}
-    kwargs = model.download_kwargs or {}
+    kwargs = model.download_kwargs
+    if not kwargs:
+        items: list[tuple[str, object]] = []
+    elif isinstance(kwargs, Mapping):
+        items = list(kwargs.items())
+    else:
+        items = list(kwargs)
     snapshot_kwargs = {}
     runtime_only = {}
-    for key, value in kwargs.items():
+    for key, value in items:
         if key in allowed_keys:
             snapshot_kwargs[key] = value
         else:

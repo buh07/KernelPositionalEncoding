@@ -1,0 +1,74 @@
+{
+  "active_long_tasks": [
+    "long_range_retrieval"
+  ],
+  "candidate_order": [
+    32,
+    48,
+    64
+  ],
+  "effective_models": [
+    "llama-3.1-8b"
+  ],
+  "fallback_selected_long_offsets": [
+    32,
+    48,
+    64
+  ],
+  "fallback_spans": [
+    32
+  ],
+  "feasibility_offsets": [
+    32,
+    48,
+    64
+  ],
+  "feasible_by_offset": {
+    "32": false,
+    "48": false,
+    "64": false
+  },
+  "generated_at": "2026-03-12T00:23:50",
+  "lock_policy": "per_task_model_majority",
+  "lock_resolution_mode": "retrieval_only_fallback",
+  "long_task_policy": "retrieval_fallback",
+  "min_pass_rate": 0.6666666666666666,
+  "model_allowlist": [
+    "llama-3.1-8b"
+  ],
+  "model_profile": "scaleup_78b",
+  "retrieval_only_feasible_by_offset": {
+    "32": true,
+    "48": true,
+    "64": true
+  },
+  "selected_long_offsets": [
+    32,
+    48,
+    64
+  ],
+  "source_run_id": "exp2_feas_scaleup_optc_scaleup78b_optc_20260312_001937",
+  "status": "ok",
+  "strict_feasible_by_offset": {
+    "32": false,
+    "48": false,
+    "64": false
+  },
+  "strict_selected_long_offsets": [],
+  "task_feasible_by_offset": {
+    "32": {
+      "delayed_copy": false,
+      "long_range_retrieval": true
+    },
+    "48": {
+      "delayed_copy": false,
+      "long_range_retrieval": true
+    },
+    "64": {
+      "delayed_copy": false,
+      "long_range_retrieval": true
+    }
+  },
+  "task_feasible_rule": "offset_feasible_if_each_long_task_has_models_passing_fraction_ge_min_pass_rate",
+  "threshold": 0.15
+}

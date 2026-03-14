@@ -8,9 +8,8 @@ from pathlib import Path
 from typing import Iterable, Iterator
 
 from datasets import Dataset, load_dataset
-from transformers import AutoTokenizer
-
 from shared.config import default_paths
+from shared.models.loading import load_tokenizer
 from shared.specs import DatasetSpec, ModelSpec, SequenceLengthSpec
 
 JSONL_SUFFIX = ".jsonl"
@@ -74,7 +73,7 @@ def tokenize_and_save(request: TokenizationRequest, output_path: Path) -> dict:
 
 def _tokenize(request: TokenizationRequest) -> tuple[list[SequenceRecord], dict]:
     seed = _compute_seed(request) if request.seed is None else request.seed
-    tokenizer = AutoTokenizer.from_pretrained(request.model.hf_id, use_fast=True)
+    tokenizer = load_tokenizer(request.model, use_fast=True)
     sequences = _collect_sequences(request, tokenizer, seed)
 
     required = request.total_required

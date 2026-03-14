@@ -1,0 +1,592 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue
+}
+
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\newcommand{\statusConfirmed}{\textbf{Confirmed}}
+\newcommand{\statusSupported}{\textbf{Supported but Non-Confirmatory}}
+\newcommand{\statusPending}{\textbf{Pending}}
+\newcommand{\statusNotEval}{\textbf{Not Evaluable Yet}}
+
+\title{Experiment 1--2 Claim Adjudication Overview (Revised, Evidence-Locked)}
+\author{}
+\date{Evidence snapshot as of 2026-03-10 19:13:01 EDT (artifact timestamps; static at compile time and may be stale as runs progress)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This report provides a conservative, evidence-locked adjudication of what is currently established versus unresolved across Experiment 1 and Experiment 2. The core conclusion is asymmetric: Experiment 1 confirms robust positional-kernel structure in PE-equipped models and validates raw-first diagnostics, while NoPE controls remain low-signal and therefore do not support a universality claim. For the authoritative Experiment 2 Phase 2B run, confirmatory adjudication is now complete and negative: H1 fail, H2 fail, H3 fail, with exploratory diagnostics indicating strong headroom/feasibility confounding pressure on H2 interpretation. This revision also clarifies the practical Bochner/Herglotz spectral interpretation for this project (as diagnostics on positional stationarity, not as a full separability proof for all attention layers). Accordingly, this document separates claims into adjudicated, supported but non-confirmatory, and exploratory/not-evaluable classes with explicit claim-boundary guardrails.
+\end{abstract}
+
+\section{Executive Abstract}
+\subsection*{Resolved now}
+\begin{enumerate}[leftmargin=*]
+  \item \statusConfirmed: Experiment 1 methodological constraints are stable and reproducible in PE-equipped models, including Track B raw invariance across centering variants, near-equivalence of legacy vs canonical per-position centered paths, and synthetic centered$\approx$raw behavior.
+  \item \statusConfirmed: NoPE controls remain low-signal in early-layer kernel fit quality; therefore this report does not claim shift-invariant structure is universal across all PE conditions.
+  \item \statusConfirmed: Branch B (heterogeneous recovery under centering granularity, with norm-family dependence) is supported by completed Experiment 1 evidence and is the correct operational branch for Experiment 2 diagnostics.
+  \item \statusConfirmed: Experiment 2 long-offset feasibility lock exists and is valid (selected long offsets = [8,12] and fallback spans = [8] under the configured lock rule and threshold).
+  \item \statusConfirmed: Experiment 2 Phase 2B confirmatory adjudication has completed for the authoritative run and yields H1=fail, H2=fail, H3=fail.
+\end{enumerate}
+
+\subsection*{Not resolved yet}
+\begin{enumerate}[leftmargin=*]
+  \item \statusSupported: H2 mechanistic interpretation remains diagnostically sensitive to headroom normalization and feasibility constraints (raw vs normalized sign disagreement).
+  \item \statusNotEval: H4/H5 remain exploratory by design; H5 additionally remains claim-constrained because training variance is not measured and inference scope is task-sampling only.
+  \item \statusNotEval: Mediation and retraining-variance generalization are outside current evidence scope.
+\end{enumerate}
+
+\section{Revision Context and Evidence Policy}
+\subsection*{Evidence lock and source policy}
+This revision is intentionally locked to the following sources and does not mix across run IDs:
+\begin{enumerate}[leftmargin=*]
+  \item Experiment 1 authoritative analyses:
+  \begin{enumerate}
+    \item \texttt{experiment1/experiment1results.md}
+    \item \texttt{results/reports/track\_b\_granularity\_norm\_v1/summary.md}
+  \end{enumerate}
+  \item Experiment 2 authoritative run:
+  \begin{enumerate}
+    \item \texttt{results/experiment2/phase2b/exp2\_phase2b\_fastq\_v8\_20260307\_170106/*}
+  \end{enumerate}
+  \item Locked configuration:
+  \begin{enumerate}
+    \item \texttt{experiment2/long\_offset\_lock.json}
+  \end{enumerate}
+\end{enumerate}
+This report is a living snapshot: all counts and statuses are tied to the artifact timestamps above and should be treated as point-in-time values.
+
+\subsection*{Conservative confirmatory policy}
+For this document, confirmatory pass/fail language is permitted only when the authoritative run has non-blocked gate artifacts. This is now satisfied for Phase 2B and yields a negative confirmatory outcome. Artifact state:
+\begin{itemize}[leftmargin=*]
+  \item \texttt{decision\_summary.json}: \texttt{H1=fail, H2=fail, H3=fail}
+  \item \texttt{gate\_evaluation.json}: \texttt{confirmatory\_success=false}
+  \item \texttt{promotion\_guard.json}: \texttt{phase2b\_confirmatory\_pass\_observed=false}
+\end{itemize}
+
+\subsection*{Program Transition}
+The 1B-scale confirmatory program is closed as a completed negative-result campaign. This conclusion is not reinterpreted retroactively: H1/H2/H3 remain failed for the authoritative 1B run. The follow-on strategy is a scale-up track (7--8B RoPE models) motivated by two empirical constraints observed at 1B scale: (i) limited long-span feasibility and (ii) strong headroom compression that weakens raw long-vs-short contrasts, especially for H2. The scale-up track is therefore positioned as a new test regime, not as a post-hoc re-labeling of the completed 1B adjudication. For scale-up runs, the endpoint policy is preregistered in artifacts as \texttt{h12\_endpoint\_policy=co\_primary\_raw\_headroom}, while preserving legacy 1B interpretation under \texttt{raw\_primary}.
+
+\subsection*{How to read statuses}
+\begin{table}[h]
+\centering
+\begin{tabularx}{\textwidth}{L{0.24\textwidth}Y}
+\toprule
+\textbf{Status} & \textbf{Meaning in this report} \\
+\midrule
+\statusConfirmed & Adjudication complete from completed, authoritative artifacts (can be positive support or negative/failing outcome). \\
+\statusSupported & Directional/diagnostic signal exists but does not satisfy confirmatory adjudication requirements. \\
+\statusPending & Intended confirmatory claim cannot be adjudicated yet because required pipeline steps are incomplete. \\
+\statusNotEval & The hypothesis is exploratory or otherwise outside current inferential scope. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{center}
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{L{0.08\textwidth}L{0.26\textwidth}L{0.16\textwidth}L{0.41\textwidth}}
+\caption{Table A: Claim status board (major claims and hypotheses)}\\
+\toprule
+\textbf{ID} & \textbf{Claim} & \textbf{Status} & \textbf{Primary evidence} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Claim} & \textbf{Status} & \textbf{Primary evidence} \\
+\midrule
+\endhead
+C1 & Track B raw invariance across centering variants (Exp1) & \statusConfirmed & Mean absolute diff $=0.000000$, max absolute diff $=0.000000$ for per-position vs bucketed/shared/canonical raw comparisons. \\
+C2 & Legacy vs canonical per-position centered equivalence (Exp1) & \statusConfirmed & Centered equivalence mean absolute diff $=0.000000$, max absolute diff $=0.000010$. \\
+C3 & Synthetic centered$\approx$raw (Exp1) & \statusConfirmed & Synthetic centered==raw check: mean absolute diff $=0.000000$, max absolute diff $=0.000000$. \\
+C4 & Branch B selected (heterogeneous recovery) (Exp1) & \statusConfirmed & Recovery heterogeneity by model family/norm; monotonic recovery on natural data and strong RoPE-family gains under shared-mean centering. \\
+C5 & Long-range calibration lock exists and is valid (Exp2) & \statusConfirmed & Lock artifact status = ok; selected offsets [8,12]; fallback [8]; threshold $0.15$. \\
+H1 & High-frequency targeted ablation: short $>$ long degradation & \statusConfirmed & Final Phase 2B pooled effect \(0.0465\) with \(95\%\) CI \([0.0119, 0.0740]\): below preregistered \(0.05\) threshold, label=fail. \\
+H2 & Low-frequency targeted ablation: long $>$ short degradation & \statusConfirmed & Final Phase 2B pooled effect \(-0.1548\) with \(95\%\) CI \([-0.1707,-0.1412]\): opposite target direction, label=fail; headroom diagnostics flag confounding risk. \\
+H3 & Targeted-vs-random kernel/task specificity (co-occurrence) & \statusConfirmed & Final H3 confirmatory pass-rate \(=0.0\) (point and CI-gated), label=fail. \\
+H4 & Norm-family interaction differences & \statusNotEval & Exploratory by protocol; not a confirmatory endpoint in this run state. \\
+H5 & Transfer to stratified Tier-1 PPL & \statusNotEval & Exploratory by protocol; claim guard restricts scope to task-sampling variability only. \\
+\bottomrule
+\end{longtable}
+\setlength{\tabcolsep}{6pt}
+\end{center}
+
+\section{Experiment 1 Confirmed Findings}
+\subsection*{What is firmly established}
+Experiment 1 provides completed methodological constraints that directly shape Experiment 2 interpretation:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Raw channel stability}: Track B raw is invariant under centering granularity and frame choices in the completed comparison set.
+  \item \textbf{Centered channel sensitivity}: per-position centered diagnostics on natural/code are highly sensitive to centering strategy, while synthetic remains stable.
+  \item \textbf{Branch-B heterogeneity}: recovery behavior depends on model family and norm family; the effect is not uniform.
+  \item \textbf{NoPE contrast remains low}: architecture-matched NoPE controls remain near floor in early-layer kernel fit quality.
+\end{enumerate}
+
+\subsection*{Detailed evidence used as constraints for Experiment 2}
+\begin{table}[ht]
+\centering
+\caption{Experiment 1 evidence anchors carried into Experiment 2 policy}
+\begin{tabularx}{\textwidth}{L{0.33\textwidth}L{0.17\textwidth}Y}
+\toprule
+\textbf{Anchor} & \textbf{Value} & \textbf{Interpretation impact} \\
+\midrule
+Raw invariance (per-position vs bucketed\_b32, canonical, shared) & mean abs diff $=0$, max abs diff $=0$ & Supports raw-first confirmatory interpretation stability. \\
+Centered legacy vs canonical per-position equivalence & mean abs diff $=0$, max abs diff $=10^{-5}$ & Frame choice not the primary source of centered collapse. \\
+Synthetic centered==raw invariant check & mean abs diff $=0$, max abs diff $=0$ & Confirms synthetic path does not inherit natural-text centering artifact. \\
+Overall early centered-minus-raw (per-position) & $-0.194232$ & Per-position centered diagnostics can materially understate signal on natural/code. \\
+Overall early centered-minus-raw (shared-mean) & $+0.029893$ & Shared-mean substantially recovers or exceeds per-position centered signal. \\
+Granularity monotonicity (natural, early) & $22/24 = 0.9167$ & Supports smooth recovery narrative under coarser centering. \\
+Granularity monotonicity (natural, all layers) & $21/24 = 0.8750$ & Same direction at full-depth aggregation. \\
+RMSNorm recovery under shared-mean & $100.0\%$ of per-row target in summary table & Confirms a strong norm-family interaction in centered diagnostics. \\
+LayerNorm recovery under shared-mean & $108.6\%$ (reported for OLMo) & Indicates overshoot behavior can occur; centered remains diagnostic in interpretation. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{What these Experiment 1 findings imply for Experiment 2}
+\begin{enumerate}[leftmargin=*]
+  \item Confirmatory kernel interpretation should remain \textbf{raw-first}, with centered channels treated as diagnostic and method-sensitive.
+  \item Cross-model and cross-task claims must explicitly acknowledge family-level heterogeneity.
+  \item Locking long offsets based on feasibility is justified because model capability varies sharply with span.
+\end{enumerate}
+
+\section{What Math Guarantees vs What Data Shows}
+\subsection*{Math guarantees (model-agnostic statements)}
+\begin{enumerate}[leftmargin=*]
+  \item If two kernels are shift-invariant over position indices, their pointwise product is also shift-invariant over positions.
+  \item RoPE guarantees shift-invariant \emph{positional contribution} in pre-softmax attention logits (relative-position form).
+  \item Full attention logits are not guaranteed to be exactly separable into positional$\times$content terms: cross-terms are expected, and post-softmax causal masking introduces boundary non-stationarity.
+  \item Bochner/Herglotz-type spectral representations apply to positive-definite shift-invariant kernels; in this project they are used as a diagnostic lens on learned positional structure, not as a guarantee that full attention is globally stationary.
+\end{enumerate}
+
+\subsection*{Data evidence in this snapshot}
+\begin{enumerate}[leftmargin=*]
+  \item Experiment 1 confirms raw-channel invariance across centering variants and centered-path equivalence checks in the completed Track B sweep.
+  \item Synthetic centered$\approx$raw checks are exact in the reported summary comparisons.
+  \item NoPE controls remain low-signal, which is treated as a boundary condition against universal shift-invariance claims.
+\end{enumerate}
+
+\subsection*{Integrated interpretation}
+The evidence supports a conservative decomposition view: PE-equipped models exhibit strong measurable positional-kernel structure, and a product-kernel approximation is useful at the analysis level, but exact full-layer separability is not claimed. Multi-head composition, output mixing, residual updates, and MLP nonlinearity can all induce layer-level entanglement, so the decomposition is interpreted as approximate and depth-sensitive rather than exact.
+
+\section{Bochner/Herglotz Spectral Interpretation: Relevance and Limits}
+\subsection*{What is meaningful for this experiment}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Relevant object}: a learned positional kernel over relative offsets, estimated from attention-logit structure (or residualized kernel slices), not the entire Transformer block as one stationary operator.
+  \item \textbf{Spectral diagnostics}: nonnegative spectral mass over offset frequencies, layer/head band-energy concentration, and peak-frequency drift with depth.
+  \item \textbf{Intervention linkage}: frequency-band ablations are interpretable as perturbations of this empirical positional spectrum; this is why the high-vs-low band interventions are scientifically meaningful.
+\end{enumerate}
+
+\noindent
+\textbf{Formal grounding for intervention linkage.} In the discrete relative-position view, the positional kernel can be written as a finite cosine expansion
+\[
+k_{\text{pos}}(\Delta)=\sum_i a_i\cos(\omega_i\Delta),
+\]
+which is the finite Herglotz-style representation used in this project family. The effective coefficients \(a_i\) depend on learned \(Q/K\) projections and are not guaranteed to be nonnegative in every head/layer; therefore this should be read as a finite Fourier decomposition that approximates the strict positive-definite Herglotz setting when coefficient-sign constraints are not exactly met. Each RoPE channel pair contributes one rotation frequency \(\omega_i\), so removing high- or low-frequency channel bands corresponds to zeroing/reweighting selected spectral components in \(k_{\text{pos}}\). This is the formal basis for treating band-targeted RoPE ablations as spectral perturbations (see the formal propositions developed in \texttt{overview\_fullrevise.tex}).
+
+\subsection*{What it does not prove}
+\begin{enumerate}[leftmargin=*]
+  \item It does not prove that full attention maps are exactly stationary after masking, finite-context boundaries, and content-position cross-terms.
+  \item It does not prove that MLP/residual dynamics preserve any strict kernel factorization across depth.
+  \item It does not prove mediation: spectral alignment and targeted-vs-random specificity remain co-occurrence evidence.
+\end{enumerate}
+
+\subsection*{Why this adds value beyond existing analyses}
+\begin{enumerate}[leftmargin=*]
+  \item Relative-position PE papers establish architectural form; this project adds quantitative diagnostics that measure \emph{how much} shift-structured behavior is present per layer/head/model under real checkpoints.
+  \item Circuit/probing work identifies functional motifs; this project adds kernel-spectrum and intervention-response coupling that can be tested with explicit gate criteria.
+  \item The result is a falsifiable bridge: if band-targeted interventions fail to move expected spectral/task channels, the decomposition hypothesis is weakened.
+\end{enumerate}
+
+\section{Experiment 2 Current State}
+\subsection*{Phase-by-phase state}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Phase 2A}: completed as confirmatory entry phase in prior authoritative runs; not the primary evidence focus of this snapshot.
+  \item \textbf{Phase 2B}: authoritative run is \texttt{exp2\_phase2b\_fastq\_v8\_20260307\_170106}; execution, posthoc-centered, and reanalysis are complete with final confirmatory outcome \texttt{confirmatory\_success=false}.
+  \item \textbf{Phase 2C/2D}: exploratory extension; promotion eligibility remains false because Phase 2B confirmatory pass was not observed.
+\end{enumerate}
+
+\subsection*{Execution and readiness snapshot}
+\begin{table}[ht]
+\centering
+\caption{Table B: Phase 2B execution and analysis readiness state (authoritative run)}
+\begin{tabularx}{\textwidth}{L{0.45\textwidth}L{0.20\textwidth}Y}
+\toprule
+\textbf{Field} & \textbf{Value} & \textbf{Source and interpretation} \\
+\midrule
+Total planned cells & 1932 & From manifest summary (synthetic 924, span bridge 756, tier1\_ppl 252). \\
+Full manifest rows & 1932 & From execution coverage. \\
+Pruned rows & 640 & Non-baseline floor-limited rows removed by policy before execute queue. \\
+Kept rows (execution target after prune) & 1292 & From manifest prune summary and execution coverage. \\
+Executed rows (run\_config count) & 1292 & From execution coverage (execute complete). \\
+Missing rows relative to full manifest & 640 & Exactly the pruned rows (no unplanned execution loss). \\
+Centered pending cells & 0 & Posthoc-centered complete for this run. \\
+Gate status & ok (non-blocked) & Final gate payload present and fully populated. \\
+Phase2B confirmatory pass observed & false & From promotion guard and decision summary. \\
+Phase2C confirmatory promotion eligible & false & Guardrail remains active because Phase2B pass is false. \\
+Phase2D confirmatory promotion eligible & false & Same guardrail as above. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Long-offset feasibility lock state}
+\begin{table}[ht]
+\centering
+\caption{Table C: Long-offset lock summary used by confirmatory synthetic long tasks}
+\begin{tabularx}{\textwidth}{L{0.35\textwidth}L{0.22\textwidth}Y}
+\toprule
+\textbf{Lock parameter} & \textbf{Value} & \textbf{Interpretation} \\
+\midrule
+Lock file status & ok & Valid lock artifact present. \\
+Source sweep run & \url{exp2_feas_amended_fast_20260306_234245} & Locked from baseline-only feasibility sweep. \\
+Selection policy & per-task model majority & Per-task model support criterion. \\
+Threshold & 0.15 & Baseline floor threshold used for feasibility pass-rate. \\
+Minimum pass-rate/support fraction & $2/3$ ($0.6667$) & Required by lock policy. \\
+Selected long offsets & [8, 12] & Active long-offset set for delayed copy and long-range retrieval. \\
+Fallback spans & [8] & Floor fallback target for constrained long conditions. \\
+Feasible offsets among candidates & only 8 and 12 & Candidate order was [8,12,16,24,32,48,64,96,128]. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent
+\textbf{Policy rationale.} The per-task 2/3 model-majority rule was adopted because the original global all-pairs rule was too conservative under heterogeneous feasibility (one model-task failure could veto all offsets). The amended lock preserves cross-model comparability while avoiding a single-model veto across independent long-task families.
+
+\subsection*{Baseline floor-limited diagnostics (interim)}
+\begin{table}[ht]
+\centering
+\caption{Table D: Baseline floor diagnostics by task/model (none intervention rows, interim descriptive)}
+\footnotesize
+\begin{tabular}{llllrrr}
+\toprule
+\textbf{Split} & \textbf{Task} & \textbf{Model} & \textbf{n} & \textbf{Floor rows} & \textbf{Floor rate} & \textbf{Mean acc} \\
+\midrule
+synthetic & local copy offset & llama-3.2-1b & 7 & 0 & 0.000 & 0.2970 \\
+synthetic & local copy offset & olmo-1b & 7 & 0 & 0.000 & 0.3878 \\
+synthetic & local copy offset & tinyllama-1.1b & 7 & 0 & 0.000 & 0.2525 \\
+synthetic & local key match & llama-3.2-1b & 7 & 0 & 0.000 & 0.6092 \\
+synthetic & local key match & olmo-1b & 7 & 0 & 0.000 & 0.2591 \\
+synthetic & local key match & tinyllama-1.1b & 7 & 0 & 0.000 & 0.3624 \\
+synthetic & delayed copy & llama-3.2-1b & 7 & 0 & 0.000 & 0.1635 \\
+synthetic & delayed copy & olmo-1b & 7 & 0 & 0.000 & 0.1840 \\
+synthetic & delayed copy & tinyllama-1.1b & 7 & 6 & 0.857 & 0.1442 \\
+synthetic & long range retrieval & llama-3.2-1b & 7 & 0 & 0.000 & 0.2296 \\
+synthetic & long range retrieval & olmo-1b & 7 & 0 & 0.000 & 0.1891 \\
+synthetic & long range retrieval & tinyllama-1.1b & 7 & 0 & 0.000 & 0.1729 \\
+span bridge & copy offset bridge & llama-3.2-1b & 21 & 21 & 1.000 & 0.1192 \\
+span bridge & copy offset bridge & olmo-1b & 21 & 21 & 1.000 & 0.1198 \\
+span bridge & copy offset bridge & tinyllama-1.1b & 21 & 21 & 1.000 & 0.1111 \\
+span bridge & retrieval bridge & llama-3.2-1b & 21 & 14 & 0.667 & 0.1454 \\
+span bridge & retrieval bridge & olmo-1b & 21 & 18 & 0.857 & 0.1277 \\
+span bridge & retrieval bridge & tinyllama-1.1b & 21 & 21 & 1.000 & 0.1321 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent
+\textbf{Scoring-policy note.} Synthetic and span-bridge accuracies in Table D are 10-way restricted-candidate accuracies under \texttt{restricted\_candidates\_v1\_structured\_first}, so chance level is \(0.10\). Tier-1 rows remain full-vocabulary PPL-based evaluations.
+
+\noindent
+\textbf{Interpretation note:} Table D is intentionally descriptive. It is used here to document feasibility pressure and floor exclusions visible in current artifacts, not to adjudicate hypotheses.
+
+\noindent
+\textbf{Bridge-panel implication.} The span-bridge panel is effectively non-evaluable in this run: \texttt{copy\_offset\_bridge} is 100\% floor-limited for all models, and \texttt{retrieval\_bridge} remains heavily floor-limited (67\%--100\%). As a result, transition-region sensitivity claims from the bridge panel are not adjudicable here. This pattern is consistent with the same feasibility constraints that motivated the locked long-offset set \([8,12]\).
+
+\section{Hypothesis Adjudication (H1--H5)}
+\subsection*{High-level rule for this section}
+H1/H2/H3 are adjudicated from the finalized non-blocked Phase 2B gate for \texttt{exp2\_phase2b\_fastq\_v8\_20260307\_170106}. H4/H5 remain exploratory by protocol and are not promoted to confirmatory status.
+
+\subsection*{Confirmatory Inference Model}
+The Phase 2B confirmatory machinery is based on paired within-seed contrasts, with fixed-effects pooling across model-seed units for primary inference. Point estimates are accompanied by BCa bootstrap confidence intervals and paired sign-flip permutation p-values, with Holm correction across the \(\{H1,H2\}\) family. Cluster-sensitivity and CI-gated H3 summaries are retained as guardrail diagnostics, not primary confirmatory decision rules.
+
+\noindent
+\textbf{Content-gated safeguard.} Confirmatory directional support must also hold on content-gated tasks (key-match short vs retrieval long) with minimum directional contrast constraints, preventing copy-family tasks from solely driving H1/H2 support.
+
+\noindent
+\textbf{Span-overlap caveat.} Under the current long-offset lock \([8,12]\), long-task spans overlap numerically with part of the short-task offset regime (\(\le 16\)). In this snapshot, short-vs-long contrasts therefore combine mechanism-family differences with span effects, rather than isolating a pure span-only contrast.
+
+\subsection{H1: High-frequency targeted ablation should degrade short-range tasks more than long-range tasks}
+\textbf{Target claim.} Under strong high-frequency targeted interventions, short-class degradation should exceed long-class degradation.
+
+\textbf{Final confirmatory evidence.}
+\begin{itemize}[leftmargin=*]
+  \item Pooled Phase 2B effect (all-model confirmatory unit set): \(+0.04653\), 95\% CI \([0.01187, 0.07401]\), Holm-adjusted \(p=0.01174\), label=\texttt{fail} because effect does not reach the preregistered \(0.05\) threshold.
+  \item Model-level raw contrasts:
+  \begin{itemize}
+    \item Llama: \(+0.0968\) (direction-consistent).
+    \item OLMo: \(+0.0972\) (direction-consistent).
+    \item TinyLlama: \(-0.0544\) (direction-inconsistent).
+  \end{itemize}
+  \item Diagnostic normalization does not reverse H1 direction:
+  \begin{itemize}
+    \item Baseline-normalized H1 effect: \(+0.1387\) (imprecise\_pass).
+    \item Headroom-normalized H1 effect: \(+0.1959\) (imprecise\_pass).
+  \end{itemize}
+  \item Feasibility-conditioned exploratory subset (\(\texttt{llama}+\texttt{olmo}\), \(n=14\)): H1 effect \(+0.09699\), 95\% CI \([0.09271, 0.10232]\), \(p=1.22\times 10^{-4}\), label=\texttt{pass}. This does not override primary all-model confirmatory adjudication.
+\end{itemize}
+
+\textbf{Adjudication.} \textbf{H1 fails} under the preregistered confirmatory rule (near-threshold positive effect, but below \(0.05\)).
+
+\subsection{H2: Low-frequency targeted ablation should degrade long-range tasks more than short-range tasks}
+\textbf{Target claim.} Under strong low-frequency targeted interventions, long-class degradation should exceed short-class degradation.
+
+\textbf{Final confirmatory evidence.}
+\begin{itemize}[leftmargin=*]
+  \item Pooled Phase 2B raw effect (all-model confirmatory unit set): \(-0.15480\), 95\% CI \([-0.17074,-0.14116]\), Holm-adjusted \(p=0.0\), label=\texttt{fail}, opposite the H2 target direction.
+  \item Model-level raw contrasts are negative for all three models:
+  \begin{itemize}
+    \item Llama: \(-0.1997\).
+    \item OLMo: \(-0.1314\).
+    \item TinyLlama: \(-0.1333\).
+  \end{itemize}
+  \item Headroom diagnostics show material confounding pressure:
+  \begin{itemize}
+    \item \texttt{headroom\_confound\_risk=true}.
+    \item Long-vs-short mean baseline headroom ratio \(=0.332\) (severe imbalance).
+    \item H2 headroom-normalized effect \(=+0.03594\), 95\% CI \([-0.01766,0.08815]\), sign opposite raw but non-significant.
+  \end{itemize}
+  \item Feasibility-conditioned exploratory subset (\(\texttt{llama}+\texttt{olmo}\), \(n=14\)): raw H2 remains negative (\(-0.16552\), label=\texttt{fail}); headroom-normalized subset H2 is weakly positive (\(+0.03481\)).
+  \item Interpretation: current run does not support H2 confirmatorily, and the direction mismatch between raw and headroom-normalized diagnostics indicates the constrained-span/headroom regime is a key limitation for mechanistic interpretation.
+\end{itemize}
+
+\textbf{Adjudication.} \textbf{H2 fails} in the finalized confirmatory analysis, with explicit diagnostic caveat that headroom/feasibility confounding may suppress or distort long-class raw-drop contrasts.
+
+\subsection*{Option A Follow-up (Extended Feasibility Sweep Snapshot)}
+\textbf{Why this is needed.} The finalized H2 outcome is negative, but interpretation is constrained by two diagnostics: severe long-vs-short headroom imbalance and short/long span overlap under the current lock \([8,12]\). Option A is a targeted feasibility check to determine whether these models can support a cleaner long-range regime.
+
+\textbf{Executed Option A matrix (baseline-only).}
+\begin{itemize}[leftmargin=*]
+  \item Models (analysis focus): \texttt{llama-3.2-1b}, \texttt{olmo-1b}
+  \item Tasks: \texttt{delayed\_copy}, \texttt{long\_range\_retrieval}
+  \item Offsets: \(\{16,24,32,48,64\}\)
+  \item Seeds: \(3\)
+  \item Intervention: \texttt{none}
+  \item Evaluation: restricted candidates, candidate size \(10\), floor threshold \(0.15\)
+\end{itemize}
+
+\textbf{Feasibility rule.} For each \((\text{model},\text{task},\text{offset})\), an offset is feasible when seed pass-rate is at least \(2/3\) with pass defined as baseline mean accuracy \(\ge 0.15\).
+
+\textbf{Decision rule.}
+\begin{itemize}[leftmargin=*]
+  \item If any focused model-task pair is feasible at offset \(\ge 32\), proceed to an exploratory long-separation rerun design.
+  \item If none are feasible at \(\ge 32\), document constrained-regime limitation as the dominant explanation for H2 interpretability limits in this model class.
+\end{itemize}
+
+\textbf{Current Option A outcome (run \texttt{exp2\_feas\_optA\_20260310\_204817}).}
+\begin{itemize}[leftmargin=*]
+  \item \texttt{llama-3.2-1b}: delayed\_copy max feasible offset \(=\) none; long\_range\_retrieval max feasible offset \(=32\).
+  \item \texttt{olmo-1b}: delayed\_copy max feasible offset \(=16\); long\_range\_retrieval max feasible offset \(=16\).
+  \item Decision memo: \texttt{viable\_ge\_32=true} because at least one focused model-task pair reaches \(\ge 32\) (llama retrieval at 32).
+  \item Policy in this pass remains report-only: no lock update was applied to \texttt{experiment2/long\_offset\_lock.json}.
+\end{itemize}
+
+\subsection{H3: Targeted-vs-random specificity with co-occurring task degradation}
+\textbf{Target claim.} Targeted interventions should produce larger and more directional kernel/task effects than matched random controls.
+
+\textbf{Interpretation boundary (explicit).}
+H3 is \emph{co-occurrence/specificity evidence}; it is not a mediation identification claim.
+
+\textbf{Claim boundary (scope guard).}
+Even after final reanalysis, H3 is interpreted as a specificity/co-occurrence endpoint only. It does not identify mediation pathways, and it does not support training-run generalization claims because current inference scope is limited to task-sampling variability under fixed checkpoints.
+
+\textbf{Final confirmatory evidence.}
+\begin{itemize}[leftmargin=*]
+  \item Confirmatory H3 pass-rate (track\_b\_raw, point-gated): \(0.0\).
+  \item CI-gated H3 pass-rate: \(0.0\).
+  \item Criterion \texttt{kernel\_specificity\_50pct} fails; overall H3 label=\texttt{fail}.
+\end{itemize}
+
+\textbf{Adjudication.} \textbf{H3 fails} in this run's confirmatory gate.
+
+\subsection{H4: Norm-family interaction differences (exploratory)}
+\textbf{Target claim.} Effect magnitudes differ across LayerNorm vs RMSNorm families.
+
+\textbf{Available evidence now.}
+\begin{itemize}[leftmargin=*]
+  \item Experiment 1 already shows strong norm-sensitive differences in centering recovery behavior.
+  \item Experiment 2 H4 is explicitly exploratory; no confirmatory promotion is intended in this stage.
+\end{itemize}
+
+\textbf{Status and resolution condition.}
+Status remains \statusNotEval in confirmatory terms; it can only be reported as exploratory even after Phase 2B completion unless protocol is explicitly amended.
+
+\subsection{H5: Transfer to stratified Tier-1 PPL (exploratory)}
+\textbf{Target claim.} Synthetic directional effects should partially transfer to Tier-1 stratified natural-language behavior.
+
+\textbf{Available evidence now.}
+\begin{itemize}[leftmargin=*]
+  \item Tier-1 stratified rows are present in aggregate artifacts.
+  \item Run-level claim guard states:
+  \begin{itemize}
+    \item \texttt{training\_variance\_not\_measured=true}
+    \item \texttt{inference\_scope=task\_sampling\_variability\_only}
+  \end{itemize}
+\end{itemize}
+
+\textbf{Status and resolution condition.}
+Status remains \statusNotEval for confirmatory claims and exploratory-only for interpretation in this report.
+
+\begin{table}[ht]
+\centering
+\caption{Table E: H1--H5 adjudication state in the current snapshot}
+\begin{tabularx}{\textwidth}{L{0.07\textwidth}L{0.30\textwidth}L{0.17\textwidth}Y}
+\toprule
+\textbf{Hyp.} & \textbf{Current evidence} & \textbf{Status} & \textbf{Exact requirement to resolve} \\
+\midrule
+H1 & Final pooled effect \(0.04653\) (\(p_{Holm}=0.01174\)); below \(0.05\) threshold. Exploratory feasibility subset passes in llama+olmo only. & \statusConfirmed & Already adjudicated: fail under preregistered all-model confirmatory rule. Resolve only via amended/new run design if desired. \\
+H2 & Final pooled raw effect \(-0.15480\) (opposite direction); headroom-normalized sign mismatch and severe headroom imbalance flagged. & \statusConfirmed & Already adjudicated: fail in current confirmatory run; mechanistic interpretation remains caveated by headroom/feasibility confounding diagnostics. \\
+H3 & Final confirmatory H3 pass-rate \(=0.0\) (point and CI-gated). & \statusConfirmed & Already adjudicated: fail for this run. \\
+H4 & Norm-family differences visible in Exp1 diagnostics; not a confirmatory endpoint. & \statusNotEval & Report exploratory interaction outputs only; no confirmatory promotion in current protocol. \\
+H5 & Tier-1 stratified artifacts exist; claim guard limits inference scope and training variance is unmeasured. & \statusNotEval & Maintain exploratory-only interpretation; do not promote to confirmatory claim class without protocol change. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{What These Results Mean Right Now}
+\subsection*{Strongest defensible interpretation}
+\begin{enumerate}[leftmargin=*]
+  \item The methodological foundation from Experiment 1 successfully supported a complete confirmatory Phase 2B readout.
+  \item The long-offset feasibility amendment was necessary and successfully operationalized (8/12 lock) rather than assumed.
+  \item The finalized Phase 2B confirmatory outcome is negative (H1/H2/H3 fail), with diagnostics indicating strong headroom/feasibility confounding pressure specifically on H2 interpretation.
+  \item The exploratory feasibility-conditioned subset shows H1 signal in feasibility-passing models, but does not rescue H2 and does not override primary confirmatory adjudication.
+\end{enumerate}
+
+\subsection*{What this does \emph{not} yet imply}
+\begin{enumerate}[leftmargin=*]
+  \item It does not imply that the underlying frequency-selectivity hypothesis is universally false across all feasible span regimes; it implies failure under the current preregistered run design and lock.
+  \item It does not imply training-run robustness, retraining stability, or cross-retrain causal invariance.
+  \item It does not imply mediation identification from H3-like specificity evidence.
+\end{enumerate}
+
+\section{Next Experiment Priorities (Literature-Grounded)}
+\subsection*{Priority 1: Attention-only vs Attention+MLP decomposition test}
+\textbf{Why first.} The current evidence supports approximate positional/content structure in attention logits, but depth entanglement likely arises from both attention mixing and MLP-residual updates. A direct architecture comparison is the cleanest next causal step.
+
+\textbf{Recommended design.}
+\begin{enumerate}[leftmargin=*]
+  \item Matched small-model families with identical tokenization/data budget:
+  \begin{enumerate}
+    \item attention-only stacks,
+    \item attention+MLP stacks.
+  \end{enumerate}
+  \item Run the same kernel extraction and band-targeted interventions.
+  \item Compare (a) positional-kernel fit retention across depth, (b) cross-term growth, and (c) task degradation selectivity.
+\end{enumerate}
+
+\textbf{Interpretive payoff.} This isolates where non-shift components are introduced most strongly and whether MLP blocks are a dominant entanglement source versus attention alone.
+
+\subsection*{Priority 2: Shift-structure vs expressivity tradeoff}
+\begin{enumerate}[leftmargin=*]
+  \item Working hypothesis: no global anti-correlation is guaranteed; a depth-dependent tradeoff is more plausible (early stability with later task-specific departures).
+  \item Testable output: correlation of stationarity-fit metrics with functional performance and error types across layers/models.
+  \item Claim policy: exploratory until replicated across multiple training runs.
+\end{enumerate}
+
+\subsection*{Priority 3: Loss-landscape relationship}
+\begin{enumerate}[leftmargin=*]
+  \item Open question: whether stronger approximate shift-structure corresponds to flatter or sharper local basins.
+  \item Practical requirement: symmetry-aware landscape probes; naive sharpness metrics can be misleading in Transformer parameterizations.
+  \item Current state: hypothesis-generating only, not adjudicated by present experiments.
+\end{enumerate}
+
+\subsection*{Priority 4: Meaning of layerwise non-shift-invariant components}
+\begin{enumerate}[leftmargin=*]
+  \item Candidate interpretation: non-shift components may encode boundary handling, lexical anchoring, and task-specific routing rather than pure noise.
+  \item Test path: intervene on residualized non-shift components and measure selective impact on long-range vs local tasks.
+  \item Claim policy: treat as functional hypothesis until intervention evidence is complete.
+\end{enumerate}
+
+\subsection*{Priority 5: Entanglement as a computational mechanism (not just decomposition error)}
+\begin{enumerate}[leftmargin=*]
+  \item Working claim: depth growth of cross-terms may represent useful algorithmic binding of content and position, not merely model misspecification.
+  \item Minimal falsifiable test: estimate per-layer residual cross-term magnitude, then ablate high-residual vs low-residual heads while matching intervention budget.
+  \item Decision signal: if high-residual ablations selectively degrade hard long-range behaviors more than low-residual controls, entanglement is functionally implicated.
+  \item Reporting rule: treat positive findings as mechanistic evidence of functional entanglement, not mediation proof.
+\end{enumerate}
+
+\section{Implications for Mechanistic Interpretability}
+\subsection*{Practical meaning for interpretability workflows}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Circuit claims become conditional}: first test separability and cross-term residuals, then choose circuit-style analysis only where diagnostics support it.
+  \item \textbf{Two-stage workflow}: run kernel/separability diagnostics first, then run intervention-heavy circuit tracing on the subsets that pass structural checks.
+  \item \textbf{Depth-aware method choice}: early layers can be treated with cleaner separable analyses; deeper layers should default to entanglement-aware descriptions unless residual diagnostics remain small.
+  \item \textbf{Causal evidence standard rises}: targeted-vs-random intervention deltas become required support for mechanistic relevance, not optional add-ons to static probing.
+  \item \textbf{Failure is informative}: when product-kernel fit fails, that is a mechanistic result indicating non-separable computation, not just analysis error.
+\end{enumerate}
+
+\subsection*{What your current findings contribute}
+\textbf{Claim-safety qualifier.} The points below describe framework-level contributions supported by completed Experiment 1 results and the finalized Experiment 2 Phase 2B readout. Confirmatory results are negative in this run, and mechanistic interpretation remains bounded by the documented headroom/feasibility diagnostics.
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Quantitative gate before circuit claims}: the kernel-fit and invariance checks provide a precondition test for when separable circuit stories are likely valid versus likely misleading.
+  \item \textbf{Head taxonomy with measurable criteria}: heads can be classified by positional/content/product fit and cross-term residuals, extending attention-pattern heuristics with numeric diagnostics.
+  \item \textbf{Depth-aware interpretability boundary}: early layers can support cleaner positional analyses, while deeper layers should be treated as potentially entangled manifolds unless residual diagnostics remain small.
+  \item \textbf{Architecture-conditioned interpretation}: RoPE-like guarantees justify stronger positional-structure expectations for PE-equipped models, while NoPE/absolute variants act as boundary controls.
+  \item \textbf{Intervention-linked interpretability (falsifiable even under negative outcome)}: band-targeted vs random controls provide a concrete bridge from representational diagnostics to perturbation outcomes; in this run, that bridge yields a negative confirmatory result rather than positive support.
+\end{enumerate}
+
+\subsection*{What this does not yet settle}
+\begin{enumerate}[leftmargin=*]
+  \item It does not replace circuit analysis; it adds a quantitative screen for where circuit-level decomposition is plausible.
+  \item It does not establish mediation from H3-type specificity.
+  \item It does not establish training-run generalization because checkpoints are fixed.
+\end{enumerate}
+
+\section{Remaining Decision-Critical Steps}
+The confirmatory run is complete. The remaining work is interpretation hardening and next-run design:
+\begin{enumerate}[leftmargin=*]
+  \item Keep the current run's negative confirmatory adjudication locked and reproducible (\texttt{confirmatory\_success=false}).
+  \item Use the new diagnostics (\texttt{headroom\_confound\_risk}, feasibility subset, span-overlap caveat) to define the next amended confirmatory design.
+  \item Follow-on scale-up runs are pre-registered with co-primary H1/H2 endpoint policy (\texttt{raw + headroom-normalized}); preserve legacy 1B run semantics as raw-primary.
+  \item Preserve claim-guard constraints for mediation and training-run generalization in all reporting.
+\end{enumerate}
+
+\section{Claim Guardrails for Writing and Publication}
+The following claim classes remain explicitly disallowed:
+\begin{enumerate}[leftmargin=*]
+  \item ``H1 supported'' or ``H2 supported'' for this authoritative run (current adjudication is fail/fail).
+  \item ``H3 demonstrates mediation'' or equivalent causal-mechanism wording beyond co-occurrence or specificity evidence.
+  \item Any generalization across retraining variance, because the run-level guard explicitly states training variance was not measured.
+\end{enumerate}
+
+Allowed now:
+\begin{enumerate}[leftmargin=*]
+  \item Methodological claims already confirmed in Experiment 1.
+  \item Locked configuration claims (e.g., long-offset lock policy and selected offsets).
+  \item Final confirmatory outcome statements for this run: H1 fail, H2 fail, H3 fail.
+  \item Diagnostic caveat statements: headroom/feasibility confounding risk, span-overlap limitation, and exploratory subset context.
+\end{enumerate}
+
+\section{Conclusion: Resolved vs Unresolved}
+\subsection*{Resolved}
+\begin{itemize}[leftmargin=*]
+  \item Experiment 1 methodological constraints and branch-selection logic are resolved and reproducible.
+  \item Experiment 2 long-range feasibility lock has been formally calibrated and applied.
+  \item Experiment 2 Phase 2B confirmatory adjudication is complete and negative (H1/H2/H3 fail).
+\end{itemize}
+
+\subsection*{Unresolved}
+\begin{itemize}[leftmargin=*]
+  \item Mechanistic interpretation of H2 remains limited by headroom imbalance and span-overlap constraints in this locked design.
+  \item H4 and H5 remain exploratory with explicit inference scope limitations.
+  \item Training-run variance remains unmeasured.
+\end{itemize}
+
+\subsection*{Binary summary}
+\textbf{Current state:} methodology-confirmed, confirmatory-hypothesis-adjudication complete with negative outcome under current run design.
+
+\end{document}

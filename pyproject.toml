@@ -20,4 +20,4 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["shared", "experiment1"]
+packages = ["shared", "experiment1", "experiment2"]

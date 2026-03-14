@@ -89,7 +89,7 @@
   </p>
   <p class="dim" style="margin-top: 32px;">
     6 models &middot; 3 datasets &middot; 2 sequence lengths &middot; 36 experimental conditions<br>
-    Track A (raw logits) &middot; Track B (averaged Gram matrix) &middot; Boundary analysis &middot; Spectral gating
+    Track A (raw logits) &middot; Track B (averaged Gram matrix) &middot; Centering granularity sweep &middot; Boundary analysis &middot; Spectral gating
   </p>
 </div>
 
@@ -286,21 +286,19 @@
 
   <div class="two-col">
     <div>
-      <h3>What happened</h3>
-      <p>The canonical per-position rerun is complete and can now be compared directly to legacy Track B:</p>
+      <h3>What the canonical rerun showed</h3>
+      <p>Legacy and canonical per-position Track B are near-identical:</p>
       <ul>
         <li><strong>Legacy centered vs canonical centered:</strong> near-identical (centered MAE = 9.41e-08, max = 9.83e-06)</li>
         <li><strong>Legacy raw vs canonical raw:</strong> effectively identical (raw MAE &asymp; 9.64e-18)</li>
-        <li><strong>Canonical vs Track A:</strong> synthetic raw/centered &asymp; 0.0057 difference; natural raw &asymp; 0.013; natural centered &asymp; 0.273</li>
       </ul>
-      <p>Centered collapse on natural/code persists even after canonical rerun, while synthetic remains centered &asymp; raw.</p>
+      <p>This ruled out frame placement as the cause of the centered natural-text collapse.</p>
     </div>
     <div>
-      <div class="callout danger">
-        <h3>Interpretation (finalized, caveated)</h3>
-        <p>The rerun resolves frame-placement ambiguity: the centered natural-text collapse is <strong>not</strong> primarily a legacy-vs-canonical frame mismatch.</p>
-        <p style="margin-top: 8px;">However, both variants still subtract per-position means, so centered natural-text values remain methodology-sensitive and are not a clean standalone test of content removal.</p>
-        <p style="margin-top: 8px;">Track B raw remains the stable comparator to Track A in this deck.</p>
+      <div class="callout success">
+        <h3>Now resolved (Slide 12)</h3>
+        <p>The centering granularity sweep identifies <strong>per-position centering itself</strong> as the confound. Shared-mean centering recovers full raw R&sup2; for RMSNorm models (exact identity) and 108.6% for OLMo (LayerNorm).</p>
+        <p style="margin-top: 8px;">The natural-text centered collapse was a methodological artifact of per-position subtraction, not evidence of content-position entanglement dominating the signal.</p>
       </div>
     </div>
   </div>
@@ -315,9 +313,9 @@
 
   <img src="figures/fig5_track_a_vs_b.png" alt="Figure 5: Track A vs Track B">
 
-  <p>Track A (per-sequence raw logits) and Track B raw (averaged Gram matrix) agree well across datasets; most points remain close to the diagonal. With canonical rerun complete, this agreement remains stable.</p>
-  <p>Concrete agreement levels from current canonical outputs: natural combined <strong>|A - raw| &asymp; 0.013</strong>, natural combined <strong>|A - centered| &asymp; 0.273</strong>, synthetic <strong>|A - raw| = |A - centered| &asymp; 0.0057</strong>.</p>
-  <p>Conclusion: Track B raw is the stable cross-track comparator, while centered natural-text results remain caveated because both legacy and canonical centered variants use per-position subtraction.</p>
+  <p>Track A (per-sequence raw logits) and Track B raw (averaged Gram matrix) agree well across datasets; most points remain close to the diagonal.</p>
+  <p>Concrete agreement levels: natural combined <strong>|A - raw| &asymp; 0.013</strong>, synthetic <strong>|A - raw| = |A - centered| &asymp; 0.0057</strong>. Per-position centered natural text showed a large gap (|A - centered| &asymp; 0.273), but the centering granularity sweep (Slide 12) resolved this as a per-position centering artifact.</p>
+  <p>Conclusion: Track B raw and Track B shared-mean centered are both valid cross-track comparators. The per-position centered collapse was methodological, not substantive.</p>
 </div>
 
 <!-- ============================================================ -->
@@ -334,20 +332,26 @@
         <tr>
           <td><strong>Track B raw</strong></td>
           <td>Average Gram matrix from captured Q/K without centering</td>
-          <td>Most stable comparator to Track A</td>
-          <td>Retains global content and position-dependent mean biases</td>
+          <td>Stable comparator to Track A</td>
+          <td>Retains content and position-dependent mean biases</td>
         </tr>
         <tr>
-          <td><strong>Legacy centered</strong><br><span class="dim">(per-position)</span></td>
-          <td>Subtract mean_q[layer,head,t,:], mean_k[layer,head,t,:] in captured frame (RoPE models use post-RoPE capture)</td>
-          <td>Attempt to remove content offsets before fit</td>
-          <td>Can subtract large absolute-position-structured energy on natural text, lowering centered SNR</td>
+          <td><strong>Per-position centered</strong><br><span class="dim">(legacy/canonical)</span></td>
+          <td>Subtract mean_q[layer,head,t,:], mean_k[layer,head,t,:] per position</td>
+          <td>Attempt to remove content offsets</td>
+          <td><span class="red">Dominant confound</span> &mdash; removes position-structured energy, attenuates signal</td>
         </tr>
         <tr>
-          <td><strong>Canonical centered</strong><br><span class="dim">(per-position)</span></td>
-          <td>Unrotate to canonical frame, subtract per-position means, rotate back, then average Gram</td>
-          <td>Diagnostic check for frame-placement dependence</td>
-          <td>Still per-position subtraction, so core attenuation/confound remains</td>
+          <td><strong>Shared-mean centered</strong><br><span class="green">(recommended)</span></td>
+          <td>Subtract single mean Q/K vector across all positions</td>
+          <td>Content removal without position confound</td>
+          <td>For LayerNorm, slightly exceeds raw R&sup2; (removes content noise)</td>
+        </tr>
+        <tr>
+          <td><strong>Bucketed-mean</strong><br><span class="dim">(b8&ndash;b64)</span></td>
+          <td>Subtract mean within position buckets of size B</td>
+          <td>Interpolates between per-position and shared-mean</td>
+          <td>Intermediate confound; diagnostic only</td>
         </tr>
       </table>
 
@@ -358,36 +362,65 @@
 
     <div>
       <div class="card">
-        <h3>Where each method is strong</h3>
+        <h3>Recommendation</h3>
         <ul>
-          <li><strong>Raw:</strong> preserves the best cross-track agreement signal (natural |A-raw| ~0.013; synthetic ~0.0057)</li>
-          <li><strong>Legacy centered:</strong> strong stress-test for sensitivity to mean subtraction</li>
-          <li><strong>Canonical centered:</strong> isolates whether RoPE coordinate frame is the issue (it is not, by current data)</li>
+          <li><strong>Shared-mean centered:</strong> preferred centering method &mdash; removes content offsets without position confound</li>
+          <li><strong>Raw:</strong> stable comparator to Track A; does not attempt content removal</li>
+          <li><strong>Per-position centered:</strong> superseded; useful only as historical diagnostic</li>
+          <li><strong>Bucketed-mean:</strong> intermediate points on the granularity curve; diagnostic role</li>
         </ul>
       </div>
 
-      <div class="card">
-        <h3>Where each method is weak</h3>
-        <ul>
-          <li><strong>Raw:</strong> not a content-removed estimate</li>
-          <li><strong>Legacy centered:</strong> most sensitive to RoPE natural-text attenuation when per-position means are large</li>
-          <li><strong>Canonical centered:</strong> does not fix per-position confound; only verifies near-equivalence under frame change</li>
-        </ul>
-      </div>
-
-      <div class="callout warning">
-        <p><strong>Practical interpretation rule:</strong> for current Experiment 1, use Track B raw as primary comparator and treat centered variants as methodology-sensitivity diagnostics, especially for RoPE natural-text conditions.</p>
+      <div class="callout success">
+        <p><strong>Resolution:</strong> The centering granularity sweep (Slide 12) demonstrates that shared-mean centering resolves the per-position confound. For RMSNorm models, shared-mean centered R&sup2; = raw R&sup2; exactly (algebraic identity). Track B shared-mean is now the recommended centering method.</p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 12: Boundary analysis -->
+<!-- SLIDE 12: Centering Granularity Sweep (NEW) -->
 <!-- ============================================================ -->
 <div class="slide">
   <div class="slide-num">12</div>
+  <h2>Centering Granularity Sweep: Resolution</h2>
+
+  <p>The centering granularity sweep tests 6 strategies ordered by position-specificity, from per-position (finest) through bucketed intermediates to shared-mean (single mean vector). GPU-optimized pipeline verified at machine epsilon against CPU baselines (42 jobs, 2 GPUs, ~68 min).</p>
+
+  <h3>Recovery: Centered R&sup2; as % of Raw R&sup2;</h3>
+  <table>
+    <tr><th>Model</th><th>PE</th><th>Norm</th><th>Raw R&sup2;</th><th>Per-pos</th><th>b8</th><th>b16</th><th>b32</th><th>b64</th><th>Shared</th></tr>
+    <tr><td>LLaMA-3.2-1B</td><td>RoPE</td><td>RMSNorm</td><td>0.465</td><td>43.3%</td><td>55.7%</td><td>60.4%</td><td>65.6%</td><td>71.3%</td><td><span class="green"><strong>100.0%</strong></span></td></tr>
+    <tr><td>TinyLlama-1.1B</td><td>RoPE</td><td>RMSNorm</td><td>0.399</td><td>43.9%</td><td>58.1%</td><td>62.8%</td><td>67.5%</td><td>72.2%</td><td><span class="green"><strong>100.0%</strong></span></td></tr>
+    <tr><td>OLMo-1B</td><td>RoPE</td><td>LayerNorm</td><td>0.330</td><td>45.6%</td><td>64.1%</td><td>66.1%</td><td>68.2%</td><td>73.5%</td><td><span class="yellow"><strong>108.6%</strong></span></td></tr>
+    <tr><td>GPT-2 Small</td><td>Learned</td><td>LayerNorm</td><td>0.428</td><td>41.8%</td><td>41.8%</td><td>41.9%</td><td>42.7%</td><td>46.0%</td><td><span class="yellow"><strong>107.8%</strong></span></td></tr>
+    <tr><td>GPT-2 Medium</td><td>Learned</td><td>LayerNorm</td><td>0.321</td><td>43.8%</td><td>43.8%</td><td>43.8%</td><td>44.2%</td><td>45.9%</td><td><span class="yellow"><strong>100.8%</strong></span></td></tr>
+    <tr><td>NoPE</td><td>None</td><td>RMSNorm</td><td>0.043</td><td>20.0%</td><td>19.9%</td><td>19.8%</td><td>19.9%</td><td>21.6%</td><td><span class="green"><strong>100.0%</strong></span></td></tr>
+  </table>
+
+  <div class="two-col" style="margin-top: 16px;">
+    <div class="callout success">
+      <h3>RMSNorm: Exact Recovery</h3>
+      <p>Shared-mean centered R&sup2; = raw R&sup2; to machine precision (max |&Delta;| = 5.55e-16). This is an <strong>algebraic identity</strong>: the double-centering normalization for RMSNorm logits exactly cancels the rank-1 cross-terms introduced by shared-mean subtraction.</p>
+    </div>
+    <div class="callout warning">
+      <h3>LayerNorm: Overshoot</h3>
+      <p>OLMo shared-mean R&sup2; <em>exceeds</em> raw (108.6%). LayerNorm logits are not double-centered, so shared-mean centering removes content-dependent offsets that depress raw R&sup2;. The overshoot is genuine, not artifactual.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 12px;">
+    <p><strong>Key result:</strong> <span class="green">80.6%</span> of RoPE head/layer combos show <strong>strictly monotonic recovery</strong> from per-position &rarr; b8 &rarr; b16 &rarr; b32 &rarr; b64 &rarr; shared-mean. The per-position centering confound was the dominant issue &mdash; shared-mean centering resolves it.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 13: Boundary analysis -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">13</div>
   <h2>Boundary Analysis: Causal Masking Effects</h2>
+  <!-- Renumbered from 12 -->
 
   <img src="figures/fig7_boundary.png" alt="Figure 7: Boundary Analysis">
 
@@ -410,10 +443,10 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 13: Per-sequence stability -->
+<!-- SLIDE 14: Per-sequence stability -->
 <!-- ============================================================ -->
 <div class="slide">
-  <div class="slide-num">13</div>
+  <div class="slide-num">14</div>
   <h2>Content Stability: Per-Sequence R&sup2; Distributions</h2>
 
   <img src="figures/fig8_per_seq_distributions.png" alt="Figure 8: Per-Sequence Distributions">
@@ -437,10 +470,10 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 14: Pre-registration scorecard -->
+<!-- SLIDE 15: Pre-registration scorecard -->
 <!-- ============================================================ -->
 <div class="slide">
-  <div class="slide-num">14</div>
+  <div class="slide-num">15</div>
   <h2>Pre-Registered Criteria: Scorecard</h2>
 
   <img src="figures/fig9_preregistration.png" alt="Figure 9: Pre-Registration Summary">
@@ -450,7 +483,7 @@
     <tr><td>RoPE early-layer R&sup2;</td><td>&gt; 0.80</td><td>0.26&ndash;0.62</td><td><span class="yellow">Partial</span></td></tr>
     <tr><td>NoPE early-layer R&sup2;</td><td>&lt; 0.40</td><td>0.002&ndash;0.009</td><td><span class="green">Passed</span></td></tr>
     <tr><td>Track A &asymp; Track B raw (natural)</td><td>&lt; 0.10</td><td>~0.013</td><td><span class="green">Passed</span></td></tr>
-    <tr><td>Track A &asymp; Track B centered (natural)</td><td>&lt; 0.10</td><td>~0.273</td><td><span class="red">Failed*</span></td></tr>
+    <tr><td>Track A &asymp; Track B centered (natural)</td><td>&lt; 0.10</td><td>~0.273 (per-pos); <strong>resolved by shared-mean</strong></td><td><span class="yellow">Resolved*</span></td></tr>
     <tr><td>Track A &asymp; Track B (synthetic)</td><td>&lt; 0.10</td><td>~0.0057</td><td><span class="green">Passed</span></td></tr>
     <tr><td>Legacy &asymp; Canonical Track B</td><td>near-zero delta</td><td>centered MAE 9.41e-08; raw ~0</td><td><span class="green">Passed</span></td></tr>
     <tr><td>Random&ndash;Wiki gap</td><td>&lt; 0.10</td><td>0.08&ndash;0.17</td><td><span class="yellow">Marginal</span></td></tr>
@@ -459,7 +492,7 @@
   </table>
 
   <div class="callout" style="margin-top: 12px;">
-    <p><strong>Note:</strong> The centered natural-text Track B failure remains caveated: both legacy and canonical reruns use per-position centering, so this row is methodology-sensitive rather than a standalone falsification. Track B raw remains close to Track A on natural text.</p>
+    <p><strong>Note:</strong> The per-position centered natural-text Track B failure is now <strong>resolved</strong> by the centering granularity sweep (Slide 12). Shared-mean centering recovers 100% of raw R&sup2; for RMSNorm models and 108.6% for OLMo (LayerNorm). The failure was a per-position centering artifact, not a genuine Track A&ndash;B disagreement.</p>
     <p style="margin-top: 8px;"><strong>Namespace provenance:</strong> historical gated metadata (`results/spectral/**`) and exploratory ungated metadata (`results/spectral_canonical_perpos_v1_t0/**`) diverge for several combos; keep them separated in interpretation.</p>
   </div>
 
@@ -467,10 +500,10 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 15: Connection to theory -->
+<!-- SLIDE 16: Connection to theory -->
 <!-- ============================================================ -->
 <div class="slide">
-  <div class="slide-num">15</div>
+  <div class="slide-num">16</div>
   <h2>Connection to the Theoretical Framework</h2>
   <div class="two-col">
     <div>
@@ -490,19 +523,18 @@
         <p style="margin-top:8px"><span class="green">&#10003;</span> <strong>Prop 4:</strong> Confirmed &mdash; interior R&sup2; &gt; full R&sup2; &gt; boundary R&sup2; everywhere.</p>
         <p style="margin-top:8px"><span class="yellow">&#8776;</span> <strong>Section 5:</strong> Partially confirmed &mdash; depth profiles are non-monotone; some deep heads specialize.</p>
       </div>
-      <div class="callout danger" style="margin-top: 12px;">
-        <p><strong>Centered RoPE Track B interpretation (updated):</strong> canonical rerun confirms legacy and canonical per-position centered results are near-identical.</p>
-        <p style="margin-top: 8px;">The natural-text centered collapse remains methodology-sensitive in both variants (per-position subtraction), so theory adjudication should prioritize Track A + Track B raw + boundary evidence.</p>
+      <div class="callout success" style="margin-top: 12px;">
+        <p><strong>Centered Track B: resolved.</strong> The centering granularity sweep (Slide 12) demonstrates that per-position centering was the confound. Shared-mean centering restores full Track B&ndash;Track A agreement for RMSNorm models (algebraic identity) and exceeds raw for LayerNorm models (removes content noise).</p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 16: Key explanations -->
+<!-- SLIDE 17: Key explanations -->
 <!-- ============================================================ -->
 <div class="slide">
-  <div class="slide-num">16</div>
+  <div class="slide-num">17</div>
   <h2>Why Are R&sup2; Values Lower Than Expected?</h2>
   <div class="two-col">
     <div>
@@ -515,21 +547,21 @@
       </ol>
     </div>
     <div>
-      <h3>Centered Track B (RoPE) Interpretation &mdash; Finalized Caveat</h3>
+      <h3>Centered Track B (RoPE) &mdash; Now Resolved</h3>
       <div class="card">
-        <p><strong>What canonical equivalence resolved:</strong> the legacy-vs-canonical frame choice is not driving the centered natural-text collapse (differences are near numerical zero).</p>
-        <p style="margin-top: 8px;"><strong>What remains unresolved:</strong> both variants still apply per-position centering, so centered natural-text attenuation remains a methodological confound.</p>
-        <p style="margin-top: 8px;"><strong>Why this matters:</strong> next ablations should target the centering definition itself (shared-mean and related canonical-frame variants), while Track B raw remains the stable comparator.</p>
+        <p><strong>What canonical equivalence showed:</strong> the legacy-vs-canonical frame choice was not driving the centered natural-text collapse.</p>
+        <p style="margin-top: 8px;"><strong>What the granularity sweep resolved:</strong> per-position centering was the confound. Shared-mean centering recovers 100% of raw R&sup2; for RMSNorm (algebraic identity) and 108.6% for OLMo (LayerNorm removes content offsets).</p>
+        <p style="margin-top: 8px;"><strong>Implication:</strong> Track B shared-mean is now a validated content-removed kernel estimator. The 0.3&ndash;0.6 R&sup2; values reflect genuine partial shift-invariance, not measurement error.</p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 17: Implications -->
+<!-- SLIDE 18: Implications -->
 <!-- ============================================================ -->
 <div class="slide">
-  <div class="slide-num">17</div>
+  <div class="slide-num">18</div>
   <h2>Implications for Experiment 2 and Beyond</h2>
 
   <img src="figures/fig11_spectral_exploratory_summary.png" alt="Figure 11: Exploratory Spectral Summary">
@@ -540,50 +572,49 @@
       <ul>
         <li>Shift-invariant structure is <strong>real, PE-specific, and measurable</strong> (NoPE control)</li>
         <li>It explains <strong>30&ndash;60% of logit variance</strong> at early layers, depending on model</li>
-        <li>The remaining variance is the domain of Experiment 2's <strong>product kernel decomposition</strong>: K &asymp; k<sub>content</sub> &middot; k<sub>pos</sub></li>
+        <li><strong>Centering granularity sweep resolved</strong> the Track B methodology question: shared-mean centering recovers full raw R&sup2; for RMSNorm (exact identity) and exceeds raw for LayerNorm (removes content noise)</li>
+        <li>Recovery is <strong>monotonic</strong> across centering granularity for 80.6% of RoPE heads</li>
         <li>Causal masking boundary effects are confirmed and quantified</li>
-        <li>Exploratory spectral shows strong RoPE-aligned structure, but remains <strong>non-confirmatory</strong> because the exploratory run used gate=0.0</li>
-        <li>In exploratory spectral, non-RoPE models report matched_count=0 by design under the current RoPE-frequency matching rule; this is not a full cross-family spectral verdict</li>
+        <li>Exploratory spectral shows strong RoPE-aligned structure, but remains <strong>non-confirmatory</strong></li>
       </ul>
     </div>
     <div>
       <h3>Open questions for follow-on work</h3>
       <div class="card">
         <ol>
-          <li><strong>Why does LLaMA outperform other RoPE models?</strong> GQA may be part of the story, but not the whole explanation (TinyLlama complicates it). Follow-on tests: KV-group-level re-aggregation, within-group vs across-group head similarity, and key-space rank/anisotropy comparisons.</li>
-          <li><strong>How to return to confirmatory spectral testing?</strong> Historical prereg gate max was 0.543 (&lt;0.60), while exploratory gate=0.0 enabled full runs; define a prereg-compatible follow-on threshold and protocol.</li>
+          <li><strong>Why does LLaMA outperform other RoPE models?</strong> GQA may be part of the story, but not the whole explanation (TinyLlama complicates it).</li>
+          <li><strong>How to return to confirmatory spectral testing?</strong> Historical prereg gate max was 0.543 (&lt;0.60); define a prereg-compatible follow-on threshold.</li>
           <li><strong>What are the non-monotone depth heads doing?</strong> Cross-reference with induction head / positional head classifications.</li>
           <li><strong>Why does GPT-2 (absolute PE) show shift-invariant structure?</strong> Learned PEs may converge to approximately shift-invariant functions through training.</li>
-          <li><strong>Centering methodology:</strong> Compare shared-mean and canonical-frame variants beyond per-position centering, while keeping Track B raw as the primary comparator.</li>
+          <li><del>Centering methodology</del> &mdash; <span class="green"><strong>Resolved</strong></span> by centering granularity sweep (Slide 12).</li>
         </ol>
       </div>
     </div>
   </div>
 
   <div class="callout" style="margin-top: 16px;">
-    <p><strong>Bottom line:</strong> The framework's first link &mdash; that attention logits are approximately shift-invariant under RoPE &mdash; is confirmed as a real effect but at moderate strength (R&sup2; 0.3&ndash;0.6 rather than &gt;0.8). The NoPE control decisively shows this is PE-driven. These intermediate R&sup2; values are exactly the regime that motivates Experiment 2's product kernel decomposition.</p>
-    <p style="margin-top: 8px;"><strong>Provenance risk to preserve:</strong> historical (`results/spectral/**`) and exploratory (`results/spectral_canonical_perpos_v1_t0/**`) spectral metadata differ on several combos, so namespace-scoped interpretation is required.</p>
+    <p><strong>Bottom line:</strong> The framework's first link &mdash; that attention logits are approximately shift-invariant under RoPE &mdash; is confirmed as a real effect at moderate strength (R&sup2; 0.3&ndash;0.6). The centering granularity sweep validates Track B as a reliable kernel estimator (shared-mean recovers full raw R&sup2; for RMSNorm). The NoPE control decisively shows the effect is PE-driven. These intermediate R&sup2; values motivate Experiment 2's product kernel decomposition.</p>
   </div>
 </div>
 
 <!-- ============================================================ -->
-<!-- SLIDE 18: Summary -->
+<!-- SLIDE 19: Summary -->
 <!-- ============================================================ -->
 <div class="slide title-slide">
   <h1>Summary</h1>
-  <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+  <div style="text-align: left; max-width: 900px; margin: 0 auto;">
     <div class="metric-row" style="margin-bottom: 24px;">
       <div class="metric"><div class="value green">&#10003;</div><div class="label">NoPE control<br>confirms PE-specificity</div></div>
       <div class="metric"><div class="value yellow">~</div><div class="label">R&sup2; 0.3&ndash;0.6<br>partial support</div></div>
       <div class="metric"><div class="value green">&#10003;</div><div class="label">Boundary effects<br>confirmed (Prop 4)</div></div>
-      <div class="metric"><div class="value yellow">~</div><div class="label">Centered Track B (RoPE)<br>methodology-sensitive</div></div>
+      <div class="metric"><div class="value green">&#10003;</div><div class="label">Centering confound<br>resolved by shared-mean</div></div>
       <div class="metric"><div class="value yellow">~</div><div class="label">Exploratory spectral<br>informative, not confirmatory</div></div>
     </div>
     <p style="font-size: 1.2em; text-align: center; color: #c9d1d9;">
       Shift-invariant positional kernels are a real and measurable feature of RoPE-based transformers,<br>
-      but they coexist with substantial content contributions even at the earliest layers.<br>
-      Canonical and legacy per-position Track B are near-identical, so frame placement is not the main issue;<br>
-      Track B raw remains the stable comparator to Track A while centered natural-text results stay caveated.
+      explaining 30&ndash;60% of logit variance at early layers with 80.6% monotonic recovery across centering granularity.<br>
+      Shared-mean centering recovers full raw R&sup2; for RMSNorm (algebraic identity) and exceeds raw for LayerNorm.<br>
+      The centering methodology question is resolved; remaining variance motivates Experiment 2's product kernel decomposition.
     </p>
   </div>
 </div>

@@ -14,6 +14,7 @@ kernel_pe.egg-info/
 
 # Local datasets/caches (never tracked)
 data/hf_cache/
+data/hf_home/
 data/snapshots/
 data/experiment1/
 data/**/*.arrow
@@ -47,3 +48,12 @@ results/track_b_*_gpuopt_v1_canary/**
 results/reports/track_b_shared_mean_v1/**
 results/reports/track_b_granularity_norm_v1/**
 results/reports/track_b_gpuopt_v1/*.parquet
+results/experiment2/**
+results/experiment2_probe_*/
+results/track_b_scaleup78b_rawcheck/
+
+# Local LaTeX build outputs
+overview_*.aux
+overview_*.log
+overview_*.out
+overview_*.pdf

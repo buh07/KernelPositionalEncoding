@@ -17,7 +17,11 @@ from shared.data.tokenization import TokenizationRequest, tokenize_and_save
 from shared.specs import DatasetSpec, ExperimentGrid, ModelSpec, SequenceLengthSpec
 from shared.utils.logging import get_logger
 
-from experiment1.config import EXPERIMENT_GRID
+from experiment1.config import (
+    DEFAULT_MODEL_PROFILE,
+    SUPPORTED_MODEL_PROFILES,
+    get_experiment_grid,
+)
 from experiment1.paths import tokenized_path
 from experiment1.track_a import TrackAConfig, TrackARunner
 from experiment1.track_b import TrackBConfig, TrackBRunner
@@ -39,6 +43,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", dest="model", default="all", help="Model name or 'all'")
     parser.add_argument("--dataset", dest="dataset", default="all", help="Dataset name or 'all'")
     parser.add_argument("--seq-len", dest="seq_len", default="all", help="Sequence length or 'all'")
+    parser.add_argument(
+        "--model-profile",
+        dest="model_profile",
+        choices=SUPPORTED_MODEL_PROFILES,
+        default=DEFAULT_MODEL_PROFILE,
+        help="Model profile selection. Default keeps legacy 1B setup.",
+    )
     parser.add_argument("--force", action="store_true", help="Recompute even if artifacts exist")
     parser.add_argument(
         "--max-centering",
@@ -209,6 +220,7 @@ def run_download(
     names: list[str] | None,
     models_only: bool,
     datasets_only: bool,
+    model_profile: str,
 ) -> None:
     cmd = [sys.executable, str(PROJECT_ROOT / "scripts" / "download_assets.py")]
     if force:
@@ -220,6 +232,7 @@ def run_download(
     if names:
         cmd.append("--names")
         cmd.extend(names)
+    cmd.extend(["--model-profile", model_profile])
     LOGGER.info("Running download script: %s", " ".join(cmd))
     subprocess.run(cmd, check=True)
 
@@ -367,16 +380,18 @@ def _cleanup_legacy_artifacts(jsonl_path: Path) -> None:
 
 def main() -> None:
     args = parse_args()
+    experiment_grid = get_experiment_grid(args.model_profile)
     if args.stage in ("download", "all"):
         run_download(
             force=args.force,
             names=args.download_names,
             models_only=args.download_models_only,
             datasets_only=args.download_datasets_only,
+            model_profile=args.model_profile,
         )
     if args.stage in ("tokenize", "all"):
         run_tokenization(
-            EXPERIMENT_GRID,
+            experiment_grid,
             args.model,
             args.dataset,
             args.seq_len,
@@ -388,7 +403,7 @@ def main() -> None:
         )
     if args.stage in ("track-a", "all"):
         run_track_a(
-            EXPERIMENT_GRID,
+            experiment_grid,
             args.model,
             args.dataset,
             args.seq_len,
@@ -398,7 +413,7 @@ def main() -> None:
         )
     if args.stage in ("track-b", "all"):
         run_track_b(
-            EXPERIMENT_GRID,
+            experiment_grid,
             args.model,
             args.dataset,
             args.seq_len,
@@ -410,7 +425,7 @@ def main() -> None:
         )
     if args.stage in ("spectral", "all"):
         run_spectral(
-            EXPERIMENT_GRID,
+            experiment_grid,
             args.model,
             args.dataset,
             args.seq_len,
@@ -420,7 +435,7 @@ def main() -> None:
         )
     if args.stage == "boundary":
         run_boundary(
-            EXPERIMENT_GRID,
+            experiment_grid,
             args.model,
             args.dataset,
             args.seq_len,

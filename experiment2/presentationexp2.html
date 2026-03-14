@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experiment 2 Protocol & Execution — Causal Frequency Interventions</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; }
+
+  .slide {
+    min-height: 100vh; padding: 48px 64px; display: flex; flex-direction: column;
+    justify-content: center; border-bottom: 2px solid #30363d;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .slide.title-slide { text-align: center; justify-content: center; }
+  .slide h1 { font-size: 2.6em; margin-bottom: 16px; color: #58a6ff; font-weight: 700; }
+  .slide h2 { font-size: 2em; margin-bottom: 24px; color: #58a6ff; font-weight: 600; }
+  .slide h3 { font-size: 1.3em; margin-bottom: 16px; color: #79c0ff; font-weight: 600; }
+  .slide p, .slide li { font-size: 1.1em; line-height: 1.58; color: #c9d1d9; }
+  .slide ul, .slide ol { margin-left: 28px; margin-bottom: 16px; }
+  .slide li { margin-bottom: 8px; }
+  .slide .subtitle { font-size: 1.3em; color: #8b949e; margin-bottom: 8px; }
+  .slide .author { font-size: 1.1em; color: #8b949e; margin-top: 16px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .two-col.wide-right { grid-template-columns: 2fr 3fr; }
+  .two-col.wide-left { grid-template-columns: 3fr 2fr; }
+
+  .card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 22px; margin: 12px 0;
+  }
+
+  .highlight { color: #58a6ff; font-weight: 600; }
+  .green { color: #3fb950; }
+  .yellow { color: #d29922; }
+  .red { color: #f85149; }
+  .dim { color: #8b949e; }
+
+  .metric-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 16px 0; }
+  .metric {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 14px 18px; text-align: center; flex: 1; min-width: 150px;
+  }
+  .metric .value { font-size: 1.9em; font-weight: 700; }
+  .metric .label { font-size: 0.84em; color: #8b949e; margin-top: 4px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 0.93em; }
+  th { background: #161b22; color: #79c0ff; padding: 10px 12px; text-align: left; border-bottom: 2px solid #30363d; }
+  td { padding: 8px 12px; border-bottom: 1px solid #21262d; vertical-align: top; }
+  tr:hover td { background: #161b22; }
+
+  .slide-num { position: relative; top: -24px; text-align: right; font-size: 0.85em; color: #484f58; }
+
+  .callout {
+    border-left: 4px solid #58a6ff; background: #161b22; padding: 14px 18px;
+    border-radius: 0 8px 8px 0; margin: 14px 0;
+  }
+  .callout.warning { border-left-color: #d29922; }
+  .callout.success { border-left-color: #3fb950; }
+  .callout.danger { border-left-color: #f85149; }
+
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; color: #79c0ff; }
+
+  @media print {
+    .slide { page-break-after: always; min-height: auto; padding: 32px; }
+    body { background: white; color: #1c1c1c; }
+    .slide h1, .slide h2 { color: #0366d6; }
+    .card, .metric, th { background: #f6f8fa; border-color: #d0d7de; }
+    .slide p, .slide li, td { color: #1c1c1c; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SLIDE 20 -->
+<!-- ============================================================ -->
+<div class="slide title-slide">
+  <div class="slide-num">20</div>
+  <h1>Experiment 2 Protocol & Implementation</h1>
+  <p class="subtitle">Causal Frequency Interventions and Kernel Sensitivity</p>
+  <p class="author">
+    Continuation from Experiment 1:<br>
+    from observational kernel-fit patterns to causal intervention tests
+  </p>
+  <p class="dim" style="margin-top: 22px;">
+    Deck flow: hypotheses first -> exact experiment design -> phase-by-phase execution -> decision rules
+  </p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 21 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">21</div>
+  <h2>Hypotheses at a Glance (H1-H5)</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Role</th>
+      <th>Formal statement</th>
+      <th>Plain-language interpretation</th>
+    </tr>
+    <tr>
+      <td><strong>H1</strong></td>
+      <td>Primary</td>
+      <td>For <code>ablate_high_*</code>: <code>Δshort &gt; Δlong</code></td>
+      <td>Removing high-frequency positional channels should hurt local/short dependencies more.</td>
+    </tr>
+    <tr>
+      <td><strong>H2</strong></td>
+      <td>Primary</td>
+      <td>For <code>ablate_low_*</code>: <code>Δlong &gt; Δshort</code></td>
+      <td>Removing low-frequency positional channels should hurt long dependencies more.</td>
+    </tr>
+    <tr>
+      <td><strong>H3</strong></td>
+      <td>Secondary confirmatory</td>
+      <td>Targeted kernel shift exceeds matched random shift in aligned direction</td>
+      <td>If task accuracy drops, kernel metrics should shift more under targeted ablation than random ablation.</td>
+    </tr>
+    <tr>
+      <td><strong>H4</strong></td>
+      <td>Exploratory</td>
+      <td>Effect sizes differ by norm family (RMSNorm vs LayerNorm)</td>
+      <td>Some architecture families may be more sensitive than others.</td>
+    </tr>
+    <tr>
+      <td><strong>H5</strong></td>
+      <td>Exploratory</td>
+      <td>Synthetic directional signals transfer to stratified natural-text PPL</td>
+      <td>The synthetic pattern might also appear in natural language, but this is not a primary claim.</td>
+    </tr>
+  </table>
+  <div class="callout success">
+    <p><strong>Simple reading:</strong> H1/H2 answer the core causal question. H3 asks if kernel changes support that story. H4/H5 provide exploratory context.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 22 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">22</div>
+  <h2>How a Hypothesis Gets Marked Pass vs Fail</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Step-by-step adjudication</h3>
+      <ol>
+        <li>Effect must be large enough:
+          accuracy drop <code>≥ 0.05</code> or relative NLL increase <code>≥ 0.10</code>.</li>
+        <li>Directional contrast must hold:
+          class difference <code>≥ 0.05</code> in the predicted direction.</li>
+        <li>Targeted ablation must beat random control by at least <code>0.02</code>.</li>
+        <li>Kernel co-occurrence threshold must be met:
+          <code>|ΔR²| ≥ 0.03</code> on Track A or Track B raw.</li>
+        <li>Uncertainty must support the claim:
+          BCa CI and Holm-adjusted sign-flip tests.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Precision labels</h3>
+        <ul>
+          <li><code>pass</code>: threshold met, CI lower bound &gt; 0.</li>
+          <li><code>imprecise_pass</code>: threshold met, CI overlaps 0.</li>
+          <li><code>fail</code>: threshold not met or direction reversed.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Selectivity labels</h3>
+        <ul>
+          <li><code>strong_directional_support</code></li>
+          <li><code>directional_nonselective</code></li>
+          <li><code>no_directional_support</code></li>
+        </ul>
+        <p>These distinguish "right direction but broad degradation" from truly selective effects.</p>
+      </div>
+      <div class="callout warning">
+        <p><strong>Boundary:</strong> H3 is reported as co-occurrence/specificity, not mediation identification.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 23 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">23</div>
+  <h2>What Experiment 1 Already Settled</h2>
+  <div class="two-col wide-left">
+    <div>
+      <div class="callout success">
+        <p><strong>Main carryover result:</strong> Track B frame-placement variants were near-identical. The dominant issue was centering behavior, not frame placement.</p>
+      </div>
+      <h3>Design constraints inherited by Experiment 2</h3>
+      <ul>
+        <li>Raw-first confirmatory kernel policy: Track A + Track B raw.</li>
+        <li>Centered metrics are diagnostic only.</li>
+        <li>Norm/family heterogeneity requires stratified reporting.</li>
+      </ul>
+    </div>
+    <div>
+      <table>
+        <tr><th>Experiment 1 finding</th><th>Experiment 2 design response</th></tr>
+        <tr><td>Centered per-position can collapse on natural data</td><td>No centered-only primary claims</td></tr>
+        <tr><td>Raw invariance across centering variants</td><td>Raw channels anchor confirmatory interpretation</td></tr>
+        <tr><td>Heterogeneous norm/family recovery</td><td>Branch B diagnostic policy + decomposition outputs</td></tr>
+        <tr><td>Synthetic centered approx raw</td><td>Synthetic tasks used for cleaner causal probing</td></tr>
+      </table>
+      <div class="callout">
+        <p><strong>Simple reading:</strong> Experiment 2 is built to test causal interventions, not to re-test centering method disputes.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 24 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">24</div>
+  <h2>Experiment 2 Structure: What Each Phase Is For</h2>
+  <div class="two-col wide-right">
+    <div>
+      <h3>Confirmatory core</h3>
+      <div class="card">
+        <ul>
+          <li><strong>Phase 2A:</strong> calibration and feasibility check under full protocol constraints.</li>
+          <li><strong>Phase 2B:</strong> multi-model replication and confirmatory gating.</li>
+        </ul>
+      </div>
+      <p>Only confirmatory core outputs can support primary publication claims.</p>
+    </div>
+    <div>
+      <h3>Exploratory extension</h3>
+      <div class="card">
+        <ul>
+          <li><strong>Phase 2C:</strong> family controls (RoPE/AbsPE analog/NoPE) and broader coverage.</li>
+          <li><strong>Phase 2D:</strong> scoped mechanism probing by head groups and layer scopes.</li>
+        </ul>
+      </div>
+      <div class="callout warning">
+        <p><strong>Simple reading:</strong> 2A/2B decide core claims. 2C/2D explain and stress-test, but cannot override those decisions.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 25 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">25</div>
+  <h2>Intervention Mechanism (Deterministic and Auditable)</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>How channels are selected</h3>
+      <ul>
+        <li><code>D = d_head / 2</code> rotary channel pairs.</li>
+        <li>High band = top half by rotation rate.</li>
+        <li>Low band = bottom half by rotation rate.</li>
+        <li>Medium/strong severities remove <code>40%</code>/<code>60%</code> of the targeted band.</li>
+        <li>Nestedness: medium mask is always a subset of strong mask.</li>
+      </ul>
+      <h3>Random controls</h3>
+      <ul>
+        <li>Count-matched random masks for medium and strong severities.</li>
+        <li>Three random draws per seed in confirmatory phases.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Audit rules</h3>
+        <ul>
+          <li>Norm-preserving Q/K rescale after masking.</li>
+          <li>Median norm-ratio drift tolerance: <code>≤ 0.05</code>.</li>
+          <li>Failing runs are excluded from confirmatory adjudication.</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <p><strong>Specificity statistics:</strong> <code>S_ratio = |ΔR2_targeted| / (|ΔR2_random| + 0.01)</code>, <code>S_diff = |ΔR2_targeted| - |ΔR2_random|</code>.</p>
+      </div>
+      <div class="callout success">
+        <p><strong>Simple reading:</strong> We test whether "smart" frequency-targeted damage does more than equally sized random damage.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 26 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">26</div>
+  <h2>Task Generators: Detailed but Reproducible</h2>
+  <div class="two-col">
+    <div>
+      <h3>Synthetic tasks (causal core)</h3>
+      <ul>
+        <li><strong>local_copy_offset</strong> (short): copy token from a small backward offset.</li>
+        <li><strong>local_key_match</strong> (short): resolve nearest valid key in a local window.</li>
+        <li><strong>delayed_copy</strong> (long): copy token from a large offset.</li>
+        <li><strong>long_range_retrieval</strong> (long): retrieve mapped value for a distant key query.</li>
+      </ul>
+      <div class="card">
+        <h3>Reproducibility controls</h3>
+        <ul>
+          <li>Deterministic token pools and seed control.</li>
+          <li>Deterministic resampling for invalid or ambiguous examples.</li>
+          <li>Fixed sample counts: synthetic <code>200</code>, Tier-1 <code>100</code>.</li>
+          <li>Sequence IDs reused within seed across interventions for paired contrasts.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3>Tier-1 transfer setup (exploratory)</h3>
+      <ul>
+        <li>Datasets: one wiki-like and one code-like corpus.</li>
+        <li>Dependency typing from local concentration score.</li>
+        <li>2x4 stratification: dependency type x baseline NLL quartile.</li>
+        <li>Binning validity threshold: separation gap <code>≥ 0.15</code>.</li>
+      </ul>
+      <div class="callout warning">
+        <p><strong>Simple reading:</strong> Tier-1 asks whether the synthetic directional story appears in natural text, but this remains exploratory and interpretability-gated.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 27 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">27</div>
+  <h2>Phase 2A Deep Dive (Confirmatory Calibration)</h2>
+  <div class="metric-row">
+    <div class="metric"><div class="value">1</div><div class="label">Model<br>llama-3.2-1b</div></div>
+    <div class="metric"><div class="value">2</div><div class="label">Tasks<br>local_key_match + delayed_copy</div></div>
+    <div class="metric"><div class="value">11</div><div class="label">Conditions<br>targeted + random-draw expanded</div></div>
+    <div class="metric"><div class="value">7</div><div class="label">Seeds</div></div>
+    <div class="metric"><div class="value green">154</div><div class="label">Total settings</div></div>
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Phase 2A run matrix unpacked</h3>
+      <table>
+        <tr><th>Axis</th><th>Value</th><th>Why it matters</th></tr>
+        <tr><td>Model</td><td><code>llama-3.2-1b</code></td><td>Single controlled baseline before replication</td></tr>
+        <tr><td>Tasks</td><td><code>local_key_match</code>, <code>delayed_copy</code></td><td>One short + one long dependency test</td></tr>
+        <tr><td>Conditions</td><td><code>none</code> + 4 targeted + 6 random-draw cells</td><td>Tests specificity, not just generic fragility</td></tr>
+        <tr><td>Seeds</td><td>7</td><td>Enables paired contrasts and uncertainty estimates</td></tr>
+      </table>
+
+      <h3>Exactly what happens in order</h3>
+      <ol>
+        <li>Run baseline first and apply floor/feasibility checks.</li>
+        <li>If baseline is too weak, apply deterministic fallback profile and re-check.</li>
+        <li>Run targeted and random conditions with matched sequence IDs per seed.</li>
+        <li>Write task metrics, kernel summaries, and intervention audits per cell.</li>
+        <li>Compute pilot directional signal and variance used for Phase 2B MDE context.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>What success looks like in Phase 2A</h3>
+      <ul>
+        <li>Strong targeted effect clears size threshold (acc drop <code>>= 0.05</code> or rel-NLL <code>>= 0.10</code>).</li>
+        <li>Directional class contrast appears (<code>>= 0.05</code>).</li>
+        <li>Targeted contrast exceeds matched random by <code>>= 0.02</code>.</li>
+        <li>Kernel shift threshold met (<code>|ΔR²| >= 0.03</code>).</li>
+      </ul>
+      <h3>What Phase 2A cannot do alone</h3>
+      <ul>
+        <li>Cannot prove cross-model robustness.</li>
+        <li>Cannot finalize publication-level confirmatory support by itself.</li>
+      </ul>
+      <div class="callout warning">
+        <p><strong>Simple reading:</strong> Phase 2A answers one question: “Do we have a real, measurable signal worth replicating?”</p>
+      </div>
+      <div class="callout">
+        <p><strong>Phase 2A outputs:</strong> per-cell <code>run_config.json</code>, <code>task_metrics.parquet</code>, kernel summaries, and audit files that feed Phase 2B gating.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 28 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">28</div>
+  <h2>Phase 2B Deep Dive (Main Confirmatory Engine)</h2>
+  <table>
+    <tr><th>Block</th><th>Formula</th><th>Count</th><th>Purpose</th></tr>
+    <tr><td>Synthetic core</td><td>3 models x 4 tasks x 11 conditions x 7 seeds</td><td>924</td><td>Main replication evidence</td></tr>
+    <tr><td>Tier-1 transfer</td><td>3 models x 2 datasets x 6 conditions x 7 seeds</td><td>252</td><td>Exploratory transfer context</td></tr>
+    <tr><td>Transition panel</td><td>3 models x 2 tasks x 3 spans x 6 conditions x 7 seeds</td><td>756</td><td>Medium-range sensitivity channel</td></tr>
+    <tr><td><strong>Phase 2B total</strong></td><td></td><td><strong>1932</strong></td><td></td></tr>
+  </table>
+  <div class="callout success">
+    <p><strong>Confirmatory core total:</strong> <code>154 + 1932 = 2086</code> settings.</p>
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Why each Phase 2B block exists</h3>
+      <ul>
+        <li><strong>Synthetic core:</strong> primary confirmatory replication across model families.</li>
+        <li><strong>Tier-1:</strong> checks whether directional synthetic behavior appears in real text strata.</li>
+        <li><strong>Transition panel:</strong> checks continuity between short and long regimes.</li>
+      </ul>
+
+      <h3>Phase 2B decision sequence (plain language)</h3>
+      <ol>
+        <li>Require directional replication in at least 2 of 3 RoPE models.</li>
+        <li>Require within-class sign agreement (both short tasks align; both long tasks align).</li>
+        <li>Require content-gated contrast threshold (<code>>= 0.03</code>).</li>
+        <li>Require targeted-vs-random specificity advantage (<code>>= 0.02</code>).</li>
+        <li>Require H3 pass-rate threshold on confirmatory groups.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Exact gate meaning</h3>
+      <ul>
+        <li>If criteria 1-5 pass: confirmatory claims are eligible (with full inferential reporting).</li>
+        <li>If any of criteria 1-5 fail: confirmatory claims stop; continuation is exploratory-only.</li>
+      </ul>
+      <div class="card">
+        <h3>What this protects against</h3>
+        <ul>
+          <li>Single-model flukes being presented as robust effects.</li>
+          <li>Copy-only task behavior being over-generalized to all dependency types.</li>
+          <li>Generic perturbation damage being mistaken for frequency specificity.</li>
+        </ul>
+      </div>
+      <div class="callout warning">
+        <p><strong>Simple reading:</strong> Phase 2B is the final exam. If replication + specificity fail here, confirmatory claims are blocked.</p>
+      </div>
+      <div class="callout">
+        <p><strong>Phase 2B outputs:</strong> pooled inferential summaries for H1/H2, H3 specificity tables, gate decisions, and promotion-eligibility metadata.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 29 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">29</div>
+  <h2>Phase 2C Deep Dive (Exploratory Expansion)</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>What Phase 2C covers</h3>
+      <ul>
+        <li>RoPE len-256 sensitivity for 3 RoPE models.</li>
+        <li>AbsPE analog controls: <code>gpt2-small</code>, <code>gpt2-medium</code>.</li>
+        <li>NoPE baseline: <code>tinyllama-nope-1.1b</code>.</li>
+        <li>Additional span-bridge exploratory matrix.</li>
+      </ul>
+      <table>
+        <tr><th>Block</th><th>Count</th></tr>
+        <tr><td>Base matrix</td><td>762</td></tr>
+        <tr><td>Span bridge add-on</td><td>360</td></tr>
+        <tr><td><strong>Phase 2C total</strong></td><td><strong>1122</strong></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>What this adds scientifically</h3>
+      <ul>
+        <li>Checks whether the directional signal generalizes beyond core RoPE setup.</li>
+        <li>Separates "architecture-family behavior" from "RoPE-specific behavior".</li>
+        <li>Improves medium-range coverage for interpretation.</li>
+      </ul>
+      <div class="callout warning">
+        <p><strong>Claim limit:</strong> 2C remains exploratory. It cannot override H1/H2 confirmatory labels from 2A/2B.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 30 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">30</div>
+  <h2>Phase 2D Deep Dive (Exploratory Mechanism Probing)</h2>
+  <div class="two-col wide-right">
+    <div>
+      <h3>Design details</h3>
+      <ul>
+        <li>Triggered only after Phase 2B confirmatory gate passes.</li>
+        <li>Models: <code>olmo-1b</code>, <code>llama-3.2-1b</code>.</li>
+        <li>Scopes: <code>early-only</code> and <code>deep-only</code> with scope-aligned head groups.</li>
+        <li>Tasks: all 4 synthetic tasks, len 1024, seeds=5.</li>
+      </ul>
+      <table>
+        <tr><th>Matrix component</th><th>Count</th></tr>
+        <tr><td>Scoped targeted/random interventions</td><td>960</td></tr>
+        <tr><td>Fallback baselines if reuse unavailable</td><td>+ up to 40</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>What this phase is trying to answer</h3>
+      <ul>
+        <li>Do different head/layer scopes show different causal sensitivity patterns?</li>
+        <li>Are effects concentrated in early or deep representational subspaces?</li>
+      </ul>
+      <div class="callout warning">
+        <p><strong>Simple reading:</strong> 2D helps explain mechanism but does not change confirmatory labels.</p>
+      </div>
+      <div class="callout warning">
+        <p>Low-power caveat: 5-seed exploratory precision; 7-seed reruns required for headline-style claims.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 31 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">31</div>
+  <h2>Statistical Machinery and Decision Outputs</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Inference stack</h3>
+      <ul>
+        <li>Paired within-seed contrasts (same seed, same cell family).</li>
+        <li>95% BCa bootstrap CIs (<code>B=20,000</code>).</li>
+        <li>Two-sided paired sign-flip p-values.</li>
+        <li>Holm-Bonferroni correction for the H1/H2 family.</li>
+      </ul>
+      <h3>Main outputs</h3>
+      <ul>
+        <li><code>gate_evaluation.json</code></li>
+        <li><code>decision_summary.json</code></li>
+        <li><code>specificity_metrics.parquet</code></li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Power and detectability</h3>
+        <ul>
+          <li>Phase 2A variance feeds Phase 2B MDE summaries.</li>
+          <li>Families marked <code>underpowered</code> if detectable effect is above target threshold.</li>
+          <li>This downgrades claim strength, not thresholds.</li>
+        </ul>
+      </div>
+      <div class="callout success">
+        <p><strong>Simple reading:</strong> effect size + uncertainty + multiplicity correction all have to agree before a strong confirmatory claim is made.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 32 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">32</div>
+  <h2>Interpretation Boundaries and Claim Guardrails</h2>
+  <div class="two-col">
+    <div>
+      <div class="callout success">
+        <h3>H3 boundary</h3>
+        <p>H3 supports co-occurrence/specificity only; do not interpret it as full mediation identification.</p>
+      </div>
+      <div class="callout warning">
+        <h3>H4 boundary</h3>
+        <p>Norm effects remain exploratory in this protocol version.</p>
+      </div>
+      <div class="callout warning">
+        <h3>H5 boundary</h3>
+        <p>Transfer signal remains exploratory and depends on interpretability checks.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Machine-readable guardrails</h3>
+        <ul>
+          <li><code>training_variance_not_measured=true</code></li>
+          <li><code>inference_scope=task_sampling_variability_only</code></li>
+          <li><code>training_run_generalization_claim_allowed=false</code></li>
+          <li>Promotion eligibility flags in guard artifacts.</li>
+        </ul>
+      </div>
+      <div class="callout">
+        <p><strong>Simple reading:</strong> this protocol intentionally blocks over-claiming beyond what the data design supports.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 33 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">33</div>
+  <h2>Run Snapshot (Timestamped, Potentially Stale)</h2>
+  <p class="dim"><strong>Snapshot captured:</strong> 2026-03-04 20:35:06 EST</p>
+  <p class="dim" style="margin-top: 6px;">Run ID: <code>exp2_gpu345_p2ab_fixv5_20260304_164135</code> · values below are snapshot-only and may have advanced since capture.</p>
+
+  <div class="metric-row">
+    <div class="metric"><div class="value">25 / 154</div><div class="label">Phase 2A completed<br>(16.23%)</div></div>
+    <div class="metric"><div class="value">130 / 1932</div><div class="label">Phase 2B completed<br>(6.73%)</div></div>
+    <div class="metric"><div class="value yellow">155 / 2086</div><div class="label">Confirmatory total done<br>(7.43%)</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Execution health snapshot</h3>
+      <ul>
+        <li>Active workers: <code>exp2_g3</code>, <code>exp2_g4</code>, <code>exp2_g5</code>.</li>
+        <li>Snapshot log scan: 0 Traceback, 0 RuntimeError.</li>
+        <li>OOM retries observed and auto-handled: g3=52, g4=19, g5=38.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>ETA snapshot</h3>
+      <ul>
+        <li>Recent throughput: 22 cells/30m (~44/h), 41 cells/60m (~41/h).</li>
+        <li>Remaining execute cells (snapshot): 1931.</li>
+        <li>Estimated remaining execute time: ~44-55 hours.</li>
+        <li>Posthoc-centered + reanalysis: ~4-8 hours.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warning">
+    <p>These numbers are snapshot-only and may be stale by presentation time.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 34 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="slide-num">34</div>
+  <h2>Operational Completion Checklist</h2>
+  <div class="two-col wide-left">
+    <div>
+      <h3>Required order</h3>
+      <ol>
+        <li>Wait for execute workers to finish.</li>
+        <li>Run <code>posthoc-centered</code> for <code>phase2a</code>.</li>
+        <li>Run <code>posthoc-centered</code> for <code>phase2b</code>.</li>
+        <li>Run <code>reanalyze</code> for <code>phase2a</code>.</li>
+        <li>Run <code>reanalyze</code> for <code>phase2b</code>.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Promotion checks</h3>
+        <ul>
+          <li><code>gate_evaluation.json</code> is not <code>blocked_centered_pending</code>.</li>
+          <li>Phase 2B gate payload includes pooled H1/H2 inferential blocks.</li>
+          <li>H3 confirmatory and diagnostic blocks are both present.</li>
+          <li><code>promotion_guard.json</code> clearly states eligibility.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Simple reading:</strong> run completion is not enough; post-processing and reanalysis are mandatory before claims.</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 35 -->
+<!-- ============================================================ -->
+<div class="slide title-slide">
+  <div class="slide-num">35</div>
+  <h1>Final Decision Rubric</h1>
+  <div style="text-align: left; max-width: 920px; margin: 0 auto;">
+    <div class="metric-row" style="margin-bottom: 20px;">
+      <div class="metric"><div class="value">H1/H2</div><div class="label">Primary family<br>Holm-controlled confirmatory</div></div>
+      <div class="metric"><div class="value">H3</div><div class="label">Secondary confirmatory<br>co-occurrence/specificity</div></div>
+      <div class="metric"><div class="value">H4/H5</div><div class="label">Exploratory only<br>bounded interpretation</div></div>
+      <div class="metric"><div class="value">Raw-first</div><div class="label">Track A + Track B raw primary<br>centered diagnostic</div></div>
+    </div>
+
+    <div class="callout success">
+      <p><strong>Publishable confirmatory support requires:</strong> Phase 2B gate pass + pooled primary-family inferential support + promotion guards satisfied.</p>
+    </div>
+
+    <div class="callout warning">
+      <p><strong>Mandatory caveats:</strong> no training-run variance claims, no mediation-ID claim from H3, heuristic Tier-1 dependency typing, and no exploratory override of confirmatory labels.</p>
+    </div>
+
+    <p style="font-size: 1.12em; text-align: center; color: #c9d1d9; margin-top: 18px;">
+      This protocol is intentionally strict: simple directional hypotheses, detailed execution design,
+      and explicit claim boundaries that prevent over-interpretation.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

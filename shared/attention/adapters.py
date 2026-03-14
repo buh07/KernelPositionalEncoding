@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 import warnings
 from abc import ABC, abstractmethod
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from dataclasses import dataclass
 from typing import Iterable, Iterator
 
@@ -11,26 +11,29 @@ import torch
 import torch.nn as nn
 from torch.utils.hooks import RemovableHandle
 
+from transformers.models.gemma.modeling_gemma import apply_rotary_pos_emb as gemma_apply_rope
 from transformers.models.llama.modeling_llama import apply_rotary_pos_emb as llama_apply_rope
 from transformers.models.olmo.modeling_olmo import apply_rotary_pos_emb as olmo_apply_rope
+from transformers.models.olmo2.modeling_olmo2 import apply_rotary_pos_emb as olmo2_apply_rope
 
 from shared.specs import ModelSpec
 
 
 @dataclass
 class LayerCapture:
-    q: torch.Tensor  # [heads, seq, head_dim]
+    q: torch.Tensor  # [batch, heads, seq, head_dim]
     k: torch.Tensor
-    logits: torch.Tensor | None = None  # [heads, seq, seq]
+    logits: torch.Tensor | None = None  # [batch, heads, seq, seq]
     rope_cos: torch.Tensor | None = None
     rope_sin: torch.Tensor | None = None
 
 
 @dataclass
 class CaptureRecord:
-    q: torch.Tensor  # [layers, heads, seq, head_dim]
+    q: torch.Tensor  # [layers, heads, seq, head_dim] or [layers, batch, heads, seq, head_dim]
     k: torch.Tensor
-    logits: torch.Tensor | None = None  # [layers, heads, seq, seq]
+    logits: torch.Tensor | None = None  # [layers, heads, seq, seq] or [layers, batch, heads, seq, seq]
+    token_logits: torch.Tensor | None = None  # [seq, vocab] or [batch, seq, vocab]
     rope_cos: torch.Tensor | None = None
     rope_sin: torch.Tensor | None = None
 
@@ -55,28 +58,62 @@ class AttentionCaptureAdapter(ABC):
         input_ids: torch.Tensor,
         attention_mask: torch.Tensor | None = None,
         include_logits: bool = True,
+        return_token_logits: bool = False,
+        capture_attention: bool = True,
         output_device: str | torch.device = "cpu",
         **forward_kwargs,
     ) -> CaptureRecord:
         self._include_logits = include_logits
         self._output_device = output_device if isinstance(output_device, torch.device) else torch.device(output_device)
         self._reset()
-        with torch.no_grad():
-            model(
-                input_ids=input_ids,
-                attention_mask=attention_mask,
-                use_cache=False,
-                output_attentions=False,
-                output_hidden_states=False,
-                **forward_kwargs,
-            )
-        return self._finalize_record()
+        capture_cm = nullcontext() if capture_attention else self.suspended()
+        with capture_cm:
+            with torch.no_grad():
+                outputs = model(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                    use_cache=False,
+                    output_attentions=False,
+                    output_hidden_states=False,
+                    **forward_kwargs,
+                )
+        token_logits = None
+        if return_token_logits:
+            raw_logits = getattr(outputs, "logits", None)
+            if raw_logits is None:
+                raise RuntimeError("Capture requested token logits, but model output does not include logits.")
+            if raw_logits.ndim == 3 and raw_logits.size(0) == 1:
+                raw_logits = raw_logits[0]
+            token_logits = self._move_output(raw_logits)
+        if not capture_attention:
+            empty = torch.empty(0, dtype=torch.float32, device=self._output_device)
+            return CaptureRecord(q=empty, k=empty, logits=None, token_logits=token_logits)
+        return self._finalize_record(token_logits=token_logits)
 
     def _move_output(self, tensor: torch.Tensor) -> torch.Tensor:
-        out = tensor.detach().to(torch.float32)
+        out = tensor.detach()
+        # Avoid transient GPU fp32 expansion when destination is CPU.
+        if self._output_device.type == "cpu":
+            if out.device.type != "cpu":
+                out = out.to("cpu")
+            if out.dtype != torch.float32:
+                out = out.to(torch.float32)
+            return out
         if out.device != self._output_device:
             out = out.to(self._output_device, non_blocking=self._output_device.type == "cuda")
+        if out.dtype != torch.float32:
+            out = out.to(torch.float32)
         return out
+
+    @staticmethod
+    def _maybe_squeeze_batch_dim(tensor: torch.Tensor | None) -> torch.Tensor | None:
+        if tensor is None:
+            return None
+        # Capture tensors are stacked as [layers, batch, ...]. Keep backward
+        # compatibility for batch=1 by dropping the batch axis.
+        if tensor.ndim >= 2 and tensor.shape[1] == 1:
+            return tensor[:, 0]
+        return tensor
 
     def cleanup(self) -> None:
         for handle in self._handles:
@@ -102,7 +139,7 @@ class AttentionCaptureAdapter(ABC):
         ...
 
     @abstractmethod
-    def _finalize_record(self) -> CaptureRecord:
+    def _finalize_record(self, token_logits: torch.Tensor | None = None) -> CaptureRecord:
         ...
 
 
@@ -125,7 +162,7 @@ class GPT2Adapter(AttentionCaptureAdapter):
     def _reset(self) -> None:
         self._layers.clear()
 
-    def _finalize_record(self) -> CaptureRecord:
+    def _finalize_record(self, token_logits: torch.Tensor | None = None) -> CaptureRecord:
         if not self._layers:
             raise RuntimeError("No GPT-2 attention activations were captured.")
         ordered = [self._layers[idx] for idx in sorted(self._layers)]
@@ -136,7 +173,10 @@ class GPT2Adapter(AttentionCaptureAdapter):
             if any(layer.logits is None for layer in ordered):
                 raise RuntimeError("GPT-2 capture requested logits but one or more layers did not capture them.")
             logits = torch.stack([layer.logits for layer in ordered if layer.logits is not None], dim=0)
-        return CaptureRecord(q=q, k=k, logits=logits)
+        q = self._maybe_squeeze_batch_dim(q)
+        k = self._maybe_squeeze_batch_dim(k)
+        logits = self._maybe_squeeze_batch_dim(logits)
+        return CaptureRecord(q=q, k=k, logits=logits, token_logits=token_logits)
 
     def _make_hook(self, layer_idx: int, attn_module) -> callable:
         head_dim = attn_module.head_dim
@@ -164,9 +204,7 @@ class GPT2Adapter(AttentionCaptureAdapter):
     def _reshape_heads(tensor: torch.Tensor, num_heads: int, head_dim: int) -> torch.Tensor:
         batch, seq_len, _ = tensor.shape
         view = tensor.view(batch, seq_len, num_heads, head_dim).permute(0, 2, 1, 3)
-        if view.size(0) != 1:
-            raise RuntimeError("Batch size > 1 is not supported for GPT-2 capture.")
-        return view[0].to(torch.float32)
+        return view.to(torch.float32)
 
 
 class ProjectionCaptureAdapter(AttentionCaptureAdapter):
@@ -189,7 +227,7 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
     def _reset(self) -> None:
         self._raw.clear()
 
-    def _finalize_record(self) -> CaptureRecord:
+    def _finalize_record(self, token_logits: torch.Tensor | None = None) -> CaptureRecord:
         if not self._raw:
             raise RuntimeError("No attention projections captured.")
         captures: list[LayerCapture] = []
@@ -208,7 +246,12 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
             rope_cos = torch.stack([cap.rope_cos for cap in captures if cap.rope_cos is not None], dim=0)
         if all(cap.rope_sin is not None for cap in captures):
             rope_sin = torch.stack([cap.rope_sin for cap in captures if cap.rope_sin is not None], dim=0)
-        return CaptureRecord(q=q, k=k, logits=logits, rope_cos=rope_cos, rope_sin=rope_sin)
+        q = self._maybe_squeeze_batch_dim(q)
+        k = self._maybe_squeeze_batch_dim(k)
+        logits = self._maybe_squeeze_batch_dim(logits)
+        rope_cos = self._maybe_squeeze_batch_dim(rope_cos)
+        rope_sin = self._maybe_squeeze_batch_dim(rope_sin)
+        return CaptureRecord(q=q, k=k, logits=logits, token_logits=token_logits, rope_cos=rope_cos, rope_sin=rope_sin)
 
     def _attach(self, model) -> Iterable[RemovableHandle]:
         handles: list[RemovableHandle] = []
@@ -273,9 +316,7 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
         batch, seq_len, _ = raw.shape
         head_dim = self._head_dim or (raw.shape[-1] // num_heads)
         view = raw.view(batch, seq_len, num_heads, head_dim).permute(0, 2, 1, 3)
-        if view.size(0) != 1:
-            raise RuntimeError("Batch size > 1 is not supported for capture.")
-        return view[0].to(torch.float32)
+        return view.to(torch.float32)
 
     def _apply_rope(
         self,
@@ -285,18 +326,16 @@ class ProjectionCaptureAdapter(AttentionCaptureAdapter):
     ) -> tuple[torch.Tensor, torch.Tensor]:
         cos = data["cos"]
         sin = data["sin"]
-        q_in = q.unsqueeze(0)
-        k_in = k.unsqueeze(0)
-        q_rot, k_rot = self._rope_fn(q_in, k_in, cos, sin)
-        return q_rot[0].to(torch.float32), k_rot[0].to(torch.float32)
+        q_rot, k_rot = self._rope_fn(q, k, cos, sin)
+        return q_rot.to(torch.float32), k_rot.to(torch.float32)
 
     def _align_kv_heads(self, k: torch.Tensor) -> torch.Tensor:
-        num_query = self._num_query_heads or k.size(0)
-        num_kv = self._num_kv_heads or k.size(0)
+        num_query = self._num_query_heads or k.size(1)
+        num_kv = self._num_kv_heads or k.size(1)
         if num_query == num_kv:
             return k
         repeat_factor = num_query // num_kv
-        return k.repeat_interleave(repeat_factor, dim=0)
+        return k.repeat_interleave(repeat_factor, dim=1)
 
     @abstractmethod
     def _configure_from_model(self, model) -> None:
@@ -315,7 +354,23 @@ class OLMoAdapter(ProjectionCaptureAdapter):
         config = getattr(model, "config")
         self._num_query_heads = config.num_attention_heads
         self._num_kv_heads = config.num_key_value_heads or config.num_attention_heads
-        self._head_dim = config.hidden_size // config.num_attention_heads
+        self._head_dim = getattr(config, "head_dim", config.hidden_size // config.num_attention_heads)
+
+    def _iter_attention_modules(self, model) -> Iterable[tuple[int, nn.Module]]:
+        layers = getattr(model, "model").layers
+        for idx, layer in enumerate(layers):
+            yield idx, layer.self_attn
+
+
+class OLMo2Adapter(ProjectionCaptureAdapter):
+    def __init__(self) -> None:
+        super().__init__(rope_fn=olmo2_apply_rope)
+
+    def _configure_from_model(self, model) -> None:
+        config = getattr(model, "config")
+        self._num_query_heads = config.num_attention_heads
+        self._num_kv_heads = config.num_key_value_heads or config.num_attention_heads
+        self._head_dim = getattr(config, "head_dim", config.hidden_size // config.num_attention_heads)
 
     def _iter_attention_modules(self, model) -> Iterable[tuple[int, nn.Module]]:
         layers = getattr(model, "model").layers
@@ -331,7 +386,7 @@ class LlamaAdapter(ProjectionCaptureAdapter):
         config = getattr(model, "config")
         self._num_query_heads = config.num_attention_heads
         self._num_kv_heads = getattr(config, "num_key_value_heads", config.num_attention_heads)
-        self._head_dim = config.hidden_size // config.num_attention_heads
+        self._head_dim = getattr(config, "head_dim", config.hidden_size // config.num_attention_heads)
 
     def _iter_attention_modules(self, model) -> Iterable[tuple[int, nn.Module]]:
         layers = getattr(model, "model").layers
@@ -377,15 +432,37 @@ class TinyLlamaNoPEAdapter(LlamaAdapter):
         self._validated = True
 
 
+class GemmaAdapter(ProjectionCaptureAdapter):
+    def __init__(self) -> None:
+        super().__init__(rope_fn=gemma_apply_rope)
+
+    def _configure_from_model(self, model) -> None:
+        config = getattr(model, "config")
+        self._num_query_heads = config.num_attention_heads
+        self._num_kv_heads = getattr(config, "num_key_value_heads", config.num_attention_heads)
+        self._head_dim = getattr(config, "head_dim", config.hidden_size // config.num_attention_heads)
+
+    def _iter_attention_modules(self, model) -> Iterable[tuple[int, nn.Module]]:
+        layers = getattr(model, "model").layers
+        for idx, layer in enumerate(layers):
+            yield idx, layer.self_attn
+
+
 def get_adapter(model_spec: ModelSpec) -> AttentionCaptureAdapter:
     if model_spec.name.startswith("gpt2"):
         return GPT2Adapter()
     if model_spec.name == "olmo-1b":
         return OLMoAdapter()
+    if model_spec.name == "olmo-2-7b":
+        return OLMo2Adapter()
     if model_spec.name == "llama-3.2-1b":
+        return LlamaAdapter()
+    if model_spec.name == "llama-3.1-8b":
         return LlamaAdapter()
     if model_spec.name == "tinyllama-1.1b":
         return TinyLlamaAdapter()
     if model_spec.name == "tinyllama-nope-1.1b":
         return TinyLlamaNoPEAdapter()
+    if model_spec.name == "gemma-7b":
+        return GemmaAdapter()
     raise ValueError(f"No adapter registered for model {model_spec.name}")
