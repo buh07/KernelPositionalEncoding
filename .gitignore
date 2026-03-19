@@ -49,6 +49,7 @@ results/reports/track_b_shared_mean_v1/**
 results/reports/track_b_granularity_norm_v1/**
 results/reports/track_b_gpuopt_v1/*.parquet
 results/experiment2/**
+results/experiment3/**
 results/experiment2_probe_*/
 results/track_b_scaleup78b_rawcheck/
 
@@ -57,3 +58,32 @@ overview_*.aux
 overview_*.log
 overview_*.out
 overview_*.pdf
+
+# Local environment backups / run scratch
+.venv_broken_*/
+
+# Local scratch files excluded from current experiment-3 repair commit
+experiment2/experiment2_operations_log.md
+experiment2/experiment2_unexecuted_phases.md
+experiment2/figures/
+experiment3/config.py
+experiment3/experiment3overview.md
+experiment3/experiment3results.md
+experiment3/induction_r2_crossref.py
+experiment3/rope_freq_per_head.py
+experiment3/run.py
+experiment3/subword_boundary_attention.py
+experiment3/theory7_induction_feeders.py
+experiment3/theory8_position_ablation.py
+experiment3/theory9_freq_band_feeder.py
+scripts/experiment2_fastcheck_*.py
+scripts/experiment2_fastchecks_gpu2_*.sh
+scripts/experiment2_mistral_feasibility_finalize.py
+scripts/experiment2_optiond_*.py
+scripts/experiment2_optiond_*.sh
+scripts/experiment2_pair_*.py
+scripts/experiment2_pair_*.sh
+scripts/experiment2_regenerate_all_figures.py
+scripts/experiment2_restricted_vocab_sanity.py
+scripts/experiment3_*.py
+tests/test_scaleup_mistral_profile.py
