@@ -1,0 +1,55 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 14:06:06",
+  "tier": "tier3_publication_readiness",
+  "execution_gate": {
+    "rule": "d_gt_0.50_and_no_prefix_following_statistical_artifact",
+    "measured": {
+      "post_ablation_d": 1.0666295894631435,
+      "prefix_following_artifact_flag": true,
+      "prefix_following_artifact_flag_legacy_binary": true,
+      "prefix_following_assessment": {
+        "n_fake_with_prefix": 300,
+        "n_real_with_prefix": 5273,
+        "mean_fake_with_prefix": 0.0778126261781539,
+        "mean_real_with_prefix": 0.06352606604631543,
+        "fake_minus_real_diff": 0.014286560131838474,
+        "t_statistic": 2.2155050136634182,
+        "p_two_sided": 0.027476750027537036,
+        "p_one_sided_fake_gt_real": 0.013738375013768518,
+        "cohens_d_fake_minus_real": 0.4700053112613381,
+        "rule": {
+          "alpha_one_sided": 0.05,
+          "min_cohens_d": 0.2,
+          "min_abs_diff": 0.005,
+          "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+        },
+        "artifact_flag_statistical": true
+      },
+      "passes_gate": false,
+      "source_files": {
+        "post_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic_boundary": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json"
+      }
+    },
+    "override": false,
+    "effective_allow_run": false
+  },
+  "corpora": [
+    "wiki_en",
+    "code_en",
+    "opus_tr",
+    "opus_zh",
+    "opus_ru"
+  ],
+  "perturbation_conditions": [
+    "none",
+    "embedding_prefix_ablation",
+    "adversarial_boundary_variant"
+  ],
+  "effect_sizes": {},
+  "invariance_score": NaN,
+  "invariance_verdict": "blocked_by_gate",
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "status": "blocked"
+}

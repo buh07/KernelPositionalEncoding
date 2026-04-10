@@ -1,0 +1,31 @@
+{
+  "experiment": "3P2-D.2_llama_gqa_grouped",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-01 22:06:30",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-D.2",
+  "mde_target": 0.15,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "config": {
+    "q_per_kv": 4,
+    "kv_group_rule": "query_head // q_per_kv"
+  },
+  "per_query_head": {
+    "n_sources": 256,
+    "pearson_r": -0.0411019078337456,
+    "pearson_p_two_sided": 0.5126680559984517,
+    "spearman_rho": 0.06436183909361409,
+    "spearman_p_two_sided": 0.30497936108394413,
+    "spearman_p_one_sided": 0.15248968054197207
+  },
+  "per_kv_group": {
+    "n_source_groups": 64,
+    "pearson_r": -0.04602805102954978,
+    "pearson_p_two_sided": 0.7179809536541827,
+    "spearman_rho": 0.07403846153846153,
+    "spearman_p_two_sided": 0.5609488587446205,
+    "spearman_p_one_sided": 0.28047442937231026
+  },
+  "delta_spearman_group_minus_query": 0.009676622444847433
+}

@@ -58,6 +58,7 @@ from experiment2.tasks import (
     generate_task_examples,
 )
 from shared.specs import ModelSpec
+from experiment3.stats_utils import one_sided_p_from_two_sided
 
 try:
     from experiment2.execution import (
@@ -99,11 +100,19 @@ MODELS: dict[str, ModelSpec] = {
         notes="OLMo 2 7B.",
         download_kwargs=(("torch_dtype", "bfloat16"),),
     ),
+    "mistral-7b-v0.1": ModelSpec(
+        name="mistral-7b-v0.1",
+        hf_id="mistralai/Mistral-7B-v0.1",
+        norm="RMSNorm",
+        pe_scheme="RoPE",
+        notes="Mistral 7B v0.1 (GQA).",
+    ),
 }
 
 RETRIEVAL_SPANS: dict[str, tuple[int, ...]] = {
     "llama-3.1-8b": (32, 48, 64),
     "olmo-2-7b": (24, 32),
+    "mistral-7b-v0.1": (32, 48, 64),
 }
 
 
@@ -118,6 +127,16 @@ class HeadID:
 
     def __eq__(self, other):
         return isinstance(other, HeadID) and self.layer == other.layer and self.head == other.head
+
+
+def _format_eta(seconds: float | int) -> str:
+    sec = max(0, int(seconds))
+    h = sec // 3600
+    m = (sec % 3600) // 60
+    s = sec % 60
+    if h > 0:
+        return f"{h:02d}:{m:02d}:{s:02d}"
+    return f"{m:02d}:{s:02d}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -196,7 +215,7 @@ def compute_per_head_r2(
 
         elapsed = time.time() - t0
         if (seq_idx + 1) % 5 == 0 or seq_idx == 0:
-            print(f"  R² profiling: {seq_idx + 1}/{n_seq} sequences ({elapsed:.1f}s)")
+            print(f"  R² profiling: {seq_idx + 1}/{n_seq} sequences ({elapsed:.1f}s)", flush=True)
 
         # Free memory
         del capture, input_ids
@@ -289,13 +308,17 @@ def head_output_ablation(model, heads_to_zero: list[HeadID]):
         o_proj = layer.self_attn.o_proj
 
         def make_hook(target_set: set[int], n_heads: int, h_dim: int):
+            target_idx = torch.tensor(
+                sorted(h for h in target_set if h < n_heads), dtype=torch.long
+            )
+
             def hook(module, args):
                 x = args[0]  # [batch, seq, hidden]
                 batch, seq, hidden = x.shape
+                if target_idx.numel() == 0:
+                    return args
                 view = x.view(batch, seq, n_heads, h_dim).clone()
-                for h_idx in target_set:
-                    if h_idx < n_heads:
-                        view[:, :, h_idx, :] = 0.0
+                view.index_fill_(2, target_idx.to(view.device), 0.0)
                 return (view.reshape(batch, seq, hidden),) + args[1:]
             return hook
 
@@ -326,6 +349,10 @@ def evaluate_task_battery(
     seeds: range,
     retrieval_spans: tuple[int, ...],
     pools: TokenPools,
+    synthetic_count: int,
+    batch_size: int,
+    task_configs: list[tuple[str, int | None, tuple[int, ...] | None]] | None = None,
+    prebuilt_examples: dict[tuple[int, str, int], list[TaskExample]] | None = None,
 ) -> list[dict[str, Any]]:
     """Run the full task battery under a head-ablation condition."""
     if _evaluate_example_from_token_logits is None:
@@ -334,43 +361,78 @@ def evaluate_task_battery(
         )
     results: list[dict[str, Any]] = []
 
-    # Define task configurations
-    tasks: list[tuple[str, int | None, tuple[int, ...] | None]] = []
-    # Retrieval at each span
-    for span in retrieval_spans:
-        tasks.append(("long_range_retrieval", span, (span,)))
-    # Mirror short task
-    tasks.append(("local_key_match", None, None))
+    # Define task configurations.
+    tasks = list(task_configs or [])
+    if not tasks:
+        for span in retrieval_spans:
+            tasks.append(("long_range_retrieval", span, (span,)))
+        tasks.append(("local_key_match", None, None))
+
+    seed_list = list(seeds)
+    total_cells = len(seed_list) * len(tasks)
+    condition_t0 = time.time()
+    completed_cells = 0
 
     with head_output_ablation(model, heads_to_zero):
-        for seed in seeds:
+        for seed in seed_list:
             for task_name, span_override, span_choices in tasks:
-                examples = generate_task_examples(
-                    task_name=task_name,
-                    model_name=model_spec.name,
-                    seq_len=TASK_SEQ_LEN,
-                    seed=seed,
-                    count=SYNTHETIC_COUNT,
-                    pools=pools,
-                    span_override=span_override,
-                    span_choices=span_choices,
-                )
+                cell_t0 = time.time()
+                span_val = span_override if span_override is not None else 0
+                cache_key = (seed, task_name, span_val)
+                if prebuilt_examples is not None and cache_key in prebuilt_examples:
+                    examples = prebuilt_examples[cache_key]
+                else:
+                    examples = generate_task_examples(
+                        task_name=task_name,
+                        model_name=model_spec.name,
+                        seq_len=TASK_SEQ_LEN,
+                        seed=seed,
+                        count=synthetic_count,
+                        pools=pools,
+                        span_override=span_override,
+                        span_choices=span_choices,
+                    )
 
                 correct_total = 0
                 count_total = 0
+                total_examples = len(examples)
+                print(
+                    f"    [{condition_name}] cell {completed_cells + 1}/{total_cells} "
+                    f"seed={seed} task={task_name} span={span_val} examples={total_examples}",
+                    flush=True,
+                )
 
-                # Batch evaluation
-                batch_size = 8
-                for batch_start in range(0, len(examples), batch_size):
-                    batch = examples[batch_start:batch_start + batch_size]
-                    for ex in batch:
+                # True batched evaluation with OOM backoff.
+                effective_batch_size = max(1, int(batch_size))
+                batch_start = 0
+                batch_idx = 0
+                batches_total = max(1, math.ceil(total_examples / max(1, effective_batch_size)))
+                next_progress_mark = 0
+                while batch_start < len(examples):
+                    batch = examples[batch_start:batch_start + effective_batch_size]
+                    batch_idx += 1
+
+                    try:
                         input_ids = torch.tensor(
-                            [ex.tokens], dtype=torch.long, device=device
+                            [ex.tokens for ex in batch], dtype=torch.long, device=device
                         )
-                        with torch.no_grad():
+                        with torch.inference_mode():
                             outputs = model(input_ids=input_ids, use_cache=False)
-                            token_logits = outputs.logits[0]  # [seq, vocab]
+                            token_logits_batch = outputs.logits  # [batch, seq, vocab]
+                    except RuntimeError as exc:
+                        if "out of memory" in str(exc).lower() and effective_batch_size > 1:
+                            torch.cuda.empty_cache()
+                            effective_batch_size = max(1, effective_batch_size // 2)
+                            print(
+                                f"    OOM in {condition_name} | {task_name} span={span_val} seed={seed}; "
+                                f"reducing batch_size to {effective_batch_size}",
+                                flush=True,
+                            )
+                            continue
+                        raise
 
+                    for idx, ex in enumerate(batch):
+                        token_logits = token_logits_batch[idx]  # [seq, vocab]
                         metrics, _ = _evaluate_example_from_token_logits(
                             token_logits,
                             ex,
@@ -383,10 +445,25 @@ def evaluate_task_battery(
                         correct_total += int(round(metrics["accuracy"] * metrics["num_targets"]))
                         count_total += int(metrics["num_targets"])
 
-                        del input_ids, outputs, token_logits
+                    batch_start += len(batch)
+                    del input_ids, outputs, token_logits_batch
+
+                    # Print progress every ~10% plus final batch.
+                    progress_pct = int((batch_start / max(total_examples, 1)) * 100)
+                    if progress_pct >= next_progress_mark or batch_start >= total_examples:
+                        elapsed_cell = max(time.time() - cell_t0, 1e-6)
+                        ex_per_sec = batch_start / elapsed_cell
+                        remaining_ex = max(0, total_examples - batch_start)
+                        eta_cell = remaining_ex / max(ex_per_sec, 1e-6)
+                        print(
+                            f"      batch {batch_idx}/{batches_total} | "
+                            f"examples {batch_start}/{total_examples} ({progress_pct:3d}%) | "
+                            f"{ex_per_sec:.2f} ex/s | eta { _format_eta(eta_cell) }",
+                            flush=True,
+                        )
+                        next_progress_mark = min(100, progress_pct + 10)
 
                 accuracy = correct_total / max(count_total, 1)
-                span_val = span_override if span_override is not None else 0
                 results.append({
                     "condition": condition_name,
                     "task": task_name,
@@ -395,11 +472,21 @@ def evaluate_task_battery(
                     "accuracy": accuracy,
                     "n_examples": len(examples),
                     "n_targets": count_total,
-                    "n_correct": correct_total,
+                        "n_correct": correct_total,
                 })
 
-                print(f"    {condition_name} | {task_name} span={span_val} seed={seed} | "
-                      f"acc={accuracy:.4f} ({correct_total}/{count_total})")
+                completed_cells += 1
+                elapsed_cell = time.time() - cell_t0
+                elapsed_cond = time.time() - condition_t0
+                avg_cell = elapsed_cond / max(completed_cells, 1)
+                remaining_cells = total_cells - completed_cells
+                eta_cond = avg_cell * remaining_cells
+                print(
+                    f"    {condition_name} | {task_name} span={span_val} seed={seed} | "
+                    f"acc={accuracy:.4f} ({correct_total}/{count_total}) | "
+                    f"cell={_format_eta(elapsed_cell)} | cond_eta={_format_eta(eta_cond)}",
+                    flush=True,
+                )
 
     return results
 
@@ -480,11 +567,27 @@ def analyze_results(results_df: pd.DataFrame, r2_summary: pd.DataFrame, model_na
                     high_drop = (paired["none"] - paired["ablate_high_si"]).values
                     low_drop = (paired["none"] - paired["ablate_low_si"]).values
                     delta = high_drop - low_drop
-                    t_stat, t_p = scipy_stats.ttest_rel(high_drop, low_drop, nan_policy="omit")
+                    t_stat, t_p_two_sided = scipy_stats.ttest_rel(
+                        high_drop, low_drop, nan_policy="omit"
+                    )
+                    t_p = one_sided_p_from_two_sided(
+                        float(t_stat),
+                        float(t_p_two_sided),
+                        alternative="greater",
+                    )
                     try:
-                        w_stat, w_p = scipy_stats.wilcoxon(delta)
+                        w_stat, w_p = scipy_stats.wilcoxon(delta, alternative="greater")
+                        w_p_two_sided = float("nan")
+                    except TypeError:
+                        # Older SciPy may not support `alternative` for Wilcoxon.
+                        w_stat, w_p_two_sided = scipy_stats.wilcoxon(delta)
+                        w_p = one_sided_p_from_two_sided(
+                            float(np.mean(delta)),
+                            float(w_p_two_sided),
+                            alternative="greater",
+                        )
                     except ValueError:
-                        w_stat, w_p = float("nan"), float("nan")
+                        w_stat, w_p, w_p_two_sided = float("nan"), float("nan"), float("nan")
 
                     rng = np.random.RandomState(42)
                     n = len(delta)
@@ -503,10 +606,14 @@ def analyze_results(results_df: pd.DataFrame, r2_summary: pd.DataFrame, model_na
                         "paired_ttest": {
                             "t_statistic": float(t_stat),
                             "p_value": float(t_p),
+                            "p_value_two_sided": float(t_p_two_sided),
+                            "alternative": "greater",
                         },
                         "wilcoxon": {
                             "w_statistic": float(w_stat),
                             "p_value": float(w_p),
+                            "p_value_two_sided": float(w_p_two_sided),
+                            "alternative": "greater",
                         },
                         "supports_high_si_more_damage": bool(
                             np.mean(delta) > 0 and np.isfinite(t_p) and t_p < 0.05
@@ -548,6 +655,8 @@ def main():
     parser.add_argument("--profile-sequences", type=int, default=NUM_PROFILE_SEQUENCES)
     parser.add_argument("--num-seeds", type=int, default=NUM_SEEDS)
     parser.add_argument("--synthetic-count", type=int, default=SYNTHETIC_COUNT)
+    parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--random-draws", type=int, default=RANDOM_DRAWS)
     parser.add_argument("--skip-profiling", action="store_true",
                         help="Skip Phases 1-2; load saved R² data from output dir")
     args = parser.parse_args()
@@ -608,7 +717,7 @@ def main():
         "n_total_heads": len(all_heads),
         "quartile": QUARTILE,
     }
-    for draw in range(RANDOM_DRAWS):
+    for draw in range(args.random_draws):
         rand_heads = sample_random_heads(all_heads, n_select, draw)
         head_groups[f"random_draw{draw}"] = [{"layer": h.layer, "head": h.head} for h in rand_heads]
 
@@ -632,20 +741,53 @@ def main():
     seeds = range(args.num_seeds)
     all_results: list[dict[str, Any]] = []
 
+    # Build task configurations once.
+    task_configs: list[tuple[str, int | None, tuple[int, ...] | None]] = []
+    for span in retrieval_spans:
+        task_configs.append(("long_range_retrieval", span, (span,)))
+    task_configs.append(("local_key_match", None, None))
+
+    # Pre-build all synthetic examples once and reuse across conditions.
+    print(
+        f"  Pre-building examples: {len(task_configs)} tasks x {args.num_seeds} seeds "
+        f"x {args.synthetic_count} examples"
+    )
+    prebuilt_examples: dict[tuple[int, str, int], list[TaskExample]] = {}
+    for seed in seeds:
+        for task_name, span_override, span_choices in task_configs:
+            span_val = span_override if span_override is not None else 0
+            prebuilt_examples[(seed, task_name, span_val)] = generate_task_examples(
+                task_name=task_name,
+                model_name=model_spec.name,
+                seq_len=TASK_SEQ_LEN,
+                seed=seed,
+                count=args.synthetic_count,
+                pools=pools,
+                span_override=span_override,
+                span_choices=span_choices,
+            )
+    print(f"  Pre-built {len(prebuilt_examples)} task/seed cells", flush=True)
+
     # Define conditions
     conditions: list[tuple[str, list[HeadID]]] = [
         ("none", []),
         ("ablate_high_si", high_si),
         ("ablate_low_si", low_si),
     ]
-    for draw in range(RANDOM_DRAWS):
+    for draw in range(args.random_draws):
         rand_heads = sample_random_heads(all_heads, n_select, draw)
         conditions.append((f"ablate_random_draw{draw}", rand_heads))
 
-    for cond_name, heads in conditions:
+    total_conditions = len(conditions)
+    phase_eval_t0 = time.time()
+    for cond_idx, (cond_name, heads) in enumerate(conditions, start=1):
         t0 = time.time()
         n_heads_ablated = len(heads)
-        print(f"\n  --- Condition: {cond_name} ({n_heads_ablated} heads ablated) ---")
+        print(
+            f"\n  --- Condition {cond_idx}/{total_conditions}: {cond_name} "
+            f"({n_heads_ablated} heads ablated) ---",
+            flush=True,
+        )
         cond_results = evaluate_task_battery(
             model=model,
             tokenizer=tokenizer,
@@ -656,10 +798,23 @@ def main():
             seeds=seeds,
             retrieval_spans=retrieval_spans,
             pools=pools,
+            synthetic_count=args.synthetic_count,
+            batch_size=args.batch_size,
+            task_configs=task_configs,
+            prebuilt_examples=prebuilt_examples,
         )
         all_results.extend(cond_results)
         elapsed = time.time() - t0
-        print(f"  Condition {cond_name} complete in {elapsed:.0f}s")
+        elapsed_phase = time.time() - phase_eval_t0
+        avg_cond = elapsed_phase / max(cond_idx, 1)
+        remaining_cond = total_conditions - cond_idx
+        eta_phase = avg_cond * remaining_cond
+        print(
+            f"  Condition {cond_name} complete in {elapsed:.0f}s | "
+            f"phase progress {cond_idx}/{total_conditions} | "
+            f"phase ETA { _format_eta(eta_phase) }",
+            flush=True,
+        )
 
     results_df = pd.DataFrame(all_results)
     results_df.to_parquet(output_dir / "task_results.parquet", index=False)
@@ -711,10 +866,11 @@ def main():
             "profile_seq_len": PROFILE_SEQ_LEN,
             "task_seq_len": TASK_SEQ_LEN,
             "synthetic_count": args.synthetic_count,
+            "batch_size": args.batch_size,
             "candidate_size": CANDIDATE_SIZE,
             "num_seeds": args.num_seeds,
             "quartile": QUARTILE,
-            "random_draws": RANDOM_DRAWS,
+            "random_draws": args.random_draws,
             "retrieval_spans": list(retrieval_spans),
         },
         "r2_summary": analysis.get("r2_summary", {}),

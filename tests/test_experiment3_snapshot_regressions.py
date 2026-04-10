@@ -26,59 +26,59 @@ ROOT = Path("results/experiment3")
 
 EXPECTED_T1 = {
     "llama-3.1-8b": {
-        "high_mean_drop": 0.3081696428571429,
-        "low_mean_drop": 0.3227678571428571,
-        "gap": -0.014598214285714228,
+        "high_mean_drop": 0.3083370535714286,
+        "low_mean_drop": 0.323203125,
+        "gap": -0.014866071428571381,
         "paired_n": 28,
-        "paired_mean_delta": -0.014598214285714284,
+        "paired_mean_delta": -0.014866071428571432,
     },
     "olmo-2-7b": {
-        "high_mean_drop": 0.0823660714285714,
-        "low_mean_drop": 0.0932440476190476,
-        "gap": -0.010877976190476202,
+        "high_mean_drop": 0.0821577380952381,
+        "low_mean_drop": 0.09397321428571427,
+        "gap": -0.011815476190476168,
         "paired_n": 21,
-        "paired_mean_delta": -0.010877976190476191,
+        "paired_mean_delta": -0.01181547619047619,
     },
 }
 
 EXPECTED_T5 = {
     "llama-3.1-8b": {
-        "high_interaction": -1.304987382650376,
-        "low_interaction": 0.6554272456169128,
-        "random_mean_interaction": -0.322593123515447,
+        "high_interaction": -1.3065699510574347,
+        "low_interaction": 0.6557468371391297,
+        "random_mean_interaction": -0.48862849203745523,
     },
     "olmo-2-7b": {
-        "high_interaction": -0.3851767320632935,
-        "low_interaction": 1.0527612562179565,
-        "random_mean_interaction": 0.22237118037541703,
+        "high_interaction": -0.3892890233993529,
+        "low_interaction": 1.0488832178115843,
+        "random_mean_interaction": 0.0993864262898763,
     },
 }
 
 EXPECTED_T7B = {
     "llama-3.1-8b": {
-        "rho": 0.06665283817807277,
-        "p": 0.2880503676882328,
-        "partial_r": -0.09100088503700683,
-        "partial_p": 0.14732744606764256,
+        "rho": 0.06436183909361409,
+        "p": 0.30497936108394413,
+        "partial_r": -0.09101175844322959,
+        "partial_p": 0.14727890077765285,
     },
     "olmo-2-7b": {
-        "rho": 0.20636730373083081,
-        "p": 0.0008952105448589476,
-        "partial_r": 0.10427573593774483,
-        "partial_p": 0.09661277863526703,
+        "rho": 0.20659761959258408,
+        "p": 0.0008831316751208476,
+        "partial_r": 0.10357578623980858,
+        "partial_p": 0.09888403587344888,
     },
 }
 
 EXPECTED_T10 = {
     "llama-3.1-8b": {
-        "rho_induction": 0.06665283817807277,
-        "rho_random_mid": -0.037911993591210794,
-        "rho_low_si_late": 0.04006280041199359,
+        "rho_induction": 0.06436183909361409,
+        "rho_random_mid": -0.012272545204852367,
+        "rho_low_si_late": 0.08021572442206454,
     },
     "olmo-2-7b": {
-        "rho_induction": 0.20636730373083081,
-        "rho_random_mid": 0.2782129777981231,
-        "rho_low_si_late": -0.031518224994277866,
+        "rho_induction": 0.20659761959258408,
+        "rho_random_mid": 0.1888139448386358,
+        "rho_low_si_late": -0.0498891336690318,
     },
 }
 

@@ -60,6 +60,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from experiment3.stats_utils import (
     dependent_corr_williams_test,
     holm_adjust,
+    one_sided_p_from_two_sided,
     partial_correlation_with_intercept,
 )
 from shared.specs import ModelSpec
@@ -238,6 +239,25 @@ def compute_induction_scores_from_capture(
     return scores
 
 
+def compute_prev_token_scores_from_capture(
+    capture_logits: torch.Tensor,
+    target_heads: list[HeadID],
+) -> dict[tuple[int, int], float]:
+    """Compute mean previous-token attention score for specific heads."""
+    _, _, seq_len, _ = capture_logits.shape
+    causal_mask = torch.triu(torch.ones(seq_len, seq_len, dtype=torch.bool), diagonal=1)
+    logits = capture_logits.clone()
+    logits[:, :, :, :][..., causal_mask] = float("-inf")
+    attn = torch.softmax(logits, dim=-1)
+
+    scores: dict[tuple[int, int], float] = {}
+    for h in target_heads:
+        head_attn = attn[h.layer, h.head]
+        vals = [head_attn[i, i - 1].item() for i in range(1, seq_len)]
+        scores[(h.layer, h.head)] = float(np.mean(vals)) if vals else 0.0
+    return scores
+
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # SEQUENCE GENERATION  (reused from Theory 7b)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -389,7 +409,7 @@ def run_activation_patching(
     num_pairs: int,
     period: int,
     total_len: int,
-    max_source_layer: int,
+    source_layers: set[int],
 ) -> pd.DataFrame:
     """Run resample activation patching for all (source, target) pairs.
 
@@ -417,9 +437,22 @@ def run_activation_patching(
             all_targets.append((h, group_name))
 
     all_target_heads = [h for h, _ in all_targets]
+    target_group_map: dict[tuple[int, int], str] = {
+        (h.layer, h.head): group_name for h, group_name in all_targets
+    }
+    target_metric_by_group = {
+        "induction": "induction_score",
+        "random_mid": "prev_token_score",
+        "low_si_late": "prev_token_score",
+    }
 
-    # Source layers to capture
-    source_layers = set(range(min(max_source_layer + 1, config.num_hidden_layers)))
+    source_layers = {
+        int(layer)
+        for layer in source_layers
+        if 0 <= int(layer) < int(config.num_hidden_layers)
+    }
+    if not source_layers:
+        raise ValueError("No valid source layers requested for patching run.")
 
     # Build list of all source heads
     all_source_heads: list[HeadID] = []
@@ -434,7 +467,8 @@ def run_activation_patching(
 
     # Accumulate per-(source, target) disruptions
     disruptions: dict[tuple[int, int, int, int], list[float]] = defaultdict(list)
-    clean_scores_all: dict[tuple[int, int], list[float]] = defaultdict(list)
+    clean_metric_scores_all: dict[tuple[int, int], list[float]] = defaultdict(list)
+    clean_induction_scores_all: dict[tuple[int, int], list[float]] = defaultdict(list)
 
     for pair_idx in range(num_pairs):
         t0 = time.time()
@@ -465,11 +499,23 @@ def run_activation_patching(
         if clean_capture.logits is None:
             print(f"  Pair {pair_idx}: clean capture failed, skipping")
             continue
-        clean_scores = compute_induction_scores_from_capture(
+        clean_scores_induction = compute_induction_scores_from_capture(
             clean_capture.logits.float(), all_target_heads, period,
         )
-        for k, v in clean_scores.items():
-            clean_scores_all[k].append(v)
+        clean_scores_prev = compute_prev_token_scores_from_capture(
+            clean_capture.logits.float(), all_target_heads,
+        )
+        for tgt_head in all_target_heads:
+            tgt_key = (tgt_head.layer, tgt_head.head)
+            group_name = target_group_map.get(tgt_key, "unknown")
+            metric_name = target_metric_by_group.get(group_name, "induction_score")
+            metric_val = (
+                clean_scores_induction[tgt_key]
+                if metric_name == "induction_score"
+                else clean_scores_prev[tgt_key]
+            )
+            clean_metric_scores_all[tgt_key].append(metric_val)
+            clean_induction_scores_all[tgt_key].append(clean_scores_induction[tgt_key])
 
         # ── Step 2: Corrupt run (cache source outputs) ────────────────────
         with capture_head_outputs(model, source_layers) as corrupt_cached:
@@ -508,14 +554,29 @@ def run_activation_patching(
             if patched_capture.logits is None:
                 continue
 
-            patched_scores = compute_induction_scores_from_capture(
+            patched_scores_induction = compute_induction_scores_from_capture(
                 patched_capture.logits.float(), all_target_heads, period,
+            )
+            patched_scores_prev = compute_prev_token_scores_from_capture(
+                patched_capture.logits.float(), all_target_heads,
             )
 
             # Record disruption for ALL target heads across all 3 groups
             for tgt_head in all_target_heads:
                 tgt_key = (tgt_head.layer, tgt_head.head)
-                disruption = clean_scores[tgt_key] - patched_scores[tgt_key]
+                group_name = target_group_map.get(tgt_key, "unknown")
+                metric_name = target_metric_by_group.get(group_name, "induction_score")
+                clean_metric = (
+                    clean_scores_induction[tgt_key]
+                    if metric_name == "induction_score"
+                    else clean_scores_prev[tgt_key]
+                )
+                patched_metric = (
+                    patched_scores_induction[tgt_key]
+                    if metric_name == "induction_score"
+                    else patched_scores_prev[tgt_key]
+                )
+                disruption = clean_metric - patched_metric
                 disruptions[
                     (src_head.layer, src_head.head, tgt_head.layer, tgt_head.head)
                 ].append(disruption)
@@ -531,20 +592,17 @@ def run_activation_patching(
         torch.cuda.empty_cache()
 
     # ── Build results DataFrame ───────────────────────────────────────────
-    # Create a lookup for target group membership
-    target_group_map: dict[tuple[int, int], str] = {}
-    for h, group_name in all_targets:
-        target_group_map[(h.layer, h.head)] = group_name
-
     rows = []
     for (sl, sh, tl, th), disrupt_list in disruptions.items():
         arr = np.array(disrupt_list)
+        group_name = target_group_map.get((tl, th), "unknown")
         rows.append({
             "source_layer": sl,
             "source_head": sh,
             "target_layer": tl,
             "target_head": th,
-            "target_group": target_group_map.get((tl, th), "unknown"),
+            "target_group": group_name,
+            "target_metric": target_metric_by_group.get(group_name, "induction_score"),
             "mean_disruption": float(np.mean(arr)),
             "std_disruption": float(np.std(arr, ddof=1)) if len(arr) > 1 else 0.0,
             "n_pairs": len(arr),
@@ -556,13 +614,35 @@ def run_activation_patching(
     # Print baseline score summary per group
     for group_name in ["induction", "random_mid", "low_si_late"]:
         group_heads = target_groups[group_name]
-        mean_scores = [
-            np.mean(clean_scores_all.get((h.layer, h.head), [0.0]))
+        metric_name = target_metric_by_group[group_name]
+        mean_metric_scores = [
+            np.mean(clean_metric_scores_all.get((h.layer, h.head), [0.0]))
             for h in group_heads
         ]
-        print(f"  {group_name} group mean clean induction score: {np.mean(mean_scores):.4f}")
+        mean_induction_scores = [
+            np.mean(clean_induction_scores_all.get((h.layer, h.head), [0.0]))
+            for h in group_heads
+        ]
+        print(
+            f"  {group_name} group mean clean {metric_name}: {np.mean(mean_metric_scores):.4f} "
+            f"(clean induction mean={np.mean(mean_induction_scores):.4f})"
+        )
 
     return df
+
+
+def _parse_source_layers(args: argparse.Namespace) -> list[int]:
+    if args.source_layers_csv:
+        vals = [int(x.strip()) for x in str(args.source_layers_csv).split(",") if x.strip()]
+        if not vals:
+            raise ValueError("--source-layers-csv was provided but no layers were parsed.")
+        return sorted(set(vals))
+
+    lo = int(args.source_layer_min)
+    hi = int(args.source_layer_max)
+    if lo > hi:
+        raise ValueError("--source-layer-min cannot be greater than --source-layer-max.")
+    return list(range(lo, hi + 1))
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -659,6 +739,8 @@ def analyze_patching_results(
         # ── Primary correlation: disruption vs R² ────────────────────────
         r_p, p_p = pearsonr(r2_vals, disrupt_vals)
         r_s, p_s = spearmanr(r2_vals, disrupt_vals)
+        p_p_one = one_sided_p_from_two_sided(float(r_p), float(p_p), alternative="greater")
+        p_s_one = one_sided_p_from_two_sided(float(r_s), float(p_s), alternative="greater")
         ci_lo, ci_hi = _bootstrap_spearman(
             r2_vals, disrupt_vals, BOOTSTRAP_N, BOOTSTRAP_SEED,
         )
@@ -701,10 +783,17 @@ def analyze_patching_results(
         group_results[group_name] = {
             "n_source_heads": len(merged),
             "n_target_heads": len(target_groups.get(group_name, [])),
+            "target_metric": (
+                str(group_df["target_metric"].iloc[0])
+                if "target_metric" in group_df.columns and len(group_df) > 0
+                else "induction_score"
+            ),
             "pearson_r": float(r_p),
             "pearson_p": float(p_p),
+            "pearson_p_one_sided": float(p_p_one),
             "spearman_rho": float(r_s),
             "spearman_p": float(p_s),
+            "spearman_p_one_sided": float(p_s_one),
             "spearman_ci_95": [ci_lo, ci_hi],
             "mean_disruption_all_sources": float(disrupt_vals.mean()),
             "std_disruption_all_sources": float(disrupt_vals.std()),
@@ -778,9 +867,14 @@ def analyze_patching_results(
             rho_ind_cmp, _ = spearmanr(x, y_ind)
             rho_cmp, _ = spearmanr(x, y_cmp)
             dep = _dependent_spearman_difference(x, y_ind, y_cmp)
+            dep_p_one = one_sided_p_from_two_sided(
+                float(dep["statistic"]),
+                float(dep["p_value"]),
+                alternative="greater",
+            )
 
             key = f"induction_vs_{comp_name}"
-            raw_pvals[key] = dep["p_value"]
+            raw_pvals[key] = dep_p_one
             pairwise_tests[comp_name] = {
                 "n_sources": int(len(merged_comp)),
                 "rho_induction": float(rho_ind_cmp),
@@ -788,9 +882,11 @@ def analyze_patching_results(
                 "rho_delta": float(rho_ind_cmp - rho_cmp),
                 "williams_t": dep["statistic"],
                 "df": dep["df"],
-                "p_value": dep["p_value"],
+                "p_value": float(dep_p_one),
+                "p_value_two_sided": dep["p_value"],
                 "p_value_holm": float("nan"),
                 "supports_induction_specificity": False,
+                "directional_alternative": "greater",
             }
 
     if raw_pvals:
@@ -831,6 +927,11 @@ def analyze_patching_results(
         "multiplicity_policy": (
             "holm across induction-vs-comparator dependent-correlation tests"
         ),
+        "group_target_metrics": {
+            k: v.get("target_metric")
+            for k, v in group_results.items()
+            if isinstance(v, dict) and "target_metric" in v
+        },
     }
 
     # ── Build interpretation ──────────────────────────────────────────────
@@ -843,13 +944,15 @@ def analyze_patching_results(
             f"Dependent-correlation tests support stronger disruption-R2 coupling for induction targets "
             f"(rho={_fmt_rho(rho_induction)}) than for random mid-layer "
             f"(rho={_fmt_rho(rho_random)}) or low-SI late targets "
-            f"(rho={_fmt_rho(rho_low_si)})."
+            f"(rho={_fmt_rho(rho_low_si)}). "
+            "Target metrics are group-specific (induction: induction score; controls: prev-token score)."
         )
     else:
         interpretation = (
             f"Evidence does not support induction-specific feeders under formal dependent-correlation tests. "
             f"Observed disruption-R2 correlations are induction={_fmt_rho(rho_induction)}, "
-            f"random_mid={_fmt_rho(rho_random)}, low_si_late={_fmt_rho(rho_low_si)}."
+            f"random_mid={_fmt_rho(rho_random)}, low_si_late={_fmt_rho(rho_low_si)}. "
+            "Target metrics are group-specific (induction: induction score; controls: prev-token score)."
         )
 
     analysis = {
@@ -890,7 +993,25 @@ def main():
         default=None,
         help="Optional path to saved patching_results.parquet for --analysis-only",
     )
+    parser.add_argument(
+        "--source-layer-min",
+        type=int,
+        default=0,
+        help="Minimum source layer (inclusive) for source-head patching.",
+    )
+    parser.add_argument(
+        "--source-layer-max",
+        type=int,
+        default=MAX_SOURCE_LAYER,
+        help="Maximum source layer (inclusive) for source-head patching.",
+    )
+    parser.add_argument(
+        "--source-layers-csv",
+        default=None,
+        help="Optional comma-separated explicit source layers (overrides min/max).",
+    )
     args = parser.parse_args()
+    source_layers = _parse_source_layers(args)
 
     output_dir = Path(args.output_dir) / args.model
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -987,7 +1108,7 @@ def main():
             num_pairs=args.num_pairs,
             period=KNOCKOUT_PERIOD,
             total_len=KNOCKOUT_SEQ_LEN,
-            max_source_layer=MAX_SOURCE_LAYER,
+            source_layers=set(source_layers),
         )
         elapsed = time.time() - t0
         patch_df.to_parquet(patching_path, index=False)
@@ -1010,8 +1131,17 @@ def main():
             print(f"\n  {group_name.upper()}: ERROR - {gr['error']}")
             continue
         print(f"\n  {group_name.upper()}: disruption vs R2")
-        print(f"    Pearson:  r={gr['pearson_r']:+.4f} (p={gr['pearson_p']:.2e})")
-        print(f"    Spearman: rho={gr['spearman_rho']:+.4f} (p={gr['spearman_p']:.2e})")
+        print(f"    Metric:   {gr.get('target_metric', 'induction_score')}")
+        print(
+            f"    Pearson:  r={gr['pearson_r']:+.4f} "
+            f"(p_one={gr.get('pearson_p_one_sided', float('nan')):.2e}, "
+            f"p_two={gr['pearson_p']:.2e})"
+        )
+        print(
+            f"    Spearman: rho={gr['spearman_rho']:+.4f} "
+            f"(p_one={gr.get('spearman_p_one_sided', float('nan')):.2e}, "
+            f"p_two={gr['spearman_p']:.2e})"
+        )
         print(f"              95% CI [{gr['spearman_ci_95'][0]:+.4f}, "
               f"{gr['spearman_ci_95'][1]:+.4f}]")
         print(f"    Mean disruption: {gr['mean_disruption_all_sources']:.6f}")
@@ -1032,13 +1162,16 @@ def main():
     print(f"    rho(random_mid):   {comp['rho_random_mid']}")
     print(f"    rho(low_si_late):  {comp['rho_low_si_late']}")
     print(f"    Induction-specific: {comp['induction_specific']}")
+    if comp.get("group_target_metrics"):
+        print(f"    Group metrics: {comp['group_target_metrics']}")
     for comp_name, details in comp.get("pairwise_specificity_tests", {}).items():
         if "error" in details:
             print(f"    induction vs {comp_name}: {details['error']} (n={details.get('n_sources')})")
             continue
         print(
             f"    induction vs {comp_name}: delta={details['rho_delta']:+.4f}, "
-            f"t={details['williams_t']:+.4f}, p={details['p_value']:.2e}, "
+            f"t={details['williams_t']:+.4f}, p_one={details['p_value']:.2e}, "
+            f"p_two={details.get('p_value_two_sided', float('nan')):.2e}, "
             f"p_holm={details['p_value_holm']:.2e}"
         )
 
@@ -1059,7 +1192,7 @@ def main():
             "period": KNOCKOUT_PERIOD,
             "seq_len": KNOCKOUT_SEQ_LEN,
             "num_target_per_group": NUM_TARGET_PER_GROUP,
-            "max_source_layer": MAX_SOURCE_LAYER,
+            "source_layers": source_layers,
             "random_mid_layer_range": list(RANDOM_MID_LAYER_RANGE),
             "low_si_late_layer_range": list(LOW_SI_LATE_LAYER_RANGE),
             "bootstrap_n": BOOTSTRAP_N,

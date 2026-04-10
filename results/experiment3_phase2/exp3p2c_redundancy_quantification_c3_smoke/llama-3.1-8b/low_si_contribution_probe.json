@@ -1,0 +1,150 @@
+{
+  "experiment": "3P2-C.3_low_si_contribution_probe",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-07 14:01:28",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.3",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "config": {
+    "sequence_count": 4,
+    "seq_len": 256,
+    "batch_size": 1,
+    "projection_dim": 32,
+    "train_fraction": 0.8,
+    "bootstrap_samples": 300,
+    "seed": 42,
+    "optional_stress_test_half_attenuation": false,
+    "feature_definition": "last-layer residual contribution proxy via (intact - group-ablated), random-projected"
+  },
+  "split": {
+    "n_sequences_total": 4,
+    "n_sequences_train": 3,
+    "n_sequences_test": 1
+  },
+  "group_sizes": {
+    "high_si": 256,
+    "low_si": 256,
+    "random_matched": 256
+  },
+  "group_metrics": {
+    "high_si": {
+      "boundary_indicator": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.6784313725490196,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": 0.05882352941176472,
+        "ci_95_accuracy": [
+          0.6253921568627451,
+          0.7353921568627451
+        ],
+        "ci_95_delta_over_chance": [
+          0.005784313725490153,
+          0.11578431372549014
+        ],
+        "pseudo_r2": 0.060011055722571816
+      },
+      "nearest_boundary_bin": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.6509803921568628,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": 0.03137254901960784,
+        "ci_95_accuracy": [
+          0.5940196078431372,
+          0.7079411764705882
+        ],
+        "ci_95_delta_over_chance": [
+          -0.02558823529411769,
+          0.08833333333333326
+        ],
+        "pseudo_r2": 0.005512020470945345
+      }
+    },
+    "low_si": {
+      "boundary_indicator": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.7058823529411765,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": 0.0862745098039216,
+        "ci_95_accuracy": [
+          0.6549019607843137,
+          0.7667647058823529
+        ],
+        "ci_95_delta_over_chance": [
+          0.03529411764705881,
+          0.14715686274509798
+        ],
+        "pseudo_r2": 0.06006183332815751
+      },
+      "nearest_boundary_bin": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.6352941176470588,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": 0.015686274509803866,
+        "ci_95_accuracy": [
+          0.5803921568627451,
+          0.6901960784313725
+        ],
+        "ci_95_delta_over_chance": [
+          -0.039215686274509776,
+          0.07058823529411762
+        ],
+        "pseudo_r2": 0.04768135102070947
+      }
+    },
+    "random_matched": {
+      "boundary_indicator": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.6823529411764706,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": 0.06274509803921569,
+        "ci_95_accuracy": [
+          0.629313725490196,
+          0.7333333333333333
+        ],
+        "ci_95_delta_over_chance": [
+          0.00970588235294112,
+          0.11372549019607836
+        ],
+        "pseudo_r2": 0.08008045051596324
+      },
+      "nearest_boundary_bin": {
+        "status": "ok",
+        "n_train": 765,
+        "n_test": 255,
+        "accuracy": 0.6039215686274509,
+        "chance": 0.6196078431372549,
+        "delta_over_chance": -0.015686274509803977,
+        "ci_95_accuracy": [
+          0.5450980392156862,
+          0.6687254901960783
+        ],
+        "ci_95_delta_over_chance": [
+          -0.0745098039215687,
+          0.04911764705882338
+        ],
+        "pseudo_r2": 0.048808488204133416
+      }
+    }
+  },
+  "acceptance_checks": {
+    "probe_baselines_over_chance_10pp_all_groups_targets": false,
+    "low_si_within_10pct_relative_of_high_si_for_any_target": true
+  },
+  "interpretive_rule": "Low-SI redundancy support requires low-SI decode performance within 10% relative of high-SI for at least one positional target.",
+  "summary": {
+    "supports_e2_redundancy_rule": true,
+    "runtime_seconds": 16.830453395843506
+  }
+}

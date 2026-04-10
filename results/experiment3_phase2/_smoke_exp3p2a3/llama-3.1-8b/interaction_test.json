@@ -1,0 +1,77 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:39:42",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.1",
+  "analysis": "two_way_interaction_group_x_category",
+  "n_observations": 30,
+  "task_categories": [
+    "boundary",
+    "factual",
+    "positional",
+    "syntactic"
+  ],
+  "groups": [
+    "ablate_high_si",
+    "ablate_low_si",
+    "ablate_random_mean"
+  ],
+  "f_interaction": 0.4149795075792976,
+  "p_value": 0.8594409303842448,
+  "partial_eta_squared": 0.12151742247889946,
+  "cell_means": {
+    "boundary|ablate_high_si": {
+      "n": 2,
+      "mean": 0.25
+    },
+    "boundary|ablate_low_si": {
+      "n": 2,
+      "mean": 0.5
+    },
+    "boundary|ablate_random_mean": {
+      "n": 2,
+      "mean": 0.16666666666666666
+    },
+    "factual|ablate_high_si": {
+      "n": 2,
+      "mean": 0.75
+    },
+    "factual|ablate_low_si": {
+      "n": 2,
+      "mean": 0.5
+    },
+    "factual|ablate_random_mean": {
+      "n": 2,
+      "mean": 0.8333333333333333
+    },
+    "positional|ablate_high_si": {
+      "n": 4,
+      "mean": 1.0798539799601694
+    },
+    "positional|ablate_low_si": {
+      "n": 4,
+      "mean": 1.2412286843415485
+    },
+    "positional|ablate_random_mean": {
+      "n": 4,
+      "mean": 0.9691461030204962
+    },
+    "syntactic|ablate_high_si": {
+      "n": 2,
+      "mean": 1.0
+    },
+    "syntactic|ablate_low_si": {
+      "n": 2,
+      "mean": 0.75
+    },
+    "syntactic|ablate_random_mean": {
+      "n": 2,
+      "mean": 0.8333333333333333
+    }
+  },
+  "mde_target": 0.02,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "supports_interaction": false,
+  "p_value_holm": 0.8594409303842448
+}

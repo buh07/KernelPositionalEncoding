@@ -1,0 +1,53 @@
+{
+  "method": "full_adversarial_forward_pass",
+  "note": "Synthetic 2x2 boundary control computed from fresh attention forward passes on adversarially perturbed token sequences.",
+  "replacement_meta": {
+    "boundary_candidates_available": 4339,
+    "nonboundary_candidates_available": 1651,
+    "boundary_replacements_applied": 600,
+    "nonboundary_replacements_applied": 600
+  },
+  "cells": {
+    "fake_boundary_with_prefix": {
+      "cell": "fake_boundary_with_prefix",
+      "mean_high_prev_attn": 0.07454665451566858,
+      "std_high_prev_attn": 0.10032056940799639,
+      "mean_low_prev_attn": 0.025661891660901624,
+      "std_low_prev_attn": 0.1059374131577842,
+      "n": 600
+    },
+    "fake_boundary_without_prefix": {
+      "cell": "fake_boundary_without_prefix",
+      "mean_high_prev_attn": 0.058683664801723295,
+      "std_high_prev_attn": 0.058916400488010494,
+      "mean_low_prev_attn": 0.014445082545792054,
+      "std_low_prev_attn": 0.05995091796607422,
+      "n": 2003
+    },
+    "real_boundary_with_prefix": {
+      "cell": "real_boundary_with_prefix",
+      "mean_high_prev_attn": 0.06403612925105681,
+      "std_high_prev_attn": 0.016258626724133675,
+      "mean_low_prev_attn": 0.009913861194013551,
+      "std_low_prev_attn": 0.007149840888567266,
+      "n": 4973
+    },
+    "real_boundary_without_prefix": {
+      "cell": "real_boundary_without_prefix",
+      "mean_high_prev_attn": 0.06929402119334366,
+      "std_high_prev_attn": 0.01601473499510562,
+      "mean_low_prev_attn": 0.010970733614957326,
+      "std_low_prev_attn": 0.006870063490544618,
+      "n": 600
+    }
+  },
+  "prefix_following_artifact_flag": true,
+  "comparisons": {
+    "fake_minus_real_with_prefix": 0.01051052526461177,
+    "real_minus_fake_without_prefix": 0.010610356391620362
+  },
+  "acceptance_rule_inputs": {
+    "fake_boundary_with_prefix": 0.07454665451566858,
+    "real_boundary_with_prefix": 0.06403612925105681
+  }
+}

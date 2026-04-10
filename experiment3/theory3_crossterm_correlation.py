@@ -36,6 +36,7 @@ Usage
 from __future__ import annotations
 
 import argparse
+from collections import deque
 import json
 import math
 import sys
@@ -51,7 +52,11 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from experiment1.shift_kernels import RoPEEstimator, KernelFit
-from experiment3.stats_utils import fisher_z_mean, partial_correlation_with_intercept
+from experiment3.stats_utils import (
+    fisher_z_mean,
+    holm_adjust,
+    partial_correlation_with_intercept,
+)
 # normalize_logits_for_norm removed: it pre-centers RMSNorm logits,
 # which zeroed the cross-term we are trying to measure.  Raw logits
 # are now used directly; double_center() handles the centered path.
@@ -153,10 +158,30 @@ def extract_diagonal_means(matrix: torch.Tensor, max_delta: int) -> np.ndarray:
     return means
 
 
+def extract_diagonal_means_batched(logits: torch.Tensor, max_delta: int) -> torch.Tensor:
+    """Vectorized diagonal means for batched logits [L, H, S, S].
+
+    Returns [L, H, max_delta] on the same device as logits.
+    """
+    n_layers, n_heads, seq_len, _ = logits.shape
+    out = torch.empty(
+        (n_layers, n_heads, max_delta),
+        dtype=torch.float32,
+        device=logits.device,
+    )
+    for delta in range(1, max_delta + 1):
+        if delta >= seq_len:
+            out[:, :, delta - 1] = 0.0
+            continue
+        diag = torch.diagonal(logits, offset=-delta, dim1=-2, dim2=-1)  # [L, H, S-delta]
+        out[:, :, delta - 1] = diag.mean(dim=-1)
+    return out
+
+
 def compute_gap_kernels(
     model,
     adapter,
-    model_spec: ModelSpec,
+    _model_spec: ModelSpec,
     device: str,
     sequences: list[list[int]],
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, int, int]:
@@ -177,9 +202,11 @@ def compute_gap_kernels(
     g_cent_accum: np.ndarray | None = None
     n_layers = n_heads = 0
     n_processed = 0
+    phase_start = time.time()
+    recent_seq_times: deque[float] = deque(maxlen=8)
 
     for seq_idx, tokens in enumerate(sequences):
-        t0 = time.time()
+        seq_start = time.time()
         input_ids = torch.tensor([tokens], dtype=torch.long, device=device)
 
         capture = adapter.capture(
@@ -188,48 +215,62 @@ def compute_gap_kernels(
             include_logits=True,
             return_token_logits=False,
             capture_attention=True,
-            output_device="cpu",
+            output_device=device,
         )
 
         if capture.logits is None:
             print(f"  Seq {seq_idx}: no logits captured, skipping")
             del capture, input_ids
-            torch.cuda.empty_cache()
             continue
 
-        # capture.logits: [layers, heads, seq, seq]
-        logits = capture.logits.float()
+        # capture.logits: [layers, heads, seq, seq] (raw pre-mask QK^T expected)
+        logits = capture.logits.to(dtype=torch.float32)
+        if not torch.isfinite(logits).all():
+            n_bad = int((~torch.isfinite(logits)).sum().item())
+            raise RuntimeError(
+                "Non-finite attention logits captured in Theory 3. "
+                f"Found {n_bad} non-finite entries. "
+                "This typically means post-mask logits were captured; Theory 3 "
+                "requires raw pre-mask attention logits."
+            )
         n_layers, n_heads = logits.shape[0], logits.shape[1]
 
         if g_raw_accum is None:
             g_raw_accum = np.zeros((n_layers, n_heads, max_delta), dtype=np.float64)
             g_cent_accum = np.zeros((n_layers, n_heads, max_delta), dtype=np.float64)
 
-        for layer_idx in range(n_layers):
-            for head_idx in range(n_heads):
-                head_logits = logits[layer_idx, head_idx]  # [seq, seq]
+        # Raw diagonal means — use truly raw logits (NO norm-specific centering)
+        # so that the content-position cross-term is preserved.
+        g_raw_seq = extract_diagonal_means_batched(logits, max_delta)
 
-                # Raw diagonal means — use truly raw logits (NO norm-specific
-                # centering) so that the content-position cross-term is preserved.
-                # The previous version called normalize_logits_for_norm() here,
-                # which already double-centers RMSNorm logits, making gap ≈ 0.
-                g_raw = extract_diagonal_means(head_logits, max_delta)
+        # Centered diagonal means — always double-center explicitly.
+        row_mean = logits.mean(dim=-1, keepdim=True)   # [L, H, S, 1]
+        col_mean = logits.mean(dim=-2, keepdim=True)   # [L, H, 1, S]
+        global_mean = logits.mean(dim=(-2, -1), keepdim=True)  # [L, H, 1, 1]
+        centered = logits - row_mean - col_mean + global_mean
+        g_cent_seq = extract_diagonal_means_batched(centered, max_delta)
 
-                # Centered diagonal means — always double-center explicitly
-                centered = double_center(head_logits)
-                g_cent = extract_diagonal_means(centered, max_delta)
-
-                g_raw_accum[layer_idx, head_idx] += g_raw
-                g_cent_accum[layer_idx, head_idx] += g_cent
+        # Transfer only reduced [L, H, max_delta] to CPU accumulators.
+        g_raw_accum += g_raw_seq.to(device="cpu", dtype=torch.float64).numpy()
+        g_cent_accum += g_cent_seq.to(device="cpu", dtype=torch.float64).numpy()
 
         n_processed += 1
-        elapsed = time.time() - t0
+        seq_elapsed = time.time() - seq_start
+        recent_seq_times.append(seq_elapsed)
+        elapsed_total = time.time() - phase_start
+        avg_total = elapsed_total / max(1, n_processed)
+        remaining = len(sequences) - n_processed
+        eta_sec = remaining * avg_total
+        rolling = sum(recent_seq_times) / max(1, len(recent_seq_times))
 
-        if (seq_idx + 1) % 5 == 0 or seq_idx == 0:
-            print(f"  Gap kernels: {seq_idx + 1}/{len(sequences)} sequences ({elapsed:.1f}s)")
+        if (seq_idx + 1) % 5 == 0 or seq_idx == 0 or (seq_idx + 1) == len(sequences):
+            print(
+                f"  Gap kernels: {seq_idx + 1}/{len(sequences)} sequences | "
+                f"last={seq_elapsed:.1f}s seq | rolling={rolling:.1f}s/seq | "
+                f"avg={avg_total:.1f}s/seq | eta {eta_sec/60.0:.1f}m"
+            )
 
-        del capture, input_ids, logits
-        torch.cuda.empty_cache()
+        del capture, input_ids, logits, g_raw_seq, g_cent_seq, centered
 
     if n_processed == 0:
         raise RuntimeError("No sequences were processed — check data path.")
@@ -371,6 +412,30 @@ def load_freq_profile(model_name: str) -> pd.DataFrame:
     return pd.read_parquet(path)
 
 
+def strict_causal_pair_energy_prefix(q_pair: torch.Tensor, k_pair: torch.Tensor) -> torch.Tensor:
+    """Exact strict-causal pair energy per head via prefix covariance.
+
+    Given q_pair, k_pair with shape [L, H, S, Dp], computes:
+      E[l,h] = sum_i q_i^T (sum_{j<i} k_j k_j^T) q_i
+    which is algebraically equal to:
+      sum_{i>j} (q_i^T k_j)^2.
+    """
+    if q_pair.shape != k_pair.shape:
+        raise ValueError(f"q/k shape mismatch: {q_pair.shape} vs {k_pair.shape}")
+    if q_pair.ndim != 4:
+        raise ValueError(f"Expected [L,H,S,D], got shape={q_pair.shape}")
+
+    n_layers, n_heads, seq_len, pair_dim = q_pair.shape
+    flat = n_layers * n_heads
+    q_flat = q_pair.reshape(flat, seq_len, pair_dim)  # [N, S, D]
+    k_flat = k_pair.reshape(flat, seq_len, pair_dim)  # [N, S, D]
+
+    kk = k_flat.unsqueeze(-1) * k_flat.unsqueeze(-2)  # [N, S, D, D]
+    prefix = torch.cumsum(kk, dim=1) - kk             # exclusive prefix sum
+    per_pos = torch.einsum("nsd,nsde,nse->ns", q_flat, prefix, q_flat)  # [N, S]
+    return per_pos.sum(dim=1).reshape(n_layers, n_heads)  # [L, H]
+
+
 def compute_per_pair_total_energy(
     model,
     adapter,
@@ -388,8 +453,13 @@ def compute_per_pair_total_energy(
     n_pairs_full = head_dim // 2
     energy_accum: dict[int, float] = {p: 0.0 for p in pair_indices}
     n_processed = 0
+    n_layers: int | None = None
+    n_heads: int | None = None
+    phase_start = time.time()
+    recent_seq_times: deque[float] = deque(maxlen=8)
 
     for seq_idx, tokens in enumerate(sequences):
+        seq_start = time.time()
         input_ids = torch.tensor([tokens], dtype=torch.long, device=device)
 
         capture = adapter.capture(
@@ -398,39 +468,101 @@ def compute_per_pair_total_energy(
             include_logits=False,
             return_token_logits=False,
             capture_attention=True,
-            output_device="cpu",
+            output_device=device,
         )
 
-        q = capture.q.float()  # [L, H, S, D]
-        k = capture.k.float()
-        n_layers, n_heads, seq_len_cap, _ = q.shape
-
-        causal_strict = torch.tril(torch.ones(seq_len_cap, seq_len_cap, dtype=torch.bool), diagonal=-1)
+        q = capture.q.to(dtype=torch.float32)  # [L, H, S, D]
+        k = capture.k.to(dtype=torch.float32)
+        if not torch.isfinite(q).all() or not torch.isfinite(k).all():
+            raise RuntimeError("Non-finite q/k captured in Theory 3 total-energy pass.")
+        n_layers = int(q.shape[0])
+        n_heads = int(q.shape[1])
 
         for p in pair_indices:
             if p >= n_pairs_full:
                 continue
             q_pair = q[:, :, :, 2 * p: 2 * p + 2]  # [L, H, S, 2]
             k_pair = k[:, :, :, 2 * p: 2 * p + 2]
-
-            # For each (layer, head), compute the pair-contribution logit and sum squared energy
-            for l in range(n_layers):
-                for h in range(n_heads):
-                    contrib = torch.matmul(q_pair[l, h], k_pair[l, h].T)  # [S, S]
-                    masked = contrib[causal_strict]
-                    energy_accum[p] += float((masked ** 2).sum().item())
+            per_head_energy = strict_causal_pair_energy_prefix(q_pair, k_pair)  # [L, H]
+            energy_accum[p] += float(per_head_energy.sum().item())
 
         n_processed += 1
+        seq_elapsed = time.time() - seq_start
+        recent_seq_times.append(seq_elapsed)
+        elapsed_total = time.time() - phase_start
+        avg_total = elapsed_total / max(1, n_processed)
+        remaining = len(sequences) - n_processed
+        eta_sec = remaining * avg_total
+        rolling = sum(recent_seq_times) / max(1, len(recent_seq_times))
+
+        if (seq_idx + 1) % 5 == 0 or seq_idx == 0 or (seq_idx + 1) == len(sequences):
+            print(
+                f"  Total pair energy: {seq_idx + 1}/{len(sequences)} sequences | "
+                f"last={seq_elapsed:.1f}s seq | rolling={rolling:.1f}s/seq | "
+                f"avg={avg_total:.1f}s/seq | eta {eta_sec/60.0:.1f}m"
+            )
+
         del capture, input_ids, q, k
-        torch.cuda.empty_cache()
 
-        if (seq_idx + 1) % 10 == 0 or seq_idx == 0:
-            print(f"  Total pair energy: {seq_idx + 1}/{len(sequences)} sequences")
-
-    # Average across (sequences * layers * heads)
-    # For correlation we just need a per-pair scalar; sum is fine
-    rows = [{"pair_idx": p, "total_pair_energy": energy_accum[p]} for p in pair_indices]
+    denom = max(1, n_processed * max(1, (n_layers or 1) * (n_heads or 1)))
+    rows = [
+        {
+            "pair_idx": p,
+            # Per-head-per-sequence mean energy; scale is now interpretable.
+            "total_pair_energy": float(energy_accum[p] / denom),
+            "total_pair_energy_sum": float(energy_accum[p]),
+        }
+        for p in pair_indices
+    ]
     return pd.DataFrame(rows)
+
+
+def resolve_artifact_actions(
+    *,
+    gap_exists: bool,
+    total_exists: bool,
+    skip_phase1: bool,
+    force_recompute_gap_kernels: bool,
+    force_recompute_total_energy: bool,
+) -> dict[str, bool]:
+    """Resolve resume/recompute actions for Theory 3 artifacts."""
+    if skip_phase1 and force_recompute_gap_kernels:
+        raise ValueError("Cannot use --skip-phase1 together with --force-recompute-gap-kernels")
+
+    if skip_phase1:
+        if not gap_exists:
+            raise FileNotFoundError(
+                "Requested --skip-phase1 but gap_kernels.npz does not exist."
+            )
+        load_gap = True
+        compute_gap = False
+    elif force_recompute_gap_kernels:
+        load_gap = False
+        compute_gap = True
+    elif gap_exists:
+        load_gap = True
+        compute_gap = False
+    else:
+        load_gap = False
+        compute_gap = True
+
+    if force_recompute_total_energy:
+        load_total = False
+        compute_total = True
+    elif total_exists:
+        load_total = True
+        compute_total = False
+    else:
+        load_total = False
+        compute_total = True
+
+    return {
+        "load_gap": load_gap,
+        "compute_gap": compute_gap,
+        "load_total": load_total,
+        "compute_total": compute_total,
+        "need_model": (compute_gap or compute_total),
+    }
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -567,6 +699,24 @@ def run_correlation_analysis(
                 entry[f"pearson_{si_label}_ct_vs_raw"] = float("nan")
                 entry[f"pearson_{si_label}_ct_vs_raw_p"] = float("nan")
 
+        # Multiple-comparison correction within each (task, span) family.
+        family_pvals = {
+            "pearson_ct_vs_raw": entry["pearson_ct_vs_raw_p"],
+            "spearman_ct_vs_raw": entry["spearman_ct_vs_raw_p"],
+            "pearson_ct_vs_headroom": entry["pearson_ct_vs_headroom_p"],
+            "spearman_ct_vs_headroom": entry["spearman_ct_vs_headroom_p"],
+            "pearson_total_vs_raw": entry.get("pearson_total_vs_raw_p", float("nan")),
+            "spearman_total_vs_raw": entry.get("spearman_total_vs_raw_p", float("nan")),
+            "partial_ct_vs_raw_ctrl_total": entry.get("partial_ct_vs_raw_ctrl_total_p", float("nan")),
+            "partial_ct_vs_headroom_ctrl_total": entry.get("partial_ct_vs_headroom_ctrl_total_p", float("nan")),
+            "pearson_high_si_ct_vs_raw": entry.get("pearson_high_si_ct_vs_raw_p", float("nan")),
+            "pearson_low_si_ct_vs_raw": entry.get("pearson_low_si_ct_vs_raw_p", float("nan")),
+        }
+        family_holm = holm_adjust(family_pvals)
+        for test_name, p_adj in family_holm.items():
+            entry[f"{test_name}_p_holm"] = float(p_adj)
+        entry["multiplicity_policy"] = "holm within task/span family"
+
         results["per_task_span"].append(entry)
         all_pearson_raw.append(r_p)
         all_spearman_raw.append(r_s)
@@ -589,6 +739,7 @@ def run_correlation_analysis(
                 "Each task/span correlation is based on only 8 RoPE pairs; "
                 "treat p-values as descriptive."
             ),
+            "multiplicity_policy": "holm within task/span family",
         }
 
     return results
@@ -649,22 +800,25 @@ def print_report(
 
     # Per task/span correlation results
     print(f"\n  Correlation: cross-term energy vs. pair ablation effect")
-    print(f"    {'Task':<30s} {'Span':>4s}  {'r_P':>7s} {'p_P':>8s} {'sig':>3s}  {'r_S':>7s} {'p_S':>8s} {'sig':>3s}  {'r_part':>7s} {'p_part':>8s} {'df':>4s}")
+    print(f"    {'Task':<30s} {'Span':>4s}  {'r_P':>7s} {'p_P':>8s} {'sig':>3s}  {'r_S':>7s} {'p_S':>8s} {'sig':>3s}  {'r_part':>7s} {'p_part':>8s} {'df':>4s} {'sig':>3s}")
     print(f"    {'-' * 106}")
 
     for entry in analysis["per_task_span"]:
         r_p = entry["pearson_ct_vs_raw"]
         p_p = entry["pearson_ct_vs_raw_p"]
+        p_p_sig = entry.get("pearson_ct_vs_raw_p_holm", p_p)
         r_s = entry["spearman_ct_vs_raw"]
         p_s = entry["spearman_ct_vs_raw_p"]
+        p_s_sig = entry.get("spearman_ct_vs_raw_p_holm", p_s)
         r_part = entry.get("partial_ct_vs_raw_ctrl_total", float("nan"))
         p_part = entry.get("partial_ct_vs_raw_ctrl_total_p", float("nan"))
+        p_part_sig = entry.get("partial_ct_vs_raw_ctrl_total_p_holm", p_part)
         df_part = entry.get("partial_ct_vs_raw_ctrl_total_df", -1)
         print(
             f"    {entry['task']:<30s} {entry['span']:4d}  "
-            f"{r_p:+7.4f} {p_p:8.4f} {sig_stars(p_p)}  "
-            f"{r_s:+7.4f} {p_s:8.4f} {sig_stars(p_s)}  "
-            f"{r_part:+7.4f} {p_part:8.4f} {df_part:4d}"
+            f"{r_p:+7.4f} {p_p:8.4f} {sig_stars(p_p_sig)}  "
+            f"{r_s:+7.4f} {p_s:8.4f} {sig_stars(p_s_sig)}  "
+            f"{r_part:+7.4f} {p_part:8.4f} {df_part:4d} {sig_stars(p_part_sig)}"
         )
 
     # Headroom-normalised
@@ -674,12 +828,14 @@ def print_report(
     for entry in analysis["per_task_span"]:
         r_p = entry["pearson_ct_vs_headroom"]
         p_p = entry["pearson_ct_vs_headroom_p"]
+        p_p_sig = entry.get("pearson_ct_vs_headroom_p_holm", p_p)
         r_s = entry["spearman_ct_vs_headroom"]
         p_s = entry["spearman_ct_vs_headroom_p"]
+        p_s_sig = entry.get("spearman_ct_vs_headroom_p_holm", p_s)
         print(
             f"    {entry['task']:<30s} {entry['span']:4d}  "
-            f"{r_p:+7.4f} {p_p:8.4f} {sig_stars(p_p)}  "
-            f"{r_s:+7.4f} {p_s:8.4f} {sig_stars(p_s)}"
+            f"{r_p:+7.4f} {p_p:8.4f} {sig_stars(p_p_sig)}  "
+            f"{r_s:+7.4f} {p_s:8.4f} {sig_stars(p_s_sig)}"
         )
 
     # Confound check: total energy vs effect
@@ -689,9 +845,10 @@ def print_report(
     for entry in analysis["per_task_span"]:
         r_t = entry.get("pearson_total_vs_raw", float("nan"))
         p_t = entry.get("pearson_total_vs_raw_p", float("nan"))
+        p_t_sig = entry.get("pearson_total_vs_raw_p_holm", p_t)
         print(
             f"    {entry['task']:<30s} {entry['span']:4d}  "
-            f"{r_t:+7.4f} {p_t:8.4f} {sig_stars(p_t)}"
+            f"{r_t:+7.4f} {p_t:8.4f} {sig_stars(p_t_sig)}"
         )
 
     # SI-group cross-term correlations
@@ -718,6 +875,7 @@ def print_report(
         print(f"    Median Spearman(crossterm, effect_raw): {agg['median_spearman_ct_vs_raw']:+.4f}")
         print(f"    Pair-count per combo: min={agg['n_pairs_per_combo_min']}, max={agg['n_pairs_per_combo_max']}")
         print(f"    NOTE: {agg['small_n_limitation']}")
+        print(f"    MCC: {agg.get('multiplicity_policy', 'none')}; significance stars use adjusted p-values")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -736,6 +894,16 @@ def main():
         "--skip-phase1", action="store_true",
         help="Skip Phase 1; load saved gap kernels from output dir",
     )
+    parser.add_argument(
+        "--force-recompute-gap-kernels",
+        action="store_true",
+        help="Recompute and overwrite gap_kernels.npz even if artifact exists.",
+    )
+    parser.add_argument(
+        "--force-recompute-total-energy",
+        action="store_true",
+        help="Recompute and overwrite total_pair_energy.parquet even if artifact exists.",
+    )
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir) / args.model
@@ -750,8 +918,22 @@ def main():
 
     # ── Phase 1: Compute gap kernels ─────────────────────────────────────────
     gap_npz = output_dir / "gap_kernels.npz"
+    total_energy_parquet = output_dir / "total_pair_energy.parquet"
+    actions = resolve_artifact_actions(
+        gap_exists=gap_npz.exists(),
+        total_exists=total_energy_parquet.exists(),
+        skip_phase1=args.skip_phase1,
+        force_recompute_gap_kernels=args.force_recompute_gap_kernels,
+        force_recompute_total_energy=args.force_recompute_total_energy,
+    )
 
-    if args.skip_phase1 and gap_npz.exists():
+    print(
+        "  Artifact actions: "
+        f"load_gap={actions['load_gap']} compute_gap={actions['compute_gap']} | "
+        f"load_total={actions['load_total']} compute_total={actions['compute_total']}"
+    )
+
+    if actions["load_gap"]:
         print(f"\n[1/5] Phase 1: SKIPPED (loading saved gap kernels from {gap_npz})")
         data = np.load(gap_npz)
         g_raw_all = data["g_raw"]
@@ -760,7 +942,19 @@ def main():
         n_layers, n_heads = g_raw_all.shape[0], g_raw_all.shape[1]
         print(f"  Loaded: {n_layers} layers x {n_heads} heads, max_delta={g_raw_all.shape[2]}")
     else:
-        print(f"\n[1/5] Phase 1: Computing per-head gap kernels ({args.num_sequences} sequences)...")
+        print("\n[1/5] Phase 1: No reusable gap_kernels artifact; recomputation required.")
+        g_raw_all = g_cent_all = gap_all = None
+        n_layers = n_heads = 0
+
+    loader = model = tokenizer = adapter = sequences = None
+    if actions["need_model"]:
+        if actions["compute_gap"]:
+            print(f"\n[1/5] Phase 1: Computing per-head gap kernels ({args.num_sequences} sequences)...")
+        else:
+            print(
+                f"\n[1/5] Phase 1: Reusing gap kernels; loading model only for total-energy "
+                f"recompute ({args.num_sequences} sequences)..."
+            )
         print("  Loading model and tokenizer...")
         loader = load_model(model_spec)
         model = loader.model.to(args.device)
@@ -776,6 +970,7 @@ def main():
         sequences = load_sequences(args.model, args.num_sequences, SEQ_LEN)
         print(f"  Loaded {len(sequences)} sequences (seq_len={SEQ_LEN})")
 
+    if actions["compute_gap"]:
         t0 = time.time()
         g_raw_all, g_cent_all, gap_all, n_layers, n_heads = compute_gap_kernels(
             model, adapter, model_spec, args.device, sequences
@@ -783,7 +978,6 @@ def main():
         elapsed = time.time() - t0
         print(f"  Phase 1 complete in {elapsed:.1f}s")
 
-        # Save gap kernels
         np.savez_compressed(
             gap_npz,
             g_raw=g_raw_all,
@@ -792,18 +986,18 @@ def main():
         )
         print(f"  Saved gap kernels to {gap_npz}")
 
-        # Also compute total per-pair energy while model is loaded
-        # (We need Q/K for this; cheaper to do now than reload later)
-        head_dim = model.config.hidden_size // model.config.num_attention_heads
+    if actions["compute_total"]:
+        head_dim_for_total = model.config.hidden_size // model.config.num_attention_heads
         print(f"\n  Computing total per-pair energy (confound control)...")
         t0 = time.time()
         total_energy_df = compute_per_pair_total_energy(
-            model, adapter, args.device, sequences, head_dim, PAIR_INDICES
+            model, adapter, args.device, sequences, head_dim_for_total, PAIR_INDICES
         )
-        total_energy_df.to_parquet(output_dir / "total_pair_energy.parquet", index=False)
+        total_energy_df.to_parquet(total_energy_parquet, index=False)
         print(f"  Total pair energy computed in {time.time() - t0:.1f}s")
+        print(f"  Saved total pair energy to {total_energy_parquet}")
 
-        # Free model memory
+    if actions["need_model"]:
         del model, adapter, tokenizer, loader, sequences
         torch.cuda.empty_cache()
 
@@ -833,8 +1027,7 @@ def main():
     print(f"\n[3/5] Phase 3: Loading pair ablation effects from Experiment 2...")
     pair_effects = load_pair_effects(args.model)
 
-    # Load or fall back for total energy
-    total_energy_parquet = output_dir / "total_pair_energy.parquet"
+    # Load precomputed total energy (already refreshed above if compute_total=True)
     if total_energy_parquet.exists():
         total_energy_df = pd.read_parquet(total_energy_parquet)
         print(f"  Loaded total pair energy from {total_energy_parquet}")

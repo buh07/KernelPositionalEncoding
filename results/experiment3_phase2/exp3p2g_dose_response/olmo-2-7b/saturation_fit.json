@@ -1,0 +1,137 @@
+{
+  "experiment": "3P2-G_dose_response",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-02 13:55:42",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-G",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "curve_fits": {
+    "local_key_match::high_si": {
+      "n_points": 6,
+      "linear_rss": 1.4968789632166564e-33,
+      "piecewise_rss": 1.2199270554195765e-33,
+      "linear_aic": -161.78612669557128,
+      "piecewise_aic": -157.78612669557128,
+      "linear_bic": -162.20260775711517,
+      "piecewise_bic": -158.61908881865907,
+      "preferred_model": "linear",
+      "piecewise_threshold": 0.5,
+      "linear_slope": 0.11415178571428573,
+      "linear_intercept": 6.3556622608355526e-18
+    },
+    "local_key_match::low_si": {
+      "n_points": 6,
+      "linear_rss": 2.6091235766776306e-34,
+      "piecewise_rss": 6.2600149736692805e-34,
+      "linear_aic": -161.78612669557128,
+      "piecewise_aic": -157.78612669557128,
+      "linear_bic": -162.20260775711517,
+      "piecewise_bic": -158.61908881865907,
+      "preferred_model": "linear",
+      "piecewise_threshold": 0.5,
+      "linear_slope": 0.09254464285714283,
+      "linear_intercept": 2.852026028446856e-18
+    },
+    "long_range_retrieval_span32::high_si": {
+      "n_points": 6,
+      "linear_rss": 2.891760670835023e-34,
+      "piecewise_rss": 3.4907764170324827e-34,
+      "linear_aic": -161.78612669557128,
+      "piecewise_aic": -157.78612669557128,
+      "linear_bic": -162.20260775711517,
+      "piecewise_bic": -158.61908881865907,
+      "preferred_model": "linear",
+      "piecewise_threshold": 0.5,
+      "linear_slope": 0.06026785714285714,
+      "linear_intercept": -3.051945615461076e-18
+    },
+    "long_range_retrieval_span32::low_si": {
+      "n_points": 6,
+      "linear_rss": 5.144798706730905e-34,
+      "piecewise_rss": 4.828170023614895e-34,
+      "linear_aic": -161.78612669557128,
+      "piecewise_aic": -157.78612669557128,
+      "linear_bic": -162.20260775711517,
+      "piecewise_bic": -158.61908881865907,
+      "preferred_model": "linear",
+      "piecewise_threshold": 0.5,
+      "linear_slope": 0.08446428571428573,
+      "linear_intercept": 5.744334998612245e-18
+    },
+    "wiki_ntp::high_si": {
+      "n_points": 6,
+      "linear_rss": 250.50599441032398,
+      "piecewise_rss": 7.259801428394357,
+      "linear_aic": 26.390340284753847,
+      "piecewise_aic": 9.143558046647515,
+      "linear_bic": 25.973859223209956,
+      "piecewise_bic": 8.310595923559735,
+      "preferred_model": "piecewise",
+      "piecewise_threshold": 0.75,
+      "linear_slope": 39.965470958614944,
+      "linear_intercept": -6.7971624050571435
+    },
+    "wiki_ntp::low_si": {
+      "n_points": 6,
+      "linear_rss": 20.89160656496533,
+      "piecewise_rss": 0.5074589626395387,
+      "linear_aic": 11.485528055906752,
+      "piecewise_aic": -6.820593414075578,
+      "linear_bic": 11.06904699436286,
+      "piecewise_bic": -7.653555537163358,
+      "preferred_model": "piecewise",
+      "piecewise_threshold": 0.75,
+      "linear_slope": 14.94191408288984,
+      "linear_intercept": -2.0951714795161025
+    }
+  },
+  "selective_slope_test": {
+    "tests": [
+      {
+        "task": "local_key_match",
+        "n_paired_seeds": 7,
+        "mean_high_slope": 0.11415178571428572,
+        "mean_low_slope": 0.09254464285714284,
+        "mean_delta": 0.021607142857142877,
+        "t_stat": 4.383667151347278,
+        "p_one_sided": 0.002324857123656913,
+        "p_two_sided": 0.004649714247313826,
+        "p_one_sided_holm": 0.004649714247313826,
+        "supports_early_selective_slope": true
+      },
+      {
+        "task": "long_range_retrieval_span32",
+        "n_paired_seeds": 7,
+        "mean_high_slope": 0.060267857142857144,
+        "mean_low_slope": 0.08446428571428573,
+        "mean_delta": -0.02419642857142857,
+        "t_stat": -7.912619551519761,
+        "p_one_sided": 0.999891880543297,
+        "p_two_sided": 0.00021623891340592704,
+        "p_one_sided_holm": 0.999891880543297,
+        "supports_early_selective_slope": false
+      },
+      {
+        "task": "wiki_ntp",
+        "n_paired_seeds": 1,
+        "mean_high_slope": 20.86201350858797,
+        "mean_low_slope": 9.442980268441069,
+        "mean_delta": 11.419033240146902,
+        "t_stat": NaN,
+        "p_one_sided": NaN,
+        "p_two_sided": NaN,
+        "p_one_sided_holm": NaN,
+        "supports_early_selective_slope": false
+      }
+    ],
+    "any_selective_slope_support": true
+  },
+  "early_selective_slope_supported": true,
+  "note": "Dose-response uses deterministic attenuation interpolation from post-refresh Stage 1/refresh artifacts.",
+  "inputs": {
+    "t1_task_results": "results/experiment3/theory1_si_circuits/olmo-2-7b/task_results.parquet",
+    "t5_per_position_losses": "results/experiment3/theory5_subword_ablation/olmo-2-7b/per_position_losses.parquet"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:40:26",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.2",
+  "analysis": "delta_probe_feature_comparison",
+  "feature_summary": {
+    "coarse_pos": {
+      "mean_delta_high": -0.05092592592592593,
+      "ci_95_delta_high": [
+        -0.07733796296296297,
+        -0.02592592592592592
+      ],
+      "mean_delta_random": -0.009567901234567912,
+      "n_units": 90
+    },
+    "relative_position": {
+      "mean_delta_high": 0.23333333333333334,
+      "ci_95_delta_high": [
+        0.17314814814814816,
+        0.29863425925925924
+      ],
+      "mean_delta_random": 0.07253086419753087,
+      "n_units": 90
+    },
+    "word_boundary": {
+      "mean_delta_high": 0.1027777777777778,
+      "ci_95_delta_high": [
+        0.057407407407407414,
+        0.15048611111111107
+      ],
+      "mean_delta_random": 0.006172839506172855,
+      "n_units": 90
+    }
+  },
+  "pairwise_feature_tests": {
+    "relative_position_vs_coarse_pos": {
+      "n": 90,
+      "mean_diff": 0.28425925925925927,
+      "t_stat": 7.680908589257435,
+      "p_two_sided": 1.952061119947861e-11,
+      "cohens_d_paired": 0.8096388547201403,
+      "p_holm": 5.856183359843583e-11
+    },
+    "word_boundary_vs_coarse_pos": {
+      "n": 90,
+      "mean_diff": 0.1537037037037037,
+      "t_stat": 5.81516734054144,
+      "p_two_sided": 9.338917016642782e-08,
+      "cohens_d_paired": 0.6129724590378322,
+      "p_holm": 1.8677834033285565e-07
+    },
+    "relative_position_vs_word_boundary": {
+      "n": 90,
+      "mean_diff": 0.13055555555555554,
+      "t_stat": 4.705024900852747,
+      "p_two_sided": 9.247713460832532e-06,
+      "cohens_d_paired": 0.49595317115008625,
+      "p_holm": 9.247713460832532e-06
+    }
+  },
+  "chance_levels": {
+    "relative_position": 0.675,
+    "word_boundary": 0.675,
+    "coarse_pos": 0.775
+  },
+  "probe_acceptance": {
+    "passes_chance_plus_10pp_all_features_layers_ge4": false
+  },
+  "mde_target": 0.02,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "limitations": [
+    "Coarse POS labels are heuristic token-level tags (spaCy/stanza unavailable).",
+    "Probes use linear SGD with online updates; nonlinear decoding is not tested."
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-02 13:55:43",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-H",
+  "trigger_rule": "outside_l0_l7_fraction >= 0.25 for (r2_top_quartile AND prev_token_top_decile)",
+  "trigger_evaluation": {
+    "trigger": true,
+    "candidate_total": 64,
+    "outside_l0_l7_count": 64,
+    "outside_l0_l7_fraction": 1.0,
+    "thresholds": {
+      "r2_top_quartile_threshold": 0.08142806395624953,
+      "prev_token_top_decile_threshold": 0.027041696820408113
+    },
+    "secondary_window": {
+      "start_layer": 24,
+      "end_layer": 31,
+      "candidate_density": 51
+    }
+  },
+  "source_bins": [
+    {
+      "name": "primary_l0_l7",
+      "start_layer": 0,
+      "end_layer": 7
+    },
+    {
+      "name": "secondary_triggered_8layer_band",
+      "start_layer": 24,
+      "end_layer": 31
+    }
+  ],
+  "target_taxonomies": {
+    "taxonomy_a": "original induction/random_mid/low_si_late groups",
+    "taxonomy_b": "matched-control groups stratified by baseline induction-sensitivity decile"
+  },
+  "frozen_inclusion_variant": "r2_top_quartile AND prev_token_top_decile",
+  "num_pairs_secondary_runs": 20
+}

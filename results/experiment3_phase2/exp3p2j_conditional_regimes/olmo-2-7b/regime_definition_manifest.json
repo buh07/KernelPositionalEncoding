@@ -1,0 +1,36 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-09 04:32:47",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-J",
+  "source_a_task_definition_hash": "335bcece1dd19967b9f5f2a4bbf9d0314bf7ebd2",
+  "source_a_task_definition_timestamp": "2026-04-08 22:53:21",
+  "heldout_dataset": {
+    "sequence_count": 80,
+    "seq_len": 512,
+    "token_sequence_hash": "7ed5eba7b153ad22a02e03dbdbfad09aa90c9649"
+  },
+  "regimes": {
+    "long_span_retrieval": {
+      "definition": "3P2-A long_range_retrieval tasks with span >= 64",
+      "task_ids": []
+    },
+    "high_uncertainty_tokens": {
+      "definition": "baseline surprisal >= P90 on heldout wiki",
+      "threshold_surprisal_p90": 5.612823963165281
+    },
+    "boundary_dense_contexts": {
+      "definition": ">=4 boundary tokens in prior 16-token window",
+      "boundary_window": 16,
+      "min_boundaries": 4
+    },
+    "rare_token_contexts": {
+      "definition": "token frequency <= P10 on heldout wiki reference",
+      "frequency_p10": 1.0,
+      "rare_token_count_cutoff": 1
+    }
+  },
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests"
+}

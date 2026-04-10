@@ -11,6 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from experiment3.stats_utils import (
     dependent_corr_williams_test,
+    one_sided_p_from_two_sided,
     partial_correlation_with_intercept,
     validate_paired_samples,
 )
@@ -76,3 +77,13 @@ def test_validate_paired_samples_guardrails() -> None:
         sample_ids_x=["a", "b"],
         sample_ids_y=["a", "b"],
     )
+
+
+def test_one_sided_conversion_behaviour() -> None:
+    # For a positive statistic and "greater", one-sided p is half two-sided.
+    p = one_sided_p_from_two_sided(2.0, 0.04, alternative="greater")
+    assert np.isclose(p, 0.02)
+
+    # Wrong direction should map to near 1.
+    p_wrong = one_sided_p_from_two_sided(-2.0, 0.04, alternative="greater")
+    assert np.isclose(p_wrong, 0.98)

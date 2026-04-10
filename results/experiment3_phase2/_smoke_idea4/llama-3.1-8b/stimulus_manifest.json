@@ -1,0 +1,216 @@
+{
+  "experiment": "Idea4_structural_ambiguity",
+  "timestamp": "2026-04-06 19:51:46",
+  "n_stimuli": 18,
+  "families": [
+    "pp_attachment"
+  ],
+  "relation_types": [
+    "hierarchical_absolute"
+  ],
+  "contexts": [
+    "context_a",
+    "context_b",
+    "neutral"
+  ],
+  "stimuli": [
+    {
+      "stimulus_id": "2dcfb81265e6",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_000",
+      "context_label": "context_a",
+      "prompt": "I needed a telescope to see details clearly. I saw the man with the telescope.\nWho had the telescope?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The man did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "b10b5a6e922e",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_000",
+      "context_label": "context_b",
+      "prompt": "The man was carrying a telescope all day. I saw the man with the telescope.\nWho had the telescope?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The man did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "7d87297e44d8",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_000",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the man with the telescope.\nWho had the telescope?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The man did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "c8eff9096438",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_001",
+      "context_label": "context_a",
+      "prompt": "I needed a camera to see details clearly. I saw the woman with the camera.\nWho had the camera?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The woman did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "08d69527dd9d",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_001",
+      "context_label": "context_b",
+      "prompt": "The woman was carrying a camera all day. I saw the woman with the camera.\nWho had the camera?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The woman did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "3ee46ee59dde",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_001",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the woman with the camera.\nWho had the camera?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The woman did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "4721c821ba26",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_002",
+      "context_label": "context_a",
+      "prompt": "I needed a binoculars to see details clearly. I saw the guard with the binoculars.\nWho had the binoculars?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The guard did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "7a380becedd0",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_002",
+      "context_label": "context_b",
+      "prompt": "The guard was carrying a binoculars all day. I saw the guard with the binoculars.\nWho had the binoculars?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The guard did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "98da1a4281a3",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_002",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the guard with the binoculars.\nWho had the binoculars?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The guard did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "3bc004d5c69b",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_003",
+      "context_label": "context_a",
+      "prompt": "I needed a flashlight to see details clearly. I saw the child with the flashlight.\nWho had the flashlight?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The child did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "f4e40bc89c4f",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_003",
+      "context_label": "context_b",
+      "prompt": "The child was carrying a flashlight all day. I saw the child with the flashlight.\nWho had the flashlight?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The child did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "0f0902959d87",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_003",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the child with the flashlight.\nWho had the flashlight?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The child did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "ce2b122f89da",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_004",
+      "context_label": "context_a",
+      "prompt": "I needed a map to see details clearly. I saw the hiker with the map.\nWho had the map?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The hiker did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "28d5615af96a",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_004",
+      "context_label": "context_b",
+      "prompt": "The hiker was carrying a map all day. I saw the hiker with the map.\nWho had the map?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The hiker did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "55a6023a6606",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_004",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the hiker with the map.\nWho had the map?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The hiker did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "9a6057d139ef",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_005",
+      "context_label": "context_a",
+      "prompt": "I needed a radio to see details clearly. I saw the pilot with the radio.\nWho had the radio?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The pilot did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "ebed5ee2f0d7",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_005",
+      "context_label": "context_b",
+      "prompt": "The pilot was carrying a radio all day. I saw the pilot with the radio.\nWho had the radio?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The pilot did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "ab178cab38b3",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_005",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the pilot with the radio.\nWho had the radio?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The pilot did.",
+      "correct_option": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-09 19:08:32",
+  "requested_model": "auto",
+  "selected_model": "gpt2-medium",
+  "attempts": [
+    {
+      "model": "gpt2-medium",
+      "status": "complete",
+      "elapsed_sec": 1375.7010774612427
+    }
+  ],
+  "result_path": "results/experiment3_phase2/exp3p2k_non_rope_control/gpt2-medium/non_rope_control_summary.json",
+  "status": "complete",
+  "verdict": {
+    "si_structure_detected": true,
+    "boundary_non_trivial_after_control": true,
+    "rope_confound_weakened_for_anchor": true
+  }
+}

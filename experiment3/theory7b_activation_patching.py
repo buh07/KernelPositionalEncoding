@@ -60,7 +60,10 @@ from scipy.stats import pearsonr, spearmanr
 # ── project imports ──────────────────────────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from experiment3.stats_utils import partial_correlation_with_intercept
+from experiment3.stats_utils import (
+    one_sided_p_from_two_sided,
+    partial_correlation_with_intercept,
+)
 from shared.specs import ModelSpec
 
 try:
@@ -95,6 +98,13 @@ MODELS: dict[str, ModelSpec] = {
         pe_scheme="RoPE",
         notes="OLMo 2 7B.",
         download_kwargs=(("torch_dtype", "bfloat16"),),
+    ),
+    "mistral-7b-v0.1": ModelSpec(
+        name="mistral-7b-v0.1",
+        hf_id="mistralai/Mistral-7B-v0.1",
+        norm="RMSNorm",
+        pe_scheme="RoPE",
+        notes="Mistral 7B v0.1 (GQA).",
     ),
 }
 
@@ -266,13 +276,22 @@ def load_induction_scores(model_name: str) -> pd.DataFrame:
 
 
 def load_r2_data(model_name: str) -> pd.DataFrame:
-    path = Path("results/experiment3/theory1_si_circuits") / model_name / "per_sequence_r2.parquet"
-    if not path.exists():
-        raise FileNotFoundError(f"Not found: {path}")
-    df = pd.read_parquet(path)
-    mean_r2 = df.groupby(["layer", "head"])["r2"].mean().reset_index()
-    mean_r2.columns = ["layer", "head", "mean_r2"]
-    return mean_r2
+    path_theory1 = Path("results/experiment3/theory1_si_circuits") / model_name / "per_sequence_r2.parquet"
+    if path_theory1.exists():
+        df = pd.read_parquet(path_theory1)
+        mean_r2 = df.groupby(["layer", "head"])["r2"].mean().reset_index()
+        mean_r2.columns = ["layer", "head", "mean_r2"]
+        return mean_r2
+
+    path_crossref = Path("results/experiment3/induction_r2_crossref") / model_name / "merged_induction_r2.parquet"
+    if path_crossref.exists():
+        fallback = pd.read_parquet(path_crossref)
+        required = {"layer", "head", "mean_r2"}
+        if not required.issubset(set(fallback.columns)):
+            raise ValueError(f"Missing required columns in fallback R² file: {path_crossref}")
+        return fallback[["layer", "head", "mean_r2"]].copy()
+
+    raise FileNotFoundError(f"Not found: {path_theory1} or {path_crossref}")
 
 
 def load_prev_token_scores(model_name: str) -> pd.DataFrame | None:
@@ -302,7 +321,7 @@ def run_activation_patching(
     num_pairs: int,
     period: int,
     total_len: int,
-    max_source_layer: int,
+    source_layers: set[int],
 ) -> pd.DataFrame:
     """Run resample activation patching for all (source, target) pairs.
 
@@ -320,8 +339,13 @@ def run_activation_patching(
     config = model.config
     num_query_heads = int(getattr(config, "num_attention_heads"))
 
-    # Source layers to capture
-    source_layers = set(range(min(max_source_layer + 1, config.num_hidden_layers)))
+    source_layers = {
+        int(layer)
+        for layer in source_layers
+        if 0 <= int(layer) < int(config.num_hidden_layers)
+    }
+    if not source_layers:
+        raise ValueError("No valid source layers requested for patching run.")
 
     # Build list of all source heads
     all_source_heads: list[HeadID] = []
@@ -473,6 +497,20 @@ def run_activation_patching(
     return df
 
 
+def _parse_source_layers(args: argparse.Namespace) -> list[int]:
+    if args.source_layers_csv:
+        vals = [int(x.strip()) for x in str(args.source_layers_csv).split(",") if x.strip()]
+        if not vals:
+            raise ValueError("--source-layers-csv was provided but no layers were parsed.")
+        return sorted(set(vals))
+
+    lo = int(args.source_layer_min)
+    hi = int(args.source_layer_max)
+    if lo > hi:
+        raise ValueError("--source-layer-min cannot be greater than --source-layer-max.")
+    return list(range(lo, hi + 1))
+
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # PHASE 3: ANALYSIS
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -505,6 +543,12 @@ def analyze_patching_results(
     # ── Primary correlation: disruption vs R² ────────────────────────────
     r_p_disrupt, p_p_disrupt = pearsonr(merged["mean_r2"], merged["mean_disruption"])
     r_s_disrupt, p_s_disrupt = spearmanr(merged["mean_r2"], merged["mean_disruption"])
+    p_p_disrupt_one_sided = one_sided_p_from_two_sided(
+        float(r_p_disrupt), float(p_p_disrupt), alternative="greater"
+    )
+    p_s_disrupt_one_sided = one_sided_p_from_two_sided(
+        float(r_s_disrupt), float(p_s_disrupt), alternative="greater"
+    )
 
     r_p_recovery, p_p_recovery = pearsonr(
         merged["mean_r2"].values,
@@ -514,6 +558,16 @@ def analyze_patching_results(
         merged["mean_r2"].values,
         merged["mean_recovery"].values,
     ) if not merged["mean_recovery"].isna().all() else (float("nan"), float("nan"))
+    p_p_recovery_one_sided = (
+        one_sided_p_from_two_sided(float(r_p_recovery), float(p_p_recovery), alternative="greater")
+        if np.isfinite(r_p_recovery) and np.isfinite(p_p_recovery)
+        else float("nan")
+    )
+    p_s_recovery_one_sided = (
+        one_sided_p_from_two_sided(float(r_s_recovery), float(p_s_recovery), alternative="greater")
+        if np.isfinite(r_s_recovery) and np.isfinite(p_s_recovery)
+        else float("nan")
+    )
 
     # Bootstrap CI for correlations
     rng = np.random.RandomState(BOOTSTRAP_SEED)
@@ -623,23 +677,33 @@ def analyze_patching_results(
             "description": "Patching disruption vs R² (shift-invariance)",
             "pearson_r": float(r_p_disrupt),
             "pearson_p": float(p_p_disrupt),
+            "pearson_p_one_sided": float(p_p_disrupt_one_sided),
             "pearson_ci_95": [
                 float(np.percentile(boot_pearson, 2.5)),
                 float(np.percentile(boot_pearson, 97.5)),
             ],
             "spearman_rho": float(r_s_disrupt),
             "spearman_p": float(p_s_disrupt),
+            "spearman_p_one_sided": float(p_s_disrupt_one_sided),
             "spearman_ci_95": [
                 float(np.percentile(boot_spearman, 2.5)),
                 float(np.percentile(boot_spearman, 97.5)),
             ],
+            "directional_alternative": "greater",
         },
         "recovery_correlation": {
             "description": "Patching recovery (normalized disruption / clean-corrupt gap) vs R²",
             "pearson_r": float(r_p_recovery) if not np.isnan(r_p_recovery) else None,
             "pearson_p": float(p_p_recovery) if not np.isnan(p_p_recovery) else None,
+            "pearson_p_one_sided": (
+                float(p_p_recovery_one_sided) if not np.isnan(p_p_recovery_one_sided) else None
+            ),
             "spearman_rho": float(r_s_recovery) if not np.isnan(r_s_recovery) else None,
             "spearman_p": float(p_s_recovery) if not np.isnan(p_s_recovery) else None,
+            "spearman_p_one_sided": (
+                float(p_s_recovery_one_sided) if not np.isnan(p_s_recovery_one_sided) else None
+            ),
+            "directional_alternative": "greater",
         },
         "top_20_disruptive_heads": {
             "n_above_r2_median": n_above_median,
@@ -670,11 +734,12 @@ def analyze_patching_results(
 
     # ── Verdict ──────────────────────────────────────────────────────────
     analysis["hypothesis_supported"] = bool(
-        r_s_disrupt > 0 and p_s_disrupt < 0.05
+        r_s_disrupt > 0 and np.isfinite(p_s_disrupt_one_sided) and p_s_disrupt_one_sided < 0.05
     )
     analysis["interpretation"] = (
         f"Resample patching {'SUPPORTS' if analysis['hypothesis_supported'] else 'DOES NOT SUPPORT'} "
-        f"the feeder-SI hypothesis: Spearman rho={r_s_disrupt:+.4f} (p={p_s_disrupt:.2e}) "
+        f"the feeder-SI hypothesis: Spearman rho={r_s_disrupt:+.4f} "
+        f"(p_one={p_s_disrupt_one_sided:.2e}, p_two={p_s_disrupt:.2e}) "
         f"between patching disruption and R². "
         f"Top-20 most disruptive heads: {n_above_median}/20 above R² median."
     )
@@ -704,7 +769,25 @@ def main():
         default=None,
         help="Optional path to saved patching_results.parquet for --analysis-only",
     )
+    parser.add_argument(
+        "--source-layer-min",
+        type=int,
+        default=0,
+        help="Minimum source layer (inclusive) for source-head patching.",
+    )
+    parser.add_argument(
+        "--source-layer-max",
+        type=int,
+        default=MAX_SOURCE_LAYER,
+        help="Maximum source layer (inclusive) for source-head patching.",
+    )
+    parser.add_argument(
+        "--source-layers-csv",
+        default=None,
+        help="Optional comma-separated explicit source layers (overrides min/max).",
+    )
     args = parser.parse_args()
+    source_layers = _parse_source_layers(args)
 
     output_dir = Path(args.output_dir) / args.model
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -776,7 +859,7 @@ def main():
             num_pairs=args.num_pairs,
             period=KNOCKOUT_PERIOD,
             total_len=KNOCKOUT_SEQ_LEN,
-            max_source_layer=MAX_SOURCE_LAYER,
+            source_layers=set(source_layers),
         )
         elapsed = time.time() - t0
         patch_df.to_parquet(patching_path, index=False)
@@ -795,9 +878,15 @@ def main():
 
     pc = analysis["primary_correlation"]
     print(f"\n  PRIMARY: Patching disruption vs R²")
-    print(f"    Pearson:  r={pc['pearson_r']:+.4f} (p={pc['pearson_p']:.2e})")
+    print(
+        f"    Pearson:  r={pc['pearson_r']:+.4f} "
+        f"(p_one={pc['pearson_p_one_sided']:.2e}, p_two={pc['pearson_p']:.2e})"
+    )
     print(f"              95% CI [{pc['pearson_ci_95'][0]:+.4f}, {pc['pearson_ci_95'][1]:+.4f}]")
-    print(f"    Spearman: rho={pc['spearman_rho']:+.4f} (p={pc['spearman_p']:.2e})")
+    print(
+        f"    Spearman: rho={pc['spearman_rho']:+.4f} "
+        f"(p_one={pc['spearman_p_one_sided']:.2e}, p_two={pc['spearman_p']:.2e})"
+    )
     print(f"              95% CI [{pc['spearman_ci_95'][0]:+.4f}, {pc['spearman_ci_95'][1]:+.4f}]")
 
     rc = analysis["recovery_correlation"]
@@ -838,7 +927,7 @@ def main():
             "period": KNOCKOUT_PERIOD,
             "seq_len": KNOCKOUT_SEQ_LEN,
             "top_induction_heads": TOP_INDUCTION_HEADS,
-            "max_source_layer": MAX_SOURCE_LAYER,
+            "source_layers": source_layers,
             "bootstrap_n": BOOTSTRAP_N,
             "analysis_only": bool(args.analysis_only),
             "patching_parquet": str(patching_path),

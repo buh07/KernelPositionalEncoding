@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-04-01 14:49:58",
+  "tier1_results": [
+    {
+      "model": "llama-3.1-8b",
+      "proxy_decomposition_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2f_proxy_decomposition/llama-3.1-8b/proxy_decomposition.json",
+      "post_ablation_t5b_a_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/post_ablation_t5b_a.json",
+      "synthetic_boundary_results_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json",
+      "proxy_collapse_eval": {
+        "median_delta_r2": 0.003339571287572618,
+        "ci_includes_zero_count": 0,
+        "rule_triggered": false
+      },
+      "boundary_artifact_eval": {
+        "cohens_d_post_control": 1.084876624406686,
+        "prefix_following_artifact_flag": false,
+        "rule_triggered": false
+      }
+    },
+    {
+      "model": "olmo-2-7b",
+      "proxy_decomposition_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2f_proxy_decomposition/olmo-2-7b/proxy_decomposition.json",
+      "post_ablation_t5b_a_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/olmo-2-7b/post_ablation_t5b_a.json",
+      "synthetic_boundary_results_path": "/scratch/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/olmo-2-7b/synthetic_boundary_results.json",
+      "proxy_collapse_eval": {
+        "median_delta_r2": 0.0031837065611268756,
+        "ci_includes_zero_count": 0,
+        "rule_triggered": false
+      },
+      "boundary_artifact_eval": {
+        "cohens_d_post_control": 0.5431373534866902,
+        "prefix_following_artifact_flag": false,
+        "rule_triggered": false
+      }
+    }
+  ],
+  "proxy_collapse_rule": {
+    "definition": "median(delta_r2) < 0.02 and CI includes 0 for >=2 outcomes in both models",
+    "triggered": false
+  },
+  "boundary_artifact_rule": {
+    "definition": "post-control d < 0.20 OR prefix-following artifact",
+    "triggered": false
+  },
+  "continue_to_stage2": true,
+  "deferred_experiments": [],
+  "gating_note": "Emitted immediately after 3P2-B completion and before any Stage 2 launch."
+}

@@ -1,0 +1,244 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-07 13:23:47",
+  "tier": "tier3_publication_readiness",
+  "primary_test_id": "Idea4_structural_ambiguity",
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "bootstrap_samples": 10000,
+  "n_total_rows": 180,
+  "n_labeled_rows": 120,
+  "n_neutral_rows": 60,
+  "condition_summaries": {
+    "ablate_high_si": {
+      "accuracy": {
+        "mean": 0.8333333333333334,
+        "ci_95": [
+          0.7,
+          0.9666666666666667
+        ],
+        "n": 30
+      },
+      "correct_margin": {
+        "mean": 1.8862402220567067,
+        "ci_95": [
+          0.9278669421374799,
+          2.843926392048597
+        ],
+        "n": 30
+      },
+      "entropy": {
+        "mean": 0.34383436106169807,
+        "ci_95": [
+          0.2609493802208834,
+          0.42730043557078545
+        ],
+        "n": 30
+      }
+    },
+    "ablate_low_si": {
+      "accuracy": {
+        "mean": 0.6666666666666666,
+        "ci_95": [
+          0.5,
+          0.8333333333333334
+        ],
+        "n": 30
+      },
+      "correct_margin": {
+        "mean": 1.7259515568303565,
+        "ci_95": [
+          0.6041734000567037,
+          2.8412859068873026
+        ],
+        "n": 30
+      },
+      "entropy": {
+        "mean": 0.3222367143154409,
+        "ci_95": [
+          0.23010253468532663,
+          0.41669052606583523
+        ],
+        "n": 30
+      }
+    },
+    "ablate_random_draw0": {
+      "accuracy": {
+        "mean": 0.8333333333333334,
+        "ci_95": [
+          0.7,
+          0.9666666666666667
+        ],
+        "n": 30
+      },
+      "correct_margin": {
+        "mean": 1.803572461012906,
+        "ci_95": [
+          1.1523451311945487,
+          2.4928655868565923
+        ],
+        "n": 30
+      },
+      "entropy": {
+        "mean": 0.40948599957031717,
+        "ci_95": [
+          0.3265317600878817,
+          0.48851031122481287
+        ],
+        "n": 30
+      }
+    },
+    "none": {
+      "accuracy": {
+        "mean": 1.0,
+        "ci_95": [
+          1.0,
+          1.0
+        ],
+        "n": 30
+      },
+      "correct_margin": {
+        "mean": 2.054941113925694,
+        "ci_95": [
+          1.6635271272358174,
+          2.463868543335508
+        ],
+        "n": 30
+      },
+      "entropy": {
+        "mean": 0.37878649952397575,
+        "ci_95": [
+          0.31429268625489987,
+          0.44445700617088874
+        ],
+        "n": 30
+      }
+    }
+  },
+  "paired_comparisons": {
+    "high_vs_low_accuracy": {
+      "mean_delta": 0.16666666666666666,
+      "ci_95": [
+        -0.03333333333333333,
+        0.36666666666666664
+      ],
+      "p_one_sided": 0.9593040695930407,
+      "n": 30
+    },
+    "none_vs_high_accuracy": {
+      "mean_delta": 0.16666666666666666,
+      "ci_95": [
+        0.03333333333333333,
+        0.3
+      ],
+      "p_one_sided": 0.0047995200479952005,
+      "n": 30
+    },
+    "none_vs_low_accuracy": {
+      "mean_delta": 0.3333333333333333,
+      "ci_95": [
+        0.16666666666666666,
+        0.5
+      ],
+      "p_one_sided": 9.999000099990002e-05,
+      "n": 30
+    }
+  },
+  "relation_type_interaction": {
+    "observed_interaction": NaN,
+    "ci_95": [
+      NaN,
+      NaN
+    ],
+    "p_two_sided": NaN,
+    "n_local": 0,
+    "n_hierarchical": 0,
+    "definition": "(drop_high-drop_low)_local - (drop_high-drop_low)_hierarchical"
+  },
+  "neutral_parse_preferences": {
+    "ablate_high_si": {
+      "p_a": {
+        "mean": 0.6575650155447498,
+        "ci_95": [
+          0.5378088344590156,
+          0.7753321036188261
+        ],
+        "n": 15
+      },
+      "entropy": {
+        "mean": 0.5046206073074709,
+        "ci_95": [
+          0.3949572056162531,
+          0.5990596156765524
+        ],
+        "n": 15
+      }
+    },
+    "ablate_low_si": {
+      "p_a": {
+        "mean": 0.6450342944891099,
+        "ci_95": [
+          0.4612955865237999,
+          0.809607069780388
+        ],
+        "n": 15
+      },
+      "entropy": {
+        "mean": 0.33426772237764485,
+        "ci_95": [
+          0.20886171286744443,
+          0.4649131930696708
+        ],
+        "n": 15
+      }
+    },
+    "ablate_random_draw0": {
+      "p_a": {
+        "mean": 0.49974415011931256,
+        "ci_95": [
+          0.36152352422627315,
+          0.6397589934695682
+        ],
+        "n": 15
+      },
+      "entropy": {
+        "mean": 0.5157501743352904,
+        "ci_95": [
+          0.44798745423799463,
+          0.5814923538910278
+        ],
+        "n": 15
+      }
+    },
+    "none": {
+      "p_a": {
+        "mean": 0.4742306306723351,
+        "ci_95": [
+          0.38680868008662256,
+          0.5642105360591758
+        ],
+        "n": 15
+      },
+      "entropy": {
+        "mean": 0.6282662231148766,
+        "ci_95": [
+          0.5996617877052435,
+          0.654809276044612
+        ],
+        "n": 15
+      }
+    }
+  },
+  "verdict": {
+    "syntactic_involvement": "low_si_more_causal_than_high_si",
+    "directional_difference": "ablate_low_si_worse_than_ablate_high_si",
+    "interpretation_rule": {
+      "involvement_threshold": "|drop_high-drop_low| > 0.02",
+      "directional_threshold": "|acc_high-acc_low| > 0.02"
+    }
+  },
+  "limitations": [
+    "Stimuli are templated and may not cover all natural ambiguity phenomena.",
+    "Binary-choice scoring uses completion log-likelihood, not full generation-based QA.",
+    "Neutral-context parse preference is exploratory and sensitive to lexical priors."
+  ]
+}

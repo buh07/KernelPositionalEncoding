@@ -1,0 +1,155 @@
+{
+  "timestamp": "2026-04-07 14:11:02",
+  "models": {
+    "olmo-2-7b": {
+      "experiment": "3P2-C.3_low_si_contribution_probe",
+      "model": "olmo-2-7b",
+      "timestamp": "2026-04-07 14:10:27",
+      "tier": "tier2_conditional_mechanistic",
+      "primary_test_id": "3P2-C.3",
+      "mde_target": 0.35,
+      "achieved_power": 0.8,
+      "multiplicity_family": "tier2_holm_primary_tests",
+      "config": {
+        "sequence_count": 48,
+        "seq_len": 512,
+        "batch_size": 2,
+        "projection_dim": 128,
+        "train_fraction": 0.8,
+        "bootstrap_samples": 2000,
+        "seed": 42,
+        "optional_stress_test_half_attenuation": false,
+        "feature_definition": "last-layer residual contribution proxy via (intact - group-ablated), random-projected"
+      },
+      "split": {
+        "n_sequences_total": 48,
+        "n_sequences_train": 38,
+        "n_sequences_test": 10
+      },
+      "group_sizes": {
+        "high_si": 256,
+        "low_si": 256,
+        "random_matched": 256
+      },
+      "group_metrics": {
+        "high_si": {
+          "boundary_indicator": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.8131115459882583,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.14109589041095894,
+            "ci_95_accuracy": [
+              0.8027348336594913,
+              0.8232925636007827
+            ],
+            "ci_95_delta_over_chance": [
+              0.1307191780821919,
+              0.15127690802348337
+            ],
+            "pseudo_r2": 0.3198650628447386
+          },
+          "nearest_boundary_bin": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.7767123287671233,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.1046966731898239,
+            "ci_95_accuracy": [
+              0.7649657534246576,
+              0.7888454011741683
+            ],
+            "ci_95_delta_over_chance": [
+              0.09295009784735819,
+              0.11682974559686898
+            ],
+            "pseudo_r2": 0.3398951056557902
+          }
+        },
+        "low_si": {
+          "boundary_indicator": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.7436399217221135,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.0716242661448141,
+            "ci_95_accuracy": [
+              0.7320890410958905,
+              0.7557778864970646
+            ],
+            "ci_95_delta_over_chance": [
+              0.060073385518591094,
+              0.0837622309197652
+            ],
+            "pseudo_r2": 0.15224683497982305
+          },
+          "nearest_boundary_bin": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.7203522504892368,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.048336594911937425,
+            "ci_95_accuracy": [
+              0.7074363992172211,
+              0.7328816046966732
+            ],
+            "ci_95_delta_over_chance": [
+              0.03542074363992176,
+              0.06086594911937382
+            ],
+            "pseudo_r2": 0.22083840022848988
+          }
+        },
+        "random_matched": {
+          "boundary_indicator": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.738747553816047,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.06673189823874759,
+            "ci_95_accuracy": [
+              0.726609589041096,
+              0.7516634050880626
+            ],
+            "ci_95_delta_over_chance": [
+              0.054593933463796596,
+              0.07964774951076325
+            ],
+            "pseudo_r2": 0.12889499351103773
+          },
+          "nearest_boundary_bin": {
+            "status": "ok",
+            "n_train": 19418,
+            "n_test": 5110,
+            "accuracy": 0.7048923679060666,
+            "chance": 0.6720156555772994,
+            "delta_over_chance": 0.03287671232876721,
+            "ci_95_accuracy": [
+              0.6923679060665362,
+              0.7174168297455968
+            ],
+            "ci_95_delta_over_chance": [
+              0.020352250489236834,
+              0.045401174168297476
+            ],
+            "pseudo_r2": 0.17230036044037622
+          }
+        }
+      },
+      "acceptance_checks": {
+        "probe_baselines_over_chance_10pp_all_groups_targets": false,
+        "low_si_within_10pct_relative_of_high_si_for_any_target": true
+      },
+      "interpretive_rule": "Low-SI redundancy support requires low-SI decode performance within 10% relative of high-SI for at least one positional target.",
+      "summary": {
+        "supports_e2_redundancy_rule": true,
+        "runtime_seconds": 248.57214856147766
+      }
+    }
+  }
+}

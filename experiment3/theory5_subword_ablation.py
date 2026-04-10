@@ -59,7 +59,7 @@ from scipy import stats as scipy_stats
 # ── project imports ──────────────────────────────────────────────────────────
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from experiment3.stats_utils import holm_adjust
+from experiment3.stats_utils import holm_adjust, validate_paired_samples
 from shared.specs import ModelSpec
 
 try:
@@ -380,6 +380,17 @@ def cohens_d(x: np.ndarray, y: np.ndarray) -> float:
     return float((np.mean(x) - np.mean(y)) / pooled_std)
 
 
+def cohens_d_paired(x: np.ndarray, y: np.ndarray) -> float:
+    """Effect size for paired samples: mean(x-y) / std(x-y)."""
+    diff = np.asarray(x, dtype=np.float64) - np.asarray(y, dtype=np.float64)
+    if len(diff) < 2:
+        return float("nan")
+    std = np.std(diff, ddof=1)
+    if std == 0:
+        return float("nan")
+    return float(np.mean(diff) / std)
+
+
 def bootstrap_ci(
     data: np.ndarray,
     statistic_fn=np.mean,
@@ -392,6 +403,8 @@ def bootstrap_ci(
     point = float(statistic_fn(data))
     boot_stats = np.empty(n_bootstrap)
     n = len(data)
+    if n == 0:
+        return float("nan"), float("nan"), float("nan")
     for i in range(n_bootstrap):
         idx = rng.randint(0, n, size=n)
         boot_stats[i] = statistic_fn(data[idx])
@@ -414,6 +427,8 @@ def bootstrap_diff_means(
     x = np.asarray(x, dtype=np.float64)
     y = np.asarray(y, dtype=np.float64)
     nx, ny = len(x), len(y)
+    if nx == 0 or ny == 0:
+        return float("nan"), float("nan"), float("nan")
     point = float(np.mean(x) - np.mean(y))
     boot = np.empty(n_bootstrap, dtype=np.float64)
     for i in range(n_bootstrap):
@@ -439,6 +454,8 @@ def permutation_mean_diff_pvalue(
     x = np.asarray(x, dtype=np.float64)
     y = np.asarray(y, dtype=np.float64)
     nx, ny = len(x), len(y)
+    if nx == 0 or ny == 0:
+        return float("nan")
     combined = np.concatenate([x, y])
     obs = abs(float(np.mean(x) - np.mean(y)))
     rng = np.random.RandomState(seed)
@@ -447,6 +464,28 @@ def permutation_mean_diff_pvalue(
         perm = rng.permutation(combined)
         diff = abs(float(np.mean(perm[:nx]) - np.mean(perm[nx:nx + ny])))
         ge += int(diff >= obs - 1e-15)
+    return float((ge + 1) / (n_perm + 1))
+
+
+def permutation_signflip_pvalue(
+    paired_diff: np.ndarray,
+    *,
+    n_perm: int = 10000,
+    seed: int = BOOTSTRAP_SEED,
+) -> float:
+    """Two-sided sign-flip permutation p-value for paired mean difference."""
+    d = np.asarray(paired_diff, dtype=np.float64)
+    d = d[np.isfinite(d)]
+    n = len(d)
+    if n == 0:
+        return float("nan")
+    obs = abs(float(np.mean(d)))
+    rng = np.random.RandomState(seed)
+    ge = 0
+    for _ in range(n_perm):
+        signs = rng.choice([-1.0, 1.0], size=n)
+        stat = abs(float(np.mean(d * signs)))
+        ge += int(stat >= obs - 1e-15)
     return float((ge + 1) / (n_perm + 1))
 
 
@@ -487,44 +526,46 @@ def analyze_results(
         # Loss increase = ablated loss - baseline loss (per position)
         cont_increase = cont_losses - baseline_cont
         init_increase = init_losses - baseline_init
+        cont_eval = cont_increase[np.isfinite(cont_increase)]
+        init_eval = init_increase[np.isfinite(init_increase)]
 
         # Independent-sample tests: continuation and word-initial sets are not paired.
         t_stat, t_pval = scipy_stats.ttest_ind(
-            cont_increase, init_increase, equal_var=False, nan_policy="omit",
+            cont_eval, init_eval, equal_var=False, nan_policy="omit",
         )
         u_stat, u_pval = scipy_stats.mannwhitneyu(
-            cont_increase, init_increase, alternative="two-sided",
+            cont_eval, init_eval, alternative="two-sided",
         )
         perm_pval = permutation_mean_diff_pvalue(
-            cont_increase, init_increase, n_perm=10000, seed=BOOTSTRAP_SEED + 101 * cond_idx,
+            cont_eval, init_eval, n_perm=10000, seed=BOOTSTRAP_SEED + 101 * cond_idx,
         )
 
         # Effect size for independent samples
-        d_independent = cohens_d(cont_increase, init_increase)
+        d_independent = cohens_d(cont_eval, init_eval)
 
         # Bootstrap CI for interaction (difference in independent means)
         interaction_point, interaction_ci_low, interaction_ci_high = bootstrap_diff_means(
-            cont_increase, init_increase,
+            cont_eval, init_eval,
             seed=BOOTSTRAP_SEED + 101 * cond_idx,
         )
 
         # Bootstrap CI for continuation loss increase
-        cont_inc_point, cont_inc_ci_low, cont_inc_ci_high = bootstrap_ci(cont_increase)
+        cont_inc_point, cont_inc_ci_low, cont_inc_ci_high = bootstrap_ci(cont_eval)
 
         # Bootstrap CI for word-initial loss increase
-        init_inc_point, init_inc_ci_low, init_inc_ci_high = bootstrap_ci(init_increase)
+        init_inc_point, init_inc_ci_low, init_inc_ci_high = bootstrap_ci(init_eval)
 
         condition_results[cond_name] = {
             "continuation_loss_increase": {
-                "mean": float(np.mean(cont_increase)),
-                "std": float(np.std(cont_increase, ddof=1)),
-                "median": float(np.median(cont_increase)),
+                "mean": float(np.mean(cont_eval)),
+                "std": float(np.std(cont_eval, ddof=1)),
+                "median": float(np.median(cont_eval)),
                 "ci_95": [cont_inc_ci_low, cont_inc_ci_high],
             },
             "word_initial_loss_increase": {
-                "mean": float(np.mean(init_increase)),
-                "std": float(np.std(init_increase, ddof=1)),
-                "median": float(np.median(init_increase)),
+                "mean": float(np.mean(init_eval)),
+                "std": float(np.std(init_eval, ddof=1)),
+                "median": float(np.median(init_eval)),
                 "ci_95": [init_inc_ci_low, init_inc_ci_high],
             },
             "interaction": {
@@ -570,6 +611,115 @@ def analyze_results(
         for k, v in condition_results.items():
             if k.startswith("ablate_random"):
                 random_interactions.append(v["interaction"]["mean_diff_independent"])
+        random_interaction_mean = float(np.mean(random_interactions)) if random_interactions else float("nan")
+
+        analysis["two_way_interaction"] = {
+            "high_si_interaction": high_interaction,
+            "low_si_interaction": low_interaction,
+            "random_interaction_mean": random_interaction_mean,
+            "high_minus_low_interaction": high_interaction - low_interaction,
+            "high_minus_random_interaction": high_interaction - random_interaction_mean,
+            "hypothesis_supported": bool(high_interaction > low_interaction and high_interaction > 0),
+        }
+
+    return analysis
+
+
+def analyze_results_paired(
+    condition_losses: dict[str, dict[str, np.ndarray]],
+) -> dict[str, Any]:
+    """Matched analysis using paired tests on aligned continuation/init samples."""
+    analysis = analyze_results(condition_losses)
+    analysis["test_mode"] = "paired"
+
+    baseline_cont = condition_losses["none"]["continuation"]
+    baseline_init = condition_losses["none"]["word_initial"]
+
+    condition_results: dict[str, dict[str, Any]] = {}
+    interaction_ttest_pvals: dict[str, float] = {}
+
+    for cond_idx, (cond_name, cond_data) in enumerate(condition_losses.items()):
+        if cond_name == "none":
+            continue
+
+        cont_increase = np.asarray(cond_data["continuation"] - baseline_cont, dtype=np.float64)
+        init_increase = np.asarray(cond_data["word_initial"] - baseline_init, dtype=np.float64)
+        validate_paired_samples(cont_increase, init_increase)
+
+        pair_mask = np.isfinite(cont_increase) & np.isfinite(init_increase)
+        cont_pair = cont_increase[pair_mask]
+        init_pair = init_increase[pair_mask]
+        delta = cont_pair - init_pair
+
+        t_stat, t_pval = scipy_stats.ttest_rel(cont_pair, init_pair, nan_policy="omit")
+        try:
+            w_stat, w_pval = scipy_stats.wilcoxon(delta)
+        except ValueError:
+            w_stat, w_pval = float("nan"), float("nan")
+        perm_pval = permutation_signflip_pvalue(
+            delta, n_perm=10000, seed=BOOTSTRAP_SEED + 101 * cond_idx,
+        )
+        d_paired = cohens_d_paired(cont_pair, init_pair)
+
+        point, ci_lo, ci_hi = bootstrap_ci(delta, seed=BOOTSTRAP_SEED + 101 * cond_idx)
+        cont_inc_point, cont_inc_ci_low, cont_inc_ci_high = bootstrap_ci(cont_pair)
+        init_inc_point, init_inc_ci_low, init_inc_ci_high = bootstrap_ci(init_pair)
+
+        condition_results[cond_name] = {
+            "continuation_loss_increase": {
+                "mean": float(np.mean(cont_pair)),
+                "std": float(np.std(cont_pair, ddof=1)),
+                "median": float(np.median(cont_pair)),
+                "ci_95": [cont_inc_ci_low, cont_inc_ci_high],
+            },
+            "word_initial_loss_increase": {
+                "mean": float(np.mean(init_pair)),
+                "std": float(np.std(init_pair, ddof=1)),
+                "median": float(np.median(init_pair)),
+                "ci_95": [init_inc_ci_low, init_inc_ci_high],
+            },
+            "interaction": {
+                "mean_diff_independent": float(point),  # legacy key for downstream compatibility
+                "mean_diff_paired": float(point),
+                "ci_95": [float(ci_lo), float(ci_hi)],
+                "unit_assumption": "paired_samples",
+            },
+            "paired_ttest": {
+                "t_statistic": float(t_stat),
+                "p_value": float(t_pval),
+                "n_pairs": int(len(delta)),
+            },
+            "wilcoxon_test": {
+                "w_statistic": float(w_stat),
+                "p_value": float(w_pval),
+            },
+            "permutation_test": {
+                "n_permutations": 10000,
+                "p_value": float(perm_pval),
+                "method": "sign_flip",
+            },
+            "effect_sizes": {
+                "cohens_d_paired": d_paired,
+            },
+            "test_mode": "paired",
+        }
+        interaction_ttest_pvals[cond_name] = float(t_pval)
+
+    if interaction_ttest_pvals:
+        holm = holm_adjust(interaction_ttest_pvals)
+        for cond_name, p_adj in holm.items():
+            if cond_name in condition_results:
+                condition_results[cond_name]["paired_ttest"]["p_value_holm"] = float(p_adj)
+
+    analysis["conditions"] = condition_results
+
+    if "ablate_high_si" in condition_results and "ablate_low_si" in condition_results:
+        high_interaction = condition_results["ablate_high_si"]["interaction"]["mean_diff_paired"]
+        low_interaction = condition_results["ablate_low_si"]["interaction"]["mean_diff_paired"]
+        random_interactions = []
+        for k, v in condition_results.items():
+            if k.startswith("ablate_random"):
+                random_interactions.append(v["interaction"]["mean_diff_paired"])
         random_interaction_mean = float(np.mean(random_interactions)) if random_interactions else float("nan")
 
         analysis["two_way_interaction"] = {
@@ -821,7 +971,7 @@ def main():
                 "word_initial": cond_data["word_initial"][matched_init_idx],
             }
 
-        analysis_matched = analyze_results(matched_condition_losses)
+        analysis_matched = analyze_results_paired(matched_condition_losses)
         analysis_matched["matching"] = "perplexity_matched"
         analysis_matched["n_matched_per_type"] = n_matched
         analysis_matched["matched_baseline_cont_mean"] = float(
@@ -909,8 +1059,7 @@ def print_analysis_summary(analysis: dict[str, Any], label: str) -> None:
             cont_inc = cond["continuation_loss_increase"]
             init_inc = cond["word_initial_loss_increase"]
             inter = cond["interaction"]
-            tests = cond["independent_ttest"]
-            mw = cond["mannwhitney_test"]
+            test_mode = cond.get("test_mode", "independent")
             perm = cond["permutation_test"]
             eff = cond["effect_sizes"]
 
@@ -919,17 +1068,32 @@ def print_analysis_summary(analysis: dict[str, Any], label: str) -> None:
                   f"(95% CI [{cont_inc['ci_95'][0]:+.4f}, {cont_inc['ci_95'][1]:+.4f}])")
             print(f"    Word-initial loss increase:  {init_inc['mean']:+.4f} "
                   f"(95% CI [{init_inc['ci_95'][0]:+.4f}, {init_inc['ci_95'][1]:+.4f}])")
-            print(f"    Interaction (cont - init):   {inter['mean_diff_independent']:+.4f} "
+            interaction_key = "mean_diff_paired" if "mean_diff_paired" in inter else "mean_diff_independent"
+            print(f"    Interaction (cont - init):   {inter[interaction_key]:+.4f} "
                   f"(95% CI [{inter['ci_95'][0]:+.4f}, {inter['ci_95'][1]:+.4f}])")
-            holm_str = (
-                f", p_holm={tests['p_value_holm']:.2e}"
-                if "p_value_holm" in tests
-                else ""
-            )
-            print(f"    Welch t-test:   t={tests['t_statistic']:.3f}, p={tests['p_value']:.2e}{holm_str}")
-            print(f"    Mann-Whitney:   U={mw['u_statistic']:.1f}, p={mw['p_value']:.2e}")
+            if test_mode == "paired":
+                tests = cond["paired_ttest"]
+                wilc = cond["wilcoxon_test"]
+                holm_str = (
+                    f", p_holm={tests['p_value_holm']:.2e}"
+                    if "p_value_holm" in tests
+                    else ""
+                )
+                print(f"    Paired t-test:  t={tests['t_statistic']:.3f}, p={tests['p_value']:.2e}{holm_str}")
+                print(f"    Wilcoxon:       W={wilc['w_statistic']:.1f}, p={wilc['p_value']:.2e}")
+                print(f"    Cohen's d (paired):      {eff['cohens_d_paired']:.3f}")
+            else:
+                tests = cond["independent_ttest"]
+                mw = cond["mannwhitney_test"]
+                holm_str = (
+                    f", p_holm={tests['p_value_holm']:.2e}"
+                    if "p_value_holm" in tests
+                    else ""
+                )
+                print(f"    Welch t-test:   t={tests['t_statistic']:.3f}, p={tests['p_value']:.2e}{holm_str}")
+                print(f"    Mann-Whitney:   U={mw['u_statistic']:.1f}, p={mw['p_value']:.2e}")
+                print(f"    Cohen's d (independent): {eff['cohens_d_independent']:.3f}")
             print(f"    Permutation:    p={perm['p_value']:.2e} ({perm['n_permutations']} perms)")
-            print(f"    Cohen's d (independent): {eff['cohens_d_independent']:.3f}")
 
     if "two_way_interaction" in analysis:
         twi = analysis["two_way_interaction"]

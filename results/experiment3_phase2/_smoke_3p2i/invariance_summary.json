@@ -1,0 +1,419 @@
+{
+  "timestamp": "2026-04-06 19:51:13",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "timestamp": "2026-04-06 19:51:13",
+      "tier": "tier3_publication_readiness",
+      "execution_gate": {
+        "rule": "d_gt_0.50_and_no_prefix_following",
+        "measured": {
+          "post_ablation_d": 1.0666295894631435,
+          "prefix_following_artifact_flag": true,
+          "passes_gate": false,
+          "source_files": {
+            "post_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/post_ablation_t5b_a.json",
+            "synthetic_boundary": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json"
+          }
+        },
+        "override": true,
+        "effective_allow_run": true
+      },
+      "corpora": [
+        {
+          "corpus_id": "wiki_en",
+          "domain": "wikipedia",
+          "language": "en",
+          "kind": "tokenized_jsonl",
+          "meta": {
+            "source": "tokenized_jsonl",
+            "path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment1/wiki40b_en_pre2019/llama-3.1-8b/len_1024.jsonl",
+            "sequences": 2,
+            "seq_len": 256
+          }
+        },
+        {
+          "corpus_id": "code_en",
+          "domain": "code",
+          "language": "en",
+          "kind": "tokenized_jsonl",
+          "meta": {
+            "source": "tokenized_jsonl",
+            "path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment1/codesearchnet_python_snapshot/llama-3.1-8b/len_1024.jsonl",
+            "sequences": 2,
+            "seq_len": 256
+          }
+        },
+        {
+          "corpus_id": "opus_tr",
+          "domain": "translation",
+          "language": "tr",
+          "kind": "opus100",
+          "meta": {
+            "dataset": "opus100",
+            "config": "en-tr",
+            "language": "tr",
+            "rows_consumed": 46,
+            "max_rows": 1000,
+            "sequences_emitted": 2,
+            "source": "rebuilt",
+            "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_tr/llama-3.1-8b/len_256.jsonl",
+            "seq_len": 256
+          }
+        },
+        {
+          "corpus_id": "opus_zh",
+          "domain": "translation",
+          "language": "zh",
+          "kind": "opus100",
+          "meta": {
+            "dataset": "opus100",
+            "config": "en-zh",
+            "language": "zh",
+            "rows_consumed": 43,
+            "max_rows": 1000,
+            "sequences_emitted": 2,
+            "source": "rebuilt",
+            "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_zh/llama-3.1-8b/len_256.jsonl",
+            "seq_len": 256
+          }
+        },
+        {
+          "corpus_id": "opus_ru",
+          "domain": "translation",
+          "language": "ru",
+          "kind": "opus100",
+          "meta": {
+            "dataset": "opus100",
+            "config": "en-ru",
+            "language": "ru",
+            "rows_consumed": 32,
+            "max_rows": 1000,
+            "sequences_emitted": 2,
+            "source": "rebuilt",
+            "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_ru/llama-3.1-8b/len_256.jsonl",
+            "seq_len": 256
+          }
+        }
+      ],
+      "perturbation_conditions": [
+        "none",
+        "embedding_prefix_ablation",
+        "adversarial_boundary_variant"
+      ],
+      "effect_sizes": {
+        "code_en__adversarial_boundary_variant": {
+          "adversarial_real_minus_fake_with_prefix": 0.009122153496987653,
+          "adversarial_real_minus_fake_without_prefix": -0.007176077478392058
+        },
+        "code_en__embedding_prefix_ablation": {
+          "approach_a_cohens_d": 1.04986310940839,
+          "approach_c_spearman_rho": 0.27732496334310847
+        },
+        "code_en__none": {
+          "approach_a_cohens_d": 1.024001190456569,
+          "approach_c_spearman_rho": 0.2829737791466991
+        },
+        "opus_ru__adversarial_boundary_variant": {
+          "adversarial_real_minus_fake_with_prefix": -0.00011082189868093228,
+          "adversarial_real_minus_fake_without_prefix": 0.0095277947937875
+        },
+        "opus_ru__embedding_prefix_ablation": {
+          "approach_a_cohens_d": 1.2008173136489788,
+          "approach_c_spearman_rho": 0.3101724103247264
+        },
+        "opus_ru__none": {
+          "approach_a_cohens_d": 1.1899476793671588,
+          "approach_c_spearman_rho": 0.28284050675917316
+        },
+        "opus_tr__adversarial_boundary_variant": {
+          "adversarial_real_minus_fake_with_prefix": 0.0018340892475635778,
+          "adversarial_real_minus_fake_without_prefix": 0.059409940105559576
+        },
+        "opus_tr__embedding_prefix_ablation": {
+          "approach_a_cohens_d": 1.1998313510028626,
+          "approach_c_spearman_rho": 0.29471672493026246
+        },
+        "opus_tr__none": {
+          "approach_a_cohens_d": 1.1948114297684662,
+          "approach_c_spearman_rho": 0.28366083881696585
+        },
+        "opus_zh__adversarial_boundary_variant": {
+          "adversarial_real_minus_fake_with_prefix": 0.008142234486531577,
+          "adversarial_real_minus_fake_without_prefix": 0.01255637878610863
+        },
+        "opus_zh__embedding_prefix_ablation": {
+          "approach_a_cohens_d": 1.1780070556421358,
+          "approach_c_spearman_rho": 0.18917574520778196
+        },
+        "opus_zh__none": {
+          "approach_a_cohens_d": 1.1637659368489792,
+          "approach_c_spearman_rho": 0.18425471398683926
+        },
+        "wiki_en__adversarial_boundary_variant": {
+          "adversarial_real_minus_fake_with_prefix": -0.04588883141090121,
+          "adversarial_real_minus_fake_without_prefix": -0.001988918713652435
+        },
+        "wiki_en__embedding_prefix_ablation": {
+          "approach_a_cohens_d": 1.0920648551203338,
+          "approach_c_spearman_rho": 0.12941948000858305
+        },
+        "wiki_en__none": {
+          "approach_a_cohens_d": 1.0574492401274596,
+          "approach_c_spearman_rho": 0.132285925988842
+        }
+      },
+      "invariance_score": 0.7784696494273836,
+      "invariance_verdict": "invariant",
+      "invariance_details": {
+        "baseline_d": 1.0574492401274596,
+        "effect_retention_score": 0.7426720898679701,
+        "same_sign_fraction": 1.0,
+        "adversarial_consistency_score": 0.6,
+        "n_effect_cells": 9,
+        "n_adversarial_cells": 5
+      },
+      "pooled_mixed_effects_summary_proxy": {
+        "note": "Exploratory pooled summary (fixed-weight descriptive proxy), not a full hierarchical mixed-effects fit.",
+        "by_metric_and_perturbation": {
+          "adversarial_real_minus_fake_with_prefix::adversarial_boundary_variant": {
+            "n_cells": 5,
+            "mean": -0.0053802352156998665,
+            "std": 0.022988780008377736,
+            "median": 0.0018340892475635778,
+            "min": -0.04588883141090121,
+            "max": 0.009122153496987653
+          },
+          "adversarial_real_minus_fake_without_prefix::adversarial_boundary_variant": {
+            "n_cells": 5,
+            "mean": 0.014465823498682242,
+            "std": 0.026396657664130532,
+            "median": 0.0095277947937875,
+            "min": -0.007176077478392058,
+            "max": 0.059409940105559576
+          },
+          "approach_a_cohens_d::embedding_prefix_ablation": {
+            "n_cells": 5,
+            "mean": 1.1441167369645402,
+            "std": 0.06903037741616526,
+            "median": 1.1780070556421358,
+            "min": 1.04986310940839,
+            "max": 1.2008173136489788
+          },
+          "approach_a_cohens_d::none": {
+            "n_cells": 5,
+            "mean": 1.1259950953137265,
+            "std": 0.0796139878670933,
+            "median": 1.1637659368489792,
+            "min": 1.024001190456569,
+            "max": 1.1948114297684662
+          },
+          "approach_c_spearman_rho::embedding_prefix_ablation": {
+            "n_cells": 5,
+            "mean": 0.24016186476289247,
+            "std": 0.07765672109062631,
+            "median": 0.27732496334310847,
+            "min": 0.12941948000858305,
+            "max": 0.3101724103247264
+          },
+          "approach_c_spearman_rho::none": {
+            "n_cells": 5,
+            "mean": 0.2332031529397039,
+            "std": 0.07082936637210963,
+            "median": 0.28284050675917316,
+            "min": 0.132285925988842,
+            "max": 0.28366083881696585
+          }
+        },
+        "by_metric_and_language": {
+          "adversarial_real_minus_fake_with_prefix::en": {
+            "n_cells": 2,
+            "mean": -0.018383338956956777,
+            "std": 0.038898640468119035,
+            "median": -0.018383338956956777,
+            "min": -0.04588883141090121,
+            "max": 0.009122153496987653
+          },
+          "adversarial_real_minus_fake_with_prefix::ru": {
+            "n_cells": 1,
+            "mean": -0.00011082189868093228,
+            "std": NaN,
+            "median": -0.00011082189868093228,
+            "min": -0.00011082189868093228,
+            "max": -0.00011082189868093228
+          },
+          "adversarial_real_minus_fake_with_prefix::tr": {
+            "n_cells": 1,
+            "mean": 0.0018340892475635778,
+            "std": NaN,
+            "median": 0.0018340892475635778,
+            "min": 0.0018340892475635778,
+            "max": 0.0018340892475635778
+          },
+          "adversarial_real_minus_fake_with_prefix::zh": {
+            "n_cells": 1,
+            "mean": 0.008142234486531577,
+            "std": NaN,
+            "median": 0.008142234486531577,
+            "min": 0.008142234486531577,
+            "max": 0.008142234486531577
+          },
+          "adversarial_real_minus_fake_without_prefix::en": {
+            "n_cells": 2,
+            "mean": -0.0045824980960222465,
+            "std": 0.003667875137638623,
+            "median": -0.0045824980960222465,
+            "min": -0.007176077478392058,
+            "max": -0.001988918713652435
+          },
+          "adversarial_real_minus_fake_without_prefix::ru": {
+            "n_cells": 1,
+            "mean": 0.0095277947937875,
+            "std": NaN,
+            "median": 0.0095277947937875,
+            "min": 0.0095277947937875,
+            "max": 0.0095277947937875
+          },
+          "adversarial_real_minus_fake_without_prefix::tr": {
+            "n_cells": 1,
+            "mean": 0.059409940105559576,
+            "std": NaN,
+            "median": 0.059409940105559576,
+            "min": 0.059409940105559576,
+            "max": 0.059409940105559576
+          },
+          "adversarial_real_minus_fake_without_prefix::zh": {
+            "n_cells": 1,
+            "mean": 0.01255637878610863,
+            "std": NaN,
+            "median": 0.01255637878610863,
+            "min": 0.01255637878610863,
+            "max": 0.01255637878610863
+          },
+          "approach_a_cohens_d::en": {
+            "n_cells": 4,
+            "mean": 1.055844598778188,
+            "std": 0.028072897439635727,
+            "median": 1.0536561747679247,
+            "min": 1.024001190456569,
+            "max": 1.0920648551203338
+          },
+          "approach_a_cohens_d::ru": {
+            "n_cells": 2,
+            "mean": 1.1953824965080688,
+            "std": 0.007685992109692672,
+            "median": 1.1953824965080688,
+            "min": 1.1899476793671588,
+            "max": 1.2008173136489788
+          },
+          "approach_a_cohens_d::tr": {
+            "n_cells": 2,
+            "mean": 1.1973213903856643,
+            "std": 0.003549620345864138,
+            "median": 1.1973213903856643,
+            "min": 1.1948114297684662,
+            "max": 1.1998313510028626
+          },
+          "approach_a_cohens_d::zh": {
+            "n_cells": 2,
+            "mean": 1.1708864962455574,
+            "std": 0.010069991670324288,
+            "median": 1.1708864962455574,
+            "min": 1.1637659368489792,
+            "max": 1.1780070556421358
+          },
+          "approach_c_spearman_rho::en": {
+            "n_cells": 4,
+            "mean": 0.20550103712180817,
+            "std": 0.08623525567825804,
+            "median": 0.20480544466597522,
+            "min": 0.12941948000858305,
+            "max": 0.2829737791466991
+          },
+          "approach_c_spearman_rho::ru": {
+            "n_cells": 2,
+            "mean": 0.2965064585419498,
+            "std": 0.019326574353939488,
+            "median": 0.2965064585419498,
+            "min": 0.28284050675917316,
+            "max": 0.3101724103247264
+          },
+          "approach_c_spearman_rho::tr": {
+            "n_cells": 2,
+            "mean": 0.2891887818736142,
+            "std": 0.007817692042738194,
+            "median": 0.2891887818736142,
+            "min": 0.28366083881696585,
+            "max": 0.29471672493026246
+          },
+          "approach_c_spearman_rho::zh": {
+            "n_cells": 2,
+            "mean": 0.18671522959731063,
+            "std": 0.0034796945467592895,
+            "median": 0.18671522959731063,
+            "min": 0.18425471398683926,
+            "max": 0.18917574520778196
+          }
+        }
+      },
+      "prefix_classifier": {
+        "method": "embedding_logistic_regression",
+        "feature_type": "embedding_dimensions",
+        "classifier_accuracy": 0.9961089494163424,
+        "precision_word_initial": 1.0,
+        "recall_word_initial": 0.9943502824858758,
+        "specificity_continuation": 1.0,
+        "n_samples": 257,
+        "n_word_initial": 177,
+        "n_continuation": 80,
+        "confusion_matrix": {
+          "tp": 176,
+          "tn": 80,
+          "fp": 0,
+          "fn": 1
+        },
+        "top_k_dims": [
+          3183,
+          1669,
+          2949,
+          2650,
+          3508,
+          559,
+          1109,
+          2570,
+          3837,
+          2346,
+          1800,
+          2579,
+          2418,
+          184,
+          1913,
+          47
+        ],
+        "top_k_weights": [
+          -0.6241840277108966,
+          0.6082353319279165,
+          -0.4500789731209811,
+          0.43792409676744,
+          -0.43219001903046567,
+          -0.423273841266879,
+          -0.421801227627979,
+          -0.41797092412279035,
+          0.4089220178884076,
+          -0.39553418788145084,
+          0.3878109025937684,
+          0.38684319839416154,
+          0.3861215614983529,
+          0.3833780306260437,
+          0.3679651399501922,
+          -0.3523699996483797
+        ],
+        "acceptance_threshold": 0.9,
+        "meets_threshold": true
+      },
+      "multiplicity_family": "tier3_exploratory_invariance",
+      "primary_test_id": "3P2-I+Idea2",
+      "status": "complete"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "experiment": "3P2-H_source_target_spec",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-01 22:06:29",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-H",
+  "source_target_preregister": "results/experiment3_phase2/exp3p2h_source_target_spec/llama-3.1-8b/source_target_preregister.json",
+  "source_bins": [
+    {
+      "name": "primary_l0_l7",
+      "start_layer": 0,
+      "end_layer": 7
+    },
+    {
+      "name": "secondary_triggered_8layer_band",
+      "start_layer": 8,
+      "end_layer": 15
+    }
+  ],
+  "target_taxonomies": {
+    "taxonomy_a": "original induction/random_mid/low_si_late groups",
+    "taxonomy_b": "matched-control by induction-sensitivity decile"
+  },
+  "rho_results": {
+    "primary_l0_l7": {
+      "taxonomy_a": {
+        "t7b_spearman_rho": 0.06436183909361409,
+        "t7b_spearman_p_one_sided": 0.15248968054197207,
+        "t10_rho_induction": 0.06436183909361409,
+        "t10_rho_random_mid": -0.012272545204852367,
+        "t10_rho_low_si_late": 0.08021572442206454,
+        "delta_rho_ind_minus_max_control": -0.015853885328450446,
+        "specificity_p_holm_max": 0.5673891461258367
+      },
+      "taxonomy_b": {
+        "n_induction_targets": 10,
+        "n_matched_controls": 10,
+        "n_sources": 256,
+        "rho_induction": 0.06436183909361409,
+        "rho_matched_control": 0.012590123598077362,
+        "delta_rho": 0.05177171549553673,
+        "p_induction_two_sided": 0.30497936108394413,
+        "p_control_two_sided": 0.8411176299003654,
+        "williams_t": 0.535780381087925,
+        "williams_df": 253,
+        "p_delta_two_sided": 0.5925810332750745,
+        "p_delta_one_sided": 0.29629051663753725
+      }
+    },
+    "secondary_l8_l15": {
+      "taxonomy_a": {
+        "t7b_spearman_rho": 0.16913481345845727,
+        "t7b_spearman_p_one_sided": 0.003339059487850075,
+        "t10_rho_induction": 0.16913481345845727,
+        "t10_rho_random_mid": -0.0075024319066147845,
+        "t10_rho_low_si_late": 0.11950317578393223,
+        "delta_rho_ind_minus_max_control": 0.04963163767452504,
+        "specificity_p_holm_max": 0.29539861826553027
+      },
+      "taxonomy_b": {
+        "n_induction_targets": 10,
+        "n_matched_controls": 10,
+        "n_sources": 256,
+        "rho_induction": 0.16913481345845727,
+        "rho_matched_control": 0.005380235751888302,
+        "delta_rho": 0.16375457770656895,
+        "p_induction_two_sided": 0.00667811897570015,
+        "p_control_two_sided": 0.9317342256120913,
+        "williams_t": 1.7441365893296696,
+        "williams_df": 253,
+        "p_delta_two_sided": 0.08234976686858324,
+        "p_delta_one_sided": 0.04117488343429162
+      }
+    }
+  },
+  "specificity_tests": {
+    "primary_l0_l7": {
+      "taxonomy_a_recovered": false,
+      "taxonomy_b_recovered": false
+    },
+    "secondary_l8_l15": {
+      "taxonomy_a_recovered": false,
+      "taxonomy_b_recovered": true
+    }
+  },
+  "mde_target": 0.15,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "stability_verdict": "recovered_specificity",
+  "trigger_evaluation": {
+    "trigger": true,
+    "candidate_total": 61,
+    "outside_l0_l7_count": 44,
+    "outside_l0_l7_fraction": 0.7213114754098361,
+    "thresholds": {
+      "r2_top_quartile_threshold": 0.5040274402472171,
+      "prev_token_top_decile_threshold": 0.07648036062717442
+    },
+    "secondary_window": {
+      "start_layer": 8,
+      "end_layer": 15,
+      "candidate_density": 21
+    }
+  }
+}

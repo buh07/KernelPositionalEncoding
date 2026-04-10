@@ -1,0 +1,191 @@
+{
+  "timestamp": "2026-04-09 14:39:48",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "timestamp": "2026-04-09 14:39:48",
+      "audit_type": "idea4_internal_norming_audit",
+      "based_on_condition": "none",
+      "overall": {
+        "n_variants": 30,
+        "context_a_accuracy": 0.9333333333333333,
+        "context_b_accuracy": 1.0,
+        "both_correct_rate": 0.9333333333333333,
+        "flip_rate": 0.9333333333333333,
+        "flagged_variant_rate": 0.06666666666666667,
+        "mean_correct_margin": 2.4496884038459634
+      },
+      "neutral_summary": {
+        "n_neutral_rows": 30,
+        "neutral_entropy_mean": 0.36934571851899156,
+        "neutral_p_a_mean": 0.18429520381566525,
+        "neutral_p_a_std": 0.18749790254222484
+      },
+      "family_summary": {
+        "coordination_scope": {
+          "n_variants": 15,
+          "context_a_accuracy": 0.8666666666666667,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 0.8666666666666667,
+          "flip_rate": 0.8666666666666667,
+          "flag_rate": 0.13333333333333333,
+          "mean_correct_margin": 2.490088144639594
+        },
+        "pp_attachment": {
+          "n_variants": 2,
+          "context_a_accuracy": 1.0,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 1.0,
+          "flip_rate": 1.0,
+          "flag_rate": 0.0,
+          "mean_correct_margin": 1.3516806634142995
+        },
+        "relative_clause_attachment": {
+          "n_variants": 13,
+          "context_a_accuracy": 1.0,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 1.0,
+          "flip_rate": 1.0,
+          "flag_rate": 0.0,
+          "mean_correct_margin": 2.571997586073569
+        }
+      },
+      "n_flagged_variants": 2,
+      "n_retained_variants": 28,
+      "retained_variant_ids": [
+        "coord_001",
+        "coord_002",
+        "coord_003",
+        "coord_004",
+        "coord_005",
+        "coord_006",
+        "coord_007",
+        "coord_009",
+        "coord_010",
+        "coord_011",
+        "coord_012",
+        "coord_014",
+        "coord_015",
+        "pp_006",
+        "pp_015",
+        "rc_000",
+        "rc_002",
+        "rc_003",
+        "rc_004",
+        "rc_006",
+        "rc_007",
+        "rc_008",
+        "rc_009",
+        "rc_011",
+        "rc_014",
+        "rc_017",
+        "rc_018",
+        "rc_019"
+      ],
+      "limitations": [
+        "Internal audit only; does not replace external human norming.",
+        "Uses model-internal consistency criteria, which can be model-specific."
+      ]
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "timestamp": "2026-04-09 14:39:48",
+      "audit_type": "idea4_internal_norming_audit",
+      "based_on_condition": "none",
+      "overall": {
+        "n_variants": 30,
+        "context_a_accuracy": 1.0,
+        "context_b_accuracy": 1.0,
+        "both_correct_rate": 1.0,
+        "flip_rate": 1.0,
+        "flagged_variant_rate": 0.0,
+        "mean_correct_margin": 2.708040997732193
+      },
+      "neutral_summary": {
+        "n_neutral_rows": 30,
+        "neutral_entropy_mean": 0.47473188885687456,
+        "neutral_p_a_mean": 0.29624664973384307,
+        "neutral_p_a_std": 0.23092262965070356
+      },
+      "family_summary": {
+        "coordination_scope": {
+          "n_variants": 15,
+          "context_a_accuracy": 1.0,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 1.0,
+          "flip_rate": 1.0,
+          "flag_rate": 0.0,
+          "mean_correct_margin": 3.361140881538692
+        },
+        "pp_attachment": {
+          "n_variants": 2,
+          "context_a_accuracy": 1.0,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 1.0,
+          "flip_rate": 1.0,
+          "flag_rate": 0.0,
+          "mean_correct_margin": 0.8862237986177206
+        },
+        "relative_clause_attachment": {
+          "n_variants": 13,
+          "context_a_accuracy": 1.0,
+          "context_b_accuracy": 1.0,
+          "both_correct_rate": 1.0,
+          "flip_rate": 1.0,
+          "flag_rate": 0.0,
+          "mean_correct_margin": 2.2347437778192285
+        }
+      },
+      "n_flagged_variants": 0,
+      "n_retained_variants": 30,
+      "retained_variant_ids": [
+        "coord_001",
+        "coord_002",
+        "coord_003",
+        "coord_004",
+        "coord_005",
+        "coord_006",
+        "coord_007",
+        "coord_008",
+        "coord_009",
+        "coord_010",
+        "coord_011",
+        "coord_012",
+        "coord_013",
+        "coord_014",
+        "coord_015",
+        "pp_006",
+        "pp_015",
+        "rc_000",
+        "rc_002",
+        "rc_003",
+        "rc_004",
+        "rc_006",
+        "rc_007",
+        "rc_008",
+        "rc_009",
+        "rc_011",
+        "rc_014",
+        "rc_017",
+        "rc_018",
+        "rc_019"
+      ],
+      "limitations": [
+        "Internal audit only; does not replace external human norming.",
+        "Uses model-internal consistency criteria, which can be model-specific."
+      ]
+    }
+  },
+  "allowlists": {
+    "consensus_min_models": 2,
+    "consensus_count": 28,
+    "consensus_relation_counts": {
+      "local_relative": 13,
+      "hierarchical_absolute": 15
+    },
+    "consensus_balanced_min_count": 13,
+    "consensus_balanced_ok": true,
+    "min_variants_per_relation_type": 8,
+    "consensus_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/idea4_structural_ambiguity_normed_stage4_v2/normed_allowlist_consensus.txt"
+  }
+}

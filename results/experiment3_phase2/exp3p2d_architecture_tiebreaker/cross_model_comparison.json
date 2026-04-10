@@ -1,0 +1,299 @@
+{
+  "experiment": "3P2-D_cross_model_comparison",
+  "timestamp": "2026-04-07 01:31:38",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-D",
+  "mde_target": 0.15,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "t7b_baseline_models": {
+    "llama-3.1-8b": {
+      "spearman_rho": 0.06436183909361409,
+      "spearman_p_one_sided": 0.15248968054197207
+    },
+    "olmo-2-7b": {
+      "spearman_rho": 0.20659761959258408,
+      "spearman_p_one_sided": 0.0004415658375604238
+    }
+  },
+  "mistral_d1": {
+    "experiment": "3_theory7b_activation_patching",
+    "model": "mistral-7b-v0.1",
+    "timestamp": "2026-04-07 01:31:37",
+    "config": {
+      "num_sequence_pairs": 30,
+      "period": 32,
+      "seq_len": 128,
+      "top_induction_heads": 10,
+      "source_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "bootstrap_n": 10000,
+      "analysis_only": false,
+      "patching_parquet": "results/experiment3_phase2/exp3p2d_architecture_tiebreaker/mistral-7b-v0.1/patching_results.parquet"
+    },
+    "artifact_timestamps": {
+      "induction_scores_parquet": "2026-04-07 00:10:43",
+      "r2_per_sequence_parquet": "2026-04-06 14:30:06",
+      "prev_token_scores_parquet": "2026-04-06 21:30:24",
+      "patching_results_parquet": "2026-04-07 01:31:24"
+    },
+    "analysis": {
+      "model": "mistral-7b-v0.1",
+      "n_source_heads": 256,
+      "n_induction_heads": 10,
+      "n_sequence_pairs": 30,
+      "primary_correlation": {
+        "description": "Patching disruption vs R\u00b2 (shift-invariance)",
+        "pearson_r": 0.0692595372004756,
+        "pearson_p": 0.2695689370007909,
+        "pearson_p_one_sided": 0.13478446850039544,
+        "pearson_ci_95": [
+          -0.0827941761099929,
+          0.20964745851442326
+        ],
+        "spearman_rho": 0.09619192034790568,
+        "spearman_p": 0.12475911580902838,
+        "spearman_p_one_sided": 0.06237955790451419,
+        "spearman_ci_95": [
+          -0.03762051171080211,
+          0.22885748144106022
+        ],
+        "directional_alternative": "greater"
+      },
+      "recovery_correlation": {
+        "description": "Patching recovery (normalized disruption / clean-corrupt gap) vs R\u00b2",
+        "pearson_r": -0.2078202735997559,
+        "pearson_p": 0.0008214870502277656,
+        "pearson_p_one_sided": 0.9995892564748862,
+        "spearman_rho": -0.02201876859693293,
+        "spearman_p": 0.7258744112122825,
+        "spearman_p_one_sided": 0.6370627943938587,
+        "directional_alternative": "greater"
+      },
+      "top_20_disruptive_heads": {
+        "n_above_r2_median": 13,
+        "fraction_above_median": 0.65,
+        "r2_quartile_distribution": {
+          "Q1_below_p25": 5,
+          "Q2_p25_to_p50": 2,
+          "Q3_p50_to_p75": 1,
+          "Q4_above_p75": 12
+        },
+        "mean_r2": 0.38431106996977726,
+        "overall_r2_median": 0.2400933664573329,
+        "layer_distribution": {
+          "0": 5,
+          "1": 13,
+          "2": 1,
+          "7": 1
+        },
+        "heads": [
+          {
+            "source": "L1H15",
+            "mean_disruption": 0.07971514012925632,
+            "mean_recovery": -5.742832113101588,
+            "r2": 0.547656588709226
+          },
+          {
+            "source": "L1H24",
+            "mean_disruption": 0.06400375819659387,
+            "mean_recovery": -4.3621520449295,
+            "r2": 0.17873464349146237
+          },
+          {
+            "source": "L1H0",
+            "mean_disruption": 0.0342891844745706,
+            "mean_recovery": -43.91914523662903,
+            "r2": 0.6885823248154359
+          },
+          {
+            "source": "L1H11",
+            "mean_disruption": 0.01375533232683665,
+            "mean_recovery": -8.717582993271533,
+            "r2": 0.39179805359663233
+          },
+          {
+            "source": "L1H25",
+            "mean_disruption": 0.012423379470128566,
+            "mean_recovery": -5.328791581188816,
+            "r2": 0.3442941204107365
+          },
+          {
+            "source": "L0H12",
+            "mean_disruption": 0.011381822695148003,
+            "mean_recovery": -0.2030379883354998,
+            "r2": 0.08951492415167962
+          },
+          {
+            "source": "L1H16",
+            "mean_disruption": 0.008169865735641602,
+            "mean_recovery": -5.666636480563325,
+            "r2": 0.4360366706493767
+          },
+          {
+            "source": "L0H13",
+            "mean_disruption": 0.007851765782640237,
+            "mean_recovery": -0.663733482150145,
+            "r2": 0.06014738353454816
+          },
+          {
+            "source": "L1H2",
+            "mean_disruption": 0.00695600865088636,
+            "mean_recovery": -9.112077676769577,
+            "r2": 0.5585856680163654
+          },
+          {
+            "source": "L1H14",
+            "mean_disruption": 0.005908269871967301,
+            "mean_recovery": -0.027372963951028163,
+            "r2": 0.42572179574841995
+          },
+          {
+            "source": "L0H23",
+            "mean_disruption": 0.005094790979637764,
+            "mean_recovery": -2.427175659938094,
+            "r2": 0.2080202005398032
+          },
+          {
+            "source": "L1H20",
+            "mean_disruption": 0.00481693693519143,
+            "mean_recovery": -4.637316305564252,
+            "r2": 0.6137127467623519
+          },
+          {
+            "source": "L2H3",
+            "mean_disruption": 0.004724978568992811,
+            "mean_recovery": 0.9290421033660119,
+            "r2": 0.06081295994262316
+          },
+          {
+            "source": "L1H8",
+            "mean_disruption": 0.00429162474523764,
+            "mean_recovery": -7.8139493603514625,
+            "r2": 0.6530184561428684
+          },
+          {
+            "source": "L7H18",
+            "mean_disruption": 0.0036442718269002693,
+            "mean_recovery": 1.0372836123696882,
+            "r2": 0.06513717138071701
+          },
+          {
+            "source": "L0H29",
+            "mean_disruption": 0.002727588004393815,
+            "mean_recovery": -9.92517537514876,
+            "r2": 0.6516842280315083
+          },
+          {
+            "source": "L1H12",
+            "mean_disruption": 0.002305808437571007,
+            "mean_recovery": 0.1835128989059828,
+            "r2": 0.47081266821526513
+          },
+          {
+            "source": "L1H3",
+            "mean_disruption": 0.001982452157923641,
+            "mean_recovery": -3.35202663724709,
+            "r2": 0.7063354376301639
+          },
+          {
+            "source": "L0H21",
+            "mean_disruption": 0.0017943530572544352,
+            "mean_recovery": 0.7512093394130126,
+            "r2": 0.10827293242686471
+          },
+          {
+            "source": "L1H19",
+            "mean_disruption": 0.0016845000489168645,
+            "mean_recovery": -0.7498313105341725,
+            "r2": 0.42734242519949567
+          }
+        ]
+      },
+      "concentration": {
+        "description": "How concentrated are top-5 feeders across induction heads?",
+        "n_unique_sources_in_top5": 19,
+        "total_top5_slots": 50,
+        "top3_sources_account_for": "23/50",
+        "top3_sources_fraction": 0.46
+      },
+      "prev_token_comparison": {
+        "spearman_prev_token_vs_disruption": 0.1676220244907301,
+        "spearman_prev_token_vs_disruption_p": 0.007190914689686225,
+        "spearman_prev_token_vs_r2": 0.5527573529411764,
+        "spearman_prev_token_vs_r2_p": 6.949135399502355e-22,
+        "partial_r2_vs_disruption_ctrl_prev_token": 0.03718327646786977,
+        "partial_r2_vs_disruption_ctrl_prev_token_p": 0.5544825424966633,
+        "partial_df": 253,
+        "n_heads": 256
+      },
+      "hypothesis_supported": false,
+      "interpretation": "Resample patching DOES NOT SUPPORT the feeder-SI hypothesis: Spearman rho=+0.0962 (p_one=6.24e-02, p_two=1.25e-01) between patching disruption and R\u00b2. Top-20 most disruptive heads: 13/20 above R\u00b2 median."
+    },
+    "status": "complete",
+    "tier": "tier2_conditional_mechanistic",
+    "primary_test_id": "3P2-D.1",
+    "mde_target": 0.15,
+    "achieved_power": 0.8,
+    "multiplicity_family": "tier2_holm_primary_tests",
+    "prerequisites": {
+      "tokenized_wiki_1024": {
+        "ok": true,
+        "note": "repo_tokenized_exists:/jumbo/lisp/f004ndc/Kernel PE/data/experiment1/wiki40b_en_pre2019/mistral-7b-v0.1/len_1024.jsonl"
+      },
+      "model_weights": {
+        "ok": true,
+        "note": "local_weights_available"
+      },
+      "direct_artifacts": {
+        "theory1_per_sequence_r2": {
+          "ok": true,
+          "note": "exists:/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/mistral-7b-v0.1/per_sequence_r2.parquet"
+        },
+        "theory7_prev_token_scores": {
+          "ok": true,
+          "note": "exists:/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory7_induction_feeders/mistral-7b-v0.1/prev_token_scores.parquet"
+        }
+      }
+    }
+  },
+  "llama_d2_gqa_grouped": {
+    "experiment": "3P2-D.2_llama_gqa_grouped",
+    "model": "llama-3.1-8b",
+    "timestamp": "2026-04-01 22:06:30",
+    "tier": "tier2_conditional_mechanistic",
+    "primary_test_id": "3P2-D.2",
+    "mde_target": 0.15,
+    "achieved_power": 0.8,
+    "multiplicity_family": "tier2_holm_primary_tests",
+    "config": {
+      "q_per_kv": 4,
+      "kv_group_rule": "query_head // q_per_kv"
+    },
+    "per_query_head": {
+      "n_sources": 256,
+      "pearson_r": -0.0411019078337456,
+      "pearson_p_two_sided": 0.5126680559984517,
+      "spearman_rho": 0.06436183909361409,
+      "spearman_p_two_sided": 0.30497936108394413,
+      "spearman_p_one_sided": 0.15248968054197207
+    },
+    "per_kv_group": {
+      "n_source_groups": 64,
+      "pearson_r": -0.04602805102954978,
+      "pearson_p_two_sided": 0.7179809536541827,
+      "spearman_rho": 0.07403846153846153,
+      "spearman_p_two_sided": 0.5609488587446205,
+      "spearman_p_one_sided": 0.28047442937231026
+    },
+    "delta_spearman_group_minus_query": 0.009676622444847433
+  }
+}

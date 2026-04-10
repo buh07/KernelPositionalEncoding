@@ -1,0 +1,31 @@
+{
+  "experiment": "3P2-C.1_cumulative_ablation_curve",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-04 20:09:00",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.1",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "curve_fits": {
+    "high_to_low::local_key_match::accuracy": {
+      "n_points": 1,
+      "preferred_model": "insufficient_points"
+    },
+    "high_to_low::long_range_retrieval::accuracy": {
+      "n_points": 1,
+      "preferred_model": "insufficient_points"
+    },
+    "high_to_low::wiki_ntp::loss": {
+      "n_points": 1,
+      "preferred_model": "insufficient_points"
+    }
+  },
+  "summary": {
+    "threshold_votes": 0,
+    "linear_votes": 0,
+    "supports_redundancy_threshold_pattern": false,
+    "note": "Threshold preference supports E2 redundancy; linear preference supports E1-style gradual non-specific degradation.",
+    "runtime_seconds": 232.26787614822388
+  }
+}

@@ -1,0 +1,265 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-09 14:44:01",
+  "tier": "tier3_publication_readiness",
+  "primary_test_id": "Idea4_structural_ambiguity",
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "bootstrap_samples": 10000,
+  "n_total_rows": 336,
+  "n_labeled_rows": 224,
+  "n_neutral_rows": 112,
+  "condition_summaries": {
+    "ablate_high_si": {
+      "accuracy": {
+        "mean": 0.75,
+        "ci_95": [
+          0.625,
+          0.8571428571428571
+        ],
+        "n": 56
+      },
+      "correct_margin": {
+        "mean": 2.4451555585754767,
+        "ci_95": [
+          1.4667251793867244,
+          3.4439324409667664
+        ],
+        "n": 56
+      },
+      "entropy": {
+        "mean": 0.3055163380585118,
+        "ci_95": [
+          0.23661014614541925,
+          0.37458486005216257
+        ],
+        "n": 56
+      }
+    },
+    "ablate_low_si": {
+      "accuracy": {
+        "mean": 0.7678571428571429,
+        "ci_95": [
+          0.6607142857142857,
+          0.875
+        ],
+        "n": 56
+      },
+      "correct_margin": {
+        "mean": 3.385175847165686,
+        "ci_95": [
+          2.2300283922057136,
+          4.562793312995511
+        ],
+        "n": 56
+      },
+      "entropy": {
+        "mean": 0.22728262769980057,
+        "ci_95": [
+          0.16437231596328739,
+          0.29306649954375835
+        ],
+        "n": 56
+      }
+    },
+    "ablate_random_draw0": {
+      "accuracy": {
+        "mean": 0.75,
+        "ci_95": [
+          0.625,
+          0.8571428571428571
+        ],
+        "n": 56
+      },
+      "correct_margin": {
+        "mean": 2.2872742440033886,
+        "ci_95": [
+          1.5129655847212624,
+          3.0697810198691773
+        ],
+        "n": 56
+      },
+      "entropy": {
+        "mean": 0.323913445599089,
+        "ci_95": [
+          0.2584075992303109,
+          0.39029437576493253
+        ],
+        "n": 56
+      }
+    },
+    "none": {
+      "accuracy": {
+        "mean": 1.0,
+        "ci_95": [
+          1.0,
+          1.0
+        ],
+        "n": 56
+      },
+      "correct_margin": {
+        "mean": 2.705053044754225,
+        "ci_95": [
+          2.3113221435125686,
+          3.113613435897982
+        ],
+        "n": 56
+      },
+      "entropy": {
+        "mean": 0.30039196672482593,
+        "ci_95": [
+          0.2469188629241687,
+          0.3539988777499117
+        ],
+        "n": 56
+      }
+    }
+  },
+  "paired_comparisons": {
+    "high_vs_low_accuracy": {
+      "mean_delta": -0.017857142857142856,
+      "ci_95": [
+        -0.16071428571428573,
+        0.14285714285714285
+      ],
+      "p_one_sided": 0.46405359464053597,
+      "n": 56
+    },
+    "none_vs_high_accuracy": {
+      "mean_delta": 0.25,
+      "ci_95": [
+        0.14285714285714285,
+        0.35714285714285715
+      ],
+      "p_one_sided": 9.999000099990002e-05,
+      "n": 56
+    },
+    "none_vs_low_accuracy": {
+      "mean_delta": 0.23214285714285715,
+      "ci_95": [
+        0.125,
+        0.3392857142857143
+      ],
+      "p_one_sided": 9.999000099990002e-05,
+      "n": 56
+    }
+  },
+  "relation_type_interaction": {
+    "observed_interaction": 0.39743589743589747,
+    "ci_95": [
+      0.11538461538461539,
+      0.6846153846153846
+    ],
+    "p_two_sided": 0.004199580041995801,
+    "n_local": 26,
+    "n_hierarchical": 30,
+    "definition": "(drop_high-drop_low)_local - (drop_high-drop_low)_hierarchical"
+  },
+  "internal_norming_quality_gate": {
+    "based_on_condition": "none",
+    "context_a_accuracy": 1.0,
+    "context_b_accuracy": 1.0,
+    "both_correct_rate": 1.0,
+    "flip_rate": 1.0,
+    "n_variants_total": 28,
+    "n_variants_by_relation_type": {
+      "hierarchical_absolute": 15,
+      "local_relative": 13
+    },
+    "thresholds": {
+      "context_a_accuracy_gte": 0.85,
+      "context_b_accuracy_gte": 0.85,
+      "both_correct_rate_gte": 0.75,
+      "flip_rate_gte": 0.75,
+      "min_variants_per_relation_type": 8
+    },
+    "passes_gate": true
+  },
+  "neutral_parse_preferences": {
+    "ablate_high_si": {
+      "p_a": {
+        "mean": 0.36631402111658484,
+        "ci_95": [
+          0.23789712756232007,
+          0.5049696047337485
+        ],
+        "n": 28
+      },
+      "entropy": {
+        "mean": 0.3218173966031768,
+        "ci_95": [
+          0.2235721016511657,
+          0.42001597241113575
+        ],
+        "n": 28
+      }
+    },
+    "ablate_low_si": {
+      "p_a": {
+        "mean": 0.36911147931802163,
+        "ci_95": [
+          0.22966710983687805,
+          0.5189833788123582
+        ],
+        "n": 28
+      },
+      "entropy": {
+        "mean": 0.2434323743356487,
+        "ci_95": [
+          0.15375728680141204,
+          0.3385937392075988
+        ],
+        "n": 28
+      }
+    },
+    "ablate_random_draw0": {
+      "p_a": {
+        "mean": 0.5747050708762045,
+        "ci_95": [
+          0.46850354429807395,
+          0.6746993126717732
+        ],
+        "n": 28
+      },
+      "entropy": {
+        "mean": 0.5036441329529519,
+        "ci_95": [
+          0.4457934889914799,
+          0.5582782440554196
+        ],
+        "n": 28
+      }
+    },
+    "none": {
+      "p_a": {
+        "mean": 0.3107059268425648,
+        "ci_95": [
+          0.22827395316095667,
+          0.3979000012687942
+        ],
+        "n": 28
+      },
+      "entropy": {
+        "mean": 0.48640751578936464,
+        "ci_95": [
+          0.4088285882819394,
+          0.5577884118865155
+        ],
+        "n": 28
+      }
+    }
+  },
+  "verdict": {
+    "syntactic_involvement": "similar_impact_high_vs_low",
+    "directional_difference": "minimal_directional_difference",
+    "interpretation_rule": {
+      "involvement_threshold": "|drop_high-drop_low| > 0.02",
+      "directional_threshold": "|acc_high-acc_low| > 0.02"
+    }
+  },
+  "limitations": [
+    "Stimuli are templated and may not cover all natural ambiguity phenomena.",
+    "Binary-choice scoring uses completion log-likelihood, not full generation-based QA.",
+    "Neutral-context parse preference is exploratory and sensitive to lexical priors.",
+    "Internal norming gate improves stimulus quality but is not a substitute for external human norming."
+  ]
+}

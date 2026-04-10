@@ -1,0 +1,55 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-09 13:42:02",
+  "audit_type": "idea4_internal_norming_audit",
+  "based_on_condition": "none",
+  "overall": {
+    "n_variants": 30,
+    "context_a_accuracy": 1.0,
+    "context_b_accuracy": 0.5,
+    "both_correct_rate": 0.5,
+    "flip_rate": 0.5,
+    "flagged_variant_rate": 0.5,
+    "mean_correct_margin": 1.4582129955970837
+  },
+  "neutral_summary": {
+    "n_neutral_rows": 30,
+    "neutral_entropy_mean": 0.46263331141801944,
+    "neutral_p_a_mean": 0.6897521760714177,
+    "neutral_p_a_std": 0.2556070080136671
+  },
+  "family_summary": {
+    "coordination_scope": {
+      "n_variants": 15,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 0.0,
+      "both_correct_rate": 0.0,
+      "flip_rate": 0.0,
+      "flag_rate": 1.0,
+      "mean_correct_margin": 0.8614848772684733
+    },
+    "pp_attachment": {
+      "n_variants": 2,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 1.0,
+      "both_correct_rate": 1.0,
+      "flip_rate": 1.0,
+      "flag_rate": 0.0,
+      "mean_correct_margin": 0.8862237986177206
+    },
+    "relative_clause_attachment": {
+      "n_variants": 13,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 1.0,
+      "both_correct_rate": 1.0,
+      "flip_rate": 1.0,
+      "flag_rate": 0.0,
+      "mean_correct_margin": 2.2347437778192285
+    }
+  },
+  "n_flagged_variants": 15,
+  "limitations": [
+    "Internal audit only; does not replace external human norming.",
+    "Uses model-internal consistency criteria, which can be model-specific."
+  ]
+}

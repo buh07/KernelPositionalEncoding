@@ -1,0 +1,98 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:51:37",
+  "tier": "tier3_publication_readiness",
+  "primary_test_id": "Idea6_math_si_channels",
+  "n_rows": 20,
+  "paired_tests_vs_none": {
+    "si_channel_mild": {
+      "n_pairs": 4,
+      "mean_delta": 0.0,
+      "t_stat": NaN,
+      "p_one_sided": NaN,
+      "p_two_sided": NaN,
+      "alternative": "greater",
+      "cohens_d_paired": NaN,
+      "p_one_sided_holm": NaN,
+      "supports_expected_direction": false
+    },
+    "si_channel_strong": {
+      "n_pairs": 4,
+      "mean_delta": -0.525,
+      "t_stat": -2.7186506676132494,
+      "p_one_sided": 0.963683994573306,
+      "p_two_sided": 0.07263201085338794,
+      "alternative": "greater",
+      "cohens_d_paired": -1.3593253338066247,
+      "p_one_sided_holm": 0.963683994573306,
+      "supports_expected_direction": false
+    },
+    "high_boost_only": {
+      "n_pairs": 4,
+      "mean_delta": 0.05000000000000002,
+      "t_stat": 1.7320508075688774,
+      "p_one_sided": 0.09084505690810461,
+      "p_two_sided": 0.18169011381620923,
+      "alternative": "greater",
+      "cohens_d_paired": 0.8660254037844387,
+      "p_one_sided_holm": 0.18169011381620923,
+      "supports_expected_direction": false
+    },
+    "inverse_channel": {
+      "n_pairs": 4,
+      "mean_delta": -0.675,
+      "t_stat": -3.4198226804580676,
+      "p_one_sided": 0.020924189065100327,
+      "p_two_sided": 0.041848378130200654,
+      "alternative": "less",
+      "cohens_d_paired": -1.7099113402290338,
+      "p_one_sided_holm": 0.06277256719530099,
+      "supports_expected_direction": false
+    }
+  },
+  "per_task_mean_accuracy": [
+    {
+      "task": "addition_carry",
+      "high_boost_only": 1.0,
+      "inverse_channel": 0.0,
+      "none": 1.0,
+      "si_channel_mild": 1.0,
+      "si_channel_strong": 0.3
+    },
+    {
+      "task": "counting",
+      "high_boost_only": 0.8,
+      "inverse_channel": 0.2,
+      "none": 0.7,
+      "si_channel_mild": 0.7,
+      "si_channel_strong": 0.2
+    },
+    {
+      "task": "modular_arithmetic",
+      "high_boost_only": 0.5,
+      "inverse_channel": 0.2,
+      "none": 0.4,
+      "si_channel_mild": 0.4,
+      "si_channel_strong": 0.4
+    },
+    {
+      "task": "sequence_continuation",
+      "high_boost_only": 1.0,
+      "inverse_channel": 0.0,
+      "none": 1.0,
+      "si_channel_mild": 1.0,
+      "si_channel_strong": 0.1
+    }
+  ],
+  "verdict": {
+    "any_si_channel_improves_math": false,
+    "inverse_channel_hurts_math": false
+  },
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "limitations": [
+    "Intervention-only variant (no retraining): tests immediate causal utility, not long-run adaptation.",
+    "Math battery is templated multiple-choice; free-form generation and harder benchmarks are future work."
+  ]
+}

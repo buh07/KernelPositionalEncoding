@@ -1,0 +1,36 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-07 00:09:44",
+  "tier": "tier3_publication_readiness",
+  "execution_gate": {
+    "rule": "d_gt_0.50_and_no_prefix_following",
+    "measured": {
+      "post_ablation_d": 1.0666295894631435,
+      "prefix_following_artifact_flag": true,
+      "passes_gate": false,
+      "source_files": {
+        "post_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic_boundary": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json"
+      }
+    },
+    "override": false,
+    "effective_allow_run": false
+  },
+  "corpora": [
+    "wiki_en",
+    "code_en",
+    "opus_tr",
+    "opus_zh",
+    "opus_ru"
+  ],
+  "perturbation_conditions": [
+    "none",
+    "embedding_prefix_ablation",
+    "adversarial_boundary_variant"
+  ],
+  "effect_sizes": {},
+  "invariance_score": NaN,
+  "invariance_verdict": "blocked_by_gate",
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "status": "blocked"
+}

@@ -1,0 +1,109 @@
+{
+  "experiment": "3P2-C.1_cumulative_ablation_curve",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-05 00:13:21",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.1",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "curve_fits": {
+    "high_to_low::local_key_match::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.21089928607394617,
+        "intercept": -0.0007468799453316024,
+        "rss": 0.009529698652753051,
+        "bic": -57.26065167736365
+      },
+      "threshold_piecewise": {
+        "rss": 0.0036317209432047263,
+        "bic": -61.5485607504943,
+        "best_threshold_fraction": 0.2
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "high_to_low::long_range_retrieval::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.09463566393324706,
+        "intercept": 0.019712001870234492,
+        "rss": 0.002714489297103534,
+        "bic": -68.56293503890247
+      },
+      "threshold_piecewise": {
+        "rss": 0.00045904967198999295,
+        "bic": -80.16329193347123,
+        "best_threshold_fraction": 0.25
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "high_to_low::wiki_ntp::loss": {
+      "n_points": 9,
+      "linear": {
+        "slope": 10.620718930609977,
+        "intercept": 0.10879047780900693,
+        "rss": 0.9596509189384812,
+        "bic": -15.751243222055196
+      },
+      "threshold_piecewise": {
+        "rss": 0.09633668734272316,
+        "bic": -32.0452774567772,
+        "best_threshold_fraction": 0.25
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "low_to_high::local_key_match::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.31855409743202423,
+        "intercept": 0.0489306394763343,
+        "rss": 0.011362177859764445,
+        "bic": -55.67775857373122
+      },
+      "threshold_piecewise": {
+        "rss": 0.004173852248111469,
+        "bic": -60.29636568922997,
+        "best_threshold_fraction": 0.15
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "low_to_high::long_range_retrieval::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.2106126816285427,
+        "intercept": 0.009120270464681344,
+        "rss": 0.0013660306670503042,
+        "bic": -74.7431865925195
+      },
+      "threshold_piecewise": {
+        "rss": 0.0002270212266929186,
+        "bic": -86.50032584663401,
+        "best_threshold_fraction": 0.25
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "low_to_high::wiki_ntp::loss": {
+      "n_points": 9,
+      "linear": {
+        "slope": 7.073954156986719,
+        "intercept": 0.3117340635877202,
+        "rss": 0.21162600989278318,
+        "bic": -29.356984039055256
+      },
+      "threshold_piecewise": {
+        "rss": 0.049326831850840684,
+        "bic": -38.06970668944153,
+        "best_threshold_fraction": 0.05
+      },
+      "preferred_model": "threshold_piecewise"
+    }
+  },
+  "summary": {
+    "threshold_votes": 6,
+    "linear_votes": 0,
+    "supports_redundancy_threshold_pattern": true,
+    "note": "Threshold preference supports E2 redundancy; linear preference supports E1-style gradual non-specific degradation.",
+    "runtime_seconds": 14628.962250709534
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "experiment": "3_theory7b_activation_patching",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-01 19:03:50",
+  "config": {
+    "num_sequence_pairs": 20,
+    "period": 32,
+    "seq_len": 128,
+    "top_induction_heads": 10,
+    "source_layers": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "bootstrap_n": 10000,
+    "analysis_only": false,
+    "patching_parquet": "results/experiment3_phase2/exp3p2h_source_target_spec/llama-3.1-8b/runs/t7b_L8_L15/llama-3.1-8b/patching_results.parquet"
+  },
+  "artifact_timestamps": {
+    "induction_scores_parquet": "2026-03-15 21:31:07",
+    "r2_per_sequence_parquet": "2026-03-31 14:44:16",
+    "prev_token_scores_parquet": "2026-03-16 19:15:01",
+    "patching_results_parquet": "2026-04-01 19:03:35"
+  },
+  "analysis": {
+    "model": "llama-3.1-8b",
+    "n_source_heads": 256,
+    "n_induction_heads": 10,
+    "n_sequence_pairs": 20,
+    "primary_correlation": {
+      "description": "Patching disruption vs R\u00b2 (shift-invariance)",
+      "pearson_r": 0.10096737456125797,
+      "pearson_p": 0.10702869031617768,
+      "pearson_p_one_sided": 0.05351434515808884,
+      "pearson_ci_95": [
+        -0.2064459507066774,
+        0.21427291359254558
+      ],
+      "spearman_rho": 0.16913481345845727,
+      "spearman_p": 0.00667811897570015,
+      "spearman_p_one_sided": 0.003339059487850075,
+      "spearman_ci_95": [
+        0.03094029198273336,
+        0.30440833301838566
+      ],
+      "directional_alternative": "greater"
+    },
+    "recovery_correlation": {
+      "description": "Patching recovery (normalized disruption / clean-corrupt gap) vs R\u00b2",
+      "pearson_r": 0.11547976855905476,
+      "pearson_p": 0.06506509191628437,
+      "pearson_p_one_sided": 0.03253254595814219,
+      "spearman_rho": -0.031985294117647056,
+      "spearman_p": 0.6104784741748196,
+      "spearman_p_one_sided": 0.6947607629125903,
+      "directional_alternative": "greater"
+    },
+    "top_20_disruptive_heads": {
+      "n_above_r2_median": 10,
+      "fraction_above_median": 0.5,
+      "r2_quartile_distribution": {
+        "Q1_below_p25": 7,
+        "Q2_p25_to_p50": 3,
+        "Q3_p50_to_p75": 3,
+        "Q4_above_p75": 7
+      },
+      "mean_r2": 0.3400613875652182,
+      "overall_r2_median": 0.38846799626058587,
+      "layer_distribution": {
+        "8": 3,
+        "9": 1,
+        "11": 1,
+        "12": 4,
+        "13": 3,
+        "14": 5,
+        "15": 3
+      },
+      "heads": [
+        {
+          "source": "L14H26",
+          "mean_disruption": 0.2525820363386196,
+          "mean_recovery": 24.657316800375785,
+          "r2": 0.6390827247349009
+        },
+        {
+          "source": "L14H19",
+          "mean_disruption": 0.03985237580513058,
+          "mean_recovery": 1.4125254611438138,
+          "r2": 0.07836755919660847
+        },
+        {
+          "source": "L9H11",
+          "mean_disruption": 0.014768558960495285,
+          "mean_recovery": -2.758584721808643,
+          "r2": 0.5180958348048076
+        },
+        {
+          "source": "L15H30",
+          "mean_disruption": 0.010028953393921255,
+          "mean_recovery": -0.025963859691959246,
+          "r2": 0.05816668483201998
+        },
+        {
+          "source": "L8H1",
+          "mean_disruption": 0.009939908367377938,
+          "mean_recovery": -1.9537184892328363,
+          "r2": 0.048298916433352004
+        },
+        {
+          "source": "L8H11",
+          "mean_disruption": 0.007592292721383275,
+          "mean_recovery": -1.2425900188476349,
+          "r2": 0.09113564921500783
+        },
+        {
+          "source": "L12H3",
+          "mean_disruption": 0.006146708381129429,
+          "mean_recovery": 0.14270517841442526,
+          "r2": 0.5497604382012257
+        },
+        {
+          "source": "L14H17",
+          "mean_disruption": 0.005519452634762274,
+          "mean_recovery": 0.003677564183540137,
+          "r2": 0.13784604652776128
+        },
+        {
+          "source": "L11H22",
+          "mean_disruption": 0.0045241622262983585,
+          "mean_recovery": -0.005596388586620374,
+          "r2": 0.33529428602539924
+        },
+        {
+          "source": "L12H12",
+          "mean_disruption": 0.0036166113034414595,
+          "mean_recovery": 0.09314893988659056,
+          "r2": 0.525762348748956
+        },
+        {
+          "source": "L13H13",
+          "mean_disruption": 0.00282525718328543,
+          "mean_recovery": -0.06411600238611773,
+          "r2": 0.2815873819878474
+        },
+        {
+          "source": "L15H1",
+          "mean_disruption": 0.002423948606738122,
+          "mean_recovery": -0.06812820013838397,
+          "r2": 0.06310187180666056
+        },
+        {
+          "source": "L13H17",
+          "mean_disruption": 0.002381399813020835,
+          "mean_recovery": -0.13529435137159912,
+          "r2": 0.17692931465765277
+        },
+        {
+          "source": "L15H8",
+          "mean_disruption": 0.002352332249720348,
+          "mean_recovery": 0.17401030984567342,
+          "r2": 0.48986847694625113
+        },
+        {
+          "source": "L14H8",
+          "mean_disruption": 0.002294722366495989,
+          "mean_recovery": -0.06224810297638208,
+          "r2": 0.5365388484195975
+        },
+        {
+          "source": "L14H27",
+          "mean_disruption": 0.002173042080394225,
+          "mean_recovery": 0.00633098044336784,
+          "r2": 0.42438853268700355
+        },
+        {
+          "source": "L12H0",
+          "mean_disruption": 0.002092429328331491,
+          "mean_recovery": -0.21580630053834243,
+          "r2": 0.6504653567627845
+        },
+        {
+          "source": "L13H16",
+          "mean_disruption": 0.0018899729184340686,
+          "mean_recovery": 0.0677919902616405,
+          "r2": 0.26434471541586957
+        },
+        {
+          "source": "L12H7",
+          "mean_disruption": 0.0016654381553235,
+          "mean_recovery": -0.028927451730526337,
+          "r2": 0.40739135792210546
+        },
+        {
+          "source": "L8H4",
+          "mean_disruption": 0.0016324518190231174,
+          "mean_recovery": -0.21567375658865728,
+          "r2": 0.5248014059785514
+        }
+      ]
+    },
+    "concentration": {
+      "description": "How concentrated are top-5 feeders across induction heads?",
+      "n_unique_sources_in_top5": 21,
+      "total_top5_slots": 50,
+      "top3_sources_account_for": "15/50",
+      "top3_sources_fraction": 0.3
+    },
+    "prev_token_comparison": {
+      "spearman_prev_token_vs_disruption": 0.17893897344930187,
+      "spearman_prev_token_vs_disruption_p": 0.004075860283612449,
+      "spearman_prev_token_vs_r2": 0.7188615815976195,
+      "spearman_prev_token_vs_r2_p": 5.36213977873629e-42,
+      "partial_r2_vs_disruption_ctrl_prev_token": -0.3459609919141121,
+      "partial_r2_vs_disruption_ctrl_prev_token_p": 1.3984816341129061e-08,
+      "partial_df": 253,
+      "n_heads": 256
+    },
+    "hypothesis_supported": true,
+    "interpretation": "Resample patching SUPPORTS the feeder-SI hypothesis: Spearman rho=+0.1691 (p_one=3.34e-03, p_two=6.68e-03) between patching disruption and R\u00b2. Top-20 most disruptive heads: 10/20 above R\u00b2 median."
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 14:44:28",
+  "audit_type": "idea4_internal_norming_audit",
+  "based_on_condition": "none",
+  "overall": {
+    "n_variants": 28,
+    "context_a_accuracy": 1.0,
+    "context_b_accuracy": 1.0,
+    "both_correct_rate": 1.0,
+    "flip_rate": 1.0,
+    "flagged_variant_rate": 0.0,
+    "mean_correct_margin": 2.486237838974635
+  },
+  "neutral_summary": {
+    "n_neutral_rows": 28,
+    "neutral_entropy_mean": 0.38180779479051447,
+    "neutral_p_a_mean": 0.19393637131525931,
+    "neutral_p_a_std": 0.19053202915679981
+  },
+  "family_summary": {
+    "coordination_scope": {
+      "n_variants": 13,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 1.0,
+      "both_correct_rate": 1.0,
+      "flip_rate": 1.0,
+      "flag_rate": 0.0,
+      "mean_correct_margin": 2.5750253496542146
+    },
+    "pp_attachment": {
+      "n_variants": 2,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 1.0,
+      "both_correct_rate": 1.0,
+      "flip_rate": 1.0,
+      "flag_rate": 0.0,
+      "mean_correct_margin": 1.3516806634142995
+    },
+    "relative_clause_attachment": {
+      "n_variants": 13,
+      "context_a_accuracy": 1.0,
+      "context_b_accuracy": 1.0,
+      "both_correct_rate": 1.0,
+      "flip_rate": 1.0,
+      "flag_rate": 0.0,
+      "mean_correct_margin": 2.571997586073569
+    }
+  },
+  "n_flagged_variants": 0,
+  "n_retained_variants": 28,
+  "retained_variant_ids": [
+    "coord_001",
+    "coord_002",
+    "coord_003",
+    "coord_004",
+    "coord_005",
+    "coord_006",
+    "coord_007",
+    "coord_009",
+    "coord_010",
+    "coord_011",
+    "coord_012",
+    "coord_014",
+    "coord_015",
+    "pp_006",
+    "pp_015",
+    "rc_000",
+    "rc_002",
+    "rc_003",
+    "rc_004",
+    "rc_006",
+    "rc_007",
+    "rc_008",
+    "rc_009",
+    "rc_011",
+    "rc_014",
+    "rc_017",
+    "rc_018",
+    "rc_019"
+  ],
+  "limitations": [
+    "Internal audit only; does not replace external human norming.",
+    "Uses model-internal consistency criteria, which can be model-specific."
+  ]
+}

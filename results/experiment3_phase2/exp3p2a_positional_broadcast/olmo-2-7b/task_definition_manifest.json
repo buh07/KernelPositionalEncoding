@@ -1,0 +1,101 @@
+{
+  "model": "olmo-2-7b",
+  "retrieval_spans": [
+    24,
+    32
+  ],
+  "task_specs": [
+    {
+      "task_id": "pos_retrieval_span24",
+      "category": "positional",
+      "kind": "synthetic",
+      "task_name": "long_range_retrieval",
+      "span": 24,
+      "variant": null,
+      "floor": 0.1
+    },
+    {
+      "task_id": "pos_retrieval_span32",
+      "category": "positional",
+      "kind": "synthetic",
+      "task_name": "long_range_retrieval",
+      "span": 32,
+      "variant": null,
+      "floor": 0.1
+    },
+    {
+      "task_id": "pos_local_key_match",
+      "category": "positional",
+      "kind": "synthetic",
+      "task_name": "local_key_match",
+      "span": 0,
+      "variant": null,
+      "floor": 0.1
+    },
+    {
+      "task_id": "pos_copy_offset_bridge64",
+      "category": "positional",
+      "kind": "synthetic",
+      "task_name": "copy_offset_bridge",
+      "span": 64,
+      "variant": null,
+      "floor": 0.1
+    },
+    {
+      "task_id": "boundary_word_initial_choice",
+      "category": "boundary",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "word_initial",
+      "floor": 0.5
+    },
+    {
+      "task_id": "boundary_continuation_choice",
+      "category": "boundary",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "continuation",
+      "floor": 0.5
+    },
+    {
+      "task_id": "syntax_subject_verb_agreement",
+      "category": "syntactic",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "subject_verb",
+      "floor": 0.5
+    },
+    {
+      "task_id": "syntax_pronoun_resolution",
+      "category": "syntactic",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "pronoun",
+      "floor": 0.5
+    },
+    {
+      "task_id": "factual_capitals",
+      "category": "factual",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "capitals",
+      "floor": 0.5
+    },
+    {
+      "task_id": "factual_world_knowledge",
+      "category": "factual",
+      "kind": "choice",
+      "task_name": null,
+      "span": null,
+      "variant": "world_knowledge",
+      "floor": 0.5
+    }
+  ],
+  "task_definition_hash": "335bcece1dd19967b9f5f2a4bbf9d0314bf7ebd2",
+  "timestamp": "2026-04-09 14:11:10"
+}

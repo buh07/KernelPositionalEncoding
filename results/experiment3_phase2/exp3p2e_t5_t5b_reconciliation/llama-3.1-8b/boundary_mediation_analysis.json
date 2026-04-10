@@ -1,0 +1,86 @@
+{
+  "method": "proxy_from_t5b_approach_b_taxonomy",
+  "note": "Direct near-vs-far continuation labels are not persisted in cached T5 artifacts; this proxy uses last_subword (near-boundary continuation) vs mid_continuation.",
+  "per_condition": {
+    "ablate_high_si": {
+      "near_boundary_proxy": {
+        "position_type": "last_subword",
+        "mean_loss_increase": 2.4493673877716065,
+        "std_loss_increase": 2.1157473359132415,
+        "n": 500
+      },
+      "far_boundary_proxy": {
+        "position_type": "mid_continuation",
+        "mean_loss_increase": 2.770444123983383,
+        "std_loss_increase": 2.4551862254573202,
+        "n": 500
+      },
+      "near_minus_far": -0.32107673621177657,
+      "cohens_d_near_vs_far": -0.1401005169508852
+    },
+    "ablate_low_si": {
+      "near_boundary_proxy": {
+        "position_type": "last_subword",
+        "mean_loss_increase": 0.895627935886383,
+        "std_loss_increase": 1.7727311077155852,
+        "n": 500
+      },
+      "far_boundary_proxy": {
+        "position_type": "mid_continuation",
+        "mean_loss_increase": 2.426351289510727,
+        "std_loss_increase": 3.5519168015095777,
+        "n": 500
+      },
+      "near_minus_far": -1.5307233536243439,
+      "cohens_d_near_vs_far": -0.5453203061196349
+    },
+    "ablate_random_draw0": {
+      "near_boundary_proxy": {
+        "position_type": "last_subword",
+        "mean_loss_increase": 0.9528837451934814,
+        "std_loss_increase": 1.3912431240254033,
+        "n": 500
+      },
+      "far_boundary_proxy": {
+        "position_type": "mid_continuation",
+        "mean_loss_increase": 0.9654083573818206,
+        "std_loss_increase": 1.4776495295270715,
+        "n": 500
+      },
+      "near_minus_far": -0.012524612188339224,
+      "cohens_d_near_vs_far": -0.008727364121263948
+    },
+    "ablate_random_draw1": {
+      "near_boundary_proxy": {
+        "position_type": "last_subword",
+        "mean_loss_increase": 0.6505572147369385,
+        "std_loss_increase": 1.2609650794465166,
+        "n": 500
+      },
+      "far_boundary_proxy": {
+        "position_type": "mid_continuation",
+        "mean_loss_increase": 0.6665011014938355,
+        "std_loss_increase": 1.3011997888187234,
+        "n": 500
+      },
+      "near_minus_far": -0.015943886756896952,
+      "cohens_d_near_vs_far": -0.01244410261136728
+    },
+    "ablate_random_draw2": {
+      "near_boundary_proxy": {
+        "position_type": "last_subword",
+        "mean_loss_increase": 0.8795616016387939,
+        "std_loss_increase": 1.5516816960211337,
+        "n": 500
+      },
+      "far_boundary_proxy": {
+        "position_type": "mid_continuation",
+        "mean_loss_increase": 1.3135463273525239,
+        "std_loss_increase": 1.8686904480351576,
+        "n": 500
+      },
+      "near_minus_far": -0.4339847257137299,
+      "cohens_d_near_vs_far": -0.2526816704662142
+    }
+  }
+}

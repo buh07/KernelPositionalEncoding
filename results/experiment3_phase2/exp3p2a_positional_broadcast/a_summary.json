@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-04-09 05:01:26",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "timestamp": "2026-04-09 05:01:26",
+      "experiment": "3P2-A",
+      "tier": "tier2_conditional_mechanistic",
+      "primary_test_id": "3P2-A",
+      "elapsed_seconds": 22092.441014289856,
+      "subexperiment_status": {
+        "3P2-A.1": "complete",
+        "3P2-A.2": "complete",
+        "3P2-A.3": "complete"
+      },
+      "key_verdicts": {
+        "anova_supports_specialization": true,
+        "anova_supports_e1_uniform": false,
+        "interaction_supports_specialization": false
+      },
+      "artifacts": {
+        "task_battery_results": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/task_battery_results.parquet",
+        "anova_summary": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/anova_summary.json",
+        "interaction_test": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/interaction_test.json",
+        "probe_accuracy": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_accuracy.parquet",
+        "delta_probe_comparison": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/delta_probe_comparison.json",
+        "probe_weights_dir": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights",
+        "transfer_results": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/transfer_results.parquet",
+        "cross_task_transfer": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/cross_task_transfer.json",
+        "task_definition_manifest": "results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/task_definition_manifest.json"
+      },
+      "limitations": [
+        "A.2 coarse POS probe uses heuristic lexical tagging because spaCy/stanza are unavailable in environment.",
+        "A.3 transfer uses retrieval donors and boundary recipients with fixed-position mapping, which may under-estimate transfer if alignment is imperfect."
+      ]
+    }
+  },
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A"
+}

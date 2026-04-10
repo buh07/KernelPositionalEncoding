@@ -1,0 +1,421 @@
+{
+  "timestamp": "2026-04-09 14:39:15",
+  "model": "llama-3.1-8b",
+  "weights": [
+    {
+      "layer": 0,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer00_relative_position.npz"
+    },
+    {
+      "layer": 0,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer00_word_boundary.npz"
+    },
+    {
+      "layer": 0,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer00_coarse_pos.npz"
+    },
+    {
+      "layer": 4,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer04_relative_position.npz"
+    },
+    {
+      "layer": 4,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer04_word_boundary.npz"
+    },
+    {
+      "layer": 4,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer04_coarse_pos.npz"
+    },
+    {
+      "layer": 8,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer08_relative_position.npz"
+    },
+    {
+      "layer": 8,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer08_word_boundary.npz"
+    },
+    {
+      "layer": 8,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer08_coarse_pos.npz"
+    },
+    {
+      "layer": 12,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer12_relative_position.npz"
+    },
+    {
+      "layer": 12,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer12_word_boundary.npz"
+    },
+    {
+      "layer": 12,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer12_coarse_pos.npz"
+    },
+    {
+      "layer": 16,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer16_relative_position.npz"
+    },
+    {
+      "layer": 16,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer16_word_boundary.npz"
+    },
+    {
+      "layer": 16,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer16_coarse_pos.npz"
+    },
+    {
+      "layer": 20,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer20_relative_position.npz"
+    },
+    {
+      "layer": 20,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer20_word_boundary.npz"
+    },
+    {
+      "layer": 20,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer20_coarse_pos.npz"
+    },
+    {
+      "layer": 24,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer24_relative_position.npz"
+    },
+    {
+      "layer": 24,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer24_word_boundary.npz"
+    },
+    {
+      "layer": 24,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer24_coarse_pos.npz"
+    },
+    {
+      "layer": 28,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer28_relative_position.npz"
+    },
+    {
+      "layer": 28,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer28_word_boundary.npz"
+    },
+    {
+      "layer": 28,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer28_coarse_pos.npz"
+    },
+    {
+      "layer": 31,
+      "feature": "relative_position",
+      "classes": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "coef_shape": [
+        5,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer31_relative_position.npz"
+    },
+    {
+      "layer": 31,
+      "feature": "word_boundary",
+      "classes": [
+        0,
+        1
+      ],
+      "coef_shape": [
+        1,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer31_word_boundary.npz"
+    },
+    {
+      "layer": 31,
+      "feature": "coarse_pos",
+      "classes": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "coef_shape": [
+        4,
+        4096
+      ],
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_weights/layer31_coarse_pos.npz"
+    }
+  ],
+  "label_map": {
+    "coarse_pos": {
+      "0": "noun",
+      "1": "verb",
+      "2": "adj",
+      "3": "other"
+    },
+    "relative_position": {
+      "0": "dist0",
+      "1": "dist1",
+      "2": "dist2",
+      "3": "dist3",
+      "4": "dist4plus"
+    },
+    "word_boundary": {
+      "0": "non_boundary",
+      "1": "boundary"
+    }
+  }
+}

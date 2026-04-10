@@ -1,0 +1,107 @@
+{
+  "experiment": "3P2-F_proxy_decomposition",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-01 14:49:37",
+  "tier": "tier1_confirmatory_core",
+  "primary_test_id": "3P2-F",
+  "base_model_spec": {
+    "formula": "outcome ~ C(layer) + attention_entropy_proxy + dominant_offset_proxy + head_norm_proxy",
+    "notes": "Layer encoded as one-hot dummies."
+  },
+  "full_model_spec": {
+    "formula": "outcome ~ C(layer) + attention_entropy_proxy + dominant_offset_proxy + head_norm_proxy + mean_r2",
+    "notes": "Nested model with mean_r2 appended to base controls."
+  },
+  "outcomes": {
+    "t7b_disruption": {
+      "n_heads": 256,
+      "base_r2": 0.08215977564507271,
+      "full_r2": 0.08534348220619958,
+      "delta_r2": 0.0031837065611268756,
+      "delta_r2_ci_95": [
+        2.641771165166618e-05,
+        0.015755921580070206
+      ],
+      "delta_r2_perm_p": 0.32418952618453867,
+      "r2_unique_contribution_proxy": 4.31436769741769,
+      "ci_includes_zero": false
+    },
+    "t10_induction_disruption": {
+      "n_heads": 256,
+      "base_r2": 0.08215977564507271,
+      "full_r2": 0.08534348220619958,
+      "delta_r2": 0.0031837065611268756,
+      "delta_r2_ci_95": [
+        1.1420458919322863e-05,
+        0.016872303172598354
+      ],
+      "delta_r2_perm_p": 0.29925187032418954,
+      "r2_unique_contribution_proxy": 4.31436769741769,
+      "ci_includes_zero": false
+    },
+    "t10_random_mid_disruption": {
+      "n_heads": 256,
+      "base_r2": 0.05044872918197307,
+      "full_r2": 0.05369240388729102,
+      "delta_r2": 0.003243674705317945,
+      "delta_r2_ci_95": [
+        1.4608644508626315e-05,
+        0.01859454091467582
+      ],
+      "delta_r2_perm_p": 0.3915211970074813,
+      "r2_unique_contribution_proxy": 4.3548107516620345,
+      "ci_includes_zero": false
+    },
+    "t5b_boundary_score": {
+      "n_heads": 1024,
+      "base_r2": 0.6034259387441483,
+      "full_r2": 0.6042361406059713,
+      "delta_r2": 0.0008102018618230122,
+      "delta_r2_ci_95": [
+        2.953936818355652e-05,
+        0.002483249538173348
+      ],
+      "delta_r2_perm_p": 0.09226932668329177,
+      "r2_unique_contribution_proxy": -0.7127435970703576,
+      "ci_includes_zero": false
+    }
+  },
+  "delta_r2": {
+    "per_outcome": {
+      "t7b_disruption": 0.0031837065611268756,
+      "t10_induction_disruption": 0.0031837065611268756,
+      "t10_random_mid_disruption": 0.003243674705317945,
+      "t5b_boundary_score": 0.0008102018618230122
+    },
+    "median": 0.0031837065611268756
+  },
+  "partial_effect_r2": {
+    "per_outcome_standardized_proxy": {
+      "t7b_disruption": 4.31436769741769,
+      "t10_induction_disruption": 4.31436769741769,
+      "t10_random_mid_disruption": 4.3548107516620345,
+      "t5b_boundary_score": -0.7127435970703576
+    },
+    "median_standardized_proxy": 4.31436769741769
+  },
+  "mde_target": {
+    "delta_r2": 0.02,
+    "effect_type": "incremental_variance_explained"
+  },
+  "achieved_power": 0.6715046693413956,
+  "multiplicity_family": "tier1_holm_primary_tests",
+  "retained_vs_collapsed_verdict": "retained",
+  "collapse_rule_evaluation": {
+    "median_delta_r2_lt_0_02": true,
+    "ci_includes_zero_count": 0,
+    "n_outcomes_evaluated": 4,
+    "rule_triggered": false
+  },
+  "inputs": {
+    "t1_per_sequence_r2": "results/experiment3/theory1_si_circuits/olmo-2-7b/per_sequence_r2.parquet",
+    "t7_prev_token_scores": "results/experiment3/theory7_induction_feeders/olmo-2-7b/prev_token_scores.parquet",
+    "t5b_boundary_scores": "results/experiment3/theory5b_boundary_detection/olmo-2-7b/boundary_attention_scores.parquet",
+    "t7b_patching_results": "results/experiment3/theory7b_activation_patching/olmo-2-7b/patching_results.parquet",
+    "t10_patching_results": "results/experiment3/theory10_feeder_specificity/olmo-2-7b/patching_results.parquet"
+  }
+}

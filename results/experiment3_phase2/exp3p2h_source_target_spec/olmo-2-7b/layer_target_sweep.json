@@ -1,0 +1,105 @@
+{
+  "experiment": "3P2-H_source_target_spec",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-02 13:55:43",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-H",
+  "source_target_preregister": "results/experiment3_phase2/exp3p2h_source_target_spec/olmo-2-7b/source_target_preregister.json",
+  "source_bins": [
+    {
+      "name": "primary_l0_l7",
+      "start_layer": 0,
+      "end_layer": 7
+    },
+    {
+      "name": "secondary_triggered_8layer_band",
+      "start_layer": 24,
+      "end_layer": 31
+    }
+  ],
+  "target_taxonomies": {
+    "taxonomy_a": "original induction/random_mid/low_si_late groups",
+    "taxonomy_b": "matched-control by induction-sensitivity decile"
+  },
+  "rho_results": {
+    "primary_l0_l7": {
+      "taxonomy_a": {
+        "t7b_spearman_rho": 0.20659761959258408,
+        "t7b_spearman_p_one_sided": 0.0004415658375604238,
+        "t10_rho_induction": 0.20659761959258408,
+        "t10_rho_random_mid": 0.1888139448386358,
+        "t10_rho_low_si_late": -0.0498891336690318,
+        "delta_rho_ind_minus_max_control": 0.017783674753948264,
+        "specificity_p_holm_max": 0.396324610613055
+      },
+      "taxonomy_b": {
+        "n_induction_targets": 10,
+        "n_matched_controls": 10,
+        "n_sources": 256,
+        "rho_induction": 0.20659761959258408,
+        "rho_matched_control": 0.11822928587777522,
+        "delta_rho": 0.08836833371480886,
+        "p_induction_two_sided": 0.0008831316751208476,
+        "p_control_two_sided": 0.05888624014717586,
+        "williams_t": 0.9681576516031617,
+        "williams_df": 253,
+        "p_delta_two_sided": 0.333890233681013,
+        "p_delta_one_sided": 0.1669451168405065
+      }
+    },
+    "secondary_l24_l31": {
+      "taxonomy_a": {
+        "t7b_spearman_rho": 0.07219812945097306,
+        "t7b_spearman_p_one_sided": 0.12486208713027794,
+        "t10_rho_induction": 0.07219812945097306,
+        "t10_rho_random_mid": NaN,
+        "t10_rho_low_si_late": 0.03478446811473236,
+        "delta_rho_ind_minus_max_control": 0.0374136613362407,
+        "specificity_p_holm_max": NaN
+      },
+      "taxonomy_b": {
+        "n_induction_targets": 10,
+        "n_matched_controls": 10,
+        "n_sources": 256,
+        "rho_induction": 0.07219812945097306,
+        "rho_matched_control": 0.023225870349969178,
+        "delta_rho": 0.04897225910100389,
+        "p_induction_two_sided": 0.24972417426055588,
+        "p_control_two_sided": 0.7114978241895326,
+        "williams_t": 0.5380781720404835,
+        "williams_df": 253,
+        "p_delta_two_sided": 0.5909961121011369,
+        "p_delta_one_sided": 0.29549805605056845
+      }
+    }
+  },
+  "specificity_tests": {
+    "primary_l0_l7": {
+      "taxonomy_a_recovered": false,
+      "taxonomy_b_recovered": false
+    },
+    "secondary_l24_l31": {
+      "taxonomy_a_recovered": false,
+      "taxonomy_b_recovered": false
+    }
+  },
+  "mde_target": 0.15,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "stability_verdict": "stable_null",
+  "trigger_evaluation": {
+    "trigger": true,
+    "candidate_total": 64,
+    "outside_l0_l7_count": 64,
+    "outside_l0_l7_fraction": 1.0,
+    "thresholds": {
+      "r2_top_quartile_threshold": 0.08142806395624953,
+      "prev_token_top_decile_threshold": 0.027041696820408113
+    },
+    "secondary_window": {
+      "start_layer": 24,
+      "end_layer": 31,
+      "candidate_density": 51
+    }
+  }
+}

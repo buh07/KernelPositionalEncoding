@@ -1,0 +1,30 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-09 04:08:46",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.1",
+  "analysis": "one_way_anova_category_effect",
+  "n_observations": 50,
+  "n_categories": 4,
+  "f_statistic": 0.14162444791201037,
+  "p_value": 0.9345100110718253,
+  "partial_eta_squared": 0.009151847127082318,
+  "category_means": {
+    "boundary": 0.3641900402426718,
+    "factual": 0.19999999999999996,
+    "positional": 0.02728323787793565,
+    "syntactic": 0.49136557610241827
+  },
+  "category_counts": {
+    "boundary": 10,
+    "factual": 10,
+    "positional": 20,
+    "syntactic": 10
+  },
+  "mde_target": 0.02,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "supports_specialization": false,
+  "supports_e1_uniform_infrastructure": true,
+  "p_value_holm": 0.9345100110718253
+}

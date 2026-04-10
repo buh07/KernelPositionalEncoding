@@ -1,0 +1,36 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:48:45",
+  "count_per_task": 10,
+  "num_seeds": 1,
+  "conditions": {
+    "none": {
+      "high_si_scale": 1.0,
+      "low_si_scale": 1.0
+    },
+    "si_channel_mild": {
+      "high_si_scale": 1.5,
+      "low_si_scale": 0.5
+    },
+    "si_channel_strong": {
+      "high_si_scale": 2.0,
+      "low_si_scale": 0.0
+    },
+    "high_boost_only": {
+      "high_si_scale": 1.5,
+      "low_si_scale": 1.0
+    },
+    "inverse_channel": {
+      "high_si_scale": 0.5,
+      "low_si_scale": 1.5
+    }
+  },
+  "tasks": [
+    "counting",
+    "addition_carry",
+    "sequence_continuation",
+    "modular_arithmetic"
+  ],
+  "tier": "tier3_publication_readiness",
+  "primary_test_id": "Idea6_math_si_channels"
+}

@@ -490,6 +490,8 @@ def _build_approach_a_results(
     def compare_groups(high_vals: np.ndarray, low_vals: np.ndarray) -> dict[str, Any]:
         h = np.asarray(high_vals, dtype=np.float64)
         l = np.asarray(low_vals, dtype=np.float64)
+        h = h[np.isfinite(h)]
+        l = l[np.isfinite(l)]
         if len(h) < 2 or len(l) < 2:
             return {
                 "t_statistic": float("nan"),
@@ -573,7 +575,7 @@ def _build_approach_c_results(
     r2_df: pd.DataFrame,
     high_si_set: set[tuple[int, int]],
     low_si_set: set[tuple[int, int]],
-) -> dict[str, Any]:
+) -> tuple[dict[str, Any], pd.DataFrame]:
     """Correlate per-head boundary attention score with R2."""
     from scipy.stats import pearsonr, spearmanr
 
@@ -597,7 +599,7 @@ def _build_approach_c_results(
     merged = pd.merge(score_df, r2_df, on=["layer", "head"], how="inner")
 
     if len(merged) < 5:
-        return {"error": "Too few heads for correlation", "n_heads": len(merged)}
+        return {"error": "Too few heads for correlation", "n_heads": len(merged)}, score_df
 
     # Correlations
     r_p, p_p = pearsonr(merged["mean_r2"], merged["boundary_attn_score"])
@@ -626,7 +628,7 @@ def _build_approach_c_results(
     ]["boundary_attn_score"]
 
     if len(high_si_scores) >= 2 and len(low_si_scores) >= 2:
-        t_grp, p_grp = scipy_stats.ttest_ind(high_si_scores, low_si_scores)
+        t_grp, p_grp = scipy_stats.ttest_ind(high_si_scores, low_si_scores, equal_var=False)
         d_grp = cohens_d(high_si_scores.values, low_si_scores.values)
     else:
         t_grp, p_grp, d_grp = float("nan"), float("nan"), float("nan")
@@ -802,22 +804,34 @@ def analyze_approach_b(
         if cond_name == "none":
             continue
         cond_pairs: dict[str, Any] = {}
+        pairwise_pvals: dict[str, float] = {}
         for type_a, type_b in type_pairs:
             inc_a = cond_data[type_a] - baseline[type_a]
             inc_b = cond_data[type_b] - baseline[type_b]
-            t_stat, t_p = scipy_stats.ttest_ind(inc_a, inc_b)
+            inc_a = inc_a[np.isfinite(inc_a)]
+            inc_b = inc_b[np.isfinite(inc_b)]
+            t_stat, t_p = scipy_stats.ttest_ind(inc_a, inc_b, equal_var=False, nan_policy="omit")
             u_stat, u_p = scipy_stats.mannwhitneyu(inc_a, inc_b, alternative="two-sided")
             d = cohens_d(inc_a, inc_b)
             diff_mean = float(np.mean(inc_a) - np.mean(inc_b))
-            cond_pairs[f"{type_a}_vs_{type_b}"] = {
+            key = f"{type_a}_vs_{type_b}"
+            cond_pairs[key] = {
                 "mean_difference": diff_mean,
                 "t_statistic": float(t_stat),
                 "t_p_value": float(t_p),
+                "equal_var_assumed": False,
                 "mannwhitney_u": float(u_stat),
                 "mannwhitney_p": float(u_p),
                 "cohens_d": d,
             }
+            pairwise_pvals[key] = float(t_p)
+        holm = holm_adjust(pairwise_pvals)
+        for key, p_adj in holm.items():
+            cond_pairs[key]["t_p_value_holm"] = float(p_adj)
         analysis["pairwise_comparisons"][cond_name] = cond_pairs
+    analysis["pairwise_multiplicity_policy"] = (
+        "holm within each condition across six pairwise tests"
+    )
 
     # Monotonic trend test: does high-SI damage follow predicted ordering?
     # Predicted: mid_cont < last_subword < word_init_single < word_init_multi
@@ -836,6 +850,12 @@ def analyze_approach_b(
             "observed_means": means,
             "spearman_rho_with_rank": float(rho),
             "spearman_p": float(rho_p),
+            "n_position_types": len(predicted_order),
+            "min_two_sided_p_exact": float(2.0 / math.factorial(len(predicted_order))),
+            "inferential_note": (
+                "With four position types, two-sided Spearman p-values cannot reach "
+                "0.05 even at |rho|=1; treat this trend test as descriptive."
+            ),
             "ordering_matches_prediction": bool(
                 means == sorted(means) or rho > 0.8
             ),
@@ -885,7 +905,9 @@ def analyze_approach_b(
             "word_initial_after_multi_vs_mid_continuation", {}
         )
         analysis["hypothesis_supported"] = bool(
-            primary.get("mean_difference", 0) > 0 and primary.get("t_p_value", 1) < 0.05
+            primary.get("mean_difference", 0) > 0
+            and np.isfinite(primary.get("t_p_value_holm", float("nan")))
+            and primary.get("t_p_value_holm", 1.0) < 0.05
         )
     else:
         analysis["hypothesis_supported"] = False
@@ -1099,8 +1121,13 @@ def main():
     if "pairwise_comparisons" in approach_b and "ablate_high_si" in approach_b["pairwise_comparisons"]:
         print(f"\n  Pairwise comparisons (high-SI ablation):")
         for pair_name, pair_data in approach_b["pairwise_comparisons"]["ablate_high_si"].items():
+            holm_str = (
+                f", p_holm={pair_data['t_p_value_holm']:.2e}"
+                if "t_p_value_holm" in pair_data
+                else ""
+            )
             print(f"    {pair_name}: diff={pair_data['mean_difference']:+.4f}, "
-                  f"t={pair_data['t_statistic']:.3f}, p={pair_data['t_p_value']:.2e}, "
+                  f"t={pair_data['t_statistic']:.3f}, p={pair_data['t_p_value']:.2e}{holm_str}, "
                   f"d={pair_data['cohens_d']:.3f}")
 
     if "monotonic_trend" in approach_b:
@@ -1109,7 +1136,8 @@ def main():
             print(f"    Predicted order: {trend['predicted_order']}")
             print(f"    Observed means:  {[f'{m:+.4f}' for m in trend['observed_means']]}")
             print(f"    Spearman with rank: rho={trend['spearman_rho_with_rank']:+.4f}, "
-                  f"p={trend['spearman_p']:.4f}")
+                  f"p={trend['spearman_p']:.4f} "
+                  f"(descriptive; min exact two-sided p={trend.get('min_two_sided_p_exact', float('nan')):.4f})")
 
     if "interaction" in approach_b:
         inter = approach_b["interaction"]

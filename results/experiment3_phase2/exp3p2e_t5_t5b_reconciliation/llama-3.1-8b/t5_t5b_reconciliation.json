@@ -1,0 +1,119 @@
+{
+  "experiment": "3P2-E_t5_t5b_reconciliation",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-01 14:48:46",
+  "tier": "tier1_confirmatory_core",
+  "primary_test_id": "3P2-E",
+  "inputs": {
+    "t5_analysis_json": "results/experiment3/theory5_subword_ablation/llama-3.1-8b/analysis.json",
+    "t5_per_position_losses_parquet": "results/experiment3/theory5_subword_ablation/llama-3.1-8b/per_position_losses.parquet",
+    "t5b_report_json": "results/experiment3/theory5b_boundary_detection/llama-3.1-8b/report.json"
+  },
+  "t5_two_way_interaction_unmatched": {
+    "high_minus_low_interaction": -1.9623167881965644,
+    "high_minus_random_interaction": -0.8179414590199794,
+    "hypothesis_supported": false
+  },
+  "t5_two_way_interaction_matched": {
+    "high_minus_low_interaction": -1.8926876806745343,
+    "high_minus_random_interaction": -0.7301449479620442,
+    "hypothesis_supported": false
+  },
+  "t5b_boundary_interaction": {
+    "high_si_boundary_sensitivity": 1.4152307854890824,
+    "low_si_boundary_sensitivity": -0.3209579602479935,
+    "interaction_high_minus_low": 1.736188745737076
+  },
+  "boundary_mediation_proxy": {
+    "high_si_near_minus_far": -0.32107673621177657,
+    "low_si_near_minus_far": -1.5307233536243439,
+    "high_minus_low_near_far_delta": 1.2096466174125673
+  },
+  "loss_increase_summary_by_token_type": [
+    {
+      "condition": "ablate_high_si",
+      "token_type": "continuation",
+      "mean_loss_increase": 2.799169821023941,
+      "std_loss_increase": 2.2548256350819247,
+      "median_loss_increase": 2.443023681640625,
+      "n": 500
+    },
+    {
+      "condition": "ablate_high_si",
+      "token_type": "word_initial",
+      "mean_loss_increase": 4.1057397720813755,
+      "std_loss_increase": 2.55214750909522,
+      "median_loss_increase": 3.745965003967285,
+      "n": 500
+    },
+    {
+      "condition": "ablate_low_si",
+      "token_type": "continuation",
+      "mean_loss_increase": 1.9242616336345673,
+      "std_loss_increase": 3.00009013654967,
+      "median_loss_increase": 0.768463134765625,
+      "n": 500
+    },
+    {
+      "condition": "ablate_low_si",
+      "token_type": "word_initial",
+      "mean_loss_increase": 1.2685147964954375,
+      "std_loss_increase": 2.1063744828193878,
+      "median_loss_increase": 0.5380859375,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw0",
+      "token_type": "continuation",
+      "mean_loss_increase": 1.0221660978794098,
+      "std_loss_increase": 1.4268763142786174,
+      "median_loss_increase": 0.647735595703125,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw0",
+      "token_type": "word_initial",
+      "mean_loss_increase": 1.662429225206375,
+      "std_loss_increase": 1.8594615804661803,
+      "median_loss_increase": 1.1473817825317383,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw1",
+      "token_type": "continuation",
+      "mean_loss_increase": 0.6287736780643464,
+      "std_loss_increase": 1.2138743759857156,
+      "median_loss_increase": 0.21844482421875,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw1",
+      "token_type": "word_initial",
+      "mean_loss_increase": 0.8542353165149689,
+      "std_loss_increase": 1.5675973321623995,
+      "median_loss_increase": 0.27960205078125,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw2",
+      "token_type": "continuation",
+      "mean_loss_increase": 1.2347912199497222,
+      "std_loss_increase": 1.7672035115780902,
+      "median_loss_increase": 0.686676025390625,
+      "n": 500
+    },
+    {
+      "condition": "ablate_random_draw2",
+      "token_type": "word_initial",
+      "mean_loss_increase": 1.8349519302845,
+      "std_loss_increase": 2.2688632473987256,
+      "median_loss_increase": 1.1771202087402344,
+      "n": 500
+    }
+  ],
+  "reconciliation_verdict": "consistent_with_boundary_primary",
+  "limitations": [
+    "Near-vs-far continuation mediation uses taxonomy proxy from cached T5b artifacts.",
+    "No new model execution is performed in 3P2-E; analysis is artifact-driven."
+  ]
+}

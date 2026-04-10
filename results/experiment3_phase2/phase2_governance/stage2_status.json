@@ -1,0 +1,135 @@
+{
+  "timestamp": "2026-04-09 14:53:06",
+  "gate_g1_path": "results/experiment3_phase2/phase2_governance/gate_g1_decision.json",
+  "gate_g1_continue_to_stage2": true,
+  "run_directories": {
+    "llama-3.1-8b": "/scratch/f004ndc/Kernel PE/logs/experiment3_phase2_stage2/llama-3.1-8b_20260401_153909",
+    "olmo-2-7b": "/scratch/f004ndc/Kernel PE/logs/experiment3_phase2_stage2/olmo-2-7b_20260402_135540",
+    "mistral-7b-v0.1": "/jumbo/lisp/f004ndc/Kernel PE/logs/experiment3_phase2_stage2/mistral-7b-v0.1_20260404_175041"
+  },
+  "run_ids": {
+    "llama-3.1-8b": "llama-3.1-8b_20260401_153909",
+    "olmo-2-7b": "olmo-2-7b_20260402_135540",
+    "mistral-7b-v0.1": "mistral-7b-v0.1_20260404_175041"
+  },
+  "checks": {
+    "log_failure_markers": "none_found_for_stage2a_2c",
+    "h_prereg_before_sweep": {
+      "llama-3.1-8b": true,
+      "olmo-2-7b": true
+    },
+    "status_after_session_completion": true
+  },
+  "stage2": {
+    "3P2-G": {
+      "llama-3.1-8b": {
+        "status": "complete",
+        "rows": 180,
+        "early_selective_slope_supported": false
+      },
+      "olmo-2-7b": {
+        "status": "complete",
+        "rows": 180,
+        "early_selective_slope_supported": true
+      }
+    },
+    "3P2-H": {
+      "llama-3.1-8b": {
+        "status": "complete",
+        "rows": 4,
+        "trigger": true,
+        "stability_verdict": "recovered_specificity"
+      },
+      "olmo-2-7b": {
+        "status": "complete",
+        "rows": 4,
+        "trigger": true,
+        "stability_verdict": "stable_null"
+      }
+    },
+    "3P2-D": {
+      "d1_mistral": {
+        "status": "complete",
+        "report_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2d_architecture_tiebreaker_np60/mistral-7b-v0.1/report.json",
+        "spearman_rho": null,
+        "spearman_p_one_sided": null,
+        "hypothesis_supported": null,
+        "note": "np60 higher-power rerun (partial-control caveat documented in RESULTS.md)"
+      },
+      "d2_llama": {
+        "status": "complete",
+        "report_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2d_architecture_tiebreaker/llama-3.1-8b/theory7b_llama_gqa_grouped.json",
+        "delta_spearman_group_minus_query": 0.009676622444847433
+      },
+      "cross_model_comparison_path": "results/experiment3_phase2/exp3p2d_architecture_tiebreaker/cross_model_comparison.json"
+    },
+    "3P2-C": {
+      "c1_llama": {
+        "status": "complete",
+        "run_id": "llama-3.1-8b_c1_20260404_200917",
+        "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/experiment3_phase2_stage2/llama-3.1-8b_c1_20260404_200917/3p2c_c1.log",
+        "curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/llama-3.1-8b/curve_fit_comparison.json",
+        "supports_redundancy_threshold_pattern": true,
+        "threshold_votes": 6,
+        "linear_votes": 0,
+        "notes": "NTP shortage fix active; requested 300 NTP sequences auto-downshifted to 198 total due availability."
+      },
+      "c1_olmo": {
+        "status": "complete",
+        "run_id": "olmo-2-7b_c1_20260404_200917",
+        "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/experiment3_phase2_stage2/olmo-2-7b_c1_20260404_200917/3p2c_c1.log",
+        "curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+        "supports_redundancy_threshold_pattern": true,
+        "threshold_votes": 6,
+        "linear_votes": 0,
+        "notes": "NTP shortage fix active; requested 300 NTP sequences auto-downshifted to 198 total due availability."
+      },
+      "fixes_applied": [
+        "NTP sequence request no longer hard-fails when available sequences are lower than requested",
+        "NTP loss tensors cast to float32 before NumPy conversion (mixed precision compatibility)"
+      ]
+    }
+  },
+  "stage2c_complete": true,
+  "stage2c_blocked": false,
+  "stage2d_complete": true,
+  "stage2d_in_progress": false,
+  "deferred_experiments": [],
+  "completed_experiments": [
+    "3P2-E",
+    "3P2-F",
+    "3P2-B",
+    "3P2-G",
+    "3P2-H",
+    "3P2-D.1 (np60 canonical)",
+    "3P2-D.2",
+    "3P2-C.1",
+    "3P2-C.2",
+    "3P2-C.3",
+    "3P2-I (OLMo strict complete; Llama strict blocked_by_gate)",
+    "3P2-A",
+    "3P2-J",
+    "Idea 4 (consensus quality-gated rerun)",
+    "Idea 6",
+    "3P2-A.2 rerun (NLTK POS backend)"
+  ],
+  "stage2_state": "complete",
+  "stage3_state": "complete_with_model_conditional_gate_outcome",
+  "stage4_state": "complete",
+  "stage4_artifacts": {
+    "llama_log_dir": "/jumbo/lisp/f004ndc/Kernel PE/logs/experiment3_phase2_stage4/llama-3.1-8b_20260408_225258",
+    "olmo_log_dir": "/jumbo/lisp/f004ndc/Kernel PE/logs/experiment3_phase2_stage4/olmo-2-7b_20260408_225258",
+    "a_output_root": "results/experiment3_phase2/exp3p2a_positional_broadcast",
+    "j_output_root": "results/experiment3_phase2/exp3p2j_conditional_regimes",
+    "idea6_output_root": "results/experiment3_phase2/idea6_math_si_channels",
+    "idea4_output_root": "results/experiment3_phase2/idea4_structural_ambiguity_normed_stage4_consensus",
+    "idea4_v2_output_root": "results/experiment3_phase2/idea4_structural_ambiguity_normed_stage4_v2",
+    "a2_rerun_summary": "results/experiment3_phase2/exp3p2a_positional_broadcast/a2_only_rerun_summary.json"
+  },
+  "bookkeeping_notes": [
+    "stage2_status refreshed after post-stage4 cleanup and reruns (B strict refresh, A.2 NLTK rerun, Idea4 consensus rerun).",
+    "3P2-I strict status remains model-conditional: OLMo complete, Llama blocked_by_gate under statistical prefix-artifact gate.",
+    "3P2-A.2 acceptance now passes strict all-feature criterion in both models using context-aware NLTK POS labels.",
+    "Idea4 consensus rerun uses cross-model retained allowlist (28 variants) with balanced relation types and passing internal quality gates."
+  ]
+}

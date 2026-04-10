@@ -1,0 +1,30 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 04:37:33",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.1",
+  "analysis": "one_way_anova_category_effect",
+  "n_observations": 50,
+  "n_categories": 4,
+  "f_statistic": 14.499371035560511,
+  "p_value": 8.802689467346525e-07,
+  "partial_eta_squared": 0.4860226835713496,
+  "category_means": {
+    "boundary": 0.31368677977811105,
+    "factual": 0.9249999999999998,
+    "positional": 1.2143543744667042,
+    "syntactic": 0.8922402159244264
+  },
+  "category_counts": {
+    "boundary": 10,
+    "factual": 10,
+    "positional": 20,
+    "syntactic": 10
+  },
+  "mde_target": 0.02,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "supports_specialization": true,
+  "supports_e1_uniform_infrastructure": false,
+  "p_value_holm": 1.760537893469305e-06
+}

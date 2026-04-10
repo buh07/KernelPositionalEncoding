@@ -1,0 +1,49 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:41:29",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.3",
+  "n_pairs": 10,
+  "paired_tests": {
+    "retrieval_patch_vs_intact": {
+      "n": 10,
+      "mean_delta": -0.3,
+      "ci_95": [
+        -0.6,
+        0.0
+      ],
+      "t_stat": -1.963961012123931,
+      "p_two_sided": 0.08112618884584075,
+      "cohens_d_paired": -0.6210590034081188
+    },
+    "retrieval_patch_vs_random_patch": {
+      "n": 10,
+      "mean_delta": 0.1,
+      "ci_95": [
+        0.0,
+        0.3
+      ],
+      "t_stat": 1.0,
+      "p_two_sided": 0.34343639613791355,
+      "cohens_d_paired": 0.31622776601683794
+    },
+    "intact_vs_random_patch": {
+      "n": 10,
+      "mean_delta": 0.4,
+      "ci_95": [
+        0.1,
+        0.7
+      ],
+      "t_stat": 2.4494897427831783,
+      "p_two_sided": 0.03678749787978613,
+      "cohens_d_paired": 0.7745966692414835
+    }
+  },
+  "hypothesis_checks": {
+    "retrieval_patch_approximately_intact": false,
+    "retrieval_patch_better_than_random": true
+  },
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests"
+}

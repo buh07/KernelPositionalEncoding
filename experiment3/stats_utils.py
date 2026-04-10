@@ -139,6 +139,36 @@ def dependent_corr_williams_test(
     )
 
 
+def one_sided_p_from_two_sided(
+    statistic: float,
+    p_two_sided: float,
+    *,
+    alternative: str,
+) -> float:
+    """Convert a two-sided p-value to one-sided under a directional alternative.
+
+    Parameters
+    ----------
+    statistic:
+        Signed test statistic (or signed effect/correlation estimate).
+    p_two_sided:
+        Two-sided p-value computed from the same statistic.
+    alternative:
+        "greater" tests statistic > 0, "less" tests statistic < 0.
+    """
+    if not np.isfinite(statistic) or not np.isfinite(p_two_sided):
+        return float("nan")
+    if alternative not in {"greater", "less"}:
+        raise ValueError(f"Unsupported alternative='{alternative}'")
+
+    p_two = float(np.clip(p_two_sided, 0.0, 1.0))
+    half = 0.5 * p_two
+
+    if alternative == "greater":
+        return half if statistic >= 0 else 1.0 - half
+    return half if statistic <= 0 else 1.0 - half
+
+
 def fisher_z(r: float) -> float:
     r = float(np.clip(r, -0.999999999999, 0.999999999999))
     return float(np.arctanh(r))

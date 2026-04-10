@@ -1,0 +1,144 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 05:06:14",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-J",
+  "regime_definition_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes/llama-3.1-8b/regime_definition_manifest.json",
+  "n_rows": 490,
+  "regime_tests": {
+    "boundary_dense_contexts": {
+      "n_pairs": 1280,
+      "mean_high": 3.1019345992313356,
+      "mean_low": 0.9765874080060737,
+      "mean_delta_high_minus_low": 2.125347191225262,
+      "t_stat": 144.53613201096002,
+      "p_two_sided": 0.0,
+      "p_one_sided": 0.0,
+      "cohens_d_paired": 4.039907704767375,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    },
+    "high_uncertainty_tokens": {
+      "n_pairs": 1280,
+      "mean_high": 0.9978188117374523,
+      "mean_low": 0.19105714389071318,
+      "mean_delta_high_minus_low": 0.8067616678467393,
+      "t_stat": 59.0359804946902,
+      "p_two_sided": 0.0,
+      "p_one_sided": 0.0,
+      "cohens_d_paired": 1.650105818805987,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    },
+    "long_span_retrieval": {
+      "n_pairs": 5,
+      "mean_high": 0.31462500000000004,
+      "mean_low": 0.3225,
+      "mean_delta_high_minus_low": -0.007875000000000021,
+      "t_stat": -1.353509170980724,
+      "p_two_sided": 0.24732353667822457,
+      "p_one_sided": 0.8763382316608878,
+      "cohens_d_paired": -0.605307702896457,
+      "p_one_sided_holm": 0.8763382316608878,
+      "supports_high_gt_low": false
+    },
+    "rare_token_contexts": {
+      "n_pairs": 1280,
+      "mean_high": 4.268971295370597,
+      "mean_low": 1.066866937040994,
+      "mean_delta_high_minus_low": 3.2021043583296027,
+      "t_stat": 105.75808216681735,
+      "p_two_sided": 0.0,
+      "p_one_sided": 0.0,
+      "cohens_d_paired": 2.9560282611876483,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    }
+  },
+  "interaction_model": {
+    "n_observations": 490,
+    "regimes": [
+      "boundary_dense_contexts",
+      "high_uncertainty_tokens",
+      "long_span_retrieval",
+      "rare_token_contexts"
+    ],
+    "groups": [
+      "high_si",
+      "low_si"
+    ],
+    "f_interaction": 136.4257779692924,
+    "p_value": 1.1102230246251565e-16,
+    "partial_eta_squared": 0.4592031215619137,
+    "cell_means": {
+      "boundary_dense_contexts|high_si": {
+        "n": 80,
+        "mean": 0.8741034909447482
+      },
+      "boundary_dense_contexts|low_si": {
+        "n": 80,
+        "mean": -0.5177700672375574
+      },
+      "high_uncertainty_tokens|high_si": {
+        "n": 80,
+        "mean": -0.5038657839379602
+      },
+      "high_uncertainty_tokens|low_si": {
+        "n": 80,
+        "mean": -1.032207806298822
+      },
+      "long_span_retrieval|high_si": {
+        "n": 5,
+        "mean": -0.24119821087378268
+      },
+      "long_span_retrieval|low_si": {
+        "n": 5,
+        "mean": 0.2411982108737873
+      },
+      "rare_token_contexts|high_si": {
+        "n": 80,
+        "mean": 1.6383868633231817
+      },
+      "rare_token_contexts|low_si": {
+        "n": 80,
+        "mean": -0.4586466967935898
+      }
+    },
+    "supports_conditional_specialization": true,
+    "p_value_holm": 1.1102230246251565e-16
+  },
+  "aggregate_delta_high_minus_low": 1.5315845543504012,
+  "regime_lifts": {
+    "boundary_dense_contexts": {
+      "mean_delta_high_minus_low": 2.1253471912252624,
+      "lift_over_aggregate": 0.5937626368748612,
+      "n_seed_pairs": 5
+    },
+    "high_uncertainty_tokens": {
+      "mean_delta_high_minus_low": 0.8067616678467393,
+      "lift_over_aggregate": -0.7248228865036619,
+      "n_seed_pairs": 5
+    },
+    "long_span_retrieval": {
+      "mean_delta_high_minus_low": -0.007875000000000021,
+      "lift_over_aggregate": -1.5394595543504013,
+      "n_seed_pairs": 5
+    },
+    "rare_token_contexts": {
+      "mean_delta_high_minus_low": 3.2021043583296036,
+      "lift_over_aggregate": 1.6705198039792024,
+      "n_seed_pairs": 5
+    }
+  },
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "verdict": {
+    "supports_e10_conditional_specialization": true,
+    "weak_e10": false
+  },
+  "limitations": [
+    "Token-level regimes use heldout wiki slices and may shift with corpus composition.",
+    "Long-span regime reuses 3P2-A task battery metrics (no new synthetic generation in 3P2-J)."
+  ]
+}

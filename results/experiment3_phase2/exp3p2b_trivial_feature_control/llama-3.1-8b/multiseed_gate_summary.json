@@ -1,0 +1,56 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 18:45:01",
+  "input_root": "results/experiment3_phase2/exp3p2b_trivial_feature_control",
+  "canonical_output_root": "results/experiment3_phase2/exp3p2b_trivial_feature_control",
+  "decision_rule": {
+    "per_seed_flag": {
+      "diff_fake_minus_real_with_prefix_ge": 0.005,
+      "cohens_d_ge": 0.2,
+      "p_one_sided_lt": 0.05
+    },
+    "meta_test": "weighted_stouffer_one_sided",
+    "weight": "sqrt(n_fake_with_prefix)",
+    "stable_blocked_rule": {
+      "min_flagged_seeds": 5,
+      "meta_p_one_lt": 0.01,
+      "pooled_diff_ge": 0.005
+    },
+    "stable_clean_rule": {
+      "max_flagged_seeds": 1,
+      "meta_p_one_gt": 0.2,
+      "pooled_diff_le": 0.0
+    }
+  },
+  "seeds_requested": [
+    0
+  ],
+  "seeds_completed": [],
+  "missing_seeds": [
+    0
+  ],
+  "seed_rows": [
+    {
+      "seed": 0,
+      "status": "missing",
+      "paths": {
+        "base": "results/experiment3_phase2/exp3p2b_trivial_feature_control/seed0/llama-3.1-8b",
+        "post": "results/experiment3_phase2/exp3p2b_trivial_feature_control/seed0/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/experiment3_phase2/exp3p2b_trivial_feature_control/seed0/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/experiment3_phase2/exp3p2b_trivial_feature_control/seed0/llama-3.1-8b/adversarial_sequences.parquet"
+      }
+    }
+  ],
+  "pooled": {
+    "n_completed": 0,
+    "n_flagged": 0,
+    "meta_p_one": NaN,
+    "pooled_diff_fake_minus_real_with_prefix": NaN,
+    "pooled_cohens_d": NaN
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

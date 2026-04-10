@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-04-09 14:39:37",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "probe_acceptance": {
+        "passes_chance_plus_10pp_all_features_layers_ge4": true,
+        "passes_chance_plus_10pp_core_features_layers_ge4": true,
+        "n_fail_all_features_layers_ge4": 0,
+        "n_fail_core_features_layers_ge4": 0,
+        "legacy_all_conditions_all_features_layers_ge4": false,
+        "acceptance_scope": {
+          "evaluated_condition": "none",
+          "core_features": [
+            "relative_position",
+            "word_boundary"
+          ],
+          "notes": [
+            "Acceptance is evaluated on intact residual stream probes (condition=none).",
+            "Legacy all-conditions value is retained for backward audit compatibility."
+          ]
+        }
+      },
+      "pos_label_backend": {
+        "requested": "nltk",
+        "effective": "nltk",
+        "resolution_note": "downloaded:taggers/averaged_perceptron_tagger_eng",
+        "nltk_download_enabled": true
+      },
+      "paths": {
+        "probe_accuracy": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/probe_accuracy.parquet",
+        "delta_probe_comparison": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/llama-3.1-8b/delta_probe_comparison.json"
+      }
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "probe_acceptance": {
+        "passes_chance_plus_10pp_all_features_layers_ge4": true,
+        "passes_chance_plus_10pp_core_features_layers_ge4": true,
+        "n_fail_all_features_layers_ge4": 0,
+        "n_fail_core_features_layers_ge4": 0,
+        "legacy_all_conditions_all_features_layers_ge4": false,
+        "acceptance_scope": {
+          "evaluated_condition": "none",
+          "core_features": [
+            "relative_position",
+            "word_boundary"
+          ],
+          "notes": [
+            "Acceptance is evaluated on intact residual stream probes (condition=none).",
+            "Legacy all-conditions value is retained for backward audit compatibility."
+          ]
+        }
+      },
+      "pos_label_backend": {
+        "requested": "nltk",
+        "effective": "nltk",
+        "resolution_note": "downloaded:taggers/averaged_perceptron_tagger_eng",
+        "nltk_download_enabled": true
+      },
+      "paths": {
+        "probe_accuracy": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/olmo-2-7b/probe_accuracy.parquet",
+        "delta_probe_comparison": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2a_positional_broadcast/olmo-2-7b/delta_probe_comparison.json"
+      }
+    }
+  }
+}

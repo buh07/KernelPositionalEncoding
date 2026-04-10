@@ -1,0 +1,92 @@
+{
+  "experiment": "3P2-C.2_all_high_si_simultaneous_ablation",
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-06 23:27:26",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.2",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "fractions": [
+    0,
+    25,
+    50,
+    75
+  ],
+  "nonlinearity_rule": "75% degradation > 3x 25% degradation (paired bootstrap)",
+  "per_task_metric": {
+    "local_key_match::accuracy": {
+      "n": 3,
+      "mean_25": 0.3096875,
+      "mean_75": 0.36052083333333335,
+      "ratio_75_over_25": 1.1641439623276153,
+      "mean_excess_over_3x": -0.5685416666666666,
+      "ci_95_excess": [
+        -0.5800000000000001,
+        -0.5456249999999999
+      ],
+      "p_one_sided_excess": 1.0,
+      "supports_superlinear": false
+    },
+    "long_range_retrieval::accuracy": {
+      "n": 3,
+      "mean_25": 0.3187499999999999,
+      "mean_75": 0.3153472222222222,
+      "ratio_75_over_25": 0.9893246187363837,
+      "mean_excess_over_3x": -0.6409027777777777,
+      "ci_95_excess": [
+        -0.65625,
+        -0.6268750000000001
+      ],
+      "p_one_sided_excess": 1.0,
+      "supports_superlinear": false
+    },
+    "wiki_ntp::loss": {
+      "n": 3,
+      "mean_25": 2.9967268180064477,
+      "mean_75": 6.035297560420903,
+      "ratio_75_over_25": 2.0139632095113176,
+      "mean_excess_over_3x": -2.954882893598441,
+      "ci_95_excess": [
+        -3.0763086938496778,
+        -2.755451448035963
+      ],
+      "p_one_sided_excess": 1.0,
+      "supports_superlinear": false
+    }
+  },
+  "pooled_by_metric": {
+    "accuracy": {
+      "n": 6,
+      "mean_25": 0.31421874999999994,
+      "mean_75": 0.33793402777777776,
+      "ratio_75_over_25": 1.0754737830819383,
+      "mean_excess_over_3x": -0.6047222222222222,
+      "ci_95_excess": [
+        -0.6352083333333333,
+        -0.5742708333333333
+      ],
+      "p_one_sided_excess": 1.0,
+      "supports_superlinear": false
+    },
+    "loss": {
+      "n": 3,
+      "mean_25": 2.9967268180064477,
+      "mean_75": 6.035297560420903,
+      "ratio_75_over_25": 2.0139632095113176,
+      "mean_excess_over_3x": -2.954882893598441,
+      "ci_95_excess": [
+        -3.0763086938496778,
+        -2.755451448035963
+      ],
+      "p_one_sided_excess": 1.0,
+      "supports_superlinear": false
+    }
+  },
+  "summary": {
+    "superlinear_votes": 0,
+    "total_votes": 3,
+    "supports_nonlinearity": false,
+    "runtime_seconds": 6045.979272842407
+  }
+}

@@ -1,0 +1,414 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-06 21:41:53",
+  "tier": "tier3_publication_readiness",
+  "execution_gate": {
+    "rule": "d_gt_0.50_and_no_prefix_following",
+    "measured": {
+      "post_ablation_d": 1.0666295894631435,
+      "prefix_following_artifact_flag": true,
+      "passes_gate": false,
+      "source_files": {
+        "post_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic_boundary": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json"
+      }
+    },
+    "override": true,
+    "effective_allow_run": true
+  },
+  "corpora": [
+    {
+      "corpus_id": "wiki_en",
+      "domain": "wikipedia",
+      "language": "en",
+      "kind": "tokenized_jsonl",
+      "meta": {
+        "source": "tokenized_jsonl",
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment1/wiki40b_en_pre2019/llama-3.1-8b/len_1024.jsonl",
+        "sequences": 16,
+        "seq_len": 512
+      }
+    },
+    {
+      "corpus_id": "code_en",
+      "domain": "code",
+      "language": "en",
+      "kind": "tokenized_jsonl",
+      "meta": {
+        "source": "tokenized_jsonl",
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment1/codesearchnet_python_snapshot/llama-3.1-8b/len_1024.jsonl",
+        "sequences": 16,
+        "seq_len": 512
+      }
+    },
+    {
+      "corpus_id": "opus_tr",
+      "domain": "translation",
+      "language": "tr",
+      "kind": "opus100",
+      "meta": {
+        "dataset": "opus100",
+        "config": "en-tr",
+        "language": "tr",
+        "rows_consumed": 792,
+        "max_rows": 20000,
+        "sequences_emitted": 16,
+        "source": "rebuilt",
+        "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_tr/llama-3.1-8b/len_512.jsonl",
+        "seq_len": 512
+      }
+    },
+    {
+      "corpus_id": "opus_zh",
+      "domain": "translation",
+      "language": "zh",
+      "kind": "opus100",
+      "meta": {
+        "dataset": "opus100",
+        "config": "en-zh",
+        "language": "zh",
+        "rows_consumed": 556,
+        "max_rows": 20000,
+        "sequences_emitted": 16,
+        "source": "rebuilt",
+        "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_zh/llama-3.1-8b/len_512.jsonl",
+        "seq_len": 512
+      }
+    },
+    {
+      "corpus_id": "opus_ru",
+      "domain": "translation",
+      "language": "ru",
+      "kind": "opus100",
+      "meta": {
+        "dataset": "opus100",
+        "config": "en-ru",
+        "language": "ru",
+        "rows_consumed": 568,
+        "max_rows": 20000,
+        "sequences_emitted": 16,
+        "source": "rebuilt",
+        "cache_path": "/jumbo/lisp/f004ndc/Kernel PE/data/experiment3_phase2_multilingual/opus100_ru/llama-3.1-8b/len_512.jsonl",
+        "seq_len": 512
+      }
+    }
+  ],
+  "perturbation_conditions": [
+    "none",
+    "embedding_prefix_ablation",
+    "adversarial_boundary_variant"
+  ],
+  "effect_sizes": {
+    "code_en__adversarial_boundary_variant": {
+      "adversarial_real_minus_fake_with_prefix": -0.00415506212271903,
+      "adversarial_real_minus_fake_without_prefix": 0.007478128884108794
+    },
+    "code_en__embedding_prefix_ablation": {
+      "approach_a_cohens_d": 1.0413754792745702,
+      "approach_c_spearman_rho": 0.2321010433803018
+    },
+    "code_en__none": {
+      "approach_a_cohens_d": 1.039526734136577,
+      "approach_c_spearman_rho": 0.24159729051927617
+    },
+    "opus_ru__adversarial_boundary_variant": {
+      "adversarial_real_minus_fake_with_prefix": 0.00031960900317277996,
+      "adversarial_real_minus_fake_without_prefix": 0.01983981916877193
+    },
+    "opus_ru__embedding_prefix_ablation": {
+      "approach_a_cohens_d": 1.199356402022219,
+      "approach_c_spearman_rho": 0.286479317913597
+    },
+    "opus_ru__none": {
+      "approach_a_cohens_d": 1.2000327080469615,
+      "approach_c_spearman_rho": 0.28786647950790356
+    },
+    "opus_tr__adversarial_boundary_variant": {
+      "adversarial_real_minus_fake_with_prefix": 0.004851343011099449,
+      "adversarial_real_minus_fake_without_prefix": 0.01961428726563847
+    },
+    "opus_tr__embedding_prefix_ablation": {
+      "approach_a_cohens_d": 1.1729344399718367,
+      "approach_c_spearman_rho": 0.27963102827050995
+    },
+    "opus_tr__none": {
+      "approach_a_cohens_d": 1.1833084664514308,
+      "approach_c_spearman_rho": 0.28831749338387813
+    },
+    "opus_zh__adversarial_boundary_variant": {
+      "adversarial_real_minus_fake_with_prefix": 0.01201878834545389,
+      "adversarial_real_minus_fake_without_prefix": 0.012500431484071678
+    },
+    "opus_zh__embedding_prefix_ablation": {
+      "approach_a_cohens_d": 1.1638322327832857,
+      "approach_c_spearman_rho": 0.23790568450039337
+    },
+    "opus_zh__none": {
+      "approach_a_cohens_d": 1.1643125646858639,
+      "approach_c_spearman_rho": 0.23601371951219507
+    },
+    "wiki_en__adversarial_boundary_variant": {
+      "adversarial_real_minus_fake_with_prefix": -0.01227318771369279,
+      "adversarial_real_minus_fake_without_prefix": 0.007187680866252107
+    },
+    "wiki_en__embedding_prefix_ablation": {
+      "approach_a_cohens_d": 1.0666295894631435,
+      "approach_c_spearman_rho": 0.24678887865674845
+    },
+    "wiki_en__none": {
+      "approach_a_cohens_d": 1.0716714197209922,
+      "approach_c_spearman_rho": 0.2509344154566912
+    }
+  },
+  "invariance_score": 0.7683633408481024,
+  "invariance_verdict": "invariant",
+  "invariance_details": {
+    "baseline_d": 1.0716714197209922,
+    "effect_retention_score": 0.7242969833601861,
+    "same_sign_fraction": 1.0,
+    "adversarial_consistency_score": 0.6,
+    "n_effect_cells": 9,
+    "n_adversarial_cells": 5
+  },
+  "pooled_mixed_effects_summary_proxy": {
+    "note": "Exploratory pooled summary (fixed-weight descriptive proxy), not a full hierarchical mixed-effects fit.",
+    "by_metric_and_perturbation": {
+      "adversarial_real_minus_fake_with_prefix::adversarial_boundary_variant": {
+        "n_cells": 5,
+        "mean": 0.00015229810466285963,
+        "std": 0.009163359871723436,
+        "median": 0.00031960900317277996,
+        "min": -0.01227318771369279,
+        "max": 0.01201878834545389
+      },
+      "adversarial_real_minus_fake_without_prefix::adversarial_boundary_variant": {
+        "n_cells": 5,
+        "mean": 0.013324069533768596,
+        "std": 0.006215514862331487,
+        "median": 0.012500431484071678,
+        "min": 0.007187680866252107,
+        "max": 0.01983981916877193
+      },
+      "approach_a_cohens_d::embedding_prefix_ablation": {
+        "n_cells": 5,
+        "mean": 1.128825628703011,
+        "std": 0.07010976301124411,
+        "median": 1.1638322327832857,
+        "min": 1.0413754792745702,
+        "max": 1.199356402022219
+      },
+      "approach_a_cohens_d::none": {
+        "n_cells": 5,
+        "mean": 1.131770378608365,
+        "std": 0.0715815772360273,
+        "median": 1.1643125646858639,
+        "min": 1.039526734136577,
+        "max": 1.2000327080469615
+      },
+      "approach_c_spearman_rho::embedding_prefix_ablation": {
+        "n_cells": 5,
+        "mean": 0.2565811905443101,
+        "std": 0.024845193411731588,
+        "median": 0.24678887865674845,
+        "min": 0.2321010433803018,
+        "max": 0.286479317913597
+      },
+      "approach_c_spearman_rho::none": {
+        "n_cells": 5,
+        "mean": 0.2609458796759888,
+        "std": 0.02534824382914229,
+        "median": 0.2509344154566912,
+        "min": 0.23601371951219507,
+        "max": 0.28831749338387813
+      }
+    },
+    "by_metric_and_language": {
+      "adversarial_real_minus_fake_with_prefix::en": {
+        "n_cells": 2,
+        "mean": -0.00821412491820591,
+        "std": 0.0057403816559015945,
+        "median": -0.00821412491820591,
+        "min": -0.01227318771369279,
+        "max": -0.00415506212271903
+      },
+      "adversarial_real_minus_fake_with_prefix::ru": {
+        "n_cells": 1,
+        "mean": 0.00031960900317277996,
+        "std": NaN,
+        "median": 0.00031960900317277996,
+        "min": 0.00031960900317277996,
+        "max": 0.00031960900317277996
+      },
+      "adversarial_real_minus_fake_with_prefix::tr": {
+        "n_cells": 1,
+        "mean": 0.004851343011099449,
+        "std": NaN,
+        "median": 0.004851343011099449,
+        "min": 0.004851343011099449,
+        "max": 0.004851343011099449
+      },
+      "adversarial_real_minus_fake_with_prefix::zh": {
+        "n_cells": 1,
+        "mean": 0.01201878834545389,
+        "std": NaN,
+        "median": 0.01201878834545389,
+        "min": 0.01201878834545389,
+        "max": 0.01201878834545389
+      },
+      "adversarial_real_minus_fake_without_prefix::en": {
+        "n_cells": 2,
+        "mean": 0.00733290487518045,
+        "std": 0.00020537776300865487,
+        "median": 0.00733290487518045,
+        "min": 0.007187680866252107,
+        "max": 0.007478128884108794
+      },
+      "adversarial_real_minus_fake_without_prefix::ru": {
+        "n_cells": 1,
+        "mean": 0.01983981916877193,
+        "std": NaN,
+        "median": 0.01983981916877193,
+        "min": 0.01983981916877193,
+        "max": 0.01983981916877193
+      },
+      "adversarial_real_minus_fake_without_prefix::tr": {
+        "n_cells": 1,
+        "mean": 0.01961428726563847,
+        "std": NaN,
+        "median": 0.01961428726563847,
+        "min": 0.01961428726563847,
+        "max": 0.01961428726563847
+      },
+      "adversarial_real_minus_fake_without_prefix::zh": {
+        "n_cells": 1,
+        "mean": 0.012500431484071678,
+        "std": NaN,
+        "median": 0.012500431484071678,
+        "min": 0.012500431484071678,
+        "max": 0.012500431484071678
+      },
+      "approach_a_cohens_d::en": {
+        "n_cells": 4,
+        "mean": 1.0548008056488207,
+        "std": 0.016714010036637028,
+        "median": 1.0540025343688568,
+        "min": 1.039526734136577,
+        "max": 1.0716714197209922
+      },
+      "approach_a_cohens_d::ru": {
+        "n_cells": 2,
+        "mean": 1.1996945550345903,
+        "std": 0.0004782205762528574,
+        "median": 1.1996945550345903,
+        "min": 1.199356402022219,
+        "max": 1.2000327080469615
+      },
+      "approach_a_cohens_d::tr": {
+        "n_cells": 2,
+        "mean": 1.1781214532116338,
+        "std": 0.0073355444719298505,
+        "median": 1.1781214532116338,
+        "min": 1.1729344399718367,
+        "max": 1.1833084664514308
+      },
+      "approach_a_cohens_d::zh": {
+        "n_cells": 2,
+        "mean": 1.1640723987345747,
+        "std": 0.000339645945533149,
+        "median": 1.1640723987345747,
+        "min": 1.1638322327832857,
+        "max": 1.1643125646858639
+      },
+      "approach_c_spearman_rho::en": {
+        "n_cells": 4,
+        "mean": 0.24285540700325442,
+        "std": 0.008123664420721478,
+        "median": 0.2441930845880123,
+        "min": 0.2321010433803018,
+        "max": 0.2509344154566912
+      },
+      "approach_c_spearman_rho::ru": {
+        "n_cells": 2,
+        "mean": 0.28717289871075025,
+        "std": 0.0009808713699357016,
+        "median": 0.28717289871075025,
+        "min": 0.286479317913597,
+        "max": 0.28786647950790356
+      },
+      "approach_c_spearman_rho::tr": {
+        "n_cells": 2,
+        "mean": 0.283974260827194,
+        "std": 0.006142258386202993,
+        "median": 0.283974260827194,
+        "min": 0.27963102827050995,
+        "max": 0.28831749338387813
+      },
+      "approach_c_spearman_rho::zh": {
+        "n_cells": 2,
+        "mean": 0.23695970200629424,
+        "std": 0.0013378212729225323,
+        "median": 0.23695970200629424,
+        "min": 0.23601371951219507,
+        "max": 0.23790568450039337
+      }
+    }
+  },
+  "prefix_classifier": {
+    "method": "embedding_logistic_regression",
+    "feature_type": "embedding_dimensions",
+    "classifier_accuracy": 0.9970824215900802,
+    "precision_word_initial": 0.9994908350305499,
+    "recall_word_initial": 0.9964467005076142,
+    "specificity_continuation": 0.9987046632124352,
+    "n_samples": 2742,
+    "n_word_initial": 1970,
+    "n_continuation": 772,
+    "confusion_matrix": {
+      "tp": 1963,
+      "tn": 771,
+      "fp": 1,
+      "fn": 7
+    },
+    "top_k_dims": [
+      3183,
+      1109,
+      3837,
+      559,
+      1800,
+      3508,
+      2949,
+      1660,
+      3396,
+      607,
+      2069,
+      2082,
+      23,
+      2579,
+      3279,
+      668
+    ],
+    "top_k_weights": [
+      -2.429017988894732,
+      -2.1624387068221758,
+      2.0898350455950734,
+      -2.0331450454770112,
+      1.8803129762567958,
+      -1.7700654736970476,
+      -1.7609732027042604,
+      1.6675441169848615,
+      1.639166619761572,
+      -1.5618235710633377,
+      1.545839211327978,
+      1.5406453736414916,
+      1.517889758588909,
+      1.5019211285646075,
+      -1.4927756038122457,
+      1.4653043657048714
+    ],
+    "acceptance_threshold": 0.9,
+    "meets_threshold": true
+  },
+  "multiplicity_family": "tier3_exploratory_invariance",
+  "primary_test_id": "3P2-I+Idea2",
+  "status": "complete"
+}

@@ -1,0 +1,519 @@
+{
+  "experiment": "Idea4_structural_ambiguity",
+  "timestamp": "2026-04-07 13:22:52",
+  "n_stimuli": 45,
+  "variant_filter": {
+    "active": true,
+    "allowlist_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/idea4_structural_ambiguity/shared_normed_variant_allowlist.txt",
+    "n_allowed_variants": 15
+  },
+  "families": [
+    "pp_attachment",
+    "relative_clause_attachment"
+  ],
+  "relation_types": [
+    "hierarchical_absolute"
+  ],
+  "contexts": [
+    "context_a",
+    "context_b",
+    "neutral"
+  ],
+  "stimuli": [
+    {
+      "stimulus_id": "ba2d9ecc64d7",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_006",
+      "context_label": "context_a",
+      "prompt": "I needed a knife to see details clearly. I saw the chef with the knife.\nWho had the knife?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The chef did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "796953559bb5",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_006",
+      "context_label": "context_b",
+      "prompt": "The chef was carrying a knife all day. I saw the chef with the knife.\nWho had the knife?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The chef did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "9e361227f19b",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_006",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the chef with the knife.\nWho had the knife?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The chef did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "180a9228fea4",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_015",
+      "context_label": "context_a",
+      "prompt": "I needed a shovel to see details clearly. I saw the farmer with the shovel.\nWho had the shovel?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The farmer did.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "b8ab6842764c",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_015",
+      "context_label": "context_b",
+      "prompt": "The farmer was carrying a shovel all day. I saw the farmer with the shovel.\nWho had the shovel?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The farmer did.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "1f50861ca46a",
+      "family": "pp_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "pp_015",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. I saw the farmer with the shovel.\nWho had the shovel?\nAnswer:",
+      "option_a": " I did.",
+      "option_b": " The farmer did.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "cccff184afed",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_000",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the daughter was standing on the balcony. The daughter of the colonel who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The daughter was.",
+      "option_b": " The colonel was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "77ab3c9002f8",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_000",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the colonel was standing on the balcony. The daughter of the colonel who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The daughter was.",
+      "option_b": " The colonel was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "bbc67edf0ec9",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_000",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The daughter of the colonel who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The daughter was.",
+      "option_b": " The colonel was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "778d4274bf87",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_002",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the niece was standing on the podium. The niece of the senator who was on the podium waved.\nWho was on the podium?\nAnswer:",
+      "option_a": " The niece was.",
+      "option_b": " The senator was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "7dded9cb93c6",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_002",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the senator was standing on the podium. The niece of the senator who was on the podium waved.\nWho was on the podium?\nAnswer:",
+      "option_a": " The niece was.",
+      "option_b": " The senator was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "fb3aa697132e",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_002",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The niece of the senator who was on the podium waved.\nWho was on the podium?\nAnswer:",
+      "option_a": " The niece was.",
+      "option_b": " The senator was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "8535afeba2f3",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_003",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the friend was standing on the hallway. The friend of the teacher who was on the hallway waved.\nWho was on the hallway?\nAnswer:",
+      "option_a": " The friend was.",
+      "option_b": " The teacher was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "e1f52691916b",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_003",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the teacher was standing on the hallway. The friend of the teacher who was on the hallway waved.\nWho was on the hallway?\nAnswer:",
+      "option_a": " The friend was.",
+      "option_b": " The teacher was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "9b1901c5a79b",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_003",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The friend of the teacher who was on the hallway waved.\nWho was on the hallway?\nAnswer:",
+      "option_a": " The friend was.",
+      "option_b": " The teacher was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "9f47f2353b0d",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_004",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the brother was standing on the deck. The brother of the captain who was on the deck waved.\nWho was on the deck?\nAnswer:",
+      "option_a": " The brother was.",
+      "option_b": " The captain was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "4c69ed46311d",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_004",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the captain was standing on the deck. The brother of the captain who was on the deck waved.\nWho was on the deck?\nAnswer:",
+      "option_a": " The brother was.",
+      "option_b": " The captain was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "573fdfbe1ef9",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_004",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The brother of the captain who was on the deck waved.\nWho was on the deck?\nAnswer:",
+      "option_a": " The brother was.",
+      "option_b": " The captain was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "f3a790f0fc8f",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_006",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the cousin was standing on the set. The cousin of the director who was on the set waved.\nWho was on the set?\nAnswer:",
+      "option_a": " The cousin was.",
+      "option_b": " The director was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "c4664ae779cf",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_006",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the director was standing on the set. The cousin of the director who was on the set waved.\nWho was on the set?\nAnswer:",
+      "option_a": " The cousin was.",
+      "option_b": " The director was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "46bd5fe6fe97",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_006",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The cousin of the director who was on the set waved.\nWho was on the set?\nAnswer:",
+      "option_a": " The cousin was.",
+      "option_b": " The director was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "8faf2c8b259b",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_007",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the student was standing on the atrium. The student of the professor who was on the atrium waved.\nWho was on the atrium?\nAnswer:",
+      "option_a": " The student was.",
+      "option_b": " The professor was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "76c0b8177869",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_007",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the professor was standing on the atrium. The student of the professor who was on the atrium waved.\nWho was on the atrium?\nAnswer:",
+      "option_a": " The student was.",
+      "option_b": " The professor was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "53a98346417d",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_007",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The student of the professor who was on the atrium waved.\nWho was on the atrium?\nAnswer:",
+      "option_a": " The student was.",
+      "option_b": " The professor was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "2b0f893c1d18",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_008",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the guest was standing on the terrace. The guest of the host who was on the terrace waved.\nWho was on the terrace?\nAnswer:",
+      "option_a": " The guest was.",
+      "option_b": " The host was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "dfc3e33cce20",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_008",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the host was standing on the terrace. The guest of the host who was on the terrace waved.\nWho was on the terrace?\nAnswer:",
+      "option_a": " The guest was.",
+      "option_b": " The host was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "d165af0eaa58",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_008",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The guest of the host who was on the terrace waved.\nWho was on the terrace?\nAnswer:",
+      "option_a": " The guest was.",
+      "option_b": " The host was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "e8a569c3f44f",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_009",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the intern was standing on the lab. The intern of the engineer who was on the lab waved.\nWho was on the lab?\nAnswer:",
+      "option_a": " The intern was.",
+      "option_b": " The engineer was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "695267bb41de",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_009",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the engineer was standing on the lab. The intern of the engineer who was on the lab waved.\nWho was on the lab?\nAnswer:",
+      "option_a": " The intern was.",
+      "option_b": " The engineer was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "75e7c1fc86a4",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_009",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The intern of the engineer who was on the lab waved.\nWho was on the lab?\nAnswer:",
+      "option_a": " The intern was.",
+      "option_b": " The engineer was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "9c9d4b60832d",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_011",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the reporter was standing on the studio. The reporter of the editor who was on the studio waved.\nWho was on the studio?\nAnswer:",
+      "option_a": " The reporter was.",
+      "option_b": " The editor was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "fbcaef61eb4f",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_011",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the editor was standing on the studio. The reporter of the editor who was on the studio waved.\nWho was on the studio?\nAnswer:",
+      "option_a": " The reporter was.",
+      "option_b": " The editor was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "550254457021",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_011",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The reporter of the editor who was on the studio waved.\nWho was on the studio?\nAnswer:",
+      "option_a": " The reporter was.",
+      "option_b": " The editor was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "7cac7e6406a8",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_014",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the neighbor was standing on the porch. The neighbor of the landlord who was on the porch waved.\nWho was on the porch?\nAnswer:",
+      "option_a": " The neighbor was.",
+      "option_b": " The landlord was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "ad0b126057cd",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_014",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the landlord was standing on the porch. The neighbor of the landlord who was on the porch waved.\nWho was on the porch?\nAnswer:",
+      "option_a": " The neighbor was.",
+      "option_b": " The landlord was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "d50ee4ec63fe",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_014",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The neighbor of the landlord who was on the porch waved.\nWho was on the porch?\nAnswer:",
+      "option_a": " The neighbor was.",
+      "option_b": " The landlord was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "05d86d41bb10",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_017",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the singer was standing on the balcony. The singer of the conductor who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The singer was.",
+      "option_b": " The conductor was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "9cdb348ec36a",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_017",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the conductor was standing on the balcony. The singer of the conductor who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The singer was.",
+      "option_b": " The conductor was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "f5fe5945bd11",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_017",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The singer of the conductor who was on the balcony waved.\nWho was on the balcony?\nAnswer:",
+      "option_a": " The singer was.",
+      "option_b": " The conductor was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "b4a32e0d6a6a",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_018",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the driver was standing on the bridge. The driver of the officer who was on the bridge waved.\nWho was on the bridge?\nAnswer:",
+      "option_a": " The driver was.",
+      "option_b": " The officer was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "d32723b3b8ee",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_018",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the officer was standing on the bridge. The driver of the officer who was on the bridge waved.\nWho was on the bridge?\nAnswer:",
+      "option_a": " The driver was.",
+      "option_b": " The officer was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "f95d66b1f17b",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_018",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The driver of the officer who was on the bridge waved.\nWho was on the bridge?\nAnswer:",
+      "option_a": " The driver was.",
+      "option_b": " The officer was.",
+      "correct_option": null
+    },
+    {
+      "stimulus_id": "09a66233fbef",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_019",
+      "context_label": "context_a",
+      "prompt": "Everyone noticed that the chef was standing on the kitchen. The chef of the owner who was on the kitchen waved.\nWho was on the kitchen?\nAnswer:",
+      "option_a": " The chef was.",
+      "option_b": " The owner was.",
+      "correct_option": "A"
+    },
+    {
+      "stimulus_id": "1f9f5d0e4dc1",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_019",
+      "context_label": "context_b",
+      "prompt": "Everyone noticed that the owner was standing on the kitchen. The chef of the owner who was on the kitchen waved.\nWho was on the kitchen?\nAnswer:",
+      "option_a": " The chef was.",
+      "option_b": " The owner was.",
+      "correct_option": "B"
+    },
+    {
+      "stimulus_id": "c8522c15daf5",
+      "family": "relative_clause_attachment",
+      "relation_type": "hierarchical_absolute",
+      "variant_id": "rc_019",
+      "context_label": "neutral",
+      "prompt": "Read the sentence and answer the question. The chef of the owner who was on the kitchen waved.\nWho was on the kitchen?\nAnswer:",
+      "option_a": " The chef was.",
+      "option_b": " The owner was.",
+      "correct_option": null
+    }
+  ]
+}

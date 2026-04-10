@@ -1,0 +1,98 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-09 14:38:06",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-A.2",
+  "analysis": "delta_probe_feature_comparison",
+  "pos_label_backend": {
+    "requested": "nltk",
+    "effective": "nltk",
+    "resolution_note": "downloaded:taggers/averaged_perceptron_tagger_eng",
+    "nltk_download_enabled": true
+  },
+  "feature_summary": {
+    "coarse_pos": {
+      "mean_delta_high": 0.01357638888888889,
+      "ci_95_delta_high": [
+        0.009878038194444445,
+        0.017309027777777777
+      ],
+      "mean_delta_random": 0.0034953703703703705,
+      "n_units": 900
+    },
+    "relative_position": {
+      "mean_delta_high": 0.07432291666666667,
+      "ci_95_delta_high": [
+        0.06659722222222222,
+        0.08229210069444444
+      ],
+      "mean_delta_random": 0.005046296296296298,
+      "n_units": 900
+    },
+    "word_boundary": {
+      "mean_delta_high": 0.06428819444444445,
+      "ci_95_delta_high": [
+        0.05515625,
+        0.07354210069444445
+      ],
+      "mean_delta_random": 0.0005729166666666684,
+      "n_units": 900
+    }
+  },
+  "pairwise_feature_tests": {
+    "relative_position_vs_coarse_pos": {
+      "n": 900,
+      "mean_diff": 0.06074652777777778,
+      "t_stat": 15.10897348959149,
+      "p_two_sided": 3.9476813392765464e-46,
+      "cohens_d_paired": 0.5036324496530497,
+      "p_holm": 1.184304401782964e-45
+    },
+    "word_boundary_vs_coarse_pos": {
+      "n": 900,
+      "mean_diff": 0.05071180555555556,
+      "t_stat": 11.011677200126803,
+      "p_two_sided": 1.5274070570193463e-26,
+      "cohens_d_paired": 0.3670559066708934,
+      "p_holm": 3.0548141140386927e-26
+    },
+    "relative_position_vs_word_boundary": {
+      "n": 900,
+      "mean_diff": 0.010034722222222223,
+      "t_stat": 3.608182059064999,
+      "p_two_sided": 0.0003253623181080744,
+      "cohens_d_paired": 0.12027273530216662,
+      "p_holm": 0.0003253623181080744
+    }
+  },
+  "chance_levels": {
+    "relative_position": 0.67171875,
+    "word_boundary": 0.67171875,
+    "coarse_pos": 0.44390625
+  },
+  "probe_acceptance": {
+    "passes_chance_plus_10pp_all_features_layers_ge4": true,
+    "passes_chance_plus_10pp_core_features_layers_ge4": true,
+    "n_fail_all_features_layers_ge4": 0,
+    "n_fail_core_features_layers_ge4": 0,
+    "legacy_all_conditions_all_features_layers_ge4": false,
+    "acceptance_scope": {
+      "evaluated_condition": "none",
+      "core_features": [
+        "relative_position",
+        "word_boundary"
+      ],
+      "notes": [
+        "Acceptance is evaluated on intact residual stream probes (condition=none).",
+        "Legacy all-conditions value is retained for backward audit compatibility."
+      ]
+    }
+  },
+  "mde_target": 0.02,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "limitations": [
+    "Coarse POS labels use context-aware NLTK tagging with token-piece alignment.",
+    "Probes use linear SGD with online updates; nonlinear decoding is not tested."
+  ]
+}

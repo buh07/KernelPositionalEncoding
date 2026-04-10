@@ -1,0 +1,38 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-08 13:47:13",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-J",
+  "source_a_task_definition_hash": "13efc5df4f891ef5bf5cb4c54d24606ab70b64fe",
+  "source_a_task_definition_timestamp": "2026-04-08 13:36:37",
+  "heldout_dataset": {
+    "sequence_count": 10,
+    "seq_len": 256,
+    "token_sequence_hash": "78d0dd27ce4c05a8d49b2a79d1189bbcc13f4697"
+  },
+  "regimes": {
+    "long_span_retrieval": {
+      "definition": "3P2-A long_range_retrieval tasks with span >= 64",
+      "task_ids": [
+        "pos_retrieval_span64"
+      ]
+    },
+    "high_uncertainty_tokens": {
+      "definition": "baseline surprisal >= P90 on heldout wiki",
+      "threshold_surprisal_p90": 5.386641788482666
+    },
+    "boundary_dense_contexts": {
+      "definition": ">=4 boundary tokens in prior 16-token window",
+      "boundary_window": 16,
+      "min_boundaries": 4
+    },
+    "rare_token_contexts": {
+      "definition": "token frequency <= P10 on heldout wiki reference",
+      "frequency_p10": 1.0,
+      "rare_token_count_cutoff": 1
+    }
+  },
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests"
+}

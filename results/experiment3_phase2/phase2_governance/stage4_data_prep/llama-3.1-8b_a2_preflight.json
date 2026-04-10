@@ -1,0 +1,15 @@
+{
+  "model": "llama-3.1-8b",
+  "dataset": "wiki40b_en_pre2019",
+  "probe_seq_len": 512,
+  "probe_train_sequences": 500,
+  "probe_eval_sequences": 100,
+  "extra_eval_buffer": 16,
+  "required_min_sequences": 616,
+  "required_with_margin": 680,
+  "usable_sequences_before": 700,
+  "usable_sequences_after": 700,
+  "generated_path": null,
+  "generated_manifest": null,
+  "status": "ok"
+}

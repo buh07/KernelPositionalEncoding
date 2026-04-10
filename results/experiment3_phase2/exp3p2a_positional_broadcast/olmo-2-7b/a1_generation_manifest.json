@@ -1,0 +1,143 @@
+{
+  "choice_generation_manifest": {
+    "boundary_word_initial_choice": {
+      "category": "boundary",
+      "variant": "word_initial",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 263.375,
+        "prompt_len_p95": 489.05,
+        "completion_len_mean": 2.0
+      }
+    },
+    "boundary_continuation_choice": {
+      "category": "boundary",
+      "variant": "continuation",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 215.1375,
+        "prompt_len_p95": 465.9,
+        "completion_len_mean": 2.0
+      }
+    },
+    "syntax_subject_verb_agreement": {
+      "category": "syntactic",
+      "variant": "subject_verb",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 5.0,
+        "prompt_len_p95": 5.0,
+        "completion_len_mean": 2.0
+      }
+    },
+    "syntax_pronoun_resolution": {
+      "category": "syntactic",
+      "variant": "pronoun",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 7.125,
+        "prompt_len_p95": 8.0,
+        "completion_len_mean": 9.325
+      }
+    },
+    "factual_capitals": {
+      "category": "factual",
+      "variant": "capitals",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 5.0,
+        "prompt_len_p95": 5.0,
+        "completion_len_mean": 2.6375
+      }
+    },
+    "factual_world_knowledge": {
+      "category": "factual",
+      "variant": "world_knowledge",
+      "seed0_summary": {
+        "n_examples": 80,
+        "prompt_len_mean": 6.6,
+        "prompt_len_p95": 8.0,
+        "completion_len_mean": 2.8
+      }
+    }
+  },
+  "acceptance": {
+    "task_categories_present": [
+      "boundary",
+      "factual",
+      "positional",
+      "syntactic"
+    ],
+    "tasks_per_category": {
+      "boundary": 2,
+      "factual": 2,
+      "positional": 4,
+      "syntactic": 2
+    },
+    "per_task_floor_checks": [
+      {
+        "task_id": "boundary_continuation_choice",
+        "category": "boundary",
+        "baseline_metric": 0.97,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "boundary_word_initial_choice",
+        "category": "boundary",
+        "baseline_metric": 0.9675,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "factual_capitals",
+        "category": "factual",
+        "baseline_metric": 1.0,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "factual_world_knowledge",
+        "category": "factual",
+        "baseline_metric": 1.0,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "pos_copy_offset_bridge64",
+        "category": "positional",
+        "baseline_metric": 0.11391666666666667,
+        "passes_floor_threshold": false
+      },
+      {
+        "task_id": "pos_local_key_match",
+        "category": "positional",
+        "baseline_metric": 0.26225,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "pos_retrieval_span24",
+        "category": "positional",
+        "baseline_metric": 0.189125,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "pos_retrieval_span32",
+        "category": "positional",
+        "baseline_metric": 0.166625,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "syntax_pronoun_resolution",
+        "category": "syntactic",
+        "baseline_metric": 0.9800000000000001,
+        "passes_floor_threshold": true
+      },
+      {
+        "task_id": "syntax_subject_verb_agreement",
+        "category": "syntactic",
+        "baseline_metric": 1.0,
+        "passes_floor_threshold": true
+      }
+    ],
+    "meets_minimum_category_count": true,
+    "meets_two_tasks_per_category": true,
+    "all_tasks_exceed_floor_threshold": false
+  }
+}
