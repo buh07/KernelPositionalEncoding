@@ -1,5 +1,6 @@
 .venv/
 models/
+models
 logs/
 trackb_canperpos*.log
 trackb_canperpos_resume*.log
@@ -14,12 +15,24 @@ kernel_pe.egg-info/
 
 # Local datasets/caches (never tracked)
 data/hf_cache/
+data/hf_cache
 data/hf_home/
 data/snapshots/
+data/snapshots
 data/experiment1/
+data/experiment1
 data/**/*.arrow
 data/**/*.parquet
 data/**/*.jsonl
+
+# Local storage mounts / env files (never tracked)
+datasets/
+datasets
+huggingface/
+huggingface
+shared_storage/
+shared_storage
+.shared_storage.env
 
 # Large binary result artifacts (never tracked)
 results/**/*.parquet
