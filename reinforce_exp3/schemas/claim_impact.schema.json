@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reinforce_exp3/claim_impact.schema.json",
+  "type": "object",
+  "required": ["timestamp", "experiment_id", "claim_status"],
+  "properties": {
+    "timestamp": { "type": "string" },
+    "experiment_id": { "type": "string" },
+    "claim_status": {
+      "type": "string",
+      "enum": ["supported", "supported_with_caveat", "proxy_specific", "mixed", "not_supported", "pending", "deferred", "inconclusive"]
+    },
+    "supports_main_text": { "type": "boolean" },
+    "strict_only": { "type": "boolean" },
+    "notes": { "type": "array", "items": { "type": "string" } },
+    "run_mode": { "type": "string" },
+    "schema_validation_passed": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

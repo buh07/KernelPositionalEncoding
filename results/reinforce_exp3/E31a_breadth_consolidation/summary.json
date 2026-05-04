@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-05-04 13:41:39",
+  "experiment_id": "E31A",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "breadth_panel_consolidated",
+    "n_models": 11,
+    "n_families": 7,
+    "spread_ratio_max_over_min": 140.1212405405174
+  },
+  "elapsed_sec": 0.2185194492340088
+}

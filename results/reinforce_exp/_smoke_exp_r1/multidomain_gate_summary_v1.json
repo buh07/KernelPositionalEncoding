@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-04-16 16:54:25",
+  "experiment": "EXP-R1",
+  "model": "llama-3.1-8b",
+  "domains": [
+    "wiki"
+  ],
+  "domain_summaries": [
+    {
+      "domain": "wiki",
+      "assessment": "ambiguous",
+      "summary_path": "results/reinforce_exp/_smoke_exp_r1/canonical/domain_wiki/llama-3.1-8b/multiseed_gate_summary.json",
+      "pooled": {
+        "n_completed": 1,
+        "n_flagged": 0,
+        "meta_p_one": 0.11500752402639275,
+        "pooled_diff_fake_minus_real_with_prefix": 0.0038937253478104755,
+        "pooled_cohens_d": 0.10792959951080003
+      }
+    }
+  ],
+  "aggregate": {
+    "n_domains": 1,
+    "n_blocked": 0,
+    "n_clean": 0,
+    "n_ambiguous": 1,
+    "pooled_diff_mean": 0.0038937253478104755,
+    "meta_p_one_weighted_stouffer": 0.11500752402639275
+  },
+  "decision_rule": {
+    "blocked": ">=2 domains stable_blocked and global meta_p<0.01 and pooled_diff_mean>=min_abs_diff",
+    "clean": ">=2 domains stable_clean, none blocked, global meta_p>0.2, pooled_diff_mean<=0"
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

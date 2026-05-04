@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-05-02 01:52:02",
+  "experiment_id": "E17",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "not_specific",
+    "n_supported": 0,
+    "n_models": 3
+  },
+  "limitations": [
+    "Norm-matched control perturbs Toeplitz kernels in logit space and still induces softmax renormalization."
+  ]
+}

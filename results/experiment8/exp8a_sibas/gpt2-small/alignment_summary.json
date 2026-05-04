@@ -1,0 +1,73 @@
+{
+  "model": "gpt2-small",
+  "n_sequences": 24,
+  "seq_len": 512,
+  "n_si_heads": 36,
+  "n_low_si_heads": 36,
+  "timestamp": "2026-04-15 13:11:58",
+  "bdi_high_si": [
+    0.026184652442612717,
+    [
+      0.023409743642976533,
+      0.0289595612422489
+    ]
+  ],
+  "bdi_low_si": [
+    0.0006286831508583014,
+    [
+      0.00016773512355318273,
+      0.0010896311781634202
+    ]
+  ],
+  "bdi_delta": [
+    0.02555596929175442,
+    [
+      0.022645463981627322,
+      0.02846647460188152
+    ]
+  ],
+  "bdi_cohens_d": 5.140417832878808,
+  "h1_bdi_si_gt_zero": {
+    "t_statistic": 18.494992986526153,
+    "p_one_sided": 1.3210306561194597e-15,
+    "significant": true
+  },
+  "h2_bdi_si_gt_nonsi": {
+    "t_statistic": 17.20996681832245,
+    "p_one_sided": 6.217859400446633e-15,
+    "significant": true
+  },
+  "bac": [
+    -10217.699316956086,
+    [
+      -30450.34074787952,
+      10014.942113967349
+    ]
+  ],
+  "h3_bac_gt_1": {
+    "t_statistic": -0.9899177390957105,
+    "p_one_sided": 0.8337425324213389,
+    "significant": false
+  },
+  "koa_high_si": [
+    0.9992851434455035,
+    [
+      0.9986196107362967,
+      0.9999506761547102
+    ]
+  ],
+  "koa_median_dominant_offset": 1,
+  "koa_chance_level": 2.0,
+  "h4_koa_gt_chance": {
+    "t_statistic": -2947.11453203356,
+    "p_one_sided": 1.0,
+    "significant": false
+  },
+  "bdi_r2_correlation": {
+    "pearson_r": 0.29638487472362934,
+    "pearson_p": 0.0003097419493819791,
+    "spearman_rho": 0.40676794469897926,
+    "spearman_p": 4.210623991510945e-07,
+    "n_heads": 144
+  }
+}

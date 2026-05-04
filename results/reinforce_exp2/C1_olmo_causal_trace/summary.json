@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-25 03:30:41",
+  "experiment_id": "C1_olmo_causal_trace",
+  "analysis_tier": "exploratory",
+  "canonical_eligible": false,
+  "override_used": false,
+  "verdict": {
+    "C1_two_carrier_class_supported": false
+  },
+  "criteria": {
+    "criterion1_llama_si_concentration": false,
+    "criterion2_olmo_non_si_recovery": false,
+    "criterion3_cross_model_interaction": false,
+    "criterion4_coverage_min_rows_per_phenomenon": false,
+    "criterion4_min_confirmatory_rows_threshold": 2000,
+    "criterion5_calibration_eval_disjoint": true
+  },
+  "limitations": [
+    "C1 confirmatory tier requires >=2000 gap-eligible rows per phenomenon per model.",
+    "Static content alignment uses fastText external lexical embeddings and offset-bin partial Spearman control."
+  ]
+}

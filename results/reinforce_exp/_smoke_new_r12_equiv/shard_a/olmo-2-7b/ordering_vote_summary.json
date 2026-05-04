@@ -1,0 +1,161 @@
+{
+  "rows": [
+    {
+      "ordering_id": 0,
+      "order_seed": 20260417,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "threshold_majority_over_alternatives": false,
+      "threshold_vs_linear_wins": 0,
+      "threshold_vs_linear_comparisons": 0,
+      "threshold_vs_logistic_wins": 0,
+      "threshold_vs_logistic_comparisons": 0,
+      "mean_bic_delta_linear_minus_threshold": NaN,
+      "mean_bic_delta_logistic_minus_threshold": NaN
+    },
+    {
+      "ordering_id": 1,
+      "order_seed": 20261426,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "threshold_majority_over_alternatives": false,
+      "threshold_vs_linear_wins": 0,
+      "threshold_vs_linear_comparisons": 0,
+      "threshold_vs_logistic_wins": 0,
+      "threshold_vs_logistic_comparisons": 0,
+      "mean_bic_delta_linear_minus_threshold": NaN,
+      "mean_bic_delta_logistic_minus_threshold": NaN
+    },
+    {
+      "ordering_id": 2,
+      "order_seed": 20262435,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "threshold_majority_over_alternatives": false,
+      "threshold_vs_linear_wins": 0,
+      "threshold_vs_linear_comparisons": 0,
+      "threshold_vs_logistic_wins": 0,
+      "threshold_vs_logistic_comparisons": 0,
+      "mean_bic_delta_linear_minus_threshold": NaN,
+      "mean_bic_delta_logistic_minus_threshold": NaN
+    },
+    {
+      "ordering_id": 3,
+      "order_seed": 20263444,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "threshold_majority_over_alternatives": false,
+      "threshold_vs_linear_wins": 0,
+      "threshold_vs_linear_comparisons": 0,
+      "threshold_vs_logistic_wins": 0,
+      "threshold_vs_logistic_comparisons": 0,
+      "mean_bic_delta_linear_minus_threshold": NaN,
+      "mean_bic_delta_logistic_minus_threshold": NaN
+    },
+    {
+      "ordering_id": 4,
+      "order_seed": 20264453,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "threshold_majority_over_alternatives": false,
+      "threshold_vs_linear_wins": 0,
+      "threshold_vs_linear_comparisons": 0,
+      "threshold_vs_logistic_wins": 0,
+      "threshold_vs_logistic_comparisons": 0,
+      "mean_bic_delta_linear_minus_threshold": NaN,
+      "mean_bic_delta_logistic_minus_threshold": NaN
+    }
+  ],
+  "per_ordering_fits": {
+    "0": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    },
+    "1": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    },
+    "2": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    },
+    "3": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    },
+    "4": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-05-04 15:07:57",
+  "experiment": "7B",
+  "status": "completed",
+  "device": "cuda:0",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "seq_lens": [
+    256,
+    512,
+    1024
+  ],
+  "epsilon": 0.01,
+  "calibration": {
+    "requested_mode": "global_fit",
+    "mode_used": "global_fit",
+    "model": "llama-3.1-8b",
+    "seq_len": 256,
+    "c_hat": 7.834185303819713,
+    "c_hat_single": 7.057219330782029,
+    "c_hat_global": 7.834185303819713
+  },
+  "c1_params": {
+    "num_seeds": 3,
+    "synthetic_count": 64,
+    "ntp_count_per_seed": 64,
+    "batch_size_synth": 8,
+    "batch_size_ntp": 2,
+    "force_rerun_c1": false,
+    "reuse_effective_sparsity": true
+  },
+  "artifacts": {
+    "effective_sparsity": "results/experiment7_csfix_global/exp7b_phase_transition/effective_sparsity.parquet",
+    "mstar_predictions": "results/experiment7_csfix_global/exp7b_phase_transition/mstar_predictions.parquet",
+    "phase_transition_scaling": "results/experiment7_csfix_global/exp7b_phase_transition/phase_transition_scaling.json",
+    "run_manifest": "results/experiment7_csfix_global/exp7b_phase_transition/run_manifest.json"
+  }
+}

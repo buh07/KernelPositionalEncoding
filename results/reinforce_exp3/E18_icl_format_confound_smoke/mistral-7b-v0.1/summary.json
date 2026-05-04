@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-05-01 23:20:30",
+  "experiment_id": "E18",
+  "model": "mistral-7b-v0.1",
+  "n_high_si_heads": 256,
+  "n_control_heads": 256,
+  "primary_ratio": 12.5,
+  "primary_gap_acc": 0.675,
+  "control_non_si_gap_acc": 0.55,
+  "control_label_shuffle_gap_acc": -0.025,
+  "control_positional_perturb_gap_acc": 0.32499999999999996,
+  "primary_gap_lp": 7.808215332031248,
+  "control_non_si_gap_lp": 4.276623535156249,
+  "control_label_shuffle_gap_lp": 0.1599609374999993,
+  "control_positional_perturb_gap_lp": 2.311584472656249,
+  "acc_informative": true,
+  "lp_survives": true,
+  "acc_survives": true,
+  "survives_controls": true,
+  "model_level_status": "supported"
+}

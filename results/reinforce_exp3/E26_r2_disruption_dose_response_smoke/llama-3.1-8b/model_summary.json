@@ -1,0 +1,76 @@
+{
+  "model": "llama-3.1-8b",
+  "n_bins": 5,
+  "spearman_r": 0.9999999999999999,
+  "spearman_p": 1.4042654220543602e-24,
+  "monotone_fraction": 1.0,
+  "dose_response_positive": true,
+  "elapsed_sec": 446.4555082321167,
+  "bins": [
+    {
+      "bin": 1,
+      "n_heads": 205,
+      "mean_r2": 0.1602493183261188,
+      "min_r2": 0.003607564349222483,
+      "max_r2": 0.22572078025038322,
+      "true_mean_delta": 0.0350528322160244,
+      "perm_mean_delta": 0.02203729748725891,
+      "norm_mean_delta": 5.386982820928097,
+      "per_head_true_delta": 0.00017098942544402146,
+      "per_head_perm_delta": 0.0001074990121329703,
+      "true_over_perm": 1.5906139233402168
+    },
+    {
+      "bin": 2,
+      "n_heads": 205,
+      "mean_r2": 0.28434513016343516,
+      "min_r2": 0.226204005991785,
+      "max_r2": 0.33481984281011967,
+      "true_mean_delta": 0.14269200712442398,
+      "perm_mean_delta": 0.059144094586372375,
+      "norm_mean_delta": 3.750656895339489,
+      "per_head_true_delta": 0.0006960585713386535,
+      "per_head_perm_delta": 0.00028850777847010914,
+      "true_over_perm": 2.4126163080582894
+    },
+    {
+      "bin": 3,
+      "n_heads": 204,
+      "mean_r2": 0.384103267912619,
+      "min_r2": 0.33529428602539924,
+      "max_r2": 0.425656967454027,
+      "true_mean_delta": 0.173349529504776,
+      "perm_mean_delta": 0.10803252458572388,
+      "norm_mean_delta": 5.239557288587093,
+      "per_head_true_delta": 0.0008497525956116471,
+      "per_head_perm_delta": 0.0005295711989496268,
+      "true_over_perm": 1.6046050036276163
+    },
+    {
+      "bin": 4,
+      "n_heads": 205,
+      "mean_r2": 0.48018529360851425,
+      "min_r2": 0.4258273993803058,
+      "max_r2": 0.5247156747911069,
+      "true_mean_delta": 0.8634319826960564,
+      "perm_mean_delta": 0.39395688474178314,
+      "norm_mean_delta": 6.576238326728344,
+      "per_head_true_delta": 0.004211863330224665,
+      "per_head_perm_delta": 0.00192174090117943,
+      "true_over_perm": 2.1916915686395178
+    },
+    {
+      "bin": 5,
+      "n_heads": 205,
+      "mean_r2": 0.5927475330226489,
+      "min_r2": 0.5248014059785514,
+      "max_r2": 0.9015342362758068,
+      "true_mean_delta": 3.035817377269268,
+      "perm_mean_delta": 1.4681529626250267,
+      "norm_mean_delta": 5.749489866197109,
+      "per_head_true_delta": 0.01480886525497204,
+      "per_head_perm_delta": 0.0071617217689025695,
+      "true_over_perm": 2.0677800301143625
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "experiment_id": "B2a_head_alignment",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment/boundary_offset_profiles.parquet",
+      "description": "Boundary probability by relative offset.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "delta",
+          "dtype": "int",
+          "description": "Relative key offset."
+        },
+        {
+          "name": "p_boundary",
+          "dtype": "float",
+          "description": "Empirical boundary probability."
+        },
+        {
+          "name": "n_obs",
+          "dtype": "int",
+          "description": "Count of observations."
+        }
+      ]
+    },
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment/head_alignment_scores.parquet",
+      "description": "Per-head alignment metrics and null deltas.",
+      "columns": [
+        {
+          "name": "head_key",
+          "dtype": "str",
+          "description": "Head identifier."
+        },
+        {
+          "name": "signed_alignment",
+          "dtype": "float",
+          "description": "Signed alignment."
+        },
+        {
+          "name": "absolute_alignment",
+          "dtype": "float",
+          "description": "Absolute alignment."
+        },
+        {
+          "name": "delta_signed",
+          "dtype": "float",
+          "description": "Signed delta vs circular-shift null."
+        },
+        {
+          "name": "delta_absolute",
+          "dtype": "float",
+          "description": "Absolute delta vs circular-shift null."
+        }
+      ]
+    }
+  ]
+}

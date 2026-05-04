@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-04-19 19:39:19",
+  "experiment_id": "B3_cluster_ablation",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b3_cluster_ablation.py",
+  "model": "llama-3.1-8b",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "b1_root": "results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+  "b2a_root": "results/reinforce_exp2/B2a_head_alignment",
+  "calibration_root": "results/reinforce_exp2/calibration_splits",
+  "fractions": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "n_triplets_per_cluster": 1,
+  "seed": 20260417
+}

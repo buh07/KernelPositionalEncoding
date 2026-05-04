@@ -1,0 +1,87 @@
+{
+  "experiment_id": "E28C",
+  "tables": [
+    {
+      "path": "<model>/probe_scope_trials.parquet",
+      "description": "Per-family arm-level probe vs control degradation metrics for true and permuted SI-kernel subtraction.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model identifier"
+        },
+        {
+          "name": "family",
+          "dtype": "str",
+          "description": "Probe-family identifier"
+        },
+        {
+          "name": "arm",
+          "dtype": "str",
+          "description": "true_si_subtraction or permuted_subtraction"
+        },
+        {
+          "name": "probe_acc_loss",
+          "dtype": "float",
+          "description": "Accuracy degradation on probe condition"
+        },
+        {
+          "name": "control_acc_loss",
+          "dtype": "float",
+          "description": "Accuracy degradation on matched control condition"
+        },
+        {
+          "name": "gap_acc",
+          "dtype": "float",
+          "description": "Probe-control accuracy degradation gap"
+        },
+        {
+          "name": "probe_lp_loss",
+          "dtype": "float",
+          "description": "Log-probability degradation on probe"
+        },
+        {
+          "name": "control_lp_loss",
+          "dtype": "float",
+          "description": "Log-probability degradation on control"
+        },
+        {
+          "name": "gap_lp",
+          "dtype": "float",
+          "description": "Probe-control LP degradation gap"
+        }
+      ]
+    },
+    {
+      "path": "<model>/family_summary.parquet",
+      "description": "Per-family pass/fail indicators and true-vs-permuted gap contrasts.",
+      "columns": [
+        {
+          "name": "family",
+          "dtype": "str",
+          "description": "Probe-family identifier"
+        },
+        {
+          "name": "gap_true_lp",
+          "dtype": "float",
+          "description": "Probe-control LP gap under true subtraction"
+        },
+        {
+          "name": "gap_perm_lp",
+          "dtype": "float",
+          "description": "Probe-control LP gap under permuted subtraction"
+        },
+        {
+          "name": "delta_gap_lp",
+          "dtype": "float",
+          "description": "(true gap) - (permuted gap) LP"
+        },
+        {
+          "name": "family_pass_lp",
+          "dtype": "bool",
+          "description": "Primary LP family pass"
+        }
+      ]
+    }
+  ]
+}

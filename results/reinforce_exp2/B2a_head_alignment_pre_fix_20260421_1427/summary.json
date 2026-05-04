@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-20 17:06:24",
+  "experiment_id": "B2a_head_alignment",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "criteria": {
+    "criterion_1_estimable_valid_variance": true,
+    "criterion_2_corrected_significance": false,
+    "criterion_3_practical_effect": false,
+    "criterion_4_directional_subclaim": false
+  },
+  "verdict": {
+    "B2a_supported": false
+  }
+}

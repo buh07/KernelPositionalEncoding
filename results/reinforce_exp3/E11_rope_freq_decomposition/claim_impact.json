@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E11",
+  "claim_addressed": "High-SI heads with high-frequency RoPE dominance are preferentially boundary-sensitive, providing mechanistic grounding for the SI-boundary link",
+  "claim_status": "inconclusive",
+  "supports_main_text": false,
+  "outcome_summary": "No valid frequency-boundary correlations computed.",
+  "notes": [
+    "No valid frequency-boundary correlations computed."
+  ]
+}

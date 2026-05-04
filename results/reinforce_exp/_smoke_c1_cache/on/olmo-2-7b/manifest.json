@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-04-27 13:43:31",
+  "experiment": "3P2-C.1",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "fractions": [
+    0,
+    50
+  ],
+  "sort_orders": [
+    "high_to_low"
+  ],
+  "num_seeds": 1,
+  "synthetic_count": 2,
+  "ntp_count_per_seed": 2,
+  "ntp_seq_len": 128,
+  "batch_size_synth": 4,
+  "batch_size_ntp_requested": 2,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 4,
+    "long_range_retrieval::span32": 4
+  },
+  "effective_batch_size_ntp": 2,
+  "ntp_coverage": {
+    "requested_total": 2,
+    "available_total": 2,
+    "effective_per_seed": 2,
+    "total_used": 2,
+    "reuse_mode": "strict_split"
+  },
+  "ntp_sequence_cache_enabled": true,
+  "runtime_seconds": 19.993646383285522
+}

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "experiment": "6E",
+  "status": "merged",
+  "model": "llama-3.1-8b",
+  "seeds": [
+    0
+  ],
+  "artifacts": {
+    "summary": "results/experiment6/exp6e_tokenizer/llama-3.1-8b/exp6e_tokenizer_comparison.json"
+  }
+}

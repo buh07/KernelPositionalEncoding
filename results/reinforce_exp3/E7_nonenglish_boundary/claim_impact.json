@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E7",
+  "claim_addressed": "Boundary-linked attention in high-SI heads is not specific to English whitespace tokenization but reflects general structural boundary detection",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "High-SI heads show boundary-linked attention in at least one non-English language. Result II is not specific to English whitespace-based tokenization.",
+  "notes": [
+    "High-SI heads show boundary-linked attention in at least one non-English language. Result II is not specific to English whitespace-based tokenization."
+  ]
+}

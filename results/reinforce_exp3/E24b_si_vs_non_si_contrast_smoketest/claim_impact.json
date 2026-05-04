@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E24B",
+  "claims_tested": [
+    "Result II residual SI enrichment after E24 matched baseline"
+  ],
+  "status": "not_supported",
+  "interpretation": "no_si_enrichment",
+  "impact_on_main_text": "If not supported, keep Result II as generic ranked-ablation nonlinearity with SI-specificity unresolved."
+}

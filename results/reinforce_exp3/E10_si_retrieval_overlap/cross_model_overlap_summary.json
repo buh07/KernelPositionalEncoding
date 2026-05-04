@@ -1,0 +1,14 @@
+{
+  "n_models": 1,
+  "mean_jaccard": 0.03643724696356275,
+  "mean_r2_retrieval_rho": -0.5361160347078178,
+  "per_model": [
+    {
+      "model": "llama-3.1-8b",
+      "jaccard": 0.03643724696356275,
+      "spearman_rho": -0.5361160347078178
+    }
+  ],
+  "interpretation": "substantial_overlap",
+  "note": "Jaccard > 0.25 or |\u03c1| > 0.4 in at least one model. SI heads and retrieval heads co-occur. Paper needs mechanistic distinction or acknowledgment."
+}

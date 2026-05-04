@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-02 22:37:10",
+  "experiment_id": "E24",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_e24_non_si_matched_baseline.py",
+  "model": "multi-model",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false
+}

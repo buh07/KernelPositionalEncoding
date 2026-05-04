@@ -1,0 +1,274 @@
+{
+  "rows": [
+    {
+      "task": "lm_wiki",
+      "trial": 0,
+      "target_kl": 0.7864732227231703,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.6330276499005089,
+      "rel_err": 0.1951059087445531
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 1,
+      "target_kl": 0.7864732227231703,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.9325499721684787,
+      "rel_err": 0.18573645640409261
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 2,
+      "target_kl": 0.7864732227231703,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.6505934322193234,
+      "rel_err": 0.17277103222073087
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 3,
+      "target_kl": 0.7864732227231703,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.783122025534969,
+      "rel_err": 0.004261044230594103
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 4,
+      "target_kl": 0.7864732227231703,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.8454344407796428,
+      "rel_err": 0.07496913607855427
+    },
+    {
+      "task": "lm_code",
+      "trial": 0,
+      "target_kl": 0.830884911337988,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.8312473696682366,
+      "rel_err": 0.0004362316914203477
+    },
+    {
+      "task": "lm_code",
+      "trial": 1,
+      "target_kl": 0.830884911337988,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.744319161840959,
+      "rel_err": 0.10418500602885027
+    },
+    {
+      "task": "lm_code",
+      "trial": 2,
+      "target_kl": 0.830884911337988,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.7623514245710281,
+      "rel_err": 0.08248252655906253
+    },
+    {
+      "task": "lm_code",
+      "trial": 3,
+      "target_kl": 0.830884911337988,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.9603468318736212,
+      "rel_err": 0.15581209716175792
+    },
+    {
+      "task": "lm_code",
+      "trial": 4,
+      "target_kl": 0.830884911337988,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.9096436959734336,
+      "rel_err": 0.09478904185252204
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 0,
+      "target_kl": 0.84430209722213,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.9421636084215619,
+      "rel_err": 0.11590817021704636
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 1,
+      "target_kl": 0.84430209722213,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7027473263685559,
+      "rel_err": 0.16765891180338036
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 2,
+      "target_kl": 0.84430209722213,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.8448278648496237,
+      "rel_err": 0.0006227245309747853
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 3,
+      "target_kl": 0.84430209722213,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.8167325026073476,
+      "rel_err": 0.03265370855466322
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 4,
+      "target_kl": 0.84430209722213,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.724561156820215,
+      "rel_err": 0.1418223889243899
+    },
+    {
+      "task": "icl",
+      "trial": 0,
+      "target_kl": 0.35761566537495326,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.3517468341845429,
+      "rel_err": 0.016411001414764686
+    },
+    {
+      "task": "icl",
+      "trial": 1,
+      "target_kl": 0.35761566537495326,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.4225032365958464,
+      "rel_err": 0.18144499109920065
+    },
+    {
+      "task": "icl",
+      "trial": 2,
+      "target_kl": 0.35761566537495326,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.3511214042304834,
+      "rel_err": 0.018159889997158743
+    },
+    {
+      "task": "icl",
+      "trial": 3,
+      "target_kl": 0.35761566537495326,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.4138486096170259,
+      "rel_err": 0.15724407425808226
+    },
+    {
+      "task": "icl",
+      "trial": 4,
+      "target_kl": 0.35761566537495326,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.37239815264250353,
+      "rel_err": 0.04133624082728902
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 0,
+      "target_kl": 0.34476057777082125,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.38901549130828655,
+      "rel_err": 0.12836419356183945
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 1,
+      "target_kl": 0.34476057777082125,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.3195823680218258,
+      "rel_err": 0.0730309999820588
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 2,
+      "target_kl": 0.34476057777082125,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.32391670398642886,
+      "rel_err": 0.06045898263416971
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 3,
+      "target_kl": 0.34476057777082125,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.38249656225428275,
+      "rel_err": 0.109455624907748
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 4,
+      "target_kl": 0.34476057777082125,
+      "matched": true,
+      "alpha": 0.1,
+      "matched_kl": 0.3804606219840074,
+      "rel_err": 0.10355025056524195
+    },
+    {
+      "task": "induction",
+      "trial": 0,
+      "target_kl": 0.7167946575928301,
+      "matched": true,
+      "alpha": 0.09,
+      "matched_kl": 0.7620323355760493,
+      "rel_err": 0.0631110702403088
+    },
+    {
+      "task": "induction",
+      "trial": 1,
+      "target_kl": 0.7167946575928301,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.8211590440163922,
+      "rel_err": 0.1455987224765917
+    },
+    {
+      "task": "induction",
+      "trial": 2,
+      "target_kl": 0.7167946575928301,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.6202730405245741,
+      "rel_err": 0.13465727743060887
+    },
+    {
+      "task": "induction",
+      "trial": 3,
+      "target_kl": 0.7167946575928301,
+      "matched": true,
+      "alpha": 0.1,
+      "matched_kl": 0.6675980329480857,
+      "rel_err": 0.06863419547511496
+    },
+    {
+      "task": "induction",
+      "trial": 4,
+      "target_kl": 0.7167946575928301,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.8155028404097847,
+      "rel_err": 0.13770775461474635
+    }
+  ]
+}

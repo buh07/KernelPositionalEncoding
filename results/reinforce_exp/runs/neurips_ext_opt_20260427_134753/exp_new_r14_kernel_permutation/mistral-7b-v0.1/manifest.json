@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-27 22:05:46",
+  "experiment_id": "NEW-R14",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "single_model",
+  "model": "mistral-7b-v0.1",
+  "device": "cuda:0",
+  "eval_seqs": 100,
+  "n_permutations": 5,
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r14_kernel_permutation"
+}

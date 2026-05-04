@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-17 10:06:27",
+  "experiment_id": "EXP-R5",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "task_grounded_specialization_all",
+  "model": "llama-3.1-8b+olmo-2-7b",
+  "num_seeds": 6,
+  "seq_len": 512,
+  "batch_size": 4,
+  "count_scale": 1.0,
+  "output_root": "results/reinforce_exp/exp_r5_task_grounded",
+  "device_map": {
+    "llama-3.1-8b": "cuda:0",
+    "olmo-2-7b": "cuda:0"
+  }
+}

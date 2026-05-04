@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 17:29:34",
+  "experiment_id": "E28C",
+  "claim_status": "not_supported",
+  "supports_main_text": false,
+  "outcome_summary": "No model passes the multi-family gate beyond the original short probe setting.",
+  "notes": [
+    "Designed to test whether Result-III preferential disruption generalizes beyond a single short probe format.",
+    "No model passes the multi-family gate beyond the original short probe setting."
+  ]
+}

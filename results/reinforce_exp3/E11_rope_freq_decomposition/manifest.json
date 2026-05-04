@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E11",
+  "timestamp": "2026-04-29 16:52:38",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "max_offset": 64,
+  "data_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits",
+  "fallback_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy"
+}

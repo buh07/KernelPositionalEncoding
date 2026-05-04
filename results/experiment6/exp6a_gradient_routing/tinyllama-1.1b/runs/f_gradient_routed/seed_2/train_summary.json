@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-14 15:14:24",
+  "model": "tinyllama-1.1b",
+  "condition": "f_gradient_routed",
+  "seed": 2,
+  "elapsed_sec": 44.87373232841492,
+  "lora": {
+    "trainable_params": 8560640,
+    "total_params": 1108609024,
+    "si_attn_params": 2252800,
+    "non_si_attn_params": 2252800,
+    "mlp_params": 4055040
+  }
+}

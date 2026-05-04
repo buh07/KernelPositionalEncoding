@@ -1,0 +1,72 @@
+{
+  "model": "tinyllama-1.1b",
+  "n_sequences": 24,
+  "seq_len": 512,
+  "n_si_heads": 176,
+  "n_low_si_heads": 176,
+  "sibas_overall_high_si": [
+    0.47396844336339417,
+    [
+      0.47181447682605215,
+      0.4761224099007362
+    ]
+  ],
+  "sibas_word_high_si": [
+    0.3568792037455235,
+    [
+      0.34952890837415046,
+      0.36422949911689656
+    ]
+  ],
+  "sibas_subword_high_si": [
+    0.6196155592111708,
+    [
+      0.5962186027414775,
+      0.6430125156808641
+    ]
+  ],
+  "sibas_overall_low_si": [
+    0.5341629017638628,
+    [
+      0.5252897219444403,
+      0.5430360815832853
+    ]
+  ],
+  "sibas_word_low_si": [
+    0.3777028023273577,
+    [
+      0.368130600636807,
+      0.3872750040179084
+    ]
+  ],
+  "sibas_subword_low_si": [
+    0.7236869858842687,
+    [
+      0.6953838805335995,
+      0.751990091234938
+    ]
+  ],
+  "cohens_d_overall": -3.730005966632656,
+  "cohens_d_word": -0.9762480777235458,
+  "h_8a1_sibas_gt_1": {
+    "test": "one-sample t-test vs 1.0",
+    "mean": 0.47396844336339417,
+    "t_statistic": -478.6619630033962,
+    "p_one_sided_gt": 1.0,
+    "significant": false
+  },
+  "h_8a2_word_gt_subword": {
+    "test": "paired t-test word > subword",
+    "mean_word": 0.3568792037455235,
+    "mean_subword": 0.6196155592111708,
+    "t_statistic": -17.346886767488666,
+    "p_one_sided_gt": 0.9999999999999948,
+    "significant": false
+  },
+  "high_vs_low_si": {
+    "test": "paired t-test high-SI vs low-SI SIBAS",
+    "t_statistic": -15.09537593457225,
+    "p_two_sided": 2.003099396875493e-13,
+    "significant": true
+  }
+}

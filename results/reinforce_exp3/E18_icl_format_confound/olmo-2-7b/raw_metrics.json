@@ -1,0 +1,68 @@
+{
+  "intact": {
+    "icl": {
+      "accuracy": 0.795,
+      "mean_logprob": -1.3065542602539062,
+      "n_prompts": 200.0
+    },
+    "nonicl": {
+      "accuracy": 0.0,
+      "mean_logprob": -10.535234375,
+      "n_prompts": 200.0
+    },
+    "shuffle": {
+      "accuracy": 0.0,
+      "mean_logprob": -10.86859375,
+      "n_prompts": 200.0
+    },
+    "shuffle_nonicl": {
+      "accuracy": 0.01,
+      "mean_logprob": -11.100234375,
+      "n_prompts": 200.0
+    },
+    "icl_perturbed": {
+      "accuracy": 0.365,
+      "mean_logprob": -4.153040771484375,
+      "n_prompts": 200.0
+    },
+    "nonicl_perturbed": {
+      "accuracy": 0.0,
+      "mean_logprob": -11.53890625,
+      "n_prompts": 200.0
+    }
+  },
+  "high_ablation": {
+    "icl": {
+      "accuracy": 0.365,
+      "mean_logprob": -4.842807006835938,
+      "n_prompts": 200.0
+    },
+    "nonicl": {
+      "accuracy": 0.01,
+      "mean_logprob": -9.4590625,
+      "n_prompts": 200.0
+    },
+    "shuffle": {
+      "accuracy": 0.03,
+      "mean_logprob": -9.523359375,
+      "n_prompts": 200.0
+    },
+    "shuffle_nonicl": {
+      "accuracy": 0.01,
+      "mean_logprob": -10.010859375,
+      "n_prompts": 200.0
+    }
+  },
+  "control_ablation": {
+    "icl": {
+      "accuracy": 0.05,
+      "mean_logprob": -8.6656689453125,
+      "n_prompts": 200.0
+    },
+    "nonicl": {
+      "accuracy": 0.0,
+      "mean_logprob": -12.751796875,
+      "n_prompts": 200.0
+    }
+  }
+}

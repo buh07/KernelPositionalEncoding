@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E6",
+  "claim_addressed": "Llama-3.1-8B boundary attention status under strict tokenizer-feature gate (resolves current ambiguous verdict from reinforce_exp2)",
+  "claim_status": "inconclusive",
+  "supports_main_text": false,
+  "outcome_summary": "Phase 1: ambiguous, Phase 2: not_run. Outcome is inconclusive. Report with quantified uncertainty.",
+  "llama_boundary_status": "ambiguous",
+  "notes": [
+    "Phase 1: ambiguous, Phase 2: not_run. Outcome is inconclusive. Report with quantified uncertainty."
+  ]
+}

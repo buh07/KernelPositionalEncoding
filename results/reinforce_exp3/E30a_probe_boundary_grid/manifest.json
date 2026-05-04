@@ -1,0 +1,18 @@
+{
+  "experiment_id": "E30A",
+  "generated_at": "2026-05-04 02:57:16",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "output_root": "results/reinforce_exp3/E30a_probe_boundary_grid",
+  "files": [
+    "cross_model_summary.json",
+    "summary.json",
+    "manifest.json",
+    "preregistration.json",
+    "claim_impact.json",
+    "data_dictionary.json"
+  ]
+}

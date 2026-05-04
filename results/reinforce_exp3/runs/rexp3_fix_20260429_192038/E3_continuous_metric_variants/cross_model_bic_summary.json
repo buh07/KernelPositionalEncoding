@@ -1,0 +1,52 @@
+{
+  "n_new_cells": 6,
+  "n_new_linear_votes": 0,
+  "km_linear_votes": 0,
+  "rt_linear_votes": 0,
+  "outcome": "metric_artifact_refuted",
+  "note": "0/6 continuous-metric cells prefer linear BIC. Schaeffer objection refuted.",
+  "new_cells": [
+    {
+      "model": "llama-3.1-8b",
+      "task": "local_keymatch_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "llama-3.1-8b",
+      "task": "longrange_retrieval_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "olmo-2-7b",
+      "task": "local_keymatch_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "olmo-2-7b",
+      "task": "longrange_retrieval_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "task": "local_keymatch_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "task": "longrange_retrieval_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    }
+  ]
+}

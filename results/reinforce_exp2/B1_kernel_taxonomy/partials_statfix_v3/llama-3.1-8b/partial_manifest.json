@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-21 19:26:07",
+  "schema_version": 1,
+  "status": "ok",
+  "model": "llama-3.1-8b",
+  "config_hash": "58eae1b20a1b9c72def19ba1ef1fa6eaa5162e0e66747f35e03692d33b55fdeb",
+  "n_membership_rows": 1024,
+  "n_stability_rows": 8,
+  "n_enrichment_rows": 49,
+  "paths": {
+    "root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b",
+    "manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/partial_manifest.json",
+    "membership": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/cluster_membership.parquet",
+    "stability": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/cluster_stability_report.parquet",
+    "enrichment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/cluster_function_enrichment.parquet",
+    "summary": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/model_summary.json",
+    "proto": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/llama-3.1-8b/prototype_shape.json"
+  }
+}

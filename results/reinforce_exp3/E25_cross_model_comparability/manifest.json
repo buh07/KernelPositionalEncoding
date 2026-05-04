@@ -1,0 +1,8 @@
+{
+  "experiment_id": "E25",
+  "artifacts": [
+    "per_model_comparability_metrics.parquet",
+    "rank_consistency.parquet",
+    "cross_model_comparability_summary.json"
+  ]
+}

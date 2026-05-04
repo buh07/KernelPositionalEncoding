@@ -1,0 +1,41 @@
+{
+  "experiment_id": "A2_prediction_layer",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A2_prediction_layer/predictions_preregistered.json",
+      "description": "Pre-registered predictions.",
+      "columns": [
+        {
+          "name": "id",
+          "dtype": "str",
+          "description": "Prediction id."
+        },
+        {
+          "name": "statement",
+          "dtype": "str",
+          "description": "Prediction statement."
+        },
+        {
+          "name": "direction",
+          "dtype": "str",
+          "description": "Expected direction."
+        },
+        {
+          "name": "primary_endpoint",
+          "dtype": "str",
+          "description": "Primary endpoint."
+        },
+        {
+          "name": "failure_interpretation",
+          "dtype": "str",
+          "description": "Interpretation if prediction fails."
+        },
+        {
+          "name": "analysis_link",
+          "dtype": "str",
+          "description": "Downstream analysis id."
+        }
+      ]
+    }
+  ]
+}

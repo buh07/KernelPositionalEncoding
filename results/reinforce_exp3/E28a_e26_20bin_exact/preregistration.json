@@ -1,0 +1,17 @@
+{
+  "experiment_id": "E28A",
+  "question": "Does E26 dose-response remain with finer bins and exact small-n p-values?",
+  "primary_hypothesis": "Spearman(mean-bin R\u00b2, per-head disruption) remains positive with exact one-tailed p-values.",
+  "primary_endpoints": [
+    "spearman_r",
+    "spearman_p_exact_one_tailed",
+    "monotone_fraction"
+  ],
+  "sample_size_plan": {
+    "n_bins_target": 20,
+    "eval_seqs": 100
+  },
+  "acceptance_criteria": [
+    "spearman_r > 0 and p_exact_one_tailed < 0.05"
+  ]
+}

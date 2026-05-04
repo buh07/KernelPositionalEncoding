@@ -1,0 +1,39 @@
+{
+  "rows": [
+    {
+      "feature": "space_prefix",
+      "d_real_before": NaN,
+      "d_real_after_ablation": -2.5681032123485443,
+      "d_fake_after_ablation": 0.4897266058269555,
+      "boundary_survives": false
+    },
+    {
+      "feature": "bpe_merge_rank",
+      "d_real_before": NaN,
+      "d_real_after_ablation": -2.542294896593964,
+      "d_fake_after_ablation": 0.33444843976228394,
+      "boundary_survives": false
+    },
+    {
+      "feature": "subword_length",
+      "d_real_before": NaN,
+      "d_real_after_ablation": -2.519559553489704,
+      "d_fake_after_ablation": 0.1670033432083364,
+      "boundary_survives": false
+    },
+    {
+      "feature": "intraword_position",
+      "d_real_before": NaN,
+      "d_real_after_ablation": -2.697162142978,
+      "d_fake_after_ablation": 0.26731648199760655,
+      "boundary_survives": false
+    },
+    {
+      "feature": "capitalization",
+      "d_real_before": NaN,
+      "d_real_after_ablation": -2.568101825455555,
+      "d_fake_after_ablation": 0.4783591698013451,
+      "boundary_survives": false
+    }
+  ]
+}

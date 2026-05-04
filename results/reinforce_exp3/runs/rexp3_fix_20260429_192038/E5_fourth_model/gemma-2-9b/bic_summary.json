@@ -1,0 +1,22 @@
+{
+  "lm_loss": {
+    "preferred": "threshold_piecewise",
+    "bic_linear": 0.16026207997793573,
+    "bic_threshold": -2.424070436632409,
+    "bic_logistic": 2.319385760110978
+  },
+  "local_keymatch": {
+    "preferred": "threshold_piecewise",
+    "bic_linear": 14.822212133329845,
+    "bic_threshold": 9.539658893019652,
+    "bic_logistic": 24.71204360684762
+  },
+  "longrange_retrieval": {
+    "preferred": "threshold_piecewise",
+    "bic_linear": 21.580847775065468,
+    "bic_threshold": 9.600336133335949,
+    "bic_logistic": 32.31366683594275
+  },
+  "linear_votes": 0,
+  "total_cells": 3
+}

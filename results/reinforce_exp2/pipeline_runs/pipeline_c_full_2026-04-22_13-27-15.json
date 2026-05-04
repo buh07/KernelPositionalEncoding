@@ -1,0 +1,93 @@
+{
+  "timestamp": "2026-04-22 13:27:15",
+  "phase": "C",
+  "mode": "full",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "device_map": "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:4,mistral-7b-v0.1:cuda:5",
+  "resume_policy": "strict_artifact_check",
+  "strict_todo": true,
+  "b1_execution_mode": "split_parallel",
+  "b1_partial_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3",
+  "b1_resume_partials": true,
+  "log_root": "/tmp/reinforce_exp2_eta_check_logs",
+  "output_root_map": {
+    "preflight": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/preflight",
+    "calibration_v1": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+    "A0_claim_hygiene": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A0_claim_hygiene",
+    "A1_evidence_consolidation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A1_evidence_consolidation",
+    "A2_prediction_layer": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A2_prediction_layer",
+    "B1_kernel_taxonomy": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+    "B2a_head_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment",
+    "B2b_cluster_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment",
+    "B3_cluster_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation",
+    "B4_confound_isolation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation",
+    "C1_olmo_causal_trace": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C1_olmo_causal_trace",
+    "C2_carrier_class_predictions": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions"
+  },
+  "n_tasks": 2,
+  "n_failures": 0,
+  "rows": [
+    {
+      "experiment_id": "C1_olmo_causal_trace",
+      "status": "skipped_dependency_failed",
+      "return_code": 0,
+      "timestamp": "2026-04-22 13:27:15",
+      "started_at": "2026-04-22 13:27:15",
+      "ended_at": "2026-04-22 13:27:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [
+        "B3_cluster_ablation",
+        "B2b_cluster_alignment",
+        "B4_confound_isolation"
+      ],
+      "dependency_failures": [
+        "B3_cluster_ablation",
+        "B2b_cluster_alignment",
+        "B4_confound_isolation"
+      ],
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_c1_olmo_causal_trace.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:4,mistral-7b-v0.1:cuda:5",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C1_olmo_causal_trace"
+      ]
+    },
+    {
+      "experiment_id": "C2_carrier_class_predictions",
+      "status": "skipped_dependency_failed",
+      "return_code": 0,
+      "timestamp": "2026-04-22 13:27:15",
+      "started_at": "2026-04-22 13:27:15",
+      "ended_at": "2026-04-22 13:27:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [
+        "B3_cluster_ablation",
+        "B2b_cluster_alignment",
+        "B4_confound_isolation"
+      ],
+      "dependency_failures": [
+        "B3_cluster_ablation",
+        "B2b_cluster_alignment",
+        "B4_confound_isolation"
+      ],
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_c2_carrier_class_predictions.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:4,mistral-7b-v0.1:cuda:5",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions"
+      ]
+    }
+  ]
+}

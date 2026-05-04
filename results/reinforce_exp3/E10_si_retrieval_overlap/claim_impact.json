@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E10",
+  "claim_addressed": "High-SI heads and retrieval heads (Wu et al. 2024) are distinct populations, supporting SI infrastructure as a novel finding beyond retrieval-head taxonomy",
+  "claim_status": "not_supported",
+  "supports_main_text": false,
+  "outcome_summary": "Jaccard > 0.25 or |\u03c1| > 0.4 in at least one model. SI heads and retrieval heads co-occur. Paper needs mechanistic distinction or acknowledgment.",
+  "mean_jaccard": 0.03643724696356275,
+  "mean_spearman_rho": -0.5361160347078178,
+  "notes": [
+    "Jaccard > 0.25 or |\u03c1| > 0.4 in at least one model. SI heads and retrieval heads co-occur. Paper needs mechanistic distinction or acknowledgment."
+  ]
+}

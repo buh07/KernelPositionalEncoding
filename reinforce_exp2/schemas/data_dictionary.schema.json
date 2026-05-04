@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reinforce_exp2/data_dictionary.schema.json",
+  "type": "object",
+  "required": ["experiment_id", "tables"],
+  "properties": {
+    "experiment_id": { "type": "string" },
+    "tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "description", "columns"],
+        "properties": {
+          "path": { "type": "string" },
+          "description": { "type": "string" },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "dtype", "description"],
+              "properties": {
+                "name": { "type": "string" },
+                "dtype": { "type": "string" },
+                "description": { "type": "string" }
+              },
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

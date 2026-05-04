@@ -1,0 +1,16 @@
+{
+  "experiment_id": "E9",
+  "status": "complete",
+  "models_processed": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "figures_generated": [
+    "fig_r2_heatmap_all_models.pdf",
+    "fig_cluster_heatmap_all_models.pdf",
+    "fig_boundary_heatmap_all_models.pdf"
+  ],
+  "timestamp_start": "2026-04-29 16:50:57",
+  "timestamp_end": "2026-04-29 16:51:01"
+}

@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-04-16 16:52:13",
+  "experiment": "EXP-R5",
+  "model": "llama-3.1-8b",
+  "n_rows": 16,
+  "n_raw_rows": 24,
+  "regime_configs": [
+    {
+      "regime": "long_span_64",
+      "task_name": "long_range_retrieval",
+      "span_override": 64,
+      "candidate_size": 10,
+      "count": 200,
+      "description": "Controlled long-span retrieval, 64-token dependency."
+    },
+    {
+      "regime": "long_span_128",
+      "task_name": "long_range_retrieval",
+      "span_override": 128,
+      "candidate_size": 10,
+      "count": 200,
+      "description": "Controlled longer-span retrieval, 128-token dependency."
+    },
+    {
+      "regime": "uncertainty_low",
+      "task_name": "local_key_match",
+      "span_override": null,
+      "candidate_size": 10,
+      "count": 200,
+      "description": "Low uncertainty setting via 10-way restricted evaluation."
+    },
+    {
+      "regime": "uncertainty_high",
+      "task_name": "local_key_match",
+      "span_override": null,
+      "candidate_size": 50,
+      "count": 200,
+      "description": "High uncertainty setting via 50-way restricted evaluation."
+    }
+  ],
+  "regime_tests": {
+    "long_span_128": {
+      "n_pairs": 2,
+      "mean_delta_high_minus_low": -0.014322916666666657,
+      "p_one_sided": 0.7817255174305532,
+      "cohens_d": -0.8642416214502221,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    },
+    "long_span_64": {
+      "n_pairs": 2,
+      "mean_delta_high_minus_low": 0.005208333333333343,
+      "p_one_sided": 0.37888105840915653,
+      "cohens_d": 0.2828427124746193,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    },
+    "uncertainty_high": {
+      "n_pairs": 2,
+      "mean_delta_high_minus_low": -0.018880208333333315,
+      "p_one_sided": 0.9671881049234972,
+      "cohens_d": -6.835365551469952,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    },
+    "uncertainty_low": {
+      "n_pairs": 2,
+      "mean_delta_high_minus_low": -0.019531250000000028,
+      "p_one_sided": 0.9170476823436803,
+      "cohens_d": -2.6516504294495524,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    }
+  },
+  "interaction_model": {
+    "f_interaction": 0.5553620664635043,
+    "p_value": 0.6589508490641938,
+    "partial_eta_squared": 0.17236409494212523,
+    "supports_conditional_specialization": false,
+    "p_value_holm": 0.6589508490641938
+  },
+  "proxy_vs_task_sign_match": {
+    "n_matches": 1,
+    "n_compared": 4,
+    "fraction": 0.25
+  },
+  "verdict": {
+    "interaction_significant": false,
+    "supports_task_grounded_specialization": false
+  }
+}

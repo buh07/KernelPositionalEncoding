@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-24 13:17:29",
+  "schema_version": 1,
+  "status": "ok",
+  "model": "mistral-7b-v0.1",
+  "config_hash": "9814c53d51fd9a4e97fa60644621200fd445320dea18c93874454a34f7638a95",
+  "curve_rows": 495,
+  "diag_rows": 150,
+  "paths": {
+    "root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1",
+    "manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1/partial_manifest.json",
+    "curve": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1/curve.parquet",
+    "diag": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1/matching_diag_df.parquet",
+    "report": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1/model_report.json",
+    "matching": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/mistral-7b-v0.1/matching_diag_model.json"
+  }
+}

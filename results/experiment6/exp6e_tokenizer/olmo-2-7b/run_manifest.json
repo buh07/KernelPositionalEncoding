@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "experiment": "6E",
+  "status": "merged",
+  "model": "olmo-2-7b",
+  "seeds": [
+    0
+  ],
+  "artifacts": {
+    "summary": "results/experiment6/exp6e_tokenizer/olmo-2-7b/exp6e_tokenizer_comparison.json"
+  }
+}

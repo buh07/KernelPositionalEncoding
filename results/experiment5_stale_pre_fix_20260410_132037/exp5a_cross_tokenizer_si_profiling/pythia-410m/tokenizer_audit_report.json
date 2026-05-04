@@ -1,0 +1,126 @@
+{
+  "timestamp": "2026-04-10 10:30:49",
+  "model": "pythia-410m",
+  "status": "completed",
+  "n_sequences": 24,
+  "seq_len": 256,
+  "adapter_error": null,
+  "r2_summary": {
+    "n_heads": 384,
+    "mean_r2": 0.006197489897107292,
+    "std_r2": 0.00695875375989546,
+    "min_r2": 0.0,
+    "max_r2": 0.04572941490340136,
+    "early_vs_late_ratio": 694675.9849170648
+  },
+  "si_head_count": 96,
+  "boundary_controls": {
+    "approach_a": {
+      "high_vs_low_comparison": {
+        "attn_to_prev_last": {
+          "cohens_d": NaN,
+          "t_statistic": NaN,
+          "t_p_value": NaN,
+          "error": "ValueError: array must not contain infs or NaNs"
+        }
+      }
+    },
+    "approach_c": {
+      "error": "ValueError: array must not contain infs or NaNs"
+    },
+    "post_ablation_d": NaN,
+    "synthetic": {
+      "method": "full_adversarial_forward_pass",
+      "note": "Synthetic 2x2 boundary control computed from fresh attention forward passes on adversarially perturbed token sequences.",
+      "replacement_meta": {
+        "boundary_candidates_available": 4084,
+        "nonboundary_candidates_available": 816,
+        "boundary_replacements_applied": 120,
+        "nonboundary_replacements_applied": 120
+      },
+      "cells": {
+        "fake_boundary_with_prefix": {
+          "cell": "fake_boundary_with_prefix",
+          "mean_high_prev_attn": 0.021430540443923993,
+          "std_high_prev_attn": 0.08284127576994066,
+          "mean_low_prev_attn": NaN,
+          "std_low_prev_attn": NaN,
+          "n": 120
+        },
+        "fake_boundary_without_prefix": {
+          "cell": "fake_boundary_without_prefix",
+          "mean_high_prev_attn": 0.017401176560940017,
+          "std_high_prev_attn": 0.05709548421862268,
+          "mean_low_prev_attn": NaN,
+          "std_low_prev_attn": NaN,
+          "n": 1048
+        },
+        "real_boundary_with_prefix": {
+          "cell": "real_boundary_with_prefix",
+          "mean_high_prev_attn": 0.020083076504099594,
+          "std_high_prev_attn": 0.054530932827202304,
+          "mean_low_prev_attn": NaN,
+          "std_low_prev_attn": NaN,
+          "n": 4832
+        },
+        "real_boundary_without_prefix": {
+          "cell": "real_boundary_without_prefix",
+          "mean_high_prev_attn": 0.014403354204146885,
+          "std_high_prev_attn": 0.012767094495442298,
+          "mean_low_prev_attn": NaN,
+          "std_low_prev_attn": NaN,
+          "n": 120
+        }
+      },
+      "prefix_following_artifact_flag": false,
+      "prefix_following_artifact_flag_legacy_binary": true,
+      "prefix_following_assessment": {
+        "n_fake_with_prefix": 120,
+        "n_real_with_prefix": 4832,
+        "mean_fake_with_prefix": 0.021430540443923993,
+        "mean_real_with_prefix": 0.020083076504099597,
+        "fake_minus_real_diff": 0.0013474639398243955,
+        "t_statistic": 0.17722981738281068,
+        "p_two_sided": 0.8596228088184993,
+        "p_one_sided_fake_gt_real": 0.42981140440924964,
+        "cohens_d_fake_minus_real": 0.024330552717996112,
+        "rule": {
+          "alpha_one_sided": 0.05,
+          "min_cohens_d": 0.2,
+          "min_abs_diff": 0.005,
+          "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+        },
+        "artifact_flag_statistical": false
+      },
+      "comparisons": {
+        "fake_minus_real_with_prefix": 0.001347463939824399,
+        "real_minus_fake_without_prefix": -0.002997822356793132
+      },
+      "acceptance_rule_inputs": {
+        "fake_boundary_with_prefix": 0.021430540443923993,
+        "real_boundary_with_prefix": 0.020083076504099594,
+        "alpha_one_sided": 0.05,
+        "min_cohens_d": 0.2,
+        "min_abs_diff": 0.005
+      }
+    }
+  },
+  "feature_controls": [
+    {
+      "feature_name": "space_prefix",
+      "error": "ValueError: array must not contain infs or NaNs"
+    },
+    {
+      "feature_name": "capitalization_marker",
+      "error": "ValueError: array must not contain infs or NaNs"
+    },
+    {
+      "feature_name": "punctuation_adjacency",
+      "error": "ValueError: array must not contain infs or NaNs"
+    },
+    {
+      "feature_name": "token_length_bucket",
+      "error": "ValueError: array must not contain infs or NaNs"
+    }
+  ]
+}

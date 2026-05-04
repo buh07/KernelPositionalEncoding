@@ -1,0 +1,60 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A1_evidence_consolidation",
+  "rows": [
+    {
+      "claim_id": "E2_threshold_capacity",
+      "artifact_path": "results/experiment3_phase2/exp3p2c_redundancy_quantification/llama-3.1-8b/curve_fit_comparison.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "E2_threshold_capacity",
+      "artifact_path": "results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "Llama_gate",
+      "artifact_path": "results/experiment3_phase2/exp3p2b_trivial_feature_control_multiseed/llama-3.1-8b/multiseed_gate_summary.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "Llama_gate",
+      "artifact_path": "results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/synthetic_boundary_results.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "R5B_transfer",
+      "artifact_path": "results/reinforce_exp/exp_r5b_regime_alignment/interaction_transfer_report.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "R5B_transfer",
+      "artifact_path": "results/reinforce_exp/exp_r5b_regime_alignment/llama-3.1-8b/interaction_transfer_report.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "R5B_transfer",
+      "artifact_path": "results/reinforce_exp/exp_r5b_regime_alignment/olmo-2-7b/interaction_transfer_report.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "RoPE_control",
+      "artifact_path": "results/reinforce_exp/exp_r4_pe_scheme_contrast/gpt2-medium/non_rope_control_summary.json",
+      "exists": true,
+      "json_parse_ok": true
+    },
+    {
+      "claim_id": "RoPE_control",
+      "artifact_path": "results/reinforce_exp/exp_r4_pe_scheme_contrast/gpt2-small/non_rope_control_summary.json",
+      "exists": true,
+      "json_parse_ok": true
+    }
+  ]
+}

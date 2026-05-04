@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-04-19 19:39:19",
+  "models": {
+    "llama-3.1-8b": {
+      "auc_drop": {
+        "within": NaN,
+        "mixed": NaN,
+        "random": NaN
+      },
+      "collapse_fraction": {
+        "within": NaN,
+        "mixed": NaN,
+        "random": NaN
+      },
+      "d_auc_within_minus_mixed": NaN,
+      "d_fc_mixed_minus_within": NaN,
+      "group_structure_test": {
+        "n_triplets": 3,
+        "mean_d_auc_within_minus_mixed": 0.017124247207088567,
+        "p_one_sided_within_gt_mixed": 0.2222222222222222,
+        "p_one_sided_within_gt_mixed_holm": NaN
+      }
+    }
+  }
+}

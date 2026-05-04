@@ -1,0 +1,15 @@
+{
+  "tr": {
+    "lang": "tr",
+    "status": "ok",
+    "n_seqs_evaluated": 16,
+    "n_valid_boundary_masks": 16,
+    "n_invalid_boundary_masks": 0,
+    "n_high_si_heads": 30,
+    "n_low_si_heads": 30,
+    "mean_d_high_si": -0.5878943288263007,
+    "mean_d_low_si": -2.2903512381063345,
+    "d_differential": 1.7024569092800337,
+    "boundary_effect_present": false
+  }
+}

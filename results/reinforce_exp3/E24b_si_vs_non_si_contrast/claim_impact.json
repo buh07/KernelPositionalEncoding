@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E24B",
+  "claims_tested": [
+    "Result II residual SI enrichment after E24 matched baseline"
+  ],
+  "status": "mixed",
+  "interpretation": "mixed",
+  "impact_on_main_text": "Retain limited SI-enrichment wording with explicit caveat."
+}

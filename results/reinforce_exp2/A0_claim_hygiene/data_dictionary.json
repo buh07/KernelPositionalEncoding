@@ -1,0 +1,41 @@
+{
+  "experiment_id": "A0_claim_hygiene",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A0_claim_hygiene/claim_matrix.csv",
+      "description": "Claim-to-evidence mapping table.",
+      "columns": [
+        {
+          "name": "claim_id",
+          "dtype": "str",
+          "description": "Claim identifier."
+        },
+        {
+          "name": "headline",
+          "dtype": "str",
+          "description": "Claim headline."
+        },
+        {
+          "name": "status",
+          "dtype": "str",
+          "description": "Claim status label."
+        },
+        {
+          "name": "strict_only",
+          "dtype": "bool",
+          "description": "Whether strict-only evidence is used."
+        },
+        {
+          "name": "source",
+          "dtype": "json",
+          "description": "Source artifact paths."
+        },
+        {
+          "name": "caveat",
+          "dtype": "str",
+          "description": "Caveat text."
+        }
+      ]
+    }
+  ]
+}

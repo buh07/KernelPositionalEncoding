@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E10",
+  "timestamp": "2026-04-30 19:08:35",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "n_eval_examples": 200,
+  "sequence_length": 512,
+  "seed_base": 20260429,
+  "reference": "Wu et al. 2024, Retrieval Heads"
+}

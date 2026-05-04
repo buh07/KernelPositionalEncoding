@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-28 22:49:07",
+  "experiment_id": "NEW-R12",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "merge_shards",
+  "model": "llama-3.1-8b",
+  "shard_roots": [
+    "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control_shards/llama_a",
+    "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control_shards/llama_b"
+  ],
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control",
+  "ordering_id_start": 0,
+  "ordering_id_stop": 10,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 1,
+    "long_range_retrieval::span48": 1
+  },
+  "effective_batch_size_ntp": 1,
+  "ntp_coverage": {
+    "requested_total": 300,
+    "available_total": 300,
+    "effective_per_seed": 100,
+    "total_used": 300,
+    "reuse_mode": "strict_split"
+  }
+}

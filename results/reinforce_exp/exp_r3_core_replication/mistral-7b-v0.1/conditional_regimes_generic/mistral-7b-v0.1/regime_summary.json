@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-04-17 12:13:53",
+  "model": "mistral-7b-v0.1",
+  "n_rows": 1280,
+  "regime_tests": {
+    "boundary_dense_contexts": {
+      "n_pairs": 1600,
+      "mean_high": 3.7375737738773593,
+      "mean_low": 0.4202345361064726,
+      "mean_delta_high_minus_low": 3.3173392377708866,
+      "p_one_sided": 0.0,
+      "cohens_d": 10.808552241055025,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    },
+    "high_uncertainty_tokens": {
+      "n_pairs": 1600,
+      "mean_high": 1.3212959007730627,
+      "mean_low": -0.17781121725446225,
+      "mean_delta_high_minus_low": 1.4991071180275248,
+      "p_one_sided": 0.0,
+      "cohens_d": 4.051373488130243,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    },
+    "long_span_retrieval": {
+      "n_pairs": 1600,
+      "mean_high": 3.105696461074264,
+      "mean_low": 0.7285154093866172,
+      "mean_delta_high_minus_low": 2.3771810516876473,
+      "p_one_sided": 0.0,
+      "cohens_d": 6.730838098841008,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    },
+    "rare_token_contexts": {
+      "n_pairs": 1600,
+      "mean_high": 5.2466535508207155,
+      "mean_low": 0.20385777468093277,
+      "mean_delta_high_minus_low": 5.042795776139783,
+      "p_one_sided": 0.0,
+      "cohens_d": 5.581943818758366,
+      "p_one_sided_holm": 0.0,
+      "supports_high_gt_low": true
+    }
+  },
+  "interaction_model": {
+    "n_observations": 1280,
+    "f_interaction": 1229.3600344486629,
+    "p_value": 1.1102230246251565e-16,
+    "partial_eta_squared": 0.7435525286896214,
+    "supports_conditional_specialization": true,
+    "p_value_holm": 1.1102230246251565e-16
+  },
+  "regime_coverage_complete": true,
+  "regime_coverage_manifest": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/conditional_regimes_generic/mistral-7b-v0.1/regime_coverage_manifest.json",
+  "regime_definition": {
+    "long_span_min_distance": 64,
+    "surprisal_p90": 5.142394781112678,
+    "rare_frequency_cutoff": 1
+  },
+  "verdict": {
+    "supports_conditional_specialization": true
+  }
+}

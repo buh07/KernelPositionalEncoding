@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-04-21 15:03:51",
+  "experiment_id": "B2a_head_alignment",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b2a_head_alignment.py",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "num_sequences": 32,
+  "n_null": 64,
+  "seed": 20260417,
+  "run_mode": "full",
+  "dependency_inputs": {
+    "depends_on": [],
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_20260421_statfix_v2"
+  },
+  "resume_decision": "run",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/logs_20260421_statfix_v2/B2a_head_alignment/2026-04-21_15-01-35.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

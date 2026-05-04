@@ -1,0 +1,14 @@
+{
+  "experiment_id": "E21",
+  "timestamp": "2026-05-02 18:01:30",
+  "models": [
+    "tinyllama-1.1b",
+    "tinyllama-nope-1.1b"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "mode": "proxy"
+}

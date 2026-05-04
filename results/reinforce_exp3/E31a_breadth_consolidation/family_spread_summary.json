@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-05-04 13:41:39",
+  "experiment_id": "E31A",
+  "n_models": 11,
+  "overall": {
+    "n": 11,
+    "min": 0.006197489897107292,
+    "max": 0.8683999726199971,
+    "range": 0.8622024827228898,
+    "ratio_max_over_min": 140.1212405405174
+  },
+  "by_family": {
+    "gemma": {
+      "n_models": 1,
+      "models": [
+        "gemma-2-9b"
+      ],
+      "n": 1,
+      "min": 0.8683999726199971,
+      "max": 0.8683999726199971,
+      "range": 0.0,
+      "ratio_max_over_min": 1.0
+    },
+    "gpt2": {
+      "n_models": 2,
+      "models": [
+        "gpt2-small",
+        "gpt2-medium"
+      ],
+      "n": 2,
+      "min": 0.29898634711878674,
+      "max": 0.36637833147960486,
+      "range": 0.06739198436081811,
+      "ratio_max_over_min": 1.2254015442853763
+    },
+    "llama": {
+      "n_models": 3,
+      "models": [
+        "llama-3.1-8b",
+        "tinyllama-1.1b",
+        "tinyllama-nope-1.1b"
+      ],
+      "n": 3,
+      "min": 0.08681722800115149,
+      "max": 0.38032241997453253,
+      "range": 0.29350519197338104,
+      "ratio_max_over_min": 4.380725216998268
+    },
+    "mistral": {
+      "n_models": 1,
+      "models": [
+        "mistral-7b-v0.1"
+      ],
+      "n": 1,
+      "min": 0.2657672483381823,
+      "max": 0.2657672483381823,
+      "range": 0.0,
+      "ratio_max_over_min": 1.0
+    },
+    "olmo": {
+      "n_models": 1,
+      "models": [
+        "olmo-2-7b"
+      ],
+      "n": 1,
+      "min": 0.05764024118507547,
+      "max": 0.05764024118507547,
+      "range": 0.0,
+      "ratio_max_over_min": 1.0
+    },
+    "pythia": {
+      "n_models": 2,
+      "models": [
+        "pythia-1.4b",
+        "pythia-410m"
+      ],
+      "n": 2,
+      "min": 0.006197489897107292,
+      "max": 0.006534230229232096,
+      "range": 0.0003367403321248045,
+      "ratio_max_over_min": 1.0543349545889507
+    },
+    "qwen": {
+      "n_models": 1,
+      "models": [
+        "qwen2.5-7b"
+      ],
+      "n": 1,
+      "min": 0.6050761792752161,
+      "max": 0.6050761792752161,
+      "range": 0.0,
+      "ratio_max_over_min": 1.0
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "experiment_id": "E28",
+  "question": "Does SI preferential disruption persist beyond the short 9-token offset-repetition probe?",
+  "primary_hypothesis": "True SI subtraction yields larger probe-vs-control LP degradation gaps than permuted subtraction across multiple probe families.",
+  "primary_endpoints": [
+    "family_gap_true_lp",
+    "family_delta_gap_lp_true_minus_permuted",
+    "model_primary_pass_geq_3_of_4_families"
+  ],
+  "secondary_endpoints": [
+    "family_gap_true_acc",
+    "family_delta_gap_acc_true_minus_permuted"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "probe_families": [
+    {
+      "name": "short_fixed_offset",
+      "n_demos": 4,
+      "inpair_gap": [
+        0,
+        0
+      ],
+      "between_gap": [
+        0,
+        0
+      ]
+    },
+    {
+      "name": "medium_spaced_offset",
+      "n_demos": 8,
+      "inpair_gap": [
+        0,
+        0
+      ],
+      "between_gap": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "long_fixed_offset",
+      "n_demos": 8,
+      "inpair_gap": [
+        2,
+        2
+      ],
+      "between_gap": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "irregular_mixed_offset",
+      "n_demos": 10,
+      "inpair_gap": [
+        0,
+        2
+      ],
+      "between_gap": [
+        0,
+        2
+      ]
+    }
+  ],
+  "sample_size_plan": {
+    "prompts_per_family_per_condition": 120
+  },
+  "seed_plan": {
+    "base_seed": 20260503
+  },
+  "acceptance_criteria": [
+    "family pass: gap_true_lp>0 and delta_gap_lp>0",
+    "model pass: >=3/4 families pass",
+    "cross-model supported: all models pass"
+  ],
+  "fallback_interpretation_if_null": "Preferential SI disruption is likely specific to highly aligned short offset-repetition formats."
+}

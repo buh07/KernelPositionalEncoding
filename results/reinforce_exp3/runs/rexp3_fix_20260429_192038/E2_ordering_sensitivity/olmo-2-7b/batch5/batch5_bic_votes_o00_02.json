@@ -1,0 +1,37 @@
+{
+  "model": "olmo-2-7b",
+  "variation": "batch5",
+  "n_orderings_global_expected": 5,
+  "ordering_id_range": {
+    "start_inclusive": 0,
+    "stop_exclusive": 2
+  },
+  "n_orderings_expected": 2,
+  "n_orderings": 2,
+  "n_threshold_majority": 1,
+  "fraction_threshold_majority": 0.5,
+  "ordering_votes": [
+    {
+      "ordering_id": 0,
+      "batch_size": 5,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 1,
+      "batch_size": 5,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "logistic_votes": 3,
+      "n_fits": 3,
+      "threshold_majority": false
+    }
+  ],
+  "ordering_seed_map": {
+    "0": 20260501,
+    "1": 20261514
+  }
+}

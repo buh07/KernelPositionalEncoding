@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "experiment": "6A",
+  "status": "merged",
+  "model": "olmo-2-7b",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_runs": 6,
+  "artifacts": {
+    "runs": "results/experiment6/exp6a_gradient_routing/olmo-2-7b/exp6a_runs.parquet",
+    "comparison": "results/experiment6/exp6a_gradient_routing/olmo-2-7b/exp6a_comparison.json"
+  }
+}

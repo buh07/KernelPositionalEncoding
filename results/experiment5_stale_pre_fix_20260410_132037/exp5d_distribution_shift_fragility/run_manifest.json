@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-04-10 00:05:51",
+  "experiment": "5D",
+  "title": "Distribution-shift fragility test for tokenizer-entangled SI circuits",
+  "status": "scaffold_only",
+  "device": "cuda:0",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "shift_conditions": [
+    "code_python",
+    "dialogue",
+    "technical_scientific",
+    "adversarial_bpe"
+  ],
+  "sequences_per_condition_min": 100,
+  "metrics": [
+    "r2_delta_from_wikipedia",
+    "boundary_d_delta_from_wikipedia",
+    "model_by_condition_interaction_test"
+  ],
+  "acceptance_criteria": {
+    "min_sequences_per_condition": 100,
+    "model_condition_interaction_required": true,
+    "required_reports": [
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/distribution_shift_fragility.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/shift_results.parquet"
+    ]
+  },
+  "artifacts_contract": {
+    "run_manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/run_manifest.json",
+    "distribution_shift_fragility": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/distribution_shift_fragility.json",
+    "shift_results": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/shift_results.parquet"
+  },
+  "notes": [
+    "Evaluate deltas relative to the same-length Wikipedia baseline for each model.",
+    "Adversarial BPE set generation must be deterministic and independently reviewable."
+  ]
+}

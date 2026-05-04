@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-28 05:36:02",
+  "experiment": "NEW-R14",
+  "model": "llama-3.1-8b",
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/estimated_kernels.json",
+  "n_sequences": 100,
+  "n_high_si_heads": 256,
+  "true_mean_loss_delta": 4.195681309103966,
+  "permuted_mean_loss_delta": 0.9183002642393112,
+  "specificity_ratio_true_over_permuted": 4.568964501583288,
+  "permutations": [
+    {
+      "perm_id": 0,
+      "perm_seed": 20260417,
+      "mean_loss_delta": 0.9128202646970749,
+      "std_loss_delta": 0.26276386878541663
+    },
+    {
+      "perm_id": 1,
+      "perm_seed": 20268336,
+      "mean_loss_delta": 1.1716932755708696,
+      "std_loss_delta": 0.2999050850989783
+    },
+    {
+      "perm_id": 2,
+      "perm_seed": 20276255,
+      "mean_loss_delta": 0.7018744057416916,
+      "std_loss_delta": 0.24628889459176675
+    },
+    {
+      "perm_id": 3,
+      "perm_seed": 20284174,
+      "mean_loss_delta": 0.999106006026268,
+      "std_loss_delta": 0.27004025151681055
+    },
+    {
+      "perm_id": 4,
+      "perm_seed": 20292093,
+      "mean_loss_delta": 0.8060073691606522,
+      "std_loss_delta": 0.26418445498629195
+    }
+  ]
+}

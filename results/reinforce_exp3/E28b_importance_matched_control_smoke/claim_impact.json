@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-03 15:56:58",
+  "experiment_id": "E28B",
+  "claim_status": "supported_with_caveat",
+  "supports_main_text": true,
+  "notes": [
+    "Directly tests whether SI-ranked disruption exceeds a matched generic-importance control.",
+    "Used to bound Result-I specificity language against generic head-importance explanations."
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "timestamp": "2026-04-22 12:07:26",
+  "run_id": "statfix_v3_resume_20260422",
+  "session": "reinforce_exp2_statfix_v3r",
+  "mode": "full",
+  "strict_todo": true,
+  "resume_policy": "strict_artifact_check",
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2",
+  "marker_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/pipeline_runs/tmux_markers_statfix_v3_resume_20260422",
+  "n_events": 21,
+  "n_failures": 0,
+  "rows": [
+    {
+      "timestamp": "2026-04-22 12:06:51",
+      "stage": "launcher",
+      "item": "session",
+      "status": "running",
+      "log_path": "",
+      "message": "creating tmux session "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:52",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/preflight/2026-04-22_12-06-51.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:53",
+      "stage": "preflight",
+      "item": "calibration_v1",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/calibration_v1/2026-04-22_12-06-52.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:53",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:56",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_llama-3.1-8b.log",
+      "message": "model=llama-3.1-8b device=cuda:0 "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:56",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_olmo-2-7b.log",
+      "message": "model=olmo-2-7b device=cuda:1 "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:56",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_mistral-7b-v0.1.log",
+      "message": "model=mistral-7b-v0.1 device=cuda:2 "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:57",
+      "stage": "phase_a",
+      "item": "A0_claim_hygiene",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A0_claim_hygiene/2026-04-22_12-06-56.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:57",
+      "stage": "phase_b_core",
+      "item": "B2a_head_alignment",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-22_12-06-56.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:06:58",
+      "stage": "phase_a",
+      "item": "A1_evidence_consolidation",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A1_evidence_consolidation/2026-04-22_12-06-57.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:00",
+      "stage": "phase_a",
+      "item": "A2_prediction_layer",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A2_prediction_layer/2026-04-22_12-06-59.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:00",
+      "stage": "phase_a",
+      "item": "phase_a",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:07",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_llama-3.1-8b.log",
+      "message": "model=llama-3.1-8b rc=0 "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:08",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_olmo-2-7b.log",
+      "message": "model=olmo-2-7b rc=0 "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:08",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-06-56__per_model_mistral-7b-v0.1.log",
+      "message": "model=mistral-7b-v0.1 rc=0 "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:08",
+      "stage": "phase_b_core",
+      "item": "b1_aggregate_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-07-08__aggregate.log",
+      "message": "aggregate finalize "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:18",
+      "stage": "phase_b_core",
+      "item": "b1_aggregate_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-22_12-07-08__aggregate.log",
+      "message": "aggregate finalize complete "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:18",
+      "stage": "phase_b_core",
+      "item": "phase_b_core",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:22",
+      "stage": "phase_b_adv",
+      "item": "B2b_cluster_alignment",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2b_cluster_alignment/2026-04-22_12-07-21.log",
+      "message": "starting "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:22",
+      "stage": "phase_b_adv",
+      "item": "B4_confound_isolation",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B4_confound_isolation/2026-04-22_12-07-21.log",
+      "message": "starting "
+    },
+    {
+      "timestamp": "2026-04-22 12:07:26",
+      "stage": "phase_b_adv",
+      "item": "B2b_cluster_alignment",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2b_cluster_alignment/2026-04-22_12-07-21.log",
+      "message": "completed "
+    }
+  ]
+}

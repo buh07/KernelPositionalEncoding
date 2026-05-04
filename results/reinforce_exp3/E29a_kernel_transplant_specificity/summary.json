@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-04 01:10:20",
+  "experiment_id": "E29A",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "kernel_transplant_specificity_supported_all_models",
+    "n_pass": 3,
+    "n_models": 3
+  },
+  "limitations": [
+    "Kernel transplant remains an evaluation-time perturbation, not a training counterfactual.",
+    "Layer-matched pairing controls structure partially; full circuit-level causality remains open."
+  ]
+}

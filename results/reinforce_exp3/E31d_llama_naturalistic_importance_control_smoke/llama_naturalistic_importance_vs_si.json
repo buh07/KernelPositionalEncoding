@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-05-04 13:47:38",
+  "experiment_id": "E31D",
+  "model": "llama-3.1-8b",
+  "smoke": true,
+  "n_high_si_heads": 256,
+  "n_importance_non_si_heads": 256,
+  "n_families": 3,
+  "n_trials": 24,
+  "mean_delta_si_minus_imp": 4.30712890625,
+  "delta_si_minus_imp_ci": [
+    1.87017822265625,
+    6.791031901041664
+  ],
+  "p_one_sided_si_gt_imp": 0.0016666111129629013,
+  "mean_delta_si_minus_perm": 3.3170572916666665,
+  "delta_si_minus_perm_ci": [
+    1.2779947916666667,
+    5.542106119791661
+  ],
+  "p_one_sided_si_gt_perm": 0.0028332388920369322,
+  "directional_support_si_gt_importance": true,
+  "directional_support_si_gt_perm": true,
+  "family_results": [
+    {
+      "family": "wiki_passkey_256",
+      "context_len": 256,
+      "n_prompts": 8,
+      "mean_gap_si": 3.1875,
+      "mean_gap_imp": -0.673828125,
+      "mean_gap_perm": 1.05859375,
+      "mean_delta_si_minus_imp": 3.861328125,
+      "delta_si_minus_imp_ci": [
+        -0.22084960937499995,
+        8.416064453125
+      ],
+      "family_si_gt_imp_pass": true
+    },
+    {
+      "family": "wiki_passkey_512",
+      "context_len": 512,
+      "n_prompts": 8,
+      "mean_gap_si": 5.701171875,
+      "mean_gap_imp": -0.77099609375,
+      "mean_gap_perm": 1.58984375,
+      "mean_delta_si_minus_imp": 6.47216796875,
+      "delta_si_minus_imp_ci": [
+        2.91796875,
+        9.8662109375
+      ],
+      "family_si_gt_imp_pass": true
+    },
+    {
+      "family": "code_passkey_512",
+      "context_len": 512,
+      "n_prompts": 8,
+      "mean_gap_si": 4.4072265625,
+      "mean_gap_imp": 1.8193359375,
+      "mean_gap_perm": 0.6962890625,
+      "mean_delta_si_minus_imp": 2.587890625,
+      "delta_si_minus_imp_ci": [
+        -1.8095703124999996,
+        7.279541015625001
+      ],
+      "family_si_gt_imp_pass": true
+    }
+  ],
+  "elapsed_sec": 339.88163113594055
+}

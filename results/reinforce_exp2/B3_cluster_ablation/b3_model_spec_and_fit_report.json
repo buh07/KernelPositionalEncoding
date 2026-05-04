@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "model_spec": {
+    "linear": "y = a + b*f",
+    "threshold_piecewise": "y = a + b1*f + b2*max(0, f-tau)",
+    "tau_bounds": [
+      0.1,
+      0.9
+    ],
+    "selection_metric": "AICc",
+    "k_linear": 2,
+    "k_threshold": 4,
+    "fraction_grid": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "matching_constraints": {
+      "head_count": "exact",
+      "layer_hist_tvd_max": 0.1,
+      "layer_dist_p_min": 0.1,
+      "magnitude_relative_tolerance": 0.05
+    }
+  },
+  "confirmatory_precondition": {
+    "min_fraction_points": 11,
+    "model_selection_confirmatory_models": [
+      "olmo-2-7b",
+      "mistral-7b-v0.1"
+    ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "experiment_id": "E31C",
+  "question": "Do existing functional SI-sensitive gaps covary with model-level SI amplitude?",
+  "primary_endpoint": "cell-level coupling between mean_r2 and source-normalized functional gap"
+}

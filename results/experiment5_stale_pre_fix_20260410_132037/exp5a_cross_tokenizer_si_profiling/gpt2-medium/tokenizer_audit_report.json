@@ -1,0 +1,3778 @@
+{
+  "timestamp": "2026-04-10 10:44:00",
+  "model": "gpt2-medium",
+  "status": "completed",
+  "n_sequences": 24,
+  "seq_len": 256,
+  "adapter_error": null,
+  "r2_summary": {
+    "n_heads": 384,
+    "mean_r2": 0.29898634711878674,
+    "std_r2": 0.25594935012535436,
+    "min_r2": 0.0012789666929778343,
+    "max_r2": 0.8021142116614769,
+    "early_vs_late_ratio": 2.40310733161822
+  },
+  "si_head_count": 96,
+  "boundary_controls": {
+    "approach_a": {
+      "unit_of_analysis": "per_head_mean_over_sequences",
+      "n_boundary_positions_total": 5003,
+      "high_si_heads": {
+        "attn_to_prev_last": {
+          "mean": 0.1660084860244145,
+          "std": 0.1622823279051958,
+          "median": 0.11970534082502127,
+          "ci_95": [
+            0.13675816661880164,
+            0.20059376046209665
+          ],
+          "n": 96
+        },
+        "attn_to_prev_first": {
+          "mean": 0.16039342891761205,
+          "std": 0.1456660867688239,
+          "median": 0.11758128274232149,
+          "ci_95": [
+            0.13382990440420856,
+            0.19109098800506927
+          ],
+          "n": 96
+        },
+        "total_cross_boundary": {
+          "mean": 0.18168703254696394,
+          "std": 0.16584842964930868,
+          "median": 0.1333481296515015,
+          "ci_95": [
+            0.15148510787848368,
+            0.21668128861634386
+          ],
+          "n": 96
+        }
+      },
+      "low_si_heads": {
+        "attn_to_prev_last": {
+          "mean": 0.010090047038734914,
+          "std": 0.00582693518815664,
+          "median": 0.009274973582553987,
+          "ci_95": [
+            0.008979626764153498,
+            0.011274463417636424
+          ],
+          "n": 96
+        },
+        "attn_to_prev_first": {
+          "mean": 0.010880877753139529,
+          "std": 0.005550751565410689,
+          "median": 0.010313584430453677,
+          "ci_95": [
+            0.009812076626051673,
+            0.012017741176501949
+          ],
+          "n": 96
+        },
+        "total_cross_boundary": {
+          "mean": 0.01293383512424356,
+          "std": 0.006620028866714082,
+          "median": 0.011880566068784768,
+          "ci_95": [
+            0.011666000292725945,
+            0.014288150715729073
+          ],
+          "n": 96
+        }
+      },
+      "high_vs_low_comparison": {
+        "attn_to_prev_last": {
+          "t_statistic": 9.407670292035416,
+          "t_p_value": 2.9830266533019533e-15,
+          "mannwhitney_u": 9186.0,
+          "mannwhitney_p": 1.3396599861646457e-32,
+          "cohens_d": 1.3578802438884732,
+          "high_si_mean": 0.1660084860244145,
+          "low_si_mean": 0.010090047038734914,
+          "difference": 0.15591843898567959,
+          "n_high": 96,
+          "n_low": 96,
+          "t_p_value_holm": 2.9830266533019533e-15
+        },
+        "attn_to_prev_first": {
+          "t_statistic": 10.049390711799932,
+          "t_p_value": 1.2581045478557435e-16,
+          "mannwhitney_u": 9187.0,
+          "mannwhitney_p": 1.298636286395108e-32,
+          "cohens_d": 1.4505046081623538,
+          "high_si_mean": 0.16039342891761205,
+          "low_si_mean": 0.010880877753139529,
+          "difference": 0.1495125511644725,
+          "n_high": 96,
+          "n_low": 96,
+          "t_p_value_holm": 3.7743136435672303e-16
+        },
+        "total_cross_boundary": {
+          "t_statistic": 9.961633469127259,
+          "t_p_value": 1.9330168216645245e-16,
+          "mannwhitney_u": 9187.0,
+          "mannwhitney_p": 1.298636286395108e-32,
+          "cohens_d": 1.4378379412422522,
+          "high_si_mean": 0.18168703254696394,
+          "low_si_mean": 0.01293383512424356,
+          "difference": 0.16875319742272038,
+          "n_high": 96,
+          "n_low": 96,
+          "t_p_value_holm": 3.866033643329049e-16
+        }
+      },
+      "multiplicity_policy": "holm across Approach A metrics",
+      "hypothesis_supported": true
+    },
+    "approach_c": [
+      {
+        "n_heads": 384,
+        "correlation": {
+          "pearson_r": 0.0828464156693119,
+          "pearson_p": 0.10502911178591745,
+          "pearson_ci_95": [
+            -0.04753447185404223,
+            0.20997288599811856
+          ],
+          "spearman_rho": 0.3039257739649385,
+          "spearman_p": 1.1964205039305803e-09,
+          "spearman_ci_95": [
+            0.19440554620672543,
+            0.4086627362287674
+          ]
+        },
+        "group_comparison": {
+          "high_si_mean_boundary_score": 0.007374138559245896,
+          "low_si_mean_boundary_score": -0.002287148489103509,
+          "n_high_si": 96,
+          "n_low_si": 96,
+          "t_statistic": 1.2731526049384565,
+          "p_value": 0.2060200187639154,
+          "cohens_d": 0.1837637497951728
+        },
+        "top_20_by_r2": [
+          {
+            "layer": 12,
+            "head": 10,
+            "mean_r2": 0.8021142116614769,
+            "boundary_attn_score": 0.009372510442820687
+          },
+          {
+            "layer": 10,
+            "head": 7,
+            "mean_r2": 0.795197341466336,
+            "boundary_attn_score": 0.003859690623357892
+          },
+          {
+            "layer": 13,
+            "head": 7,
+            "mean_r2": 0.7846892443438157,
+            "boundary_attn_score": 0.013276810757815838
+          },
+          {
+            "layer": 14,
+            "head": 12,
+            "mean_r2": 0.7746767254988133,
+            "boundary_attn_score": 0.028192188668375216
+          },
+          {
+            "layer": 13,
+            "head": 4,
+            "mean_r2": 0.7668712901817768,
+            "boundary_attn_score": 0.030091929191257805
+          },
+          {
+            "layer": 11,
+            "head": 7,
+            "mean_r2": 0.7634958607532331,
+            "boundary_attn_score": 0.03615067542220155
+          },
+          {
+            "layer": 15,
+            "head": 8,
+            "mean_r2": 0.7587016815118495,
+            "boundary_attn_score": 0.030470154791449502
+          },
+          {
+            "layer": 11,
+            "head": 6,
+            "mean_r2": 0.7582336145064366,
+            "boundary_attn_score": 0.03903877083212137
+          },
+          {
+            "layer": 13,
+            "head": 5,
+            "mean_r2": 0.7548379240542742,
+            "boundary_attn_score": 0.27772250041986507
+          },
+          {
+            "layer": 13,
+            "head": 10,
+            "mean_r2": 0.7518239714308289,
+            "boundary_attn_score": 0.00911280931904912
+          },
+          {
+            "layer": 17,
+            "head": 11,
+            "mean_r2": 0.749034441758358,
+            "boundary_attn_score": 0.1422499342976759
+          },
+          {
+            "layer": 15,
+            "head": 15,
+            "mean_r2": 0.7404760710884674,
+            "boundary_attn_score": 0.08542235746669272
+          },
+          {
+            "layer": 2,
+            "head": 14,
+            "mean_r2": 0.7392059628936932,
+            "boundary_attn_score": -0.004567986199011401
+          },
+          {
+            "layer": 2,
+            "head": 2,
+            "mean_r2": 0.7373076213619688,
+            "boundary_attn_score": -0.0007569934241473675
+          },
+          {
+            "layer": 16,
+            "head": 4,
+            "mean_r2": 0.735445075268597,
+            "boundary_attn_score": 0.054798984240430094
+          },
+          {
+            "layer": 16,
+            "head": 6,
+            "mean_r2": 0.7351464553576387,
+            "boundary_attn_score": -0.001976649509742856
+          },
+          {
+            "layer": 16,
+            "head": 5,
+            "mean_r2": 0.7345601635261562,
+            "boundary_attn_score": 0.10946423296506208
+          },
+          {
+            "layer": 15,
+            "head": 10,
+            "mean_r2": 0.7315435069005676,
+            "boundary_attn_score": 0.025546966120600707
+          },
+          {
+            "layer": 7,
+            "head": 1,
+            "mean_r2": 0.7267475480481003,
+            "boundary_attn_score": 0.011571160983294242
+          },
+          {
+            "layer": 14,
+            "head": 1,
+            "mean_r2": 0.7246220414313544,
+            "boundary_attn_score": 0.05976986089081038
+          }
+        ],
+        "hypothesis_supported": true,
+        "_score_df_path": "boundary_attention_scores.parquet"
+      },
+      [
+        {
+          "layer": 0,
+          "head": 0,
+          "boundary_attn_score": 0.015969063863546275,
+          "mean_boundary_prev_attn": 0.030491679984455306,
+          "mean_nonboundary_prev_attn": 0.01452261612090903
+        },
+        {
+          "layer": 0,
+          "head": 1,
+          "boundary_attn_score": 0.002685445089203615,
+          "mean_boundary_prev_attn": 0.023959901416674256,
+          "mean_nonboundary_prev_attn": 0.02127445632747064
+        },
+        {
+          "layer": 0,
+          "head": 2,
+          "boundary_attn_score": -0.002828264803004764,
+          "mean_boundary_prev_attn": 0.021489146708821256,
+          "mean_nonboundary_prev_attn": 0.02431741151182602
+        },
+        {
+          "layer": 0,
+          "head": 3,
+          "boundary_attn_score": -0.0007800257687146459,
+          "mean_boundary_prev_attn": 0.012073155453739067,
+          "mean_nonboundary_prev_attn": 0.012853181222453713
+        },
+        {
+          "layer": 0,
+          "head": 4,
+          "boundary_attn_score": 0.007729877717792988,
+          "mean_boundary_prev_attn": 0.02725327922962606,
+          "mean_nonboundary_prev_attn": 0.01952340151183307
+        },
+        {
+          "layer": 0,
+          "head": 5,
+          "boundary_attn_score": -0.01926508111258348,
+          "mean_boundary_prev_attn": 0.03202397112424175,
+          "mean_nonboundary_prev_attn": 0.05128905223682523
+        },
+        {
+          "layer": 0,
+          "head": 6,
+          "boundary_attn_score": -0.003762043818521004,
+          "mean_boundary_prev_attn": 0.022247488688056666,
+          "mean_nonboundary_prev_attn": 0.02600953250657767
+        },
+        {
+          "layer": 0,
+          "head": 7,
+          "boundary_attn_score": -0.0009654319534699099,
+          "mean_boundary_prev_attn": 0.017994203876393538,
+          "mean_nonboundary_prev_attn": 0.018959635829863448
+        },
+        {
+          "layer": 0,
+          "head": 8,
+          "boundary_attn_score": 0.0021190389913196377,
+          "mean_boundary_prev_attn": 0.022627844009548426,
+          "mean_nonboundary_prev_attn": 0.020508805018228788
+        },
+        {
+          "layer": 0,
+          "head": 9,
+          "boundary_attn_score": -0.024156517038742706,
+          "mean_boundary_prev_attn": 0.04579814802855253,
+          "mean_nonboundary_prev_attn": 0.06995466506729524
+        },
+        {
+          "layer": 0,
+          "head": 10,
+          "boundary_attn_score": -0.0066564348526299,
+          "mean_boundary_prev_attn": 0.03279043105430901,
+          "mean_nonboundary_prev_attn": 0.03944686590693891
+        },
+        {
+          "layer": 0,
+          "head": 11,
+          "boundary_attn_score": -7.535424083471298e-05,
+          "mean_boundary_prev_attn": 0.02009914644683401,
+          "mean_nonboundary_prev_attn": 0.020174500687668722
+        },
+        {
+          "layer": 0,
+          "head": 12,
+          "boundary_attn_score": 0.002701097478469215,
+          "mean_boundary_prev_attn": 0.03288817343612512,
+          "mean_nonboundary_prev_attn": 0.030187075957655907
+        },
+        {
+          "layer": 0,
+          "head": 13,
+          "boundary_attn_score": -0.0009977109730243683,
+          "mean_boundary_prev_attn": 0.019816075762112934,
+          "mean_nonboundary_prev_attn": 0.020813786735137303
+        },
+        {
+          "layer": 0,
+          "head": 14,
+          "boundary_attn_score": -0.0055344332164774315,
+          "mean_boundary_prev_attn": 0.019964632384168606,
+          "mean_nonboundary_prev_attn": 0.025499065600646038
+        },
+        {
+          "layer": 0,
+          "head": 15,
+          "boundary_attn_score": -0.003271112684160471,
+          "mean_boundary_prev_attn": 0.018068054380516212,
+          "mean_nonboundary_prev_attn": 0.021339167064676683
+        },
+        {
+          "layer": 1,
+          "head": 0,
+          "boundary_attn_score": 0.00035233902356897676,
+          "mean_boundary_prev_attn": 0.016542237678853173,
+          "mean_nonboundary_prev_attn": 0.016189898655284196
+        },
+        {
+          "layer": 1,
+          "head": 1,
+          "boundary_attn_score": -0.001615772799899176,
+          "mean_boundary_prev_attn": 0.03705639050652584,
+          "mean_nonboundary_prev_attn": 0.03867216330642501
+        },
+        {
+          "layer": 1,
+          "head": 2,
+          "boundary_attn_score": -0.008731992216780785,
+          "mean_boundary_prev_attn": 0.023759730470677216,
+          "mean_nonboundary_prev_attn": 0.032491722687458
+        },
+        {
+          "layer": 1,
+          "head": 3,
+          "boundary_attn_score": -0.0015926474976974223,
+          "mean_boundary_prev_attn": 0.009482809342443943,
+          "mean_nonboundary_prev_attn": 0.011075456840141365
+        },
+        {
+          "layer": 1,
+          "head": 4,
+          "boundary_attn_score": 0.001841274555772543,
+          "mean_boundary_prev_attn": 0.006676562091646095,
+          "mean_nonboundary_prev_attn": 0.004835287535873552
+        },
+        {
+          "layer": 1,
+          "head": 5,
+          "boundary_attn_score": -0.001742950368983049,
+          "mean_boundary_prev_attn": 0.020069681146803003,
+          "mean_nonboundary_prev_attn": 0.021812631515786052
+        },
+        {
+          "layer": 1,
+          "head": 6,
+          "boundary_attn_score": -0.0008077697129920108,
+          "mean_boundary_prev_attn": 0.015167893570226928,
+          "mean_nonboundary_prev_attn": 0.01597566328321894
+        },
+        {
+          "layer": 1,
+          "head": 7,
+          "boundary_attn_score": -0.0074870530515909195,
+          "mean_boundary_prev_attn": 0.07808407085637252,
+          "mean_nonboundary_prev_attn": 0.08557112390796344
+        },
+        {
+          "layer": 1,
+          "head": 8,
+          "boundary_attn_score": -0.001740648876875639,
+          "mean_boundary_prev_attn": 0.02519333843762676,
+          "mean_nonboundary_prev_attn": 0.0269339873145024
+        },
+        {
+          "layer": 1,
+          "head": 9,
+          "boundary_attn_score": -0.003109293951032061,
+          "mean_boundary_prev_attn": 0.0184419231954962,
+          "mean_nonboundary_prev_attn": 0.021551217146528263
+        },
+        {
+          "layer": 1,
+          "head": 10,
+          "boundary_attn_score": -0.0005119967584808673,
+          "mean_boundary_prev_attn": 0.01362447312567383,
+          "mean_nonboundary_prev_attn": 0.014136469884154698
+        },
+        {
+          "layer": 1,
+          "head": 11,
+          "boundary_attn_score": 0.0009418717042232565,
+          "mean_boundary_prev_attn": 0.01941879582591355,
+          "mean_nonboundary_prev_attn": 0.018476924121690292
+        },
+        {
+          "layer": 1,
+          "head": 12,
+          "boundary_attn_score": -0.002924396190792322,
+          "mean_boundary_prev_attn": 0.017502880422398448,
+          "mean_nonboundary_prev_attn": 0.02042727661319077
+        },
+        {
+          "layer": 1,
+          "head": 13,
+          "boundary_attn_score": -0.0011677282939975449,
+          "mean_boundary_prev_attn": 0.017132225912064314,
+          "mean_nonboundary_prev_attn": 0.01829995420606186
+        },
+        {
+          "layer": 1,
+          "head": 14,
+          "boundary_attn_score": -0.0887569449841976,
+          "mean_boundary_prev_attn": 0.09644119131068389,
+          "mean_nonboundary_prev_attn": 0.1851981362948815
+        },
+        {
+          "layer": 1,
+          "head": 15,
+          "boundary_attn_score": -0.0020999053958803415,
+          "mean_boundary_prev_attn": 0.02635468713318308,
+          "mean_nonboundary_prev_attn": 0.028454592529063422
+        },
+        {
+          "layer": 2,
+          "head": 0,
+          "boundary_attn_score": -0.0008164585257569926,
+          "mean_boundary_prev_attn": 0.03666823528086146,
+          "mean_nonboundary_prev_attn": 0.03748469380661845
+        },
+        {
+          "layer": 2,
+          "head": 1,
+          "boundary_attn_score": 5.921808769926429e-05,
+          "mean_boundary_prev_attn": 0.009314945413886258,
+          "mean_nonboundary_prev_attn": 0.009255727326186994
+        },
+        {
+          "layer": 2,
+          "head": 2,
+          "boundary_attn_score": -0.0007569934241473675,
+          "mean_boundary_prev_attn": 0.05878335299591223,
+          "mean_nonboundary_prev_attn": 0.0595403464200596
+        },
+        {
+          "layer": 2,
+          "head": 3,
+          "boundary_attn_score": -0.19852746029694873,
+          "mean_boundary_prev_attn": 0.2746565043926239,
+          "mean_nonboundary_prev_attn": 0.47318396468957263
+        },
+        {
+          "layer": 2,
+          "head": 4,
+          "boundary_attn_score": -0.1945066700379054,
+          "mean_boundary_prev_attn": 0.3524273696045081,
+          "mean_nonboundary_prev_attn": 0.5469340396424135
+        },
+        {
+          "layer": 2,
+          "head": 5,
+          "boundary_attn_score": -0.002303286145130784,
+          "mean_boundary_prev_attn": 0.20831622493763766,
+          "mean_nonboundary_prev_attn": 0.21061951108276844
+        },
+        {
+          "layer": 2,
+          "head": 6,
+          "boundary_attn_score": -0.00010328056911626526,
+          "mean_boundary_prev_attn": 0.1961163536955913,
+          "mean_nonboundary_prev_attn": 0.19621963426470757
+        },
+        {
+          "layer": 2,
+          "head": 7,
+          "boundary_attn_score": -0.0063237372475365705,
+          "mean_boundary_prev_attn": 0.06501467355216543,
+          "mean_nonboundary_prev_attn": 0.071338410799702
+        },
+        {
+          "layer": 2,
+          "head": 8,
+          "boundary_attn_score": -0.1189353863398234,
+          "mean_boundary_prev_attn": 0.17785823407272497,
+          "mean_nonboundary_prev_attn": 0.29679362041254836
+        },
+        {
+          "layer": 2,
+          "head": 9,
+          "boundary_attn_score": 0.013569690597554057,
+          "mean_boundary_prev_attn": 0.13412028861542544,
+          "mean_nonboundary_prev_attn": 0.12055059801787138
+        },
+        {
+          "layer": 2,
+          "head": 10,
+          "boundary_attn_score": 0.04979567136615515,
+          "mean_boundary_prev_attn": 0.22983603924512863,
+          "mean_nonboundary_prev_attn": 0.18004036787897348
+        },
+        {
+          "layer": 2,
+          "head": 11,
+          "boundary_attn_score": -0.0002897933785182723,
+          "mean_boundary_prev_attn": 0.013110011777219674,
+          "mean_nonboundary_prev_attn": 0.013399805155737946
+        },
+        {
+          "layer": 2,
+          "head": 12,
+          "boundary_attn_score": -0.03849101439118387,
+          "mean_boundary_prev_attn": 0.12178509620328744,
+          "mean_nonboundary_prev_attn": 0.1602761105944713
+        },
+        {
+          "layer": 2,
+          "head": 13,
+          "boundary_attn_score": 0.0011744589234391895,
+          "mean_boundary_prev_attn": 0.057860897233088814,
+          "mean_nonboundary_prev_attn": 0.056686438309649624
+        },
+        {
+          "layer": 2,
+          "head": 14,
+          "boundary_attn_score": -0.004567986199011401,
+          "mean_boundary_prev_attn": 0.0655938871204853,
+          "mean_nonboundary_prev_attn": 0.0701618733194967
+        },
+        {
+          "layer": 2,
+          "head": 15,
+          "boundary_attn_score": -0.0922554973512888,
+          "mean_boundary_prev_attn": 0.15038196804622808,
+          "mean_nonboundary_prev_attn": 0.24263746539751688
+        },
+        {
+          "layer": 3,
+          "head": 0,
+          "boundary_attn_score": -0.003797254292294383,
+          "mean_boundary_prev_attn": 0.024896024726331234,
+          "mean_nonboundary_prev_attn": 0.028693279018625617
+        },
+        {
+          "layer": 3,
+          "head": 1,
+          "boundary_attn_score": -0.010491165642937034,
+          "mean_boundary_prev_attn": 0.1533703003078699,
+          "mean_nonboundary_prev_attn": 0.16386146595080694
+        },
+        {
+          "layer": 3,
+          "head": 2,
+          "boundary_attn_score": -0.0991503621141116,
+          "mean_boundary_prev_attn": 0.2886505350470543,
+          "mean_nonboundary_prev_attn": 0.3878008971611659
+        },
+        {
+          "layer": 3,
+          "head": 3,
+          "boundary_attn_score": -0.19398895030220348,
+          "mean_boundary_prev_attn": 0.40983125443259877,
+          "mean_nonboundary_prev_attn": 0.6038202047348022
+        },
+        {
+          "layer": 3,
+          "head": 4,
+          "boundary_attn_score": 0.014131535155077757,
+          "mean_boundary_prev_attn": 0.14457498180369535,
+          "mean_nonboundary_prev_attn": 0.1304434466486176
+        },
+        {
+          "layer": 3,
+          "head": 5,
+          "boundary_attn_score": -0.05779896676540375,
+          "mean_boundary_prev_attn": 0.24502921104431152,
+          "mean_nonboundary_prev_attn": 0.30282817780971527
+        },
+        {
+          "layer": 3,
+          "head": 6,
+          "boundary_attn_score": -0.0027745674985150542,
+          "mean_boundary_prev_attn": 0.038581376584867634,
+          "mean_nonboundary_prev_attn": 0.04135594408338269
+        },
+        {
+          "layer": 3,
+          "head": 7,
+          "boundary_attn_score": 0.010250861756503582,
+          "mean_boundary_prev_attn": 0.08683125178019206,
+          "mean_nonboundary_prev_attn": 0.07658039002368848
+        },
+        {
+          "layer": 3,
+          "head": 8,
+          "boundary_attn_score": 0.029786751916011156,
+          "mean_boundary_prev_attn": 0.34887899085879326,
+          "mean_nonboundary_prev_attn": 0.3190922389427821
+        },
+        {
+          "layer": 3,
+          "head": 9,
+          "boundary_attn_score": 0.013684810449679674,
+          "mean_boundary_prev_attn": 0.27390491714080173,
+          "mean_nonboundary_prev_attn": 0.26022010669112206
+        },
+        {
+          "layer": 3,
+          "head": 10,
+          "boundary_attn_score": -0.06512417147556937,
+          "mean_boundary_prev_attn": 0.27823125819365185,
+          "mean_nonboundary_prev_attn": 0.3433554296692212
+        },
+        {
+          "layer": 3,
+          "head": 11,
+          "boundary_attn_score": 0.009631990144650104,
+          "mean_boundary_prev_attn": 0.29483799015482265,
+          "mean_nonboundary_prev_attn": 0.28520600001017254
+        },
+        {
+          "layer": 3,
+          "head": 12,
+          "boundary_attn_score": 0.0019113945697123817,
+          "mean_boundary_prev_attn": 0.021725250175222754,
+          "mean_nonboundary_prev_attn": 0.019813855605510373
+        },
+        {
+          "layer": 3,
+          "head": 13,
+          "boundary_attn_score": 0.0015417883793513165,
+          "mean_boundary_prev_attn": 0.470774761090676,
+          "mean_nonboundary_prev_attn": 0.4692329727113247
+        },
+        {
+          "layer": 3,
+          "head": 14,
+          "boundary_attn_score": -0.0036282638708750384,
+          "mean_boundary_prev_attn": 0.058748062079151474,
+          "mean_nonboundary_prev_attn": 0.06237632595002651
+        },
+        {
+          "layer": 3,
+          "head": 15,
+          "boundary_attn_score": -0.028689873715241787,
+          "mean_boundary_prev_attn": 0.30569452544053394,
+          "mean_nonboundary_prev_attn": 0.3343843991557757
+        },
+        {
+          "layer": 4,
+          "head": 0,
+          "boundary_attn_score": 0.005743707083941747,
+          "mean_boundary_prev_attn": 0.028851748987411458,
+          "mean_nonboundary_prev_attn": 0.02310804190346971
+        },
+        {
+          "layer": 4,
+          "head": 1,
+          "boundary_attn_score": 0.010199648638566344,
+          "mean_boundary_prev_attn": 0.1662576881547769,
+          "mean_nonboundary_prev_attn": 0.15605803951621056
+        },
+        {
+          "layer": 4,
+          "head": 2,
+          "boundary_attn_score": -0.09587729660173255,
+          "mean_boundary_prev_attn": 0.15815387852489948,
+          "mean_nonboundary_prev_attn": 0.25403117512663204
+        },
+        {
+          "layer": 4,
+          "head": 3,
+          "boundary_attn_score": 0.09965565241873267,
+          "mean_boundary_prev_attn": 0.33240243668357533,
+          "mean_nonboundary_prev_attn": 0.23274678426484266
+        },
+        {
+          "layer": 4,
+          "head": 4,
+          "boundary_attn_score": -0.18374523830910525,
+          "mean_boundary_prev_attn": 0.19949250233670077,
+          "mean_nonboundary_prev_attn": 0.383237740645806
+        },
+        {
+          "layer": 4,
+          "head": 5,
+          "boundary_attn_score": 0.0006722609202067104,
+          "mean_boundary_prev_attn": 0.10679808134833972,
+          "mean_nonboundary_prev_attn": 0.10612582042813301
+        },
+        {
+          "layer": 4,
+          "head": 6,
+          "boundary_attn_score": -0.0001384506710261726,
+          "mean_boundary_prev_attn": 0.0022661361435893923,
+          "mean_nonboundary_prev_attn": 0.002404586814615565
+        },
+        {
+          "layer": 4,
+          "head": 7,
+          "boundary_attn_score": -0.016210531505445658,
+          "mean_boundary_prev_attn": 0.14210131174574295,
+          "mean_nonboundary_prev_attn": 0.1583118432511886
+        },
+        {
+          "layer": 4,
+          "head": 8,
+          "boundary_attn_score": 0.019903799848786242,
+          "mean_boundary_prev_attn": 0.07124399207532406,
+          "mean_nonboundary_prev_attn": 0.051340192226537816
+        },
+        {
+          "layer": 4,
+          "head": 9,
+          "boundary_attn_score": 0.017787172788909324,
+          "mean_boundary_prev_attn": 0.033101180025065936,
+          "mean_nonboundary_prev_attn": 0.015314007236156613
+        },
+        {
+          "layer": 4,
+          "head": 10,
+          "boundary_attn_score": 0.046155633094410106,
+          "mean_boundary_prev_attn": 0.13211156179507574,
+          "mean_nonboundary_prev_attn": 0.08595592870066564
+        },
+        {
+          "layer": 4,
+          "head": 11,
+          "boundary_attn_score": -0.031236841653784098,
+          "mean_boundary_prev_attn": 0.1876460270335277,
+          "mean_nonboundary_prev_attn": 0.2188828686873118
+        },
+        {
+          "layer": 4,
+          "head": 12,
+          "boundary_attn_score": -0.062426457181572914,
+          "mean_boundary_prev_attn": 0.22720013745129108,
+          "mean_nonboundary_prev_attn": 0.289626594632864
+        },
+        {
+          "layer": 4,
+          "head": 13,
+          "boundary_attn_score": 0.009811518092950222,
+          "mean_boundary_prev_attn": 0.9872104600071907,
+          "mean_nonboundary_prev_attn": 0.9773989419142405
+        },
+        {
+          "layer": 4,
+          "head": 14,
+          "boundary_attn_score": 0.04125948258054753,
+          "mean_boundary_prev_attn": 0.0965350962554415,
+          "mean_nonboundary_prev_attn": 0.055275613674893975
+        },
+        {
+          "layer": 4,
+          "head": 15,
+          "boundary_attn_score": 0.00959805430223544,
+          "mean_boundary_prev_attn": 0.061037673304478325,
+          "mean_nonboundary_prev_attn": 0.051439619002242885
+        },
+        {
+          "layer": 5,
+          "head": 0,
+          "boundary_attn_score": 0.0006178894060819094,
+          "mean_boundary_prev_attn": 0.009762915491592139,
+          "mean_nonboundary_prev_attn": 0.00914502608551023
+        },
+        {
+          "layer": 5,
+          "head": 1,
+          "boundary_attn_score": 0.03421270164350669,
+          "mean_boundary_prev_attn": 0.08844053527961175,
+          "mean_nonboundary_prev_attn": 0.05422783363610506
+        },
+        {
+          "layer": 5,
+          "head": 2,
+          "boundary_attn_score": -0.09978788625448942,
+          "mean_boundary_prev_attn": 0.1423621205613017,
+          "mean_nonboundary_prev_attn": 0.24215000681579113
+        },
+        {
+          "layer": 5,
+          "head": 3,
+          "boundary_attn_score": 0.1469289818778634,
+          "mean_boundary_prev_attn": 0.26351208922763664,
+          "mean_nonboundary_prev_attn": 0.11658310734977324
+        },
+        {
+          "layer": 5,
+          "head": 4,
+          "boundary_attn_score": -0.08645580088098845,
+          "mean_boundary_prev_attn": 0.12682155892252922,
+          "mean_nonboundary_prev_attn": 0.21327735980351767
+        },
+        {
+          "layer": 5,
+          "head": 5,
+          "boundary_attn_score": -0.004648809398834906,
+          "mean_boundary_prev_attn": 0.031990531055877604,
+          "mean_nonboundary_prev_attn": 0.03663934045471251
+        },
+        {
+          "layer": 5,
+          "head": 6,
+          "boundary_attn_score": 0.041404345499662064,
+          "mean_boundary_prev_attn": 0.09243477135896683,
+          "mean_nonboundary_prev_attn": 0.051030425859304764
+        },
+        {
+          "layer": 5,
+          "head": 7,
+          "boundary_attn_score": 0.03203035980307808,
+          "mean_boundary_prev_attn": 0.06448946660384536,
+          "mean_nonboundary_prev_attn": 0.03245910680076728
+        },
+        {
+          "layer": 5,
+          "head": 8,
+          "boundary_attn_score": -0.02460979679987456,
+          "mean_boundary_prev_attn": 0.014801994528776655,
+          "mean_nonboundary_prev_attn": 0.03941179132865121
+        },
+        {
+          "layer": 5,
+          "head": 9,
+          "boundary_attn_score": 0.01820576610043645,
+          "mean_boundary_prev_attn": 0.10984277197470267,
+          "mean_nonboundary_prev_attn": 0.09163700587426622
+        },
+        {
+          "layer": 5,
+          "head": 10,
+          "boundary_attn_score": 0.004832234117202461,
+          "mean_boundary_prev_attn": 0.04042068123817444,
+          "mean_nonboundary_prev_attn": 0.03558844712097198
+        },
+        {
+          "layer": 5,
+          "head": 11,
+          "boundary_attn_score": 0.004580649236838097,
+          "mean_boundary_prev_attn": 0.992926595111688,
+          "mean_nonboundary_prev_attn": 0.9883459458748499
+        },
+        {
+          "layer": 5,
+          "head": 12,
+          "boundary_attn_score": -0.0018838002579286695,
+          "mean_boundary_prev_attn": 0.02102370160476615,
+          "mean_nonboundary_prev_attn": 0.02290750186269482
+        },
+        {
+          "layer": 5,
+          "head": 13,
+          "boundary_attn_score": -0.007405589024225875,
+          "mean_boundary_prev_attn": 0.10956163890659809,
+          "mean_nonboundary_prev_attn": 0.11696722793082397
+        },
+        {
+          "layer": 5,
+          "head": 14,
+          "boundary_attn_score": 0.002202234686895583,
+          "mean_boundary_prev_attn": 0.013154065275254348,
+          "mean_nonboundary_prev_attn": 0.010951830588358765
+        },
+        {
+          "layer": 5,
+          "head": 15,
+          "boundary_attn_score": -0.06618299894034863,
+          "mean_boundary_prev_attn": 0.15717868693172932,
+          "mean_nonboundary_prev_attn": 0.22336168587207794
+        },
+        {
+          "layer": 6,
+          "head": 0,
+          "boundary_attn_score": -0.00021356453847450572,
+          "mean_boundary_prev_attn": 0.005691181189225365,
+          "mean_nonboundary_prev_attn": 0.005904745727699871
+        },
+        {
+          "layer": 6,
+          "head": 1,
+          "boundary_attn_score": -0.0029461312266600235,
+          "mean_boundary_prev_attn": 0.0012707760057916555,
+          "mean_nonboundary_prev_attn": 0.004216907232451679
+        },
+        {
+          "layer": 6,
+          "head": 2,
+          "boundary_attn_score": 8.779325677702766e-05,
+          "mean_boundary_prev_attn": 0.008610622026026249,
+          "mean_nonboundary_prev_attn": 0.008522828769249221
+        },
+        {
+          "layer": 6,
+          "head": 3,
+          "boundary_attn_score": 0.0070623397671928,
+          "mean_boundary_prev_attn": 0.01676675557003667,
+          "mean_nonboundary_prev_attn": 0.009704415802843869
+        },
+        {
+          "layer": 6,
+          "head": 4,
+          "boundary_attn_score": -0.011623729321096715,
+          "mean_boundary_prev_attn": 0.004462897690245882,
+          "mean_nonboundary_prev_attn": 0.016086627011342596
+        },
+        {
+          "layer": 6,
+          "head": 5,
+          "boundary_attn_score": 0.0539859072305262,
+          "mean_boundary_prev_attn": 0.1068336892252167,
+          "mean_nonboundary_prev_attn": 0.0528477819946905
+        },
+        {
+          "layer": 6,
+          "head": 6,
+          "boundary_attn_score": 0.07449599107106528,
+          "mean_boundary_prev_attn": 0.179234911998113,
+          "mean_nonboundary_prev_attn": 0.10473892092704773
+        },
+        {
+          "layer": 6,
+          "head": 7,
+          "boundary_attn_score": -0.009323514997959137,
+          "mean_boundary_prev_attn": 0.8787909001111984,
+          "mean_nonboundary_prev_attn": 0.8881144151091576
+        },
+        {
+          "layer": 6,
+          "head": 8,
+          "boundary_attn_score": 0.016212901178126536,
+          "mean_boundary_prev_attn": 0.03633650097375115,
+          "mean_nonboundary_prev_attn": 0.020123599795624614
+        },
+        {
+          "layer": 6,
+          "head": 9,
+          "boundary_attn_score": 0.0004549672012217343,
+          "mean_boundary_prev_attn": 0.007204445932681362,
+          "mean_nonboundary_prev_attn": 0.006749478731459628
+        },
+        {
+          "layer": 6,
+          "head": 10,
+          "boundary_attn_score": 0.008135339943692088,
+          "mean_boundary_prev_attn": 0.03351164050400257,
+          "mean_nonboundary_prev_attn": 0.025376300560310483
+        },
+        {
+          "layer": 6,
+          "head": 11,
+          "boundary_attn_score": -0.0001484569705401846,
+          "mean_boundary_prev_attn": 0.022790243655132752,
+          "mean_nonboundary_prev_attn": 0.022938700625672936
+        },
+        {
+          "layer": 6,
+          "head": 12,
+          "boundary_attn_score": 0.003544553687485557,
+          "mean_boundary_prev_attn": 0.016885269588480394,
+          "mean_nonboundary_prev_attn": 0.013340715900994837
+        },
+        {
+          "layer": 6,
+          "head": 13,
+          "boundary_attn_score": -0.00417452621331904,
+          "mean_boundary_prev_attn": 0.005134327958027522,
+          "mean_nonboundary_prev_attn": 0.009308854171346562
+        },
+        {
+          "layer": 6,
+          "head": 14,
+          "boundary_attn_score": -0.10576574162890515,
+          "mean_boundary_prev_attn": 0.11409097258001566,
+          "mean_nonboundary_prev_attn": 0.2198567142089208
+        },
+        {
+          "layer": 6,
+          "head": 15,
+          "boundary_attn_score": -0.04543795456023267,
+          "mean_boundary_prev_attn": 0.01821864171264072,
+          "mean_nonboundary_prev_attn": 0.06365659627287339
+        },
+        {
+          "layer": 7,
+          "head": 0,
+          "boundary_attn_score": -0.03335801651701331,
+          "mean_boundary_prev_attn": 0.0057443499099463224,
+          "mean_nonboundary_prev_attn": 0.039102366426959634
+        },
+        {
+          "layer": 7,
+          "head": 1,
+          "boundary_attn_score": 0.011571160983294242,
+          "mean_boundary_prev_attn": 0.06611582435046633,
+          "mean_nonboundary_prev_attn": 0.054544663367172085
+        },
+        {
+          "layer": 7,
+          "head": 2,
+          "boundary_attn_score": -0.017416279260942247,
+          "mean_boundary_prev_attn": 0.003923570679035038,
+          "mean_nonboundary_prev_attn": 0.021339849939977285
+        },
+        {
+          "layer": 7,
+          "head": 3,
+          "boundary_attn_score": 0.008212076621324133,
+          "mean_boundary_prev_attn": 0.015268537254693607,
+          "mean_nonboundary_prev_attn": 0.007056460633369473
+        },
+        {
+          "layer": 7,
+          "head": 4,
+          "boundary_attn_score": 0.00034360816547026295,
+          "mean_boundary_prev_attn": 0.015395136084407568,
+          "mean_nonboundary_prev_attn": 0.015051527918937305
+        },
+        {
+          "layer": 7,
+          "head": 5,
+          "boundary_attn_score": 0.0034273530181962997,
+          "mean_boundary_prev_attn": 0.01365191008274754,
+          "mean_nonboundary_prev_attn": 0.01022455706455124
+        },
+        {
+          "layer": 7,
+          "head": 6,
+          "boundary_attn_score": -0.026141386168698474,
+          "mean_boundary_prev_attn": 0.1176255854467551,
+          "mean_nonboundary_prev_attn": 0.14376697161545357
+        },
+        {
+          "layer": 7,
+          "head": 7,
+          "boundary_attn_score": 0.008053242073704801,
+          "mean_boundary_prev_attn": 0.02985601678180198,
+          "mean_nonboundary_prev_attn": 0.02180277470809718
+        },
+        {
+          "layer": 7,
+          "head": 8,
+          "boundary_attn_score": 0.0003449888705896829,
+          "mean_boundary_prev_attn": 0.010910507931839675,
+          "mean_nonboundary_prev_attn": 0.010565519061249992
+        },
+        {
+          "layer": 7,
+          "head": 9,
+          "boundary_attn_score": -0.004092317229757711,
+          "mean_boundary_prev_attn": 0.04972137805695335,
+          "mean_nonboundary_prev_attn": 0.05381369528671106
+        },
+        {
+          "layer": 7,
+          "head": 10,
+          "boundary_attn_score": -0.0026012936917444093,
+          "mean_boundary_prev_attn": 0.04865194965774814,
+          "mean_nonboundary_prev_attn": 0.05125324334949255
+        },
+        {
+          "layer": 7,
+          "head": 11,
+          "boundary_attn_score": 0.0010202400990995861,
+          "mean_boundary_prev_attn": 0.0018268080354270448,
+          "mean_nonboundary_prev_attn": 0.0008065679363274588
+        },
+        {
+          "layer": 7,
+          "head": 12,
+          "boundary_attn_score": 0.021822269928331174,
+          "mean_boundary_prev_attn": 0.06526821805164218,
+          "mean_nonboundary_prev_attn": 0.043445948123311005
+        },
+        {
+          "layer": 7,
+          "head": 13,
+          "boundary_attn_score": -0.11959114670753479,
+          "mean_boundary_prev_attn": 0.3138104937970638,
+          "mean_nonboundary_prev_attn": 0.4334016405045986
+        },
+        {
+          "layer": 7,
+          "head": 14,
+          "boundary_attn_score": 0.011962610917786762,
+          "mean_boundary_prev_attn": 0.10036153392866254,
+          "mean_nonboundary_prev_attn": 0.08839892301087578
+        },
+        {
+          "layer": 7,
+          "head": 15,
+          "boundary_attn_score": -0.015741162293124944,
+          "mean_boundary_prev_attn": 0.011797077003090331,
+          "mean_nonboundary_prev_attn": 0.027538239296215277
+        },
+        {
+          "layer": 8,
+          "head": 0,
+          "boundary_attn_score": -0.009684379639414452,
+          "mean_boundary_prev_attn": 0.03330293484032154,
+          "mean_nonboundary_prev_attn": 0.04298731447973599
+        },
+        {
+          "layer": 8,
+          "head": 1,
+          "boundary_attn_score": -0.07510507603486383,
+          "mean_boundary_prev_attn": 0.4771472029387951,
+          "mean_nonboundary_prev_attn": 0.5522522789736589
+        },
+        {
+          "layer": 8,
+          "head": 2,
+          "boundary_attn_score": 0.047660224537442744,
+          "mean_boundary_prev_attn": 0.06231323132912318,
+          "mean_nonboundary_prev_attn": 0.014653006791680431
+        },
+        {
+          "layer": 8,
+          "head": 3,
+          "boundary_attn_score": 0.005440779495984316,
+          "mean_boundary_prev_attn": 0.062472192415346704,
+          "mean_nonboundary_prev_attn": 0.05703141291936239
+        },
+        {
+          "layer": 8,
+          "head": 4,
+          "boundary_attn_score": 0.00019348424393683672,
+          "mean_boundary_prev_attn": 0.010392862798956534,
+          "mean_nonboundary_prev_attn": 0.010199378555019697
+        },
+        {
+          "layer": 8,
+          "head": 5,
+          "boundary_attn_score": -0.0027508938607449344,
+          "mean_boundary_prev_attn": 0.02157914739412566,
+          "mean_nonboundary_prev_attn": 0.024330041254870594
+        },
+        {
+          "layer": 8,
+          "head": 6,
+          "boundary_attn_score": 0.009668519409994275,
+          "mean_boundary_prev_attn": 0.20657329633831978,
+          "mean_nonboundary_prev_attn": 0.1969047769283255
+        },
+        {
+          "layer": 8,
+          "head": 7,
+          "boundary_attn_score": -0.0009588714068134441,
+          "mean_boundary_prev_attn": 0.15539484036465487,
+          "mean_nonboundary_prev_attn": 0.1563537117714683
+        },
+        {
+          "layer": 8,
+          "head": 8,
+          "boundary_attn_score": 0.006202597791949909,
+          "mean_boundary_prev_attn": 0.016363430574225884,
+          "mean_nonboundary_prev_attn": 0.010160832782275975
+        },
+        {
+          "layer": 8,
+          "head": 9,
+          "boundary_attn_score": 0.00916955484232555,
+          "mean_boundary_prev_attn": 0.0290121928943942,
+          "mean_nonboundary_prev_attn": 0.01984263805206865
+        },
+        {
+          "layer": 8,
+          "head": 10,
+          "boundary_attn_score": -6.113562267273664e-05,
+          "mean_boundary_prev_attn": 0.017297315566490095,
+          "mean_nonboundary_prev_attn": 0.01735845118916283
+        },
+        {
+          "layer": 8,
+          "head": 11,
+          "boundary_attn_score": 0.0014060556422919035,
+          "mean_boundary_prev_attn": 0.013763024743335942,
+          "mean_nonboundary_prev_attn": 0.012356969101044038
+        },
+        {
+          "layer": 8,
+          "head": 12,
+          "boundary_attn_score": 0.022225659495840475,
+          "mean_boundary_prev_attn": 0.07292315332839887,
+          "mean_nonboundary_prev_attn": 0.050697493832558393
+        },
+        {
+          "layer": 8,
+          "head": 13,
+          "boundary_attn_score": 0.0038511849706992507,
+          "mean_boundary_prev_attn": 0.01472843911809226,
+          "mean_nonboundary_prev_attn": 0.010877254147393009
+        },
+        {
+          "layer": 8,
+          "head": 14,
+          "boundary_attn_score": 0.02960779867134989,
+          "mean_boundary_prev_attn": 0.07620920396099488,
+          "mean_nonboundary_prev_attn": 0.046601405289644994
+        },
+        {
+          "layer": 8,
+          "head": 15,
+          "boundary_attn_score": -0.006329098095496498,
+          "mean_boundary_prev_attn": 0.021805223853637774,
+          "mean_nonboundary_prev_attn": 0.02813432194913427
+        },
+        {
+          "layer": 9,
+          "head": 0,
+          "boundary_attn_score": -0.00040981476195156574,
+          "mean_boundary_prev_attn": 0.03435910842381418,
+          "mean_nonboundary_prev_attn": 0.03476892318576574
+        },
+        {
+          "layer": 9,
+          "head": 1,
+          "boundary_attn_score": 0.0036343459311562274,
+          "mean_boundary_prev_attn": 0.015310573081175486,
+          "mean_nonboundary_prev_attn": 0.011676227150019258
+        },
+        {
+          "layer": 9,
+          "head": 2,
+          "boundary_attn_score": 0.08270999601033206,
+          "mean_boundary_prev_attn": 0.10350030101835728,
+          "mean_nonboundary_prev_attn": 0.020790305008025218
+        },
+        {
+          "layer": 9,
+          "head": 3,
+          "boundary_attn_score": 0.0016861353821392795,
+          "mean_boundary_prev_attn": 0.00864520682565247,
+          "mean_nonboundary_prev_attn": 0.006959071443513191
+        },
+        {
+          "layer": 9,
+          "head": 4,
+          "boundary_attn_score": 0.0008757443332190933,
+          "mean_boundary_prev_attn": 0.003518010965005184,
+          "mean_nonboundary_prev_attn": 0.0026422666317860908
+        },
+        {
+          "layer": 9,
+          "head": 5,
+          "boundary_attn_score": 0.03661832137731835,
+          "mean_boundary_prev_attn": 0.06053799871976177,
+          "mean_nonboundary_prev_attn": 0.023919677342443418
+        },
+        {
+          "layer": 9,
+          "head": 6,
+          "boundary_attn_score": -0.09115084943672021,
+          "mean_boundary_prev_attn": 0.027193188667297363,
+          "mean_nonboundary_prev_attn": 0.11834403810401757
+        },
+        {
+          "layer": 9,
+          "head": 7,
+          "boundary_attn_score": 0.004715313271541769,
+          "mean_boundary_prev_attn": 0.013873512158170342,
+          "mean_nonboundary_prev_attn": 0.009158198886628574
+        },
+        {
+          "layer": 9,
+          "head": 8,
+          "boundary_attn_score": 0.011606985780720908,
+          "mean_boundary_prev_attn": 0.026200389101480443,
+          "mean_nonboundary_prev_attn": 0.014593403320759535
+        },
+        {
+          "layer": 9,
+          "head": 9,
+          "boundary_attn_score": 3.2198106813060233e-05,
+          "mean_boundary_prev_attn": 0.0008704167885298375,
+          "mean_nonboundary_prev_attn": 0.0008382186817167773
+        },
+        {
+          "layer": 9,
+          "head": 10,
+          "boundary_attn_score": 0.04948202664187798,
+          "mean_boundary_prev_attn": 0.07892258449768026,
+          "mean_nonboundary_prev_attn": 0.02944055785580228
+        },
+        {
+          "layer": 9,
+          "head": 11,
+          "boundary_attn_score": 0.06955476415654023,
+          "mean_boundary_prev_attn": 0.11381812238444884,
+          "mean_nonboundary_prev_attn": 0.04426335822790861
+        },
+        {
+          "layer": 9,
+          "head": 12,
+          "boundary_attn_score": 0.0007750341901555657,
+          "mean_boundary_prev_attn": 0.010854119240927199,
+          "mean_nonboundary_prev_attn": 0.010079085050771633
+        },
+        {
+          "layer": 9,
+          "head": 13,
+          "boundary_attn_score": -0.0037843306102634724,
+          "mean_boundary_prev_attn": 0.006826013530371711,
+          "mean_nonboundary_prev_attn": 0.010610344140635183
+        },
+        {
+          "layer": 9,
+          "head": 14,
+          "boundary_attn_score": 0.00647895298122118,
+          "mean_boundary_prev_attn": 0.02665795541057984,
+          "mean_nonboundary_prev_attn": 0.02017900242935866
+        },
+        {
+          "layer": 9,
+          "head": 15,
+          "boundary_attn_score": -0.07459624980886778,
+          "mean_boundary_prev_attn": 0.15144199753801027,
+          "mean_nonboundary_prev_attn": 0.22603824734687805
+        },
+        {
+          "layer": 10,
+          "head": 0,
+          "boundary_attn_score": 0.010204544446120657,
+          "mean_boundary_prev_attn": 0.03582367106961707,
+          "mean_nonboundary_prev_attn": 0.025619126623496413
+        },
+        {
+          "layer": 10,
+          "head": 1,
+          "boundary_attn_score": -0.003561286756545693,
+          "mean_boundary_prev_attn": 0.003004702385320949,
+          "mean_nonboundary_prev_attn": 0.006565989141866642
+        },
+        {
+          "layer": 10,
+          "head": 2,
+          "boundary_attn_score": -0.00028601343122620915,
+          "mean_boundary_prev_attn": 0.04634479091813167,
+          "mean_nonboundary_prev_attn": 0.04663080434935788
+        },
+        {
+          "layer": 10,
+          "head": 3,
+          "boundary_attn_score": -0.0009059308601232861,
+          "mean_boundary_prev_attn": 0.012674753282529613,
+          "mean_nonboundary_prev_attn": 0.013580684142652899
+        },
+        {
+          "layer": 10,
+          "head": 4,
+          "boundary_attn_score": 0.003948871279135346,
+          "mean_boundary_prev_attn": 0.0355541684354345,
+          "mean_nonboundary_prev_attn": 0.03160529715629915
+        },
+        {
+          "layer": 10,
+          "head": 5,
+          "boundary_attn_score": -0.002513444206366941,
+          "mean_boundary_prev_attn": 0.1114535581630965,
+          "mean_nonboundary_prev_attn": 0.11396700236946344
+        },
+        {
+          "layer": 10,
+          "head": 6,
+          "boundary_attn_score": 0.005868739041034134,
+          "mean_boundary_prev_attn": 0.017444503881658118,
+          "mean_nonboundary_prev_attn": 0.011575764840623984
+        },
+        {
+          "layer": 10,
+          "head": 7,
+          "boundary_attn_score": 0.003859690623357892,
+          "mean_boundary_prev_attn": 0.024511200686295826,
+          "mean_nonboundary_prev_attn": 0.020651510062937934
+        },
+        {
+          "layer": 10,
+          "head": 8,
+          "boundary_attn_score": 7.966791357224179e-05,
+          "mean_boundary_prev_attn": 0.0013891663984395564,
+          "mean_nonboundary_prev_attn": 0.0013094984848673146
+        },
+        {
+          "layer": 10,
+          "head": 9,
+          "boundary_attn_score": 0.019751237181480974,
+          "mean_boundary_prev_attn": 0.030375024109768372,
+          "mean_nonboundary_prev_attn": 0.010623786928287396
+        },
+        {
+          "layer": 10,
+          "head": 10,
+          "boundary_attn_score": -0.22200501275559267,
+          "mean_boundary_prev_attn": 0.23406312925120196,
+          "mean_nonboundary_prev_attn": 0.45606814200679463
+        },
+        {
+          "layer": 10,
+          "head": 11,
+          "boundary_attn_score": 0.04315854376181961,
+          "mean_boundary_prev_attn": 0.07936419236163299,
+          "mean_nonboundary_prev_attn": 0.03620564859981338
+        },
+        {
+          "layer": 10,
+          "head": 12,
+          "boundary_attn_score": 0.004856382496654987,
+          "mean_boundary_prev_attn": 0.08309538305426638,
+          "mean_nonboundary_prev_attn": 0.07823900055761139
+        },
+        {
+          "layer": 10,
+          "head": 13,
+          "boundary_attn_score": 0.006219500850420447,
+          "mean_boundary_prev_attn": 0.019285760043809812,
+          "mean_nonboundary_prev_attn": 0.013066259193389365
+        },
+        {
+          "layer": 10,
+          "head": 14,
+          "boundary_attn_score": 0.00566071865614504,
+          "mean_boundary_prev_attn": 0.03258532526281973,
+          "mean_nonboundary_prev_attn": 0.02692460660667469
+        },
+        {
+          "layer": 10,
+          "head": 15,
+          "boundary_attn_score": 0.12176754310106237,
+          "mean_boundary_prev_attn": 0.21258068084716797,
+          "mean_nonboundary_prev_attn": 0.0908131377461056
+        },
+        {
+          "layer": 11,
+          "head": 0,
+          "boundary_attn_score": 0.006896483789508542,
+          "mean_boundary_prev_attn": 0.02232626569457352,
+          "mean_nonboundary_prev_attn": 0.01542978190506498
+        },
+        {
+          "layer": 11,
+          "head": 1,
+          "boundary_attn_score": -0.0002522422898133905,
+          "mean_boundary_prev_attn": 0.002858399966498837,
+          "mean_nonboundary_prev_attn": 0.0031106422563122274
+        },
+        {
+          "layer": 11,
+          "head": 2,
+          "boundary_attn_score": 0.1017145403699639,
+          "mean_boundary_prev_attn": 0.12224756833165884,
+          "mean_nonboundary_prev_attn": 0.020533027961694945
+        },
+        {
+          "layer": 11,
+          "head": 3,
+          "boundary_attn_score": 0.01634167337518496,
+          "mean_boundary_prev_attn": 0.023279819443511467,
+          "mean_nonboundary_prev_attn": 0.006938146068326508
+        },
+        {
+          "layer": 11,
+          "head": 4,
+          "boundary_attn_score": 0.0024838323588483036,
+          "mean_boundary_prev_attn": 0.012490354206723472,
+          "mean_nonboundary_prev_attn": 0.010006521847875169
+        },
+        {
+          "layer": 11,
+          "head": 5,
+          "boundary_attn_score": -0.0675177036318928,
+          "mean_boundary_prev_attn": 0.04010207089595497,
+          "mean_nonboundary_prev_attn": 0.10761977452784777
+        },
+        {
+          "layer": 11,
+          "head": 6,
+          "boundary_attn_score": 0.03903877083212137,
+          "mean_boundary_prev_attn": 0.1850360364963611,
+          "mean_nonboundary_prev_attn": 0.14599726566423973
+        },
+        {
+          "layer": 11,
+          "head": 7,
+          "boundary_attn_score": 0.03615067542220155,
+          "mean_boundary_prev_attn": 0.09589206924041112,
+          "mean_nonboundary_prev_attn": 0.059741393818209566
+        },
+        {
+          "layer": 11,
+          "head": 8,
+          "boundary_attn_score": 0.019274245355821527,
+          "mean_boundary_prev_attn": 0.027804808458313346,
+          "mean_nonboundary_prev_attn": 0.00853056310249182
+        },
+        {
+          "layer": 11,
+          "head": 9,
+          "boundary_attn_score": 0.012865157371076446,
+          "mean_boundary_prev_attn": 0.02891588117927313,
+          "mean_nonboundary_prev_attn": 0.016050723808196683
+        },
+        {
+          "layer": 11,
+          "head": 10,
+          "boundary_attn_score": 0.002355966717004776,
+          "mean_boundary_prev_attn": 0.013785697015312811,
+          "mean_nonboundary_prev_attn": 0.011429730298308035
+        },
+        {
+          "layer": 11,
+          "head": 11,
+          "boundary_attn_score": -0.00017209042077108005,
+          "mean_boundary_prev_attn": 0.0063232986140064895,
+          "mean_nonboundary_prev_attn": 0.0064953890347775696
+        },
+        {
+          "layer": 11,
+          "head": 12,
+          "boundary_attn_score": -0.01408991310745477,
+          "mean_boundary_prev_attn": 0.05674630201732119,
+          "mean_nonboundary_prev_attn": 0.07083621512477596
+        },
+        {
+          "layer": 11,
+          "head": 13,
+          "boundary_attn_score": 0.023428528569638736,
+          "mean_boundary_prev_attn": 0.07623390542964141,
+          "mean_nonboundary_prev_attn": 0.052805376860002674
+        },
+        {
+          "layer": 11,
+          "head": 14,
+          "boundary_attn_score": -0.018995379020149507,
+          "mean_boundary_prev_attn": 0.04023707611486316,
+          "mean_nonboundary_prev_attn": 0.059232455135012664
+        },
+        {
+          "layer": 11,
+          "head": 15,
+          "boundary_attn_score": 0.000809766895448167,
+          "mean_boundary_prev_attn": 0.01369841144575427,
+          "mean_nonboundary_prev_attn": 0.012888644550306102
+        },
+        {
+          "layer": 12,
+          "head": 0,
+          "boundary_attn_score": 0.005566544656176121,
+          "mean_boundary_prev_attn": 0.00979825087900584,
+          "mean_nonboundary_prev_attn": 0.004231706222829719
+        },
+        {
+          "layer": 12,
+          "head": 1,
+          "boundary_attn_score": -0.00011926607233666208,
+          "mean_boundary_prev_attn": 0.0020597142671855786,
+          "mean_nonboundary_prev_attn": 0.0021789803395222407
+        },
+        {
+          "layer": 12,
+          "head": 2,
+          "boundary_attn_score": 0.011488334993676593,
+          "mean_boundary_prev_attn": 0.02003567642532289,
+          "mean_nonboundary_prev_attn": 0.008547341431646297
+        },
+        {
+          "layer": 12,
+          "head": 3,
+          "boundary_attn_score": 0.019920289943305153,
+          "mean_boundary_prev_attn": 0.04198295343667269,
+          "mean_nonboundary_prev_attn": 0.022062663493367534
+        },
+        {
+          "layer": 12,
+          "head": 4,
+          "boundary_attn_score": 0.002806782373227178,
+          "mean_boundary_prev_attn": 0.010438156527622292,
+          "mean_nonboundary_prev_attn": 0.007631374154395114
+        },
+        {
+          "layer": 12,
+          "head": 5,
+          "boundary_attn_score": 0.0021271781297400594,
+          "mean_boundary_prev_attn": 0.015574106442121169,
+          "mean_nonboundary_prev_attn": 0.01344692831238111
+        },
+        {
+          "layer": 12,
+          "head": 6,
+          "boundary_attn_score": 0.013635674219888944,
+          "mean_boundary_prev_attn": 0.03354130289517343,
+          "mean_nonboundary_prev_attn": 0.019905628675284486
+        },
+        {
+          "layer": 12,
+          "head": 7,
+          "boundary_attn_score": 0.015375735451622553,
+          "mean_boundary_prev_attn": 0.03228995382475356,
+          "mean_nonboundary_prev_attn": 0.016914218373131007
+        },
+        {
+          "layer": 12,
+          "head": 8,
+          "boundary_attn_score": 0.0942648574709892,
+          "mean_boundary_prev_attn": 0.3198898260792096,
+          "mean_nonboundary_prev_attn": 0.22562496860822043
+        },
+        {
+          "layer": 12,
+          "head": 9,
+          "boundary_attn_score": 0.01775706520614525,
+          "mean_boundary_prev_attn": 0.03234680905006826,
+          "mean_nonboundary_prev_attn": 0.014589743843923012
+        },
+        {
+          "layer": 12,
+          "head": 10,
+          "boundary_attn_score": 0.009372510442820687,
+          "mean_boundary_prev_attn": 0.02751819308226307,
+          "mean_nonboundary_prev_attn": 0.018145682639442384
+        },
+        {
+          "layer": 12,
+          "head": 11,
+          "boundary_attn_score": 0.002386104493780294,
+          "mean_boundary_prev_attn": 0.006221218461481233,
+          "mean_nonboundary_prev_attn": 0.003835113967700939
+        },
+        {
+          "layer": 12,
+          "head": 12,
+          "boundary_attn_score": 0.003128878811063867,
+          "mean_boundary_prev_attn": 0.021954723439800244,
+          "mean_nonboundary_prev_attn": 0.018825844628736377
+        },
+        {
+          "layer": 12,
+          "head": 13,
+          "boundary_attn_score": 0.007646828414484238,
+          "mean_boundary_prev_attn": 0.016191622863213222,
+          "mean_nonboundary_prev_attn": 0.008544794448728984
+        },
+        {
+          "layer": 12,
+          "head": 14,
+          "boundary_attn_score": 0.019652748325218756,
+          "mean_boundary_prev_attn": 0.04494965891353786,
+          "mean_nonboundary_prev_attn": 0.025296910588319104
+        },
+        {
+          "layer": 12,
+          "head": 15,
+          "boundary_attn_score": -0.004468885095169142,
+          "mean_boundary_prev_attn": 0.05072289084394773,
+          "mean_nonboundary_prev_attn": 0.05519177593911687
+        },
+        {
+          "layer": 13,
+          "head": 0,
+          "boundary_attn_score": 0.0054078822237594686,
+          "mean_boundary_prev_attn": 0.013261443314452967,
+          "mean_nonboundary_prev_attn": 0.007853561090693498
+        },
+        {
+          "layer": 13,
+          "head": 1,
+          "boundary_attn_score": 0.005580028907085458,
+          "mean_boundary_prev_attn": 0.014799071592278779,
+          "mean_nonboundary_prev_attn": 0.00921904268519332
+        },
+        {
+          "layer": 13,
+          "head": 2,
+          "boundary_attn_score": 0.014460541419490863,
+          "mean_boundary_prev_attn": 0.023367099037083488,
+          "mean_nonboundary_prev_attn": 0.008906557617592625
+        },
+        {
+          "layer": 13,
+          "head": 3,
+          "boundary_attn_score": 0.039626250509172664,
+          "mean_boundary_prev_attn": 0.12708712151894966,
+          "mean_nonboundary_prev_attn": 0.087460871009777
+        },
+        {
+          "layer": 13,
+          "head": 4,
+          "boundary_attn_score": 0.030091929191257805,
+          "mean_boundary_prev_attn": 0.05751124280504882,
+          "mean_nonboundary_prev_attn": 0.02741931361379102
+        },
+        {
+          "layer": 13,
+          "head": 5,
+          "boundary_attn_score": 0.27772250041986507,
+          "mean_boundary_prev_attn": 0.40490314985315007,
+          "mean_nonboundary_prev_attn": 0.127180649433285
+        },
+        {
+          "layer": 13,
+          "head": 6,
+          "boundary_attn_score": 0.01768597801371167,
+          "mean_boundary_prev_attn": 0.032243857199015714,
+          "mean_nonboundary_prev_attn": 0.014557879185304046
+        },
+        {
+          "layer": 13,
+          "head": 7,
+          "boundary_attn_score": 0.013276810757815838,
+          "mean_boundary_prev_attn": 0.029418405921508867,
+          "mean_nonboundary_prev_attn": 0.01614159516369303
+        },
+        {
+          "layer": 13,
+          "head": 8,
+          "boundary_attn_score": 0.038854469399666414,
+          "mean_boundary_prev_attn": 0.05727326024013261,
+          "mean_nonboundary_prev_attn": 0.018418790840466197
+        },
+        {
+          "layer": 13,
+          "head": 9,
+          "boundary_attn_score": 0.008417049267639715,
+          "mean_boundary_prev_attn": 0.02879031941605111,
+          "mean_nonboundary_prev_attn": 0.020373270148411393
+        },
+        {
+          "layer": 13,
+          "head": 10,
+          "boundary_attn_score": 0.00911280931904912,
+          "mean_boundary_prev_attn": 0.08608988237877686,
+          "mean_nonboundary_prev_attn": 0.07697707305972774
+        },
+        {
+          "layer": 13,
+          "head": 11,
+          "boundary_attn_score": 0.021532327305370323,
+          "mean_boundary_prev_attn": 0.03770787719016274,
+          "mean_nonboundary_prev_attn": 0.016175549884792417
+        },
+        {
+          "layer": 13,
+          "head": 12,
+          "boundary_attn_score": -0.004515878448728472,
+          "mean_boundary_prev_attn": 0.01896449679043144,
+          "mean_nonboundary_prev_attn": 0.023480375239159912
+        },
+        {
+          "layer": 13,
+          "head": 13,
+          "boundary_attn_score": -0.012971380027011044,
+          "mean_boundary_prev_attn": 0.054823371271292366,
+          "mean_nonboundary_prev_attn": 0.06779475129830341
+        },
+        {
+          "layer": 13,
+          "head": 14,
+          "boundary_attn_score": 0.00034503820036964816,
+          "mean_boundary_prev_attn": 0.0022769262917184583,
+          "mean_nonboundary_prev_attn": 0.0019318880913488101
+        },
+        {
+          "layer": 13,
+          "head": 15,
+          "boundary_attn_score": 0.007144152274122462,
+          "mean_boundary_prev_attn": 0.018184441491030157,
+          "mean_nonboundary_prev_attn": 0.011040289216907695
+        },
+        {
+          "layer": 14,
+          "head": 0,
+          "boundary_attn_score": 0.012642178839693468,
+          "mean_boundary_prev_attn": 0.02248719350124399,
+          "mean_nonboundary_prev_attn": 0.009845014661550522
+        },
+        {
+          "layer": 14,
+          "head": 1,
+          "boundary_attn_score": 0.05976986089081038,
+          "mean_boundary_prev_attn": 0.06668201112188399,
+          "mean_nonboundary_prev_attn": 0.0069121502310736105
+        },
+        {
+          "layer": 14,
+          "head": 2,
+          "boundary_attn_score": -0.0020868752132325126,
+          "mean_boundary_prev_attn": 0.00648310602021714,
+          "mean_nonboundary_prev_attn": 0.008569981233449653
+        },
+        {
+          "layer": 14,
+          "head": 3,
+          "boundary_attn_score": 0.060741890842715904,
+          "mean_boundary_prev_attn": 0.11587644709895055,
+          "mean_nonboundary_prev_attn": 0.055134556256234646
+        },
+        {
+          "layer": 14,
+          "head": 4,
+          "boundary_attn_score": 0.08047402223261696,
+          "mean_boundary_prev_attn": 0.13341230557610592,
+          "mean_nonboundary_prev_attn": 0.05293828334348897
+        },
+        {
+          "layer": 14,
+          "head": 5,
+          "boundary_attn_score": 0.008140023724990897,
+          "mean_boundary_prev_attn": 0.01550123510727038,
+          "mean_nonboundary_prev_attn": 0.007361211382279483
+        },
+        {
+          "layer": 14,
+          "head": 6,
+          "boundary_attn_score": 0.0033442493683348094,
+          "mean_boundary_prev_attn": 0.014352110136921207,
+          "mean_nonboundary_prev_attn": 0.011007860768586397
+        },
+        {
+          "layer": 14,
+          "head": 7,
+          "boundary_attn_score": 0.000649584845329329,
+          "mean_boundary_prev_attn": 0.057300451289241515,
+          "mean_nonboundary_prev_attn": 0.056650866443912186
+        },
+        {
+          "layer": 14,
+          "head": 8,
+          "boundary_attn_score": 0.002997074586649731,
+          "mean_boundary_prev_attn": 0.08844112697988749,
+          "mean_nonboundary_prev_attn": 0.08544405239323775
+        },
+        {
+          "layer": 14,
+          "head": 9,
+          "boundary_attn_score": -6.642093164069621e-06,
+          "mean_boundary_prev_attn": 0.003917592441818367,
+          "mean_nonboundary_prev_attn": 0.003924234534982436
+        },
+        {
+          "layer": 14,
+          "head": 10,
+          "boundary_attn_score": 0.01577621952552969,
+          "mean_boundary_prev_attn": 0.029508509673178196,
+          "mean_nonboundary_prev_attn": 0.013732290147648504
+        },
+        {
+          "layer": 14,
+          "head": 11,
+          "boundary_attn_score": 0.00781958758792219,
+          "mean_boundary_prev_attn": 0.019266713721056778,
+          "mean_nonboundary_prev_attn": 0.011447126133134589
+        },
+        {
+          "layer": 14,
+          "head": 12,
+          "boundary_attn_score": 0.028192188668375216,
+          "mean_boundary_prev_attn": 0.05002798380640646,
+          "mean_nonboundary_prev_attn": 0.021835795138031244
+        },
+        {
+          "layer": 14,
+          "head": 13,
+          "boundary_attn_score": 0.04300193915454051,
+          "mean_boundary_prev_attn": 0.0706151161963741,
+          "mean_nonboundary_prev_attn": 0.027613177041833598
+        },
+        {
+          "layer": 14,
+          "head": 14,
+          "boundary_attn_score": 0.0006334173716216664,
+          "mean_boundary_prev_attn": 0.011364571779267862,
+          "mean_nonboundary_prev_attn": 0.010731154407646196
+        },
+        {
+          "layer": 14,
+          "head": 15,
+          "boundary_attn_score": 0.0023879848498230202,
+          "mean_boundary_prev_attn": 0.01822208023319642,
+          "mean_nonboundary_prev_attn": 0.0158340953833734
+        },
+        {
+          "layer": 15,
+          "head": 0,
+          "boundary_attn_score": 0.0006882382828431836,
+          "mean_boundary_prev_attn": 0.018643575138412416,
+          "mean_nonboundary_prev_attn": 0.017955336855569232
+        },
+        {
+          "layer": 15,
+          "head": 1,
+          "boundary_attn_score": 0.018694178628114365,
+          "mean_boundary_prev_attn": 0.04521311943729719,
+          "mean_nonboundary_prev_attn": 0.026518940809182823
+        },
+        {
+          "layer": 15,
+          "head": 2,
+          "boundary_attn_score": 0.011405725565661367,
+          "mean_boundary_prev_attn": 0.016928005148656666,
+          "mean_nonboundary_prev_attn": 0.0055222795829953
+        },
+        {
+          "layer": 15,
+          "head": 3,
+          "boundary_attn_score": 0.009726634045364335,
+          "mean_boundary_prev_attn": 0.019825453404337168,
+          "mean_nonboundary_prev_attn": 0.010098819358972833
+        },
+        {
+          "layer": 15,
+          "head": 4,
+          "boundary_attn_score": 0.0009550780863113086,
+          "mean_boundary_prev_attn": 0.010582509217783809,
+          "mean_nonboundary_prev_attn": 0.0096274311314725
+        },
+        {
+          "layer": 15,
+          "head": 5,
+          "boundary_attn_score": 0.034111372874273606,
+          "mean_boundary_prev_attn": 0.05791269467833141,
+          "mean_nonboundary_prev_attn": 0.023801321804057807
+        },
+        {
+          "layer": 15,
+          "head": 6,
+          "boundary_attn_score": 0.01702606376299324,
+          "mean_boundary_prev_attn": 0.02305884981372704,
+          "mean_nonboundary_prev_attn": 0.0060327860507338
+        },
+        {
+          "layer": 15,
+          "head": 7,
+          "boundary_attn_score": 0.0008053809481983407,
+          "mean_boundary_prev_attn": 0.030364462329695623,
+          "mean_nonboundary_prev_attn": 0.029559081381497283
+        },
+        {
+          "layer": 15,
+          "head": 8,
+          "boundary_attn_score": 0.030470154791449502,
+          "mean_boundary_prev_attn": 0.06722109120649596,
+          "mean_nonboundary_prev_attn": 0.036750936415046453
+        },
+        {
+          "layer": 15,
+          "head": 9,
+          "boundary_attn_score": 0.0118563604579928,
+          "mean_boundary_prev_attn": 0.028249827756856877,
+          "mean_nonboundary_prev_attn": 0.016393467298864078
+        },
+        {
+          "layer": 15,
+          "head": 10,
+          "boundary_attn_score": 0.025546966120600707,
+          "mean_boundary_prev_attn": 0.07099325877303879,
+          "mean_nonboundary_prev_attn": 0.04544629265243808
+        },
+        {
+          "layer": 15,
+          "head": 11,
+          "boundary_attn_score": -0.0028163573588244617,
+          "mean_boundary_prev_attn": 0.00814610052232941,
+          "mean_nonboundary_prev_attn": 0.010962457881153872
+        },
+        {
+          "layer": 15,
+          "head": 12,
+          "boundary_attn_score": -0.004320450951733316,
+          "mean_boundary_prev_attn": 0.005582670846100275,
+          "mean_nonboundary_prev_attn": 0.009903121797833592
+        },
+        {
+          "layer": 15,
+          "head": 13,
+          "boundary_attn_score": 0.059388999051103994,
+          "mean_boundary_prev_attn": 0.1646515615284443,
+          "mean_nonboundary_prev_attn": 0.1052625624773403
+        },
+        {
+          "layer": 15,
+          "head": 14,
+          "boundary_attn_score": 0.004272874114879716,
+          "mean_boundary_prev_attn": 0.01996232437280317,
+          "mean_nonboundary_prev_attn": 0.015689450257923454
+        },
+        {
+          "layer": 15,
+          "head": 15,
+          "boundary_attn_score": 0.08542235746669272,
+          "mean_boundary_prev_attn": 0.11656371721376975,
+          "mean_nonboundary_prev_attn": 0.03114135974707703
+        },
+        {
+          "layer": 16,
+          "head": 0,
+          "boundary_attn_score": 0.014410020526459752,
+          "mean_boundary_prev_attn": 0.029378178529441357,
+          "mean_nonboundary_prev_attn": 0.014968158002981605
+        },
+        {
+          "layer": 16,
+          "head": 1,
+          "boundary_attn_score": -0.008241223394482706,
+          "mean_boundary_prev_attn": 0.004442628802886854,
+          "mean_nonboundary_prev_attn": 0.01268385219736956
+        },
+        {
+          "layer": 16,
+          "head": 2,
+          "boundary_attn_score": -0.0016826804688510784,
+          "mean_boundary_prev_attn": 0.016946216385501128,
+          "mean_nonboundary_prev_attn": 0.018628896854352206
+        },
+        {
+          "layer": 16,
+          "head": 3,
+          "boundary_attn_score": -0.0032850458616546048,
+          "mean_boundary_prev_attn": 0.006149487793057536,
+          "mean_nonboundary_prev_attn": 0.00943453365471214
+        },
+        {
+          "layer": 16,
+          "head": 4,
+          "boundary_attn_score": 0.054798984240430094,
+          "mean_boundary_prev_attn": 0.06829197200325628,
+          "mean_nonboundary_prev_attn": 0.013492987762826184
+        },
+        {
+          "layer": 16,
+          "head": 5,
+          "boundary_attn_score": 0.10946423296506208,
+          "mean_boundary_prev_attn": 0.1413407058765491,
+          "mean_nonboundary_prev_attn": 0.03187647291148702
+        },
+        {
+          "layer": 16,
+          "head": 6,
+          "boundary_attn_score": -0.001976649509742856,
+          "mean_boundary_prev_attn": 0.04942403299113115,
+          "mean_nonboundary_prev_attn": 0.051400682500874005
+        },
+        {
+          "layer": 16,
+          "head": 7,
+          "boundary_attn_score": 0.027591759959856688,
+          "mean_boundary_prev_attn": 0.21319558223088583,
+          "mean_nonboundary_prev_attn": 0.18560382227102915
+        },
+        {
+          "layer": 16,
+          "head": 8,
+          "boundary_attn_score": 0.007136581659627456,
+          "mean_boundary_prev_attn": 0.026640365715138614,
+          "mean_nonboundary_prev_attn": 0.019503784055511158
+        },
+        {
+          "layer": 16,
+          "head": 9,
+          "boundary_attn_score": -0.0030830592149868608,
+          "mean_boundary_prev_attn": 0.011830001953057945,
+          "mean_nonboundary_prev_attn": 0.014913061168044806
+        },
+        {
+          "layer": 16,
+          "head": 10,
+          "boundary_attn_score": 0.05134360303539627,
+          "mean_boundary_prev_attn": 0.06859714165329933,
+          "mean_nonboundary_prev_attn": 0.017253538617903057
+        },
+        {
+          "layer": 16,
+          "head": 11,
+          "boundary_attn_score": -0.004965600499417633,
+          "mean_boundary_prev_attn": 0.0048846024728845805,
+          "mean_nonboundary_prev_attn": 0.009850202972302213
+        },
+        {
+          "layer": 16,
+          "head": 12,
+          "boundary_attn_score": 0.011678138709006209,
+          "mean_boundary_prev_attn": 0.016821197428119678,
+          "mean_nonboundary_prev_attn": 0.005143058719113469
+        },
+        {
+          "layer": 16,
+          "head": 13,
+          "boundary_attn_score": 0.00927992670040112,
+          "mean_boundary_prev_attn": 0.016420249866011243,
+          "mean_nonboundary_prev_attn": 0.0071403231656101225
+        },
+        {
+          "layer": 16,
+          "head": 14,
+          "boundary_attn_score": -0.016568229659848534,
+          "mean_boundary_prev_attn": 0.011012879830862706,
+          "mean_nonboundary_prev_attn": 0.027581109490711242
+        },
+        {
+          "layer": 16,
+          "head": 15,
+          "boundary_attn_score": 0.0016353810982157784,
+          "mean_boundary_prev_attn": 0.006860413996037096,
+          "mean_nonboundary_prev_attn": 0.005225032897821317
+        },
+        {
+          "layer": 17,
+          "head": 0,
+          "boundary_attn_score": 0.0012073118317251427,
+          "mean_boundary_prev_attn": 0.01827770359038065,
+          "mean_nonboundary_prev_attn": 0.017070391758655507
+        },
+        {
+          "layer": 17,
+          "head": 1,
+          "boundary_attn_score": 0.00029255691333673894,
+          "mean_boundary_prev_attn": 0.009230753756128252,
+          "mean_nonboundary_prev_attn": 0.008938196842791513
+        },
+        {
+          "layer": 17,
+          "head": 2,
+          "boundary_attn_score": 0.004146332086141531,
+          "mean_boundary_prev_attn": 0.010257218382321298,
+          "mean_nonboundary_prev_attn": 0.006110886296179767
+        },
+        {
+          "layer": 17,
+          "head": 3,
+          "boundary_attn_score": -0.004383016416492561,
+          "mean_boundary_prev_attn": 0.008371054447100809,
+          "mean_nonboundary_prev_attn": 0.01275407086359337
+        },
+        {
+          "layer": 17,
+          "head": 4,
+          "boundary_attn_score": 0.002676806868597244,
+          "mean_boundary_prev_attn": 0.008377405174542218,
+          "mean_nonboundary_prev_attn": 0.0057005983059449745
+        },
+        {
+          "layer": 17,
+          "head": 5,
+          "boundary_attn_score": 0.0039965136044581104,
+          "mean_boundary_prev_attn": 0.014666211364480356,
+          "mean_nonboundary_prev_attn": 0.010669697760022245
+        },
+        {
+          "layer": 17,
+          "head": 6,
+          "boundary_attn_score": 0.0082768138187627,
+          "mean_boundary_prev_attn": 0.022857336909510195,
+          "mean_nonboundary_prev_attn": 0.014580523090747496
+        },
+        {
+          "layer": 17,
+          "head": 7,
+          "boundary_attn_score": 0.0014844902664966249,
+          "mean_boundary_prev_attn": 0.010825108018858979,
+          "mean_nonboundary_prev_attn": 0.009340617752362354
+        },
+        {
+          "layer": 17,
+          "head": 8,
+          "boundary_attn_score": -0.02015972090885043,
+          "mean_boundary_prev_attn": 0.007567219727206975,
+          "mean_nonboundary_prev_attn": 0.027726940636057407
+        },
+        {
+          "layer": 17,
+          "head": 9,
+          "boundary_attn_score": -0.005213717891213795,
+          "mean_boundary_prev_attn": 0.009226977592334151,
+          "mean_nonboundary_prev_attn": 0.014440695483547946
+        },
+        {
+          "layer": 17,
+          "head": 10,
+          "boundary_attn_score": 0.017090742806127913,
+          "mean_boundary_prev_attn": 0.03730843185136715,
+          "mean_nonboundary_prev_attn": 0.02021768904523924
+        },
+        {
+          "layer": 17,
+          "head": 11,
+          "boundary_attn_score": 0.1422499342976759,
+          "mean_boundary_prev_attn": 0.21937953804930052,
+          "mean_nonboundary_prev_attn": 0.07712960375162463
+        },
+        {
+          "layer": 17,
+          "head": 12,
+          "boundary_attn_score": 0.010571646562311798,
+          "mean_boundary_prev_attn": 0.03236705157905817,
+          "mean_nonboundary_prev_attn": 0.021795405016746372
+        },
+        {
+          "layer": 17,
+          "head": 13,
+          "boundary_attn_score": 0.0766469194398572,
+          "mean_boundary_prev_attn": 0.09419534246747692,
+          "mean_nonboundary_prev_attn": 0.01754842302761972
+        },
+        {
+          "layer": 17,
+          "head": 14,
+          "boundary_attn_score": -0.0036630795414869972,
+          "mean_boundary_prev_attn": 0.017327124640966456,
+          "mean_nonboundary_prev_attn": 0.020990204182453454
+        },
+        {
+          "layer": 17,
+          "head": 15,
+          "boundary_attn_score": 0.0582635803342176,
+          "mean_boundary_prev_attn": 0.09610596454391877,
+          "mean_nonboundary_prev_attn": 0.03784238420970117
+        },
+        {
+          "layer": 18,
+          "head": 0,
+          "boundary_attn_score": 0.006406528632699823,
+          "mean_boundary_prev_attn": 0.012335234864925345,
+          "mean_nonboundary_prev_attn": 0.005928706232225522
+        },
+        {
+          "layer": 18,
+          "head": 1,
+          "boundary_attn_score": 0.011845727101899685,
+          "mean_boundary_prev_attn": 0.02009580230029921,
+          "mean_nonboundary_prev_attn": 0.008250075198399523
+        },
+        {
+          "layer": 18,
+          "head": 2,
+          "boundary_attn_score": 0.019481832025727876,
+          "mean_boundary_prev_attn": 0.0318648893541346,
+          "mean_nonboundary_prev_attn": 0.012383057328406721
+        },
+        {
+          "layer": 18,
+          "head": 3,
+          "boundary_attn_score": 0.24198718058566251,
+          "mean_boundary_prev_attn": 0.4530473252137502,
+          "mean_nonboundary_prev_attn": 0.21106014462808767
+        },
+        {
+          "layer": 18,
+          "head": 4,
+          "boundary_attn_score": -0.004328809562139214,
+          "mean_boundary_prev_attn": 0.005795765716660147,
+          "mean_nonboundary_prev_attn": 0.01012457527879936
+        },
+        {
+          "layer": 18,
+          "head": 5,
+          "boundary_attn_score": -0.0022692935017403215,
+          "mean_boundary_prev_attn": 0.004461447722860612,
+          "mean_nonboundary_prev_attn": 0.0067307412246009335
+        },
+        {
+          "layer": 18,
+          "head": 6,
+          "boundary_attn_score": -0.0031409291162466,
+          "mean_boundary_prev_attn": 0.020673896186053753,
+          "mean_nonboundary_prev_attn": 0.023814825302300353
+        },
+        {
+          "layer": 18,
+          "head": 7,
+          "boundary_attn_score": 0.0035468071970778184,
+          "mean_boundary_prev_attn": 0.019395106142231573,
+          "mean_nonboundary_prev_attn": 0.015848298945153754
+        },
+        {
+          "layer": 18,
+          "head": 8,
+          "boundary_attn_score": 0.009305560228919301,
+          "mean_boundary_prev_attn": 0.014244413352571428,
+          "mean_nonboundary_prev_attn": 0.004938853123652128
+        },
+        {
+          "layer": 18,
+          "head": 9,
+          "boundary_attn_score": -0.002436424566743275,
+          "mean_boundary_prev_attn": 0.010478893585968763,
+          "mean_nonboundary_prev_attn": 0.012915318152712038
+        },
+        {
+          "layer": 18,
+          "head": 10,
+          "boundary_attn_score": -0.004451182244035105,
+          "mean_boundary_prev_attn": 0.007479326178630193,
+          "mean_nonboundary_prev_attn": 0.011930508422665298
+        },
+        {
+          "layer": 18,
+          "head": 11,
+          "boundary_attn_score": -3.385852323845029e-05,
+          "mean_boundary_prev_attn": 0.009619633201509714,
+          "mean_nonboundary_prev_attn": 0.009653491724748164
+        },
+        {
+          "layer": 18,
+          "head": 12,
+          "boundary_attn_score": -0.0016955969476839527,
+          "mean_boundary_prev_attn": 0.005462057704183583,
+          "mean_nonboundary_prev_attn": 0.007157654651867536
+        },
+        {
+          "layer": 18,
+          "head": 13,
+          "boundary_attn_score": 0.0031106776526333615,
+          "mean_boundary_prev_attn": 0.008970688000166168,
+          "mean_nonboundary_prev_attn": 0.005860010347532807
+        },
+        {
+          "layer": 18,
+          "head": 14,
+          "boundary_attn_score": 0.0007243974153728532,
+          "mean_boundary_prev_attn": 0.005913991675091286,
+          "mean_nonboundary_prev_attn": 0.005189594259718433
+        },
+        {
+          "layer": 18,
+          "head": 15,
+          "boundary_attn_score": -0.006569103182603918,
+          "mean_boundary_prev_attn": 0.055472701943169035,
+          "mean_nonboundary_prev_attn": 0.06204180512577295
+        },
+        {
+          "layer": 19,
+          "head": 0,
+          "boundary_attn_score": 0.012540880386950446,
+          "mean_boundary_prev_attn": 0.023189075718012948,
+          "mean_nonboundary_prev_attn": 0.010648195331062501
+        },
+        {
+          "layer": 19,
+          "head": 1,
+          "boundary_attn_score": 0.010338527043738091,
+          "mean_boundary_prev_attn": 0.023523553002936144,
+          "mean_nonboundary_prev_attn": 0.013185025959198052
+        },
+        {
+          "layer": 19,
+          "head": 2,
+          "boundary_attn_score": 0.004189340877928772,
+          "mean_boundary_prev_attn": 0.009657385662042847,
+          "mean_nonboundary_prev_attn": 0.005468044784114075
+        },
+        {
+          "layer": 19,
+          "head": 3,
+          "boundary_attn_score": -0.0027208824273354058,
+          "mean_boundary_prev_attn": 0.010705507535021752,
+          "mean_nonboundary_prev_attn": 0.013426389962357158
+        },
+        {
+          "layer": 19,
+          "head": 4,
+          "boundary_attn_score": -0.0026395327489202227,
+          "mean_boundary_prev_attn": 0.00893082563804152,
+          "mean_nonboundary_prev_attn": 0.011570358386961743
+        },
+        {
+          "layer": 19,
+          "head": 5,
+          "boundary_attn_score": -0.0006625935202464461,
+          "mean_boundary_prev_attn": 0.018809943421122927,
+          "mean_nonboundary_prev_attn": 0.019472536941369373
+        },
+        {
+          "layer": 19,
+          "head": 6,
+          "boundary_attn_score": 0.07054245567026858,
+          "mean_boundary_prev_attn": 0.09086923487484455,
+          "mean_nonboundary_prev_attn": 0.020326779204575967
+        },
+        {
+          "layer": 19,
+          "head": 7,
+          "boundary_attn_score": 0.0007706778123974809,
+          "mean_boundary_prev_attn": 0.008455655615155896,
+          "mean_nonboundary_prev_attn": 0.007684977802758415
+        },
+        {
+          "layer": 19,
+          "head": 8,
+          "boundary_attn_score": -0.0006094413207999123,
+          "mean_boundary_prev_attn": 0.006905951556594421,
+          "mean_nonboundary_prev_attn": 0.0075153928773943335
+        },
+        {
+          "layer": 19,
+          "head": 9,
+          "boundary_attn_score": -0.0008658685207289327,
+          "mean_boundary_prev_attn": 0.009139624269058308,
+          "mean_nonboundary_prev_attn": 0.01000549278978724
+        },
+        {
+          "layer": 19,
+          "head": 10,
+          "boundary_attn_score": -0.0027947796625085175,
+          "mean_boundary_prev_attn": 0.01509066071594134,
+          "mean_nonboundary_prev_attn": 0.017885440378449857
+        },
+        {
+          "layer": 19,
+          "head": 11,
+          "boundary_attn_score": -0.003088550680937866,
+          "mean_boundary_prev_attn": 0.013377824934044233,
+          "mean_nonboundary_prev_attn": 0.0164663756149821
+        },
+        {
+          "layer": 19,
+          "head": 12,
+          "boundary_attn_score": 0.0020475625642575324,
+          "mean_boundary_prev_attn": 0.011277831120726963,
+          "mean_nonboundary_prev_attn": 0.009230268556469431
+        },
+        {
+          "layer": 19,
+          "head": 13,
+          "boundary_attn_score": 0.00018052253290079534,
+          "mean_boundary_prev_attn": 0.005624123111677666,
+          "mean_nonboundary_prev_attn": 0.005443600578776871
+        },
+        {
+          "layer": 19,
+          "head": 14,
+          "boundary_attn_score": 0.007605679284703607,
+          "mean_boundary_prev_attn": 0.01701468147803098,
+          "mean_nonboundary_prev_attn": 0.009409002193327373
+        },
+        {
+          "layer": 19,
+          "head": 15,
+          "boundary_attn_score": 0.004374086265064155,
+          "mean_boundary_prev_attn": 0.011786420169907311,
+          "mean_nonboundary_prev_attn": 0.007412333904843156
+        },
+        {
+          "layer": 20,
+          "head": 0,
+          "boundary_attn_score": -0.0024669049404716743,
+          "mean_boundary_prev_attn": 0.005433825911798825,
+          "mean_nonboundary_prev_attn": 0.007900730852270499
+        },
+        {
+          "layer": 20,
+          "head": 1,
+          "boundary_attn_score": 0.004633836525802806,
+          "mean_boundary_prev_attn": 0.04927622821802894,
+          "mean_nonboundary_prev_attn": 0.044642391692226134
+        },
+        {
+          "layer": 20,
+          "head": 2,
+          "boundary_attn_score": 0.007478987565264106,
+          "mean_boundary_prev_attn": 0.04709771259998282,
+          "mean_nonboundary_prev_attn": 0.039618725034718714
+        },
+        {
+          "layer": 20,
+          "head": 3,
+          "boundary_attn_score": 0.008766484920973502,
+          "mean_boundary_prev_attn": 0.012957731688705584,
+          "mean_nonboundary_prev_attn": 0.004191246767732082
+        },
+        {
+          "layer": 20,
+          "head": 4,
+          "boundary_attn_score": -0.0008698569630117463,
+          "mean_boundary_prev_attn": 0.006426778951815019,
+          "mean_nonboundary_prev_attn": 0.007296635914826766
+        },
+        {
+          "layer": 20,
+          "head": 5,
+          "boundary_attn_score": -0.003868676765705458,
+          "mean_boundary_prev_attn": 0.0065784869172299905,
+          "mean_nonboundary_prev_attn": 0.010447163682935448
+        },
+        {
+          "layer": 20,
+          "head": 6,
+          "boundary_attn_score": 0.003420184744754807,
+          "mean_boundary_prev_attn": 0.009259881791270649,
+          "mean_nonboundary_prev_attn": 0.005839697046515842
+        },
+        {
+          "layer": 20,
+          "head": 7,
+          "boundary_attn_score": -0.0018471827594718588,
+          "mean_boundary_prev_attn": 0.005528608531070252,
+          "mean_nonboundary_prev_attn": 0.007375791290542111
+        },
+        {
+          "layer": 20,
+          "head": 8,
+          "boundary_attn_score": -0.005165271970327012,
+          "mean_boundary_prev_attn": 0.005738239735364914,
+          "mean_nonboundary_prev_attn": 0.010903511705691926
+        },
+        {
+          "layer": 20,
+          "head": 9,
+          "boundary_attn_score": -0.01666800634120591,
+          "mean_boundary_prev_attn": 0.006752245584114765,
+          "mean_nonboundary_prev_attn": 0.023420251925320674
+        },
+        {
+          "layer": 20,
+          "head": 10,
+          "boundary_attn_score": 8.58559797052294e-05,
+          "mean_boundary_prev_attn": 0.009755598128928492,
+          "mean_nonboundary_prev_attn": 0.009669742149223262
+        },
+        {
+          "layer": 20,
+          "head": 11,
+          "boundary_attn_score": 0.006284412239134932,
+          "mean_boundary_prev_attn": 0.018632282813390095,
+          "mean_nonboundary_prev_attn": 0.012347870574255163
+        },
+        {
+          "layer": 20,
+          "head": 12,
+          "boundary_attn_score": 0.0028995749162277207,
+          "mean_boundary_prev_attn": 0.011202936060726643,
+          "mean_nonboundary_prev_attn": 0.008303361144498922
+        },
+        {
+          "layer": 20,
+          "head": 13,
+          "boundary_attn_score": -0.005788794805994257,
+          "mean_boundary_prev_attn": 0.006439943506848067,
+          "mean_nonboundary_prev_attn": 0.012228738312842324
+        },
+        {
+          "layer": 20,
+          "head": 14,
+          "boundary_attn_score": -6.859472099070806e-05,
+          "mean_boundary_prev_attn": 0.01026039015656958,
+          "mean_nonboundary_prev_attn": 0.010328984877560288
+        },
+        {
+          "layer": 20,
+          "head": 15,
+          "boundary_attn_score": -0.0042199726740363985,
+          "mean_boundary_prev_attn": 0.010094576379439483,
+          "mean_nonboundary_prev_attn": 0.014314549053475881
+        },
+        {
+          "layer": 21,
+          "head": 0,
+          "boundary_attn_score": 0.011745683392897869,
+          "mean_boundary_prev_attn": 0.020714323637851823,
+          "mean_nonboundary_prev_attn": 0.008968640244953955
+        },
+        {
+          "layer": 21,
+          "head": 1,
+          "boundary_attn_score": -0.00718419750531514,
+          "mean_boundary_prev_attn": 0.07956129467735688,
+          "mean_nonboundary_prev_attn": 0.08674549218267202
+        },
+        {
+          "layer": 21,
+          "head": 2,
+          "boundary_attn_score": 0.004798998146725354,
+          "mean_boundary_prev_attn": 0.009963488982369503,
+          "mean_nonboundary_prev_attn": 0.005164490835644149
+        },
+        {
+          "layer": 21,
+          "head": 3,
+          "boundary_attn_score": -0.004916352248983458,
+          "mean_boundary_prev_attn": 0.003970565827330574,
+          "mean_nonboundary_prev_attn": 0.008886918076314032
+        },
+        {
+          "layer": 21,
+          "head": 4,
+          "boundary_attn_score": -0.008915069474217793,
+          "mean_boundary_prev_attn": 0.009494865119146803,
+          "mean_nonboundary_prev_attn": 0.018409934593364596
+        },
+        {
+          "layer": 21,
+          "head": 5,
+          "boundary_attn_score": -0.0021229324338492006,
+          "mean_boundary_prev_attn": 0.005341583979316056,
+          "mean_nonboundary_prev_attn": 0.007464516413165256
+        },
+        {
+          "layer": 21,
+          "head": 6,
+          "boundary_attn_score": 0.05697628327955802,
+          "mean_boundary_prev_attn": 0.13461198098957539,
+          "mean_nonboundary_prev_attn": 0.07763569771001737
+        },
+        {
+          "layer": 21,
+          "head": 7,
+          "boundary_attn_score": 0.0016925509165351543,
+          "mean_boundary_prev_attn": 0.03959700783404211,
+          "mean_nonboundary_prev_attn": 0.037904456917506955
+        },
+        {
+          "layer": 21,
+          "head": 8,
+          "boundary_attn_score": -0.0073354784059726326,
+          "mean_boundary_prev_attn": 0.0063755331745293615,
+          "mean_nonboundary_prev_attn": 0.013711011580501994
+        },
+        {
+          "layer": 21,
+          "head": 9,
+          "boundary_attn_score": -0.0016461523579588784,
+          "mean_boundary_prev_attn": 0.005580157449003309,
+          "mean_nonboundary_prev_attn": 0.007226309806962187
+        },
+        {
+          "layer": 21,
+          "head": 10,
+          "boundary_attn_score": 0.000960117661937451,
+          "mean_boundary_prev_attn": 0.007786806769824277,
+          "mean_nonboundary_prev_attn": 0.006826689107886826
+        },
+        {
+          "layer": 21,
+          "head": 11,
+          "boundary_attn_score": -0.006936678507675727,
+          "mean_boundary_prev_attn": 0.007177845380889873,
+          "mean_nonboundary_prev_attn": 0.0141145238885656
+        },
+        {
+          "layer": 21,
+          "head": 12,
+          "boundary_attn_score": 0.004150326344339797,
+          "mean_boundary_prev_attn": 0.013573925049665073,
+          "mean_nonboundary_prev_attn": 0.009423598705325276
+        },
+        {
+          "layer": 21,
+          "head": 13,
+          "boundary_attn_score": -0.0002441779264093684,
+          "mean_boundary_prev_attn": 0.004474256983182083,
+          "mean_nonboundary_prev_attn": 0.004718434909591451
+        },
+        {
+          "layer": 21,
+          "head": 14,
+          "boundary_attn_score": 0.018458702950738367,
+          "mean_boundary_prev_attn": 0.041195269130791225,
+          "mean_nonboundary_prev_attn": 0.022736566180052858
+        },
+        {
+          "layer": 21,
+          "head": 15,
+          "boundary_attn_score": -0.001613220238747696,
+          "mean_boundary_prev_attn": 0.0032951153019287935,
+          "mean_nonboundary_prev_attn": 0.0049083355406764895
+        },
+        {
+          "layer": 22,
+          "head": 0,
+          "boundary_attn_score": -0.00036115454471049094,
+          "mean_boundary_prev_attn": 0.01116534877413263,
+          "mean_nonboundary_prev_attn": 0.01152650331884312
+        },
+        {
+          "layer": 22,
+          "head": 1,
+          "boundary_attn_score": 0.0034484427742427215,
+          "mean_boundary_prev_attn": 0.009596161486115307,
+          "mean_nonboundary_prev_attn": 0.006147718711872585
+        },
+        {
+          "layer": 22,
+          "head": 2,
+          "boundary_attn_score": -0.016405364440288395,
+          "mean_boundary_prev_attn": 0.010803011692284295,
+          "mean_nonboundary_prev_attn": 0.027208376132572692
+        },
+        {
+          "layer": 22,
+          "head": 3,
+          "boundary_attn_score": 0.005834287396282889,
+          "mean_boundary_prev_attn": 0.014359694556333125,
+          "mean_nonboundary_prev_attn": 0.008525407160050236
+        },
+        {
+          "layer": 22,
+          "head": 4,
+          "boundary_attn_score": 0.002583942303317598,
+          "mean_boundary_prev_attn": 0.009322969572773824,
+          "mean_nonboundary_prev_attn": 0.006739027269456225
+        },
+        {
+          "layer": 22,
+          "head": 5,
+          "boundary_attn_score": -0.0015976191668111523,
+          "mean_boundary_prev_attn": 0.007546633491680647,
+          "mean_nonboundary_prev_attn": 0.0091442526584918
+        },
+        {
+          "layer": 22,
+          "head": 6,
+          "boundary_attn_score": -0.008129351267901559,
+          "mean_boundary_prev_attn": 0.012576537672430277,
+          "mean_nonboundary_prev_attn": 0.020705888940331835
+        },
+        {
+          "layer": 22,
+          "head": 7,
+          "boundary_attn_score": 0.005794155760668218,
+          "mean_boundary_prev_attn": 0.018975966260768473,
+          "mean_nonboundary_prev_attn": 0.013181810500100255
+        },
+        {
+          "layer": 22,
+          "head": 8,
+          "boundary_attn_score": 0.001024833443807438,
+          "mean_boundary_prev_attn": 0.013526965747587383,
+          "mean_nonboundary_prev_attn": 0.012502132303779945
+        },
+        {
+          "layer": 22,
+          "head": 9,
+          "boundary_attn_score": -0.0018874476178704462,
+          "mean_boundary_prev_attn": 0.014416316407732666,
+          "mean_nonboundary_prev_attn": 0.016303764025603112
+        },
+        {
+          "layer": 22,
+          "head": 10,
+          "boundary_attn_score": 0.006176690270270532,
+          "mean_boundary_prev_attn": 0.02154189080465585,
+          "mean_nonboundary_prev_attn": 0.015365200534385318
+        },
+        {
+          "layer": 22,
+          "head": 11,
+          "boundary_attn_score": 0.015119555348064752,
+          "mean_boundary_prev_attn": 0.026990680644909542,
+          "mean_nonboundary_prev_attn": 0.01187112529684479
+        },
+        {
+          "layer": 22,
+          "head": 12,
+          "boundary_attn_score": 0.0015459862649246743,
+          "mean_boundary_prev_attn": 0.008145110565237701,
+          "mean_nonboundary_prev_attn": 0.006599124300313027
+        },
+        {
+          "layer": 22,
+          "head": 13,
+          "boundary_attn_score": -0.001341948052868247,
+          "mean_boundary_prev_attn": 0.017546731668214004,
+          "mean_nonboundary_prev_attn": 0.01888867972108225
+        },
+        {
+          "layer": 22,
+          "head": 14,
+          "boundary_attn_score": 0.001372533365307996,
+          "mean_boundary_prev_attn": 0.014469313900917768,
+          "mean_nonboundary_prev_attn": 0.013096780535609772
+        },
+        {
+          "layer": 22,
+          "head": 15,
+          "boundary_attn_score": 0.001434719015378505,
+          "mean_boundary_prev_attn": 0.010263998701702803,
+          "mean_nonboundary_prev_attn": 0.008829279686324298
+        },
+        {
+          "layer": 23,
+          "head": 0,
+          "boundary_attn_score": 0.0004947464428065977,
+          "mean_boundary_prev_attn": 0.01095477738029634,
+          "mean_nonboundary_prev_attn": 0.010460030937489742
+        },
+        {
+          "layer": 23,
+          "head": 1,
+          "boundary_attn_score": 0.0008715573931112885,
+          "mean_boundary_prev_attn": 0.016867072709525626,
+          "mean_nonboundary_prev_attn": 0.015995515316414338
+        },
+        {
+          "layer": 23,
+          "head": 2,
+          "boundary_attn_score": 0.0021694373378219715,
+          "mean_boundary_prev_attn": 0.02667905033255617,
+          "mean_nonboundary_prev_attn": 0.024509612994734198
+        },
+        {
+          "layer": 23,
+          "head": 3,
+          "boundary_attn_score": 0.0009872239315882325,
+          "mean_boundary_prev_attn": 0.014702383001955846,
+          "mean_nonboundary_prev_attn": 0.013715159070367614
+        },
+        {
+          "layer": 23,
+          "head": 4,
+          "boundary_attn_score": -0.0050668059072146825,
+          "mean_boundary_prev_attn": 0.017599838320165873,
+          "mean_nonboundary_prev_attn": 0.022666644227380555
+        },
+        {
+          "layer": 23,
+          "head": 5,
+          "boundary_attn_score": -0.0076950731066366025,
+          "mean_boundary_prev_attn": 0.026345771659786504,
+          "mean_nonboundary_prev_attn": 0.034040844766423106
+        },
+        {
+          "layer": 23,
+          "head": 6,
+          "boundary_attn_score": 0.005421015783213079,
+          "mean_boundary_prev_attn": 0.0335696458350867,
+          "mean_nonboundary_prev_attn": 0.028148630051873624
+        },
+        {
+          "layer": 23,
+          "head": 7,
+          "boundary_attn_score": -0.00031908951738538784,
+          "mean_boundary_prev_attn": 0.01271210756385699,
+          "mean_nonboundary_prev_attn": 0.013031197081242377
+        },
+        {
+          "layer": 23,
+          "head": 8,
+          "boundary_attn_score": 0.06398020129806051,
+          "mean_boundary_prev_attn": 0.09998170286417007,
+          "mean_nonboundary_prev_attn": 0.03600150156610956
+        },
+        {
+          "layer": 23,
+          "head": 9,
+          "boundary_attn_score": -0.00932770585253214,
+          "mean_boundary_prev_attn": 0.0074292960537907975,
+          "mean_nonboundary_prev_attn": 0.016757001906322937
+        },
+        {
+          "layer": 23,
+          "head": 10,
+          "boundary_attn_score": -0.004444377002073452,
+          "mean_boundary_prev_attn": 0.010464638355188072,
+          "mean_nonboundary_prev_attn": 0.014909015357261524
+        },
+        {
+          "layer": 23,
+          "head": 11,
+          "boundary_attn_score": 0.08269592995444934,
+          "mean_boundary_prev_attn": 0.14571562223136425,
+          "mean_nonboundary_prev_attn": 0.06301969227691491
+        },
+        {
+          "layer": 23,
+          "head": 12,
+          "boundary_attn_score": 0.0036925121676176786,
+          "mean_boundary_prev_attn": 0.015610690616692105,
+          "mean_nonboundary_prev_attn": 0.011918178449074427
+        },
+        {
+          "layer": 23,
+          "head": 13,
+          "boundary_attn_score": 0.035395845964861415,
+          "mean_boundary_prev_attn": 0.08337250530409317,
+          "mean_nonboundary_prev_attn": 0.04797665933923175
+        },
+        {
+          "layer": 23,
+          "head": 14,
+          "boundary_attn_score": 0.00252309524997448,
+          "mean_boundary_prev_attn": 0.014887590892612934,
+          "mean_nonboundary_prev_attn": 0.012364495642638454
+        },
+        {
+          "layer": 23,
+          "head": 15,
+          "boundary_attn_score": -0.008767800056375561,
+          "mean_boundary_prev_attn": 0.011409042597127458,
+          "mean_nonboundary_prev_attn": 0.02017684265350302
+        }
+      ]
+    ],
+    "post_ablation_d": 1.3578802438884732,
+    "synthetic": {
+      "method": "full_adversarial_forward_pass",
+      "note": "Synthetic 2x2 boundary control computed from fresh attention forward passes on adversarially perturbed token sequences.",
+      "replacement_meta": {
+        "boundary_candidates_available": 4072,
+        "nonboundary_candidates_available": 704,
+        "boundary_replacements_applied": 120,
+        "nonboundary_replacements_applied": 120
+      },
+      "cells": {
+        "fake_boundary_with_prefix": {
+          "cell": "fake_boundary_with_prefix",
+          "mean_high_prev_attn": 0.16826319472302803,
+          "std_high_prev_attn": 0.08350721615803465,
+          "mean_low_prev_attn": 0.020671022849758306,
+          "std_low_prev_attn": 0.08553527126676326,
+          "n": 120
+        },
+        "fake_boundary_without_prefix": {
+          "cell": "fake_boundary_without_prefix",
+          "mean_high_prev_attn": 0.16130120344008247,
+          "std_high_prev_attn": 0.056930946802482216,
+          "mean_low_prev_attn": 0.014445821827887428,
+          "std_low_prev_attn": 0.05239591883832657,
+          "n": 977
+        },
+        "real_boundary_with_prefix": {
+          "cell": "real_boundary_with_prefix",
+          "mean_high_prev_attn": 0.17062660715622616,
+          "std_high_prev_attn": 0.06416618485912512,
+          "mean_low_prev_attn": 0.013909497151331498,
+          "std_low_prev_attn": 0.0581828060158182,
+          "n": 4903
+        },
+        "real_boundary_without_prefix": {
+          "cell": "real_boundary_without_prefix",
+          "mean_high_prev_attn": 0.1774333596986116,
+          "std_high_prev_attn": 0.08420285270938085,
+          "mean_low_prev_attn": 0.01786114777357959,
+          "std_low_prev_attn": 0.08349150829681239,
+          "n": 120
+        }
+      },
+      "prefix_following_artifact_flag": false,
+      "prefix_following_artifact_flag_legacy_binary": false,
+      "prefix_following_assessment": {
+        "n_fake_with_prefix": 120,
+        "n_real_with_prefix": 4903,
+        "mean_fake_with_prefix": 0.168263194723028,
+        "mean_real_with_prefix": 0.17062660715622613,
+        "fake_minus_real_diff": -0.0023634124331981254,
+        "t_statistic": -0.3078156497593758,
+        "p_two_sided": 0.7587455180424639,
+        "p_one_sided_fake_gt_real": 0.6206272409787681,
+        "cohens_d_fake_minus_real": -0.03653357958012204,
+        "rule": {
+          "alpha_one_sided": 0.05,
+          "min_cohens_d": 0.2,
+          "min_abs_diff": 0.005,
+          "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+        },
+        "artifact_flag_statistical": false
+      },
+      "comparisons": {
+        "fake_minus_real_with_prefix": -0.0023634124331981254,
+        "real_minus_fake_without_prefix": 0.016132156258529123
+      },
+      "acceptance_rule_inputs": {
+        "fake_boundary_with_prefix": 0.16826319472302803,
+        "real_boundary_with_prefix": 0.17062660715622616,
+        "alpha_one_sided": 0.05,
+        "min_cohens_d": 0.2,
+        "min_abs_diff": 0.005
+      }
+    }
+  },
+  "feature_controls": [
+    {
+      "feature_name": "space_prefix",
+      "classifier": {
+        "feature_name": "space_prefix",
+        "method": "embedding_logistic_regression",
+        "classifier_accuracy": 0.9991197183098591,
+        "precision": 0.9988931931377975,
+        "recall": 1.0,
+        "specificity": 0.9957173447537473,
+        "n_samples": 2272,
+        "n_positive": 1805,
+        "n_negative": 467,
+        "confusion_matrix": {
+          "tp": 1805,
+          "tn": 465,
+          "fp": 2,
+          "fn": 0
+        },
+        "top_k_dims": [
+          218,
+          805,
+          649,
+          752,
+          294,
+          155,
+          454,
+          201,
+          296,
+          461,
+          650,
+          535,
+          625,
+          9,
+          195,
+          175,
+          673,
+          66,
+          242,
+          129,
+          367,
+          364,
+          554,
+          433,
+          910,
+          701,
+          951,
+          299,
+          449,
+          788,
+          314,
+          477,
+          328,
+          787,
+          580,
+          335,
+          235,
+          290,
+          121,
+          867,
+          40,
+          465,
+          907,
+          58,
+          470,
+          766,
+          178,
+          968,
+          411,
+          78,
+          926,
+          379,
+          750,
+          779,
+          721,
+          1009,
+          944,
+          909,
+          515,
+          942,
+          209,
+          245,
+          167,
+          27
+        ],
+        "top_k_abs_weights": [
+          7.103432365530317,
+          3.242654795905308,
+          1.945363458391165,
+          1.7951417096474045,
+          1.7910093484703868,
+          1.766044274462307,
+          1.722108792718661,
+          1.6287645367546146,
+          1.5979639435904467,
+          1.4869253462731193,
+          1.338352697386128,
+          1.330280806678148,
+          1.2619502104753704,
+          1.2296499248404367,
+          1.2149231166035888,
+          1.0368228494271114,
+          1.0197011030481216,
+          0.881096594883166,
+          0.8681997628741335,
+          0.8665632923428985,
+          0.822915439806747,
+          0.8195242383592278,
+          0.8185267114013975,
+          0.8166170119059233,
+          0.8138340044489484,
+          0.810856503671913,
+          0.7912822607482446,
+          0.7874998621511405,
+          0.7847395660192449,
+          0.7778432914060356,
+          0.7771539270580798,
+          0.7559334464281411,
+          0.7390717096710152,
+          0.7292810989868955,
+          0.7238134302551751,
+          0.7220631771134046,
+          0.7211448573534331,
+          0.714505330081928,
+          0.7122556357141405,
+          0.7032530676588586,
+          0.6982933891324329,
+          0.6884788988092397,
+          0.687934705627311,
+          0.6867033606070648,
+          0.676105401719326,
+          0.6457733671350644,
+          0.6428540482365133,
+          0.6412524487302107,
+          0.6395084850959858,
+          0.6374035847296797,
+          0.6264288007385193,
+          0.6099780100517006,
+          0.6094458578157903,
+          0.6060210681986501,
+          0.6041467376262762,
+          0.5838071027551043,
+          0.5819171533084723,
+          0.5814116789316549,
+          0.5807654771298462,
+          0.5688090943415746,
+          0.5628780206250054,
+          0.5615570035391829,
+          0.5613271532480701,
+          0.5559731949322092
+        ]
+      },
+      "boundary_metric": {
+        "baseline_d": 1.3578802438884732,
+        "post_ablation_d": 1.3733374282258382,
+        "dependence_index_delta_d": -0.015457184337364982,
+        "t_statistic": 9.514760806492513,
+        "p_two_sided": 1.7591102963011993e-15,
+        "p_one_sided_high_gt_low": 8.795551481505996e-16
+      },
+      "synthetic_control": {
+        "fake_minus_real_with_prefix": -0.001016449193941532,
+        "prefix_following_artifact_flag": false,
+        "prefix_following_assessment": {
+          "n_fake_with_prefix": 120,
+          "n_real_with_prefix": 4903,
+          "mean_fake_with_prefix": 0.17217013812057733,
+          "mean_real_with_prefix": 0.17318658731451886,
+          "fake_minus_real_diff": -0.001016449193941532,
+          "t_statistic": -0.13270596332865064,
+          "p_two_sided": 0.8946436578568482,
+          "p_one_sided_fake_gt_real": 0.5526781710715759,
+          "cohens_d_fake_minus_real": -0.0156623458349389,
+          "rule": {
+            "alpha_one_sided": 0.05,
+            "min_cohens_d": 0.2,
+            "min_abs_diff": 0.005,
+            "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+          },
+          "artifact_flag_statistical": false
+        }
+      }
+    },
+    {
+      "feature_name": "capitalization_marker",
+      "classifier": {
+        "feature_name": "capitalization_marker",
+        "method": "embedding_logistic_regression",
+        "classifier_accuracy": 0.9995598591549296,
+        "precision": 0.9981884057971014,
+        "recall": 1.0,
+        "specificity": 0.999418942475305,
+        "n_samples": 2272,
+        "n_positive": 551,
+        "n_negative": 1721,
+        "confusion_matrix": {
+          "tp": 551,
+          "tn": 1720,
+          "fp": 1,
+          "fn": 0
+        },
+        "top_k_dims": [
+          296,
+          461,
+          910,
+          17,
+          951,
+          454,
+          195,
+          535,
+          141,
+          155,
+          847,
+          595,
+          912,
+          919,
+          788,
+          294,
+          805,
+          201,
+          392,
+          914,
+          554,
+          477,
+          441,
+          252,
+          866,
+          78,
+          713,
+          482,
+          449,
+          696,
+          290,
+          204,
+          616,
+          209,
+          650,
+          558,
+          121,
+          368,
+          664,
+          7,
+          199,
+          578,
+          629,
+          133,
+          1002,
+          84,
+          384,
+          312,
+          207,
+          157,
+          257,
+          700,
+          907,
+          575,
+          570,
+          398,
+          426,
+          310,
+          435,
+          959,
+          182,
+          620,
+          829,
+          970
+        ],
+        "top_k_abs_weights": [
+          4.190681891120159,
+          2.84799441822594,
+          2.7251933248246987,
+          2.708752723041082,
+          2.5958973364502596,
+          2.537002611954885,
+          2.493964031808763,
+          2.3295095153596375,
+          1.8313580187925715,
+          1.8178055394836075,
+          1.7651427856732647,
+          1.7503110722896087,
+          1.6710600697138633,
+          1.5969561390882379,
+          1.5269935174430178,
+          1.4985515652013202,
+          1.4503053777240444,
+          1.2820336112580994,
+          1.1566117592304717,
+          1.1425727417511906,
+          1.123760348381138,
+          1.0963407431121983,
+          1.0701376395843805,
+          1.0438025211904065,
+          1.03438252519785,
+          1.0302494564901095,
+          1.0240823838073985,
+          1.0065499426087807,
+          0.9900457243915601,
+          0.9874715613674762,
+          0.9845723264143643,
+          0.943836543736519,
+          0.9299560026562445,
+          0.9270677571322482,
+          0.9005629686021273,
+          0.8956444801192934,
+          0.8866561211848032,
+          0.8822624184651596,
+          0.8789342156217816,
+          0.8593490003021499,
+          0.8592283416447318,
+          0.8561920265718472,
+          0.852012686949197,
+          0.8446737368488432,
+          0.8443711477748518,
+          0.8300941864550441,
+          0.8267133832071105,
+          0.8237741739211042,
+          0.808257247322341,
+          0.7916955593687027,
+          0.7878186034545199,
+          0.7862969100872333,
+          0.7856549109893888,
+          0.7810931889966088,
+          0.7790343119631723,
+          0.7738003496342803,
+          0.7712037409809572,
+          0.7677585580127734,
+          0.7671944479346987,
+          0.7669083665639265,
+          0.7628809909329192,
+          0.7567412011261859,
+          0.7519553246136228,
+          0.7508403487856906
+        ]
+      },
+      "boundary_metric": {
+        "baseline_d": 1.3578802438884732,
+        "post_ablation_d": 1.3546892757599862,
+        "dependence_index_delta_d": 0.0031909681284869595,
+        "t_statistic": 9.385562616339927,
+        "p_two_sided": 3.325828363383283e-15,
+        "p_one_sided_high_gt_low": 1.6629141816916415e-15
+      },
+      "synthetic_control": {
+        "fake_minus_real_with_prefix": -0.0011182972700894134,
+        "prefix_following_artifact_flag": false,
+        "prefix_following_assessment": {
+          "n_fake_with_prefix": 120,
+          "n_real_with_prefix": 4903,
+          "mean_fake_with_prefix": 0.16926508854158878,
+          "mean_real_with_prefix": 0.17038338581167817,
+          "fake_minus_real_diff": -0.0011182972700893856,
+          "t_statistic": -0.1458204714778551,
+          "p_two_sided": 0.8843029100078094,
+          "p_one_sided_fake_gt_real": 0.5578485449960953,
+          "cohens_d_fake_minus_real": -0.01736193119821333,
+          "rule": {
+            "alpha_one_sided": 0.05,
+            "min_cohens_d": 0.2,
+            "min_abs_diff": 0.005,
+            "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+          },
+          "artifact_flag_statistical": false
+        }
+      }
+    },
+    {
+      "feature_name": "punctuation_adjacency",
+      "classifier": {
+        "feature_name": "punctuation_adjacency",
+        "method": "embedding_logistic_regression",
+        "classifier_accuracy": 0.8692781690140845,
+        "precision": 0.7416762342135477,
+        "recall": 0.8997214484679665,
+        "specificity": 0.8552123552123552,
+        "n_samples": 2272,
+        "n_positive": 718,
+        "n_negative": 1554,
+        "confusion_matrix": {
+          "tp": 646,
+          "tn": 1329,
+          "fp": 225,
+          "fn": 72
+        },
+        "top_k_dims": [
+          847,
+          889,
+          991,
+          393,
+          714,
+          494,
+          242,
+          946,
+          467,
+          231,
+          295,
+          840,
+          882,
+          578,
+          708,
+          308,
+          238,
+          621,
+          322,
+          254,
+          787,
+          267,
+          999,
+          593,
+          291,
+          185,
+          855,
+          228,
+          665,
+          230,
+          788,
+          379,
+          791,
+          371,
+          527,
+          1010,
+          104,
+          821,
+          88,
+          63,
+          1015,
+          982,
+          717,
+          280,
+          747,
+          612,
+          2,
+          425,
+          117,
+          520,
+          579,
+          442,
+          919,
+          438,
+          461,
+          34,
+          313,
+          177,
+          261,
+          126,
+          512,
+          92,
+          734,
+          723
+        ],
+        "top_k_abs_weights": [
+          1.6405740268006008,
+          1.551970904547588,
+          1.538677687593153,
+          1.510091508290659,
+          1.472593126753659,
+          1.4690320175239155,
+          1.4594947334109811,
+          1.452576888470332,
+          1.4259317619756975,
+          1.410330143826007,
+          1.391689480291277,
+          1.3769549762302125,
+          1.3723710288518458,
+          1.3673924716724795,
+          1.3501608380203014,
+          1.3214490765734188,
+          1.319248520328844,
+          1.3171110674764346,
+          1.3117434505693117,
+          1.3082480239076326,
+          1.30781523621124,
+          1.2977337754626994,
+          1.295780782402832,
+          1.2856420539281885,
+          1.2754619003249148,
+          1.2586520564241104,
+          1.256347560224018,
+          1.255363108460323,
+          1.2458897505963653,
+          1.2440658750775277,
+          1.239782342585334,
+          1.2359038949947916,
+          1.210770185620012,
+          1.16881269211542,
+          1.1602920874332112,
+          1.1526442326451878,
+          1.1403897093364932,
+          1.1391643043289688,
+          1.1354605879924107,
+          1.1334367883739445,
+          1.1288849531537835,
+          1.125544375870824,
+          1.1239316335726104,
+          1.1237751072611615,
+          1.1198177594996017,
+          1.1188931176633066,
+          1.1184865859556639,
+          1.1052444337274066,
+          1.0917270883804817,
+          1.0888641043151401,
+          1.0860838576373355,
+          1.0830517424817416,
+          1.076232472124539,
+          1.0759900115319523,
+          1.0681064740111337,
+          1.0634449490910307,
+          1.0606087111180995,
+          1.0596599309925716,
+          1.059159777657708,
+          1.0508778515563997,
+          1.049279535812663,
+          1.049099778694963,
+          1.047367679690128,
+          1.0425224623663785
+        ]
+      },
+      "boundary_metric": {
+        "baseline_d": 1.3578802438884732,
+        "post_ablation_d": 1.3526282503899074,
+        "dependence_index_delta_d": 0.005251993498565755,
+        "t_statistic": 9.371283413713266,
+        "p_two_sided": 3.569115895499977e-15,
+        "p_one_sided_high_gt_low": 1.7845579477499884e-15
+      },
+      "synthetic_control": {
+        "fake_minus_real_with_prefix": -0.0016857514530048967,
+        "prefix_following_artifact_flag": false,
+        "prefix_following_assessment": {
+          "n_fake_with_prefix": 120,
+          "n_real_with_prefix": 4903,
+          "mean_fake_with_prefix": 0.16825137219017156,
+          "mean_real_with_prefix": 0.1699371236431764,
+          "fake_minus_real_diff": -0.0016857514530048412,
+          "t_statistic": -0.21830281803969218,
+          "p_two_sided": 0.827556730614363,
+          "p_one_sided_fake_gt_real": 0.5862216346928185,
+          "cohens_d_fake_minus_real": -0.026137253687052928,
+          "rule": {
+            "alpha_one_sided": 0.05,
+            "min_cohens_d": 0.2,
+            "min_abs_diff": 0.005,
+            "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+          },
+          "artifact_flag_statistical": false
+        }
+      }
+    },
+    {
+      "feature_name": "token_length_bucket",
+      "classifier": {
+        "feature_name": "token_length_bucket",
+        "method": "embedding_logistic_regression",
+        "classifier_accuracy": 0.988556338028169,
+        "precision": 0.9876644736842105,
+        "recall": 0.990924092409241,
+        "specificity": 0.9858490566037735,
+        "n_samples": 2272,
+        "n_positive": 1212,
+        "n_negative": 1060,
+        "confusion_matrix": {
+          "tp": 1201,
+          "tn": 1045,
+          "fp": 15,
+          "fn": 11
+        },
+        "top_k_dims": [
+          218,
+          580,
+          296,
+          9,
+          787,
+          379,
+          590,
+          689,
+          454,
+          1007,
+          294,
+          461,
+          869,
+          625,
+          803,
+          999,
+          221,
+          346,
+          542,
+          969,
+          846,
+          96,
+          823,
+          926,
+          17,
+          243,
+          104,
+          408,
+          540,
+          535,
+          537,
+          200,
+          841,
+          283,
+          391,
+          297,
+          559,
+          567,
+          337,
+          213,
+          409,
+          932,
+          987,
+          824,
+          268,
+          429,
+          324,
+          900,
+          569,
+          735,
+          3,
+          894,
+          973,
+          111,
+          925,
+          223,
+          864,
+          491,
+          121,
+          889,
+          826,
+          686,
+          760,
+          45
+        ],
+        "top_k_abs_weights": [
+          2.8410061940267743,
+          2.727284455739537,
+          2.5604336670802814,
+          2.2517069973041,
+          2.2153316589588004,
+          1.835700965262184,
+          1.7023194625022924,
+          1.6884085267831312,
+          1.6549984922841539,
+          1.5977732743125623,
+          1.594431787867738,
+          1.5504537941474563,
+          1.5276342227753459,
+          1.488988440944646,
+          1.488034840369659,
+          1.459171591557277,
+          1.458912874577883,
+          1.4570770956396382,
+          1.456311518148851,
+          1.4387672239322749,
+          1.4158190371189752,
+          1.414445141086245,
+          1.3810438704126136,
+          1.366217929785112,
+          1.3353257059308346,
+          1.3260735962294365,
+          1.315533621976484,
+          1.3136136080431362,
+          1.2992266161748105,
+          1.2767388714017072,
+          1.26806095869589,
+          1.2459180174576903,
+          1.2271194583887521,
+          1.2215980502464756,
+          1.2194030128045361,
+          1.2190799379011186,
+          1.203022447493698,
+          1.2029152702014994,
+          1.1732973193505374,
+          1.1716469926018809,
+          1.1713205805854006,
+          1.1686775624595938,
+          1.165886927473039,
+          1.164553024928009,
+          1.164208491360451,
+          1.1580929182575854,
+          1.155125283597504,
+          1.1457982652741177,
+          1.1150609007960446,
+          1.1036563638381467,
+          1.088432455724328,
+          1.0868775137075044,
+          1.0825589850985997,
+          1.078790355580487,
+          1.078043389862499,
+          1.073160272011063,
+          1.0690906387281158,
+          1.0643296166432188,
+          1.0626574898386185,
+          1.0554878865404982,
+          1.0514082576906187,
+          1.0478401486451543,
+          1.0461917539351104,
+          1.0415211189532443
+        ]
+      },
+      "boundary_metric": {
+        "baseline_d": 1.3578802438884732,
+        "post_ablation_d": 1.3893815352590093,
+        "dependence_index_delta_d": -0.031501291370536144,
+        "t_statistic": 9.625917640666614,
+        "p_two_sided": 1.0171259072146846e-15,
+        "p_one_sided_high_gt_low": 5.085629536073423e-16
+      },
+      "synthetic_control": {
+        "fake_minus_real_with_prefix": 0.001294819308582218,
+        "prefix_following_artifact_flag": false,
+        "prefix_following_assessment": {
+          "n_fake_with_prefix": 120,
+          "n_real_with_prefix": 4903,
+          "mean_fake_with_prefix": 0.17671424980456293,
+          "mean_real_with_prefix": 0.17541943049598072,
+          "fake_minus_real_diff": 0.001294819308582218,
+          "t_statistic": 0.16905181765788632,
+          "p_two_sided": 0.8660342610437031,
+          "p_one_sided_fake_gt_real": 0.43301713052185153,
+          "cohens_d_fake_minus_real": 0.019453070654483366,
+          "rule": {
+            "alpha_one_sided": 0.05,
+            "min_cohens_d": 0.2,
+            "min_abs_diff": 0.005,
+            "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+          },
+          "artifact_flag_statistical": false
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.935,
+  "intact_non_icl_accuracy": 0.0,
+  "ablated_icl_accuracy": 0.025,
+  "ablated_non_icl_accuracy": 0.005,
+  "icl_acc_loss": 0.91,
+  "non_icl_acc_loss": -0.005,
+  "icl_lp_loss": 11.120980224609376,
+  "non_icl_lp_loss": 2.6117968750000014,
+  "accuracy_sensitivity_ratio": NaN,
+  "logprob_sensitivity_ratio": 4.2579805233166805,
+  "icl_preferentially_degraded": true,
+  "acc_denominator_valid": false,
+  "lp_denominator_valid": true,
+  "acc_vote": "indeterminate",
+  "lp_vote": "preferential",
+  "model_level_status": "supported"
+}

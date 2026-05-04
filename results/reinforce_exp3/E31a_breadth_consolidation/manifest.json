@@ -1,0 +1,22 @@
+{
+  "experiment_id": "E31A",
+  "timestamp": "2026-05-04 13:41:39",
+  "models": [
+    "gemma-2-9b",
+    "gpt2-medium",
+    "gpt2-small",
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b",
+    "pythia-1.4b",
+    "pythia-410m",
+    "qwen2.5-7b",
+    "tinyllama-1.1b",
+    "tinyllama-nope-1.1b"
+  ],
+  "output_files": [
+    "model_breadth_r2_table.csv",
+    "family_spread_summary.json",
+    "breadth_claim_digest.md"
+  ]
+}

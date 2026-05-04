@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-05-04 14:50:55",
+  "experiment_id": "E31B",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "coherence_lens_extended",
+    "n_models": 11,
+    "pearson_r": 0.5769620485325226,
+    "spearman_rho": 0.5001966396545247
+  },
+  "elapsed_sec": 19.61461043357849
+}

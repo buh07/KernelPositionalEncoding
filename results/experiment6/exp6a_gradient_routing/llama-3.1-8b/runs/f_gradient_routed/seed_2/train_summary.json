@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-13 23:29:04",
+  "model": "llama-3.1-8b",
+  "condition": "f_gradient_routed",
+  "seed": 2,
+  "elapsed_sec": 636.2781445980072,
+  "lora": {
+    "trainable_params": 27787264,
+    "total_params": 8058048512,
+    "si_attn_params": 6815744,
+    "non_si_attn_params": 6815744,
+    "mlp_params": 14155776
+  }
+}

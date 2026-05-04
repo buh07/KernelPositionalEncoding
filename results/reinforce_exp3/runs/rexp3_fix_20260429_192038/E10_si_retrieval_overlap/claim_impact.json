@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E10",
+  "claim_addressed": "High-SI heads and retrieval heads (Wu et al. 2024) are distinct populations, supporting SI infrastructure as a novel finding beyond retrieval-head taxonomy",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "Jaccard < 0.1 and \u03c1 <= -0.20 (active separation signal) in all models. SI heads and retrieval heads are empirically disjoint populations. Add to Result III: 'SI infrastructure heads are distinct from retrieval heads (Wu et al. 2024)'.",
+  "mean_jaccard": 0.04677209130650426,
+  "mean_spearman_rho": -0.4891989320418458,
+  "notes": [
+    "Jaccard < 0.1 and \u03c1 <= -0.20 (active separation signal) in all models. SI heads and retrieval heads are empirically disjoint populations. Add to Result III: 'SI infrastructure heads are distinct from retrieval heads (Wu et al. 2024)'."
+  ]
+}

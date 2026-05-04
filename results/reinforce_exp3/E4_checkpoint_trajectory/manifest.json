@@ -1,0 +1,16 @@
+{
+  "experiment_id": "E4",
+  "timestamp": "2026-04-29 17:26:22",
+  "model": "olmo-2-7b",
+  "checkpoints": [
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step1000-tokens5B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step3000-tokens13B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step7000-tokens30B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step11000-tokens47B",
+    "olmo-2-7b"
+  ],
+  "n_eval_seqs": 500,
+  "seq_len": 128,
+  "max_offset": 64,
+  "seed_base": 20260429
+}

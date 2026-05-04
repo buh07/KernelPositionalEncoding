@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18 21:06:33",
+  "experiment": "NEW-R12",
+  "model": "llama-3.1-8b",
+  "n_orderings": 10,
+  "n_threshold_majority": 10,
+  "fraction_threshold_majority": 1.0,
+  "robustness_assessment": "strong_replication",
+  "acceptance_thresholds": {
+    "strong_replication_ge": 0.8,
+    "partial_replication_ge": 0.5
+  },
+  "mean_random_bic_delta_linear_minus_threshold": 25.172529888133045,
+  "std_random_bic_delta_linear_minus_threshold": 5.097385041980246
+}

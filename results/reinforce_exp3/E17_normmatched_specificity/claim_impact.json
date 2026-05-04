@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 01:52:02",
+  "experiment_id": "E17",
+  "claim_status": "not_supported",
+  "supports_main_text": false,
+  "notes": [
+    "True subtraction does not consistently exceed norm-matched controls."
+  ],
+  "outcome_summary": "True subtraction does not consistently exceed norm-matched controls."
+}

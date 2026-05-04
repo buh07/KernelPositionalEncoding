@@ -1,0 +1,51 @@
+{
+  "experiment_id": "E20",
+  "tables": [
+    {
+      "path": "per_seed_metrics.parquet",
+      "description": "Per-seed matched-training outcomes for variance decomposition.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "model name"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "training seed"
+        },
+        {
+          "name": "si_mean_r2",
+          "dtype": "float",
+          "description": "post-FT SI mean R2"
+        },
+        {
+          "name": "si_high_mean_r2",
+          "dtype": "float",
+          "description": "post-FT high-SI mean R2"
+        },
+        {
+          "name": "boundary_d",
+          "dtype": "float",
+          "description": "post-FT boundary effect size (Cohen's d)"
+        },
+        {
+          "name": "boundary_artifact_flag",
+          "dtype": "bool",
+          "description": "synthetic boundary artifact guard flag"
+        },
+        {
+          "name": "c1_overall_degradation_mean",
+          "dtype": "float",
+          "description": "post-FT mini-ablation mean degradation"
+        },
+        {
+          "name": "runtime_sec",
+          "dtype": "float",
+          "description": "wall-clock runtime"
+        }
+      ]
+    }
+  ]
+}

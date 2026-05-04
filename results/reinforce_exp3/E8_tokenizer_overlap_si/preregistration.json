@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E8",
+  "hypothesis": "Models with more similar tokenizers (higher Jaccard overlap, higher merge-rank \u03c1) will have more similar SI distributions (lower KL divergence, lower mean-R\u00b2 gap).",
+  "primary_criterion": "At least one tokenizer\u2013SI cross-pair correlation has |\u03c1| \u2265 0.8. Caveat: n=3 pairs is insufficient for inference; result is directional only.",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "timestamp": "2026-04-29 17:15:07"
+}

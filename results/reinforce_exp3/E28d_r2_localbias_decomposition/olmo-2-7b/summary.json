@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 17:26:55",
+  "experiment_id": "E28D",
+  "model": "olmo-2-7b",
+  "n_bins": 20,
+  "rho_full_vs_disruption": 0.6842105263157895,
+  "p_full_vs_disruption": 0.0008772646601370122,
+  "rho_excess_vs_disruption": 0.2064436237443778,
+  "p_excess_vs_disruption": 0.3825219395727781,
+  "supports_nontrivial_excess_tracking": false
+}

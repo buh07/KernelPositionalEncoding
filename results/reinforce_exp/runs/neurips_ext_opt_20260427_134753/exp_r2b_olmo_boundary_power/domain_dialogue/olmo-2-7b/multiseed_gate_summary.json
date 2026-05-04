@@ -1,0 +1,500 @@
+{
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-29 05:01:26",
+  "input_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue",
+  "canonical_output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/canonical/domain_dialogue",
+  "decision_rule": {
+    "per_seed_flag": {
+      "diff_fake_minus_real_with_prefix_ge": 0.005,
+      "cohens_d_ge": 0.2,
+      "p_one_sided_lt": 0.05
+    },
+    "meta_test": "weighted_stouffer_one_sided",
+    "weight": "sqrt(n_fake_with_prefix)",
+    "stable_blocked_rule": {
+      "min_flagged_seeds": 9,
+      "meta_p_one_lt": 0.01,
+      "pooled_diff_ge": 0.005
+    },
+    "stable_clean_rule": {
+      "max_flagged_seeds": 2,
+      "meta_p_one_gt": 0.2,
+      "pooled_diff_le": 0.0
+    }
+  },
+  "seeds_requested": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "seeds_completed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "missing_seeds": [],
+  "seed_rows": [
+    {
+      "seed": 0,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed0/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed0/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed0/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed0/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007703910531885284,
+      "cohens_d_fake_minus_real": -0.21832217579976268,
+      "p_one_sided_fake_gt_real": 1.0,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18738,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 1,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed1/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed1/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed1/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed1/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.00777923365787081,
+      "cohens_d_fake_minus_real": -0.22294737360388683,
+      "p_one_sided_fake_gt_real": 0.9999999999999957,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17939,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 2,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed2/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed2/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed2/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed2/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0048121589536991305,
+      "cohens_d_fake_minus_real": -0.13551580495028379,
+      "p_one_sided_fake_gt_real": 0.9999892887931596,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18194,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 3,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed3/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed3/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed3/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed3/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007048384926400711,
+      "cohens_d_fake_minus_real": -0.20254098492906797,
+      "p_one_sided_fake_gt_real": 0.999999999995789,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17305,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 4,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed4/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed4/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed4/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed4/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.005997570808904312,
+      "cohens_d_fake_minus_real": -0.1640620765686889,
+      "p_one_sided_fake_gt_real": 0.9999997748213065,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17659,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 5,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed5/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed5/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed5/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed5/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0076311700014242145,
+      "cohens_d_fake_minus_real": -0.21599836990307889,
+      "p_one_sided_fake_gt_real": 0.9999999999999846,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18025,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 6,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed6/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed6/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed6/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed6/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007161205877117289,
+      "cohens_d_fake_minus_real": -0.20124216167003875,
+      "p_one_sided_fake_gt_real": 0.9999999999999647,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 16253,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 7,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed7/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed7/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed7/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed7/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006698211386291866,
+      "cohens_d_fake_minus_real": -0.19478734463184438,
+      "p_one_sided_fake_gt_real": 0.9999999998840108,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 16939,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 8,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed8/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed8/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed8/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed8/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007363356946902665,
+      "cohens_d_fake_minus_real": -0.21688118067147708,
+      "p_one_sided_fake_gt_real": 0.9999999999999992,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18011,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 9,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed9/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed9/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed9/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed9/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0067252070629020486,
+      "cohens_d_fake_minus_real": -0.20003411708968888,
+      "p_one_sided_fake_gt_real": 0.9999999999997543,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17678,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 10,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed10/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed10/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed10/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed10/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0058696624929266104,
+      "cohens_d_fake_minus_real": -0.16641978536388036,
+      "p_one_sided_fake_gt_real": 0.9999997416161419,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18176,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 11,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed11/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed11/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed11/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed11/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006951175168781215,
+      "cohens_d_fake_minus_real": -0.1962936955709135,
+      "p_one_sided_fake_gt_real": 0.9999999997400517,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18378,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 12,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed12/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed12/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed12/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed12/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006246108044978913,
+      "cohens_d_fake_minus_real": -0.1696962862508497,
+      "p_one_sided_fake_gt_real": 0.9999999847949538,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17920,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 13,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed13/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed13/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed13/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed13/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007954050693544181,
+      "cohens_d_fake_minus_real": -0.2173788181287271,
+      "p_one_sided_fake_gt_real": 0.9999999999999999,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17847,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 14,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed14/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed14/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed14/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed14/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006514475083607606,
+      "cohens_d_fake_minus_real": -0.18749712987168116,
+      "p_one_sided_fake_gt_real": 0.9999999999828256,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17813,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 15,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed15/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed15/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed15/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed15/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006424699144729436,
+      "cohens_d_fake_minus_real": -0.18631797186084598,
+      "p_one_sided_fake_gt_real": 0.9999999975795621,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17797,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 16,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed16/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed16/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed16/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed16/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006576190955354194,
+      "cohens_d_fake_minus_real": -0.19728895253188855,
+      "p_one_sided_fake_gt_real": 0.9999999999904287,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17273,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 17,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed17/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed17/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed17/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed17/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007260325412996073,
+      "cohens_d_fake_minus_real": -0.2127027104150906,
+      "p_one_sided_fake_gt_real": 1.0,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17344,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 18,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed18/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed18/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed18/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed18/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.008147757868491125,
+      "cohens_d_fake_minus_real": -0.236457173818537,
+      "p_one_sided_fake_gt_real": 1.0,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 16645,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 19,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed19/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed19/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed19/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed19/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.006195197657556703,
+      "cohens_d_fake_minus_real": -0.18389092325494033,
+      "p_one_sided_fake_gt_real": 0.9999999999906126,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17972,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 20,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed20/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed20/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed20/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed20/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0056483182110991376,
+      "cohens_d_fake_minus_real": -0.15699891112477946,
+      "p_one_sided_fake_gt_real": 0.9999992132844003,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 19326,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 21,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed21/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed21/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed21/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed21/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007229885584230069,
+      "cohens_d_fake_minus_real": -0.2093278156632977,
+      "p_one_sided_fake_gt_real": 0.9999999999999846,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17971,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 22,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed22/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed22/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed22/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed22/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.007858856003629771,
+      "cohens_d_fake_minus_real": -0.22608971412627726,
+      "p_one_sided_fake_gt_real": 1.0,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17073,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 23,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed23/olmo-2-7b",
+        "post": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed23/olmo-2-7b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed23/olmo-2-7b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed23/olmo-2-7b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.00725260588255008,
+      "cohens_d_fake_minus_real": -0.2071735359191672,
+      "p_one_sided_fake_gt_real": 1.0,
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17726,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    }
+  ],
+  "pooled": {
+    "n_completed": 24,
+    "n_flagged": 0,
+    "meta_p_one": 1.0,
+    "pooled_diff_fake_minus_real_with_prefix": -0.0068770715982447266,
+    "pooled_cohens_d": -0.19691104223827893
+  },
+  "assessment": "stable_clean",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": true,
+    "strict_gate_blocked": false
+  }
+}

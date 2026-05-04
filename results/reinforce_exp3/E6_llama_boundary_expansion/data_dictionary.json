@@ -1,0 +1,67 @@
+{
+  "experiment_id": "E6",
+  "tables": [
+    {
+      "path": "phase1_24seed/llama-3.1-8b/multiseed_gate_summary.parquet",
+      "description": "Per-seed gate status across 24 seeds and 3 domains",
+      "columns": [
+        {
+          "name": "domain",
+          "dtype": "str",
+          "description": "Evaluation domain"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "Random seed"
+        },
+        {
+          "name": "mean_d_real",
+          "dtype": "float",
+          "description": "Mean boundary Cohen d (real boundary mask)"
+        },
+        {
+          "name": "mean_d_fake",
+          "dtype": "float",
+          "description": "Mean boundary Cohen d (shuffled/fake mask)"
+        },
+        {
+          "name": "delta_d",
+          "dtype": "float",
+          "description": "d_real - d_fake"
+        },
+        {
+          "name": "gate_status",
+          "dtype": "str",
+          "description": "clean / blocked / no_effect"
+        }
+      ]
+    },
+    {
+      "path": "phase2_expanded_battery/boundary_per_feature_ablation.parquet",
+      "description": "Boundary d values after ablating each feature's predictive dimensions",
+      "columns": [
+        {
+          "name": "feature",
+          "dtype": "str",
+          "description": "Feature name"
+        },
+        {
+          "name": "d_real_after_ablation",
+          "dtype": "float",
+          "description": "Boundary d after feature dims ablated"
+        },
+        {
+          "name": "d_fake_after_ablation",
+          "dtype": "float",
+          "description": "Fake-boundary d after feature dims ablated"
+        },
+        {
+          "name": "boundary_survives",
+          "dtype": "bool",
+          "description": "True if boundary effect persists after ablation"
+        }
+      ]
+    }
+  ]
+}

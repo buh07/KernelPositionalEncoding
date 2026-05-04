@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A0_claim_hygiene",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "n_claims": 5,
+  "status_counts": {
+    "pending": 2,
+    "proxy_specific": 1,
+    "supported_with_caveat": 1,
+    "mixed": 1
+  },
+  "verdict": {
+    "completed": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-17 03:01:08",
+  "conditions": [
+    "f_gradient_routed",
+    "d_full_qlora_baseline"
+  ],
+  "seeds": [
+    2
+  ],
+  "n_runs": 2,
+  "experiment": "6A",
+  "model": "olmo-2-7b"
+}

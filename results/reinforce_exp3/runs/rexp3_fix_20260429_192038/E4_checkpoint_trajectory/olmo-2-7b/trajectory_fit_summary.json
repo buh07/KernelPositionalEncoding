@@ -1,0 +1,14 @@
+{
+  "n_checkpoints": 5,
+  "trajectory_types": {
+    "architectural": 118,
+    "learned": 0,
+    "suppressed": 0,
+    "stable_low": 751,
+    "mixed": 155
+  },
+  "learned_framing_of_si": "not_supported",
+  "note": "118 heads show architectural trajectories vs. 0 learned. Much of OLMo's SI structure appears geometrically induced by RoPE initialization.",
+  "mean_r2_hi_si_final": 0.36710990285285966,
+  "mean_r2_lo_si_final": 0.00035110737290217813
+}

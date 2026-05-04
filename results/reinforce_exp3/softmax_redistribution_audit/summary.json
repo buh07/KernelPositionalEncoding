@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-04 17:19:36",
+  "experiment_id": "SoftmaxRedistributionAudit",
+  "verdict": {
+    "llama-3.1-8b": {
+      "si_vs_const_ratio": 2912.5576085038215,
+      "frac_heads_si_entropy_gt_perm": 0.046875,
+      "p_ent": 1.0,
+      "position_specific_confirmed": false
+    },
+    "mistral-7b-v0.1": {
+      "si_vs_const_ratio": 21968.39922630561,
+      "frac_heads_si_entropy_gt_perm": 0.078125,
+      "p_ent": 1.0,
+      "position_specific_confirmed": false
+    },
+    "olmo-2-7b": {
+      "si_vs_const_ratio": -84.72362827695335,
+      "frac_heads_si_entropy_gt_perm": 0.578125,
+      "p_ent": 0.962003799620038,
+      "position_specific_confirmed": false
+    }
+  },
+  "elapsed_sec": 1268.3093638420105
+}

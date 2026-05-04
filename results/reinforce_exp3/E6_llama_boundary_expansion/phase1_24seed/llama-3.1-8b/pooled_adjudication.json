@@ -1,0 +1,19 @@
+{
+  "pooled_verdict": "ambiguous",
+  "domain_verdicts": {
+    "wiki": {
+      "verdict": "insufficient_data",
+      "n_seeds": 0
+    },
+    "code": {
+      "verdict": "insufficient_data",
+      "n_seeds": 0
+    },
+    "dialogue": {
+      "verdict": "insufficient_data",
+      "n_seeds": 0
+    }
+  },
+  "n_stable_clean_domains": 0,
+  "n_stable_blocked_domains": 0
+}

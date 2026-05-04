@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reinforce_exp2/summary.schema.json",
+  "type": "object",
+  "required": ["timestamp", "experiment_id", "analysis_tier", "canonical_eligible"],
+  "properties": {
+    "timestamp": { "type": "string" },
+    "experiment_id": { "type": "string" },
+    "analysis_tier": { "type": "string", "enum": ["confirmatory", "exploratory"] },
+    "canonical_eligible": { "type": "boolean" },
+    "override_used": { "type": "boolean" },
+    "verdict": { "type": "object" },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

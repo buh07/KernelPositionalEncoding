@@ -1,0 +1,61 @@
+{
+  "experiment_id": "E0",
+  "tables": [
+    {
+      "path": "<model>/ablation_curves_all_orderings.parquet",
+      "description": "Full degradation curves for all three orderings, all fractions, all seeds and tasks.",
+      "columns": [
+        {
+          "name": "ordering_type",
+          "dtype": "str",
+          "description": "sequential | interleaved | r2ranked"
+        },
+        {
+          "name": "ablation_fraction",
+          "dtype": "int",
+          "description": "Percentage of high-SI heads ablated (0-50)"
+        },
+        {
+          "name": "task",
+          "dtype": "str",
+          "description": "Task name (local_key_match, long_range_retrieval, wiki_ntp)"
+        },
+        {
+          "name": "metric_name",
+          "dtype": "str",
+          "description": "accuracy or loss"
+        },
+        {
+          "name": "metric_value",
+          "dtype": "float",
+          "description": "Raw metric value at this fraction"
+        },
+        {
+          "name": "degradation",
+          "dtype": "float",
+          "description": "Metric change relative to 0% ablation baseline"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "Evaluation seed"
+        },
+        {
+          "name": "n_heads_ablated",
+          "dtype": "int",
+          "description": "Number of heads zeroed in this condition"
+        },
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        }
+      ]
+    },
+    {
+      "path": "<model>/tau_comparison.json",
+      "description": "Per-model tau statistics and permutation test results.",
+      "columns": []
+    }
+  ]
+}

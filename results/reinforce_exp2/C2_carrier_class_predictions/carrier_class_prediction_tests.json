@@ -1,0 +1,266 @@
+{
+  "timestamp": "2026-04-24 15:16:54",
+  "experiment_id": "C2_carrier_class_predictions",
+  "C2_1": {
+    "n_models": 3,
+    "errors": {},
+    "per_model": {
+      "llama-3.1-8b": {
+        "model": "llama-3.1-8b",
+        "n_rows": 480,
+        "n_examples": 96,
+        "shuffle_strengths": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "beta_shuffle": {
+          "beta": -781.056503334878,
+          "se": 519.6076696778732,
+          "t": -1.5031658478387895,
+          "p_two": 0.13345664942826607,
+          "p_one_gt0": 0.933271675285867
+        },
+        "beta_shuffle_adj": {
+          "beta": -781.0565033348812,
+          "se": 512.66350857156,
+          "t": -1.5235266218013988,
+          "p_two": 0.1282910725392017,
+          "p_one_gt0": 0.9358544637303992
+        },
+        "mean_si_r2": 0.38032241997453253
+      },
+      "olmo-2-7b": {
+        "model": "olmo-2-7b",
+        "n_rows": 480,
+        "n_examples": 96,
+        "shuffle_strengths": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "beta_shuffle": {
+          "beta": -2083.272902768527,
+          "se": 893.2601686703073,
+          "t": -2.3322129160529497,
+          "p_two": 0.020103850963599346,
+          "p_one_gt0": 0.9899480745182003
+        },
+        "beta_shuffle_adj": {
+          "beta": -2083.2729027685223,
+          "se": 878.8709586718901,
+          "t": -2.3703967939919983,
+          "p_two": 0.018166531298315913,
+          "p_one_gt0": 0.990916734350842
+        },
+        "mean_si_r2": 0.057640241185075464
+      },
+      "mistral-7b-v0.1": {
+        "model": "mistral-7b-v0.1",
+        "n_rows": 480,
+        "n_examples": 96,
+        "shuffle_strengths": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ],
+        "beta_shuffle": {
+          "beta": -520.7712226777845,
+          "se": 636.7753077461149,
+          "t": -0.8178257170823249,
+          "p_two": 0.41386418156801286,
+          "p_one_gt0": 0.7930679092159936
+        },
+        "beta_shuffle_adj": {
+          "beta": -520.7712226777824,
+          "se": 632.0074125705937,
+          "t": -0.8239954347364771,
+          "p_two": 0.41035482637100484,
+          "p_one_gt0": 0.7948225868144976
+        },
+        "mean_si_r2": 0.2657672483381823
+      }
+    },
+    "meta_unadjusted": {
+      "beta": -914.4359016135826,
+      "se": 367.0305373390507,
+      "z": -2.4914436500112167,
+      "p_one_gt0": 0.9936387426778368,
+      "n_models": 3
+    },
+    "meta_adjusted": {
+      "beta": -917.090384389002,
+      "se": 362.666121349416,
+      "z": -2.5287456710229015,
+      "p_one_gt0": 0.9942764528590881,
+      "n_models": 3
+    },
+    "p_holm_unadjusted": {
+      "mistral-7b-v0.1::unadj": 1.0,
+      "llama-3.1-8b::unadj": 1.0,
+      "olmo-2-7b::unadj": 1.0
+    },
+    "p_holm_adjusted": {
+      "mistral-7b-v0.1::adj": 1.0,
+      "llama-3.1-8b::adj": 1.0,
+      "olmo-2-7b::adj": 1.0
+    },
+    "within_model_rule_pass": false,
+    "robustness_rule_pass": false,
+    "r2_slope_association": {
+      "spearman_rho": 0.5,
+      "p_two": 1.0,
+      "p_method": "exact_permutation"
+    },
+    "supported": false
+  },
+  "C2_2": {
+    "errors": {
+      "mistral-7b-v0.1": "content_similarity_data_quality_failure=true missing_token_ratio=0.0856"
+    },
+    "eligible_models": [
+      "llama-3.1-8b",
+      "olmo-2-7b"
+    ],
+    "per_model": {
+      "llama-3.1-8b": {
+        "model": "llama-3.1-8b",
+        "L_trainlike": 8192,
+        "max_context_used": 1536,
+        "tested_multipliers": [
+          0.5,
+          1.0,
+          1.25
+        ],
+        "confirmatory_eligible": true,
+        "carrier_set_diagnostics": {
+          "model": "llama-3.1-8b",
+          "alignment_method": "fasttext_static_embedding_partial_spearman_offset_bins",
+          "fasttext_model_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+          "calibration_sequence_count": 96,
+          "calibration_sequence_hash_sha256": "8750034f8e61a127b026c3105b5949fc97d1e234988f57822e3b6d304802e8f4",
+          "calibration_eval_overlap_count": 0,
+          "calibration_eval_overlap_ratio": 0.0,
+          "calibration_eval_disjoint": true,
+          "data_quality": {
+            "total_tokens": 49152,
+            "covered_tokens": 48080,
+            "missing_token_ratio": 0.02180989583333337,
+            "usable_sequences": 96,
+            "skipped_sequences": 0,
+            "n_payloads": 96
+          },
+          "content_similarity_data_quality_failure": false,
+          "model_median_r2": 0.38846799626058587,
+          "threshold_T_q75_low_r2": 0.001401369777763969,
+          "low_r2_pool_size": 512,
+          "content_conditional_size": 81,
+          "set_sizes": {
+            "SI": 256,
+            "LowSI": 256,
+            "ContentCond": 81
+          }
+        },
+        "calibration_eval_disjoint": true,
+        "interaction_beta_int": {
+          "beta": 0.10682050598016989,
+          "se": 0.16888051028143217,
+          "t": 0.6325212175292345,
+          "p_two": 0.5917163772826624,
+          "p_one_gt0": 0.2958581886413312
+        },
+        "endpoint_target_multiplier": 1.25,
+        "endpoint_drop_diff_si_minus_content": 0.048708372237784014,
+        "diagnostics": {
+          "K_support": 0.2512382697800573,
+          "S_content": NaN
+        }
+      },
+      "olmo-2-7b": {
+        "model": "olmo-2-7b",
+        "L_trainlike": 2048,
+        "max_context_used": 1536,
+        "tested_multipliers": [
+          0.5,
+          1.0,
+          1.25
+        ],
+        "confirmatory_eligible": true,
+        "carrier_set_diagnostics": {
+          "model": "olmo-2-7b",
+          "alignment_method": "fasttext_static_embedding_partial_spearman_offset_bins",
+          "fasttext_model_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+          "calibration_sequence_count": 96,
+          "calibration_sequence_hash_sha256": "1fcc2deaa0f0971a599bf5f0714ae769cf1edc88b95fdf1302f449f58e234638",
+          "calibration_eval_overlap_count": 0,
+          "calibration_eval_overlap_ratio": 0.0,
+          "calibration_eval_disjoint": true,
+          "data_quality": {
+            "total_tokens": 49152,
+            "covered_tokens": 48095,
+            "missing_token_ratio": 0.02150472005208337,
+            "usable_sequences": 96,
+            "skipped_sequences": 0,
+            "n_payloads": 96
+          },
+          "content_similarity_data_quality_failure": false,
+          "model_median_r2": 0.045697724745420186,
+          "threshold_T_q75_low_r2": 0.0008757163608816979,
+          "low_r2_pool_size": 512,
+          "content_conditional_size": 87,
+          "set_sizes": {
+            "SI": 256,
+            "LowSI": 256,
+            "ContentCond": 87
+          }
+        },
+        "calibration_eval_disjoint": true,
+        "interaction_beta_int": {
+          "beta": -0.10442477876106201,
+          "se": 0.26882775465550623,
+          "t": -0.38844493156920823,
+          "p_two": 0.7351375372163997,
+          "p_one_gt0": 0.6324312313918001
+        },
+        "endpoint_target_multiplier": 1.25,
+        "endpoint_drop_diff_si_minus_content": -0.06964601769911498,
+        "diagnostics": {
+          "K_support": 0.26982307376720305,
+          "S_content": NaN
+        }
+      }
+    },
+    "pooled_interaction": {
+      "beta": 0.04704365918862234,
+      "se": 0.14300364063469342,
+      "z": 0.32896826248498534,
+      "p_one_gt0": 0.3710898384856328,
+      "n_models": 2
+    },
+    "endpoint_diffs_si_minus_content": [
+      0.048708372237784014,
+      -0.06964601769911498
+    ],
+    "holm_family": {
+      "pooled_beta_int": 0.7421796769712656,
+      "endpoint_contrast": 0.75
+    },
+    "criterion1_interaction_direction": false,
+    "criterion2_practical_threshold": true,
+    "criterion3_calibration_eval_disjoint": true,
+    "eta_proxy": 0.011157577458578129,
+    "failure_mode_assignment": "ambiguous_failure",
+    "supported": false
+  },
+  "verdict": {
+    "C2_supported": false,
+    "C2_1_supported": false,
+    "C2_2_supported": false
+  }
+}

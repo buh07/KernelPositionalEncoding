@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-04-21 18:32:06",
+  "split_id": "calibration_v1_mistral",
+  "model_tokenizer": "mistral-7b-v0.1",
+  "seed": 20260417,
+  "target_n": 200,
+  "seq_len": 512,
+  "vocab_size": 32000,
+  "token_filter": {
+    "min": 128,
+    "max": 512
+  },
+  "source": "wiki40b_en_pre2019_mistral_cache",
+  "per_domain_counts": {
+    "wiki": 200
+  },
+  "loader_used_counts": {
+    "cache_jsonl": 200
+  },
+  "vocab_verified": true,
+  "sha256_ids_parquet": "e4de0aea5c849d53ad1abe9c72b7ed8f6b3544c102cdd949de472bd6dd6b97fc",
+  "ids_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits/mistral-7b-v0.1/calibration_v1_ids.parquet",
+  "tokens_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits/mistral-7b-v0.1/calibration_v1_tokens.parquet"
+}

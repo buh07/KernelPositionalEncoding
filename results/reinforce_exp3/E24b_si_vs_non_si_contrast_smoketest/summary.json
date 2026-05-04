@@ -1,0 +1,25 @@
+{
+  "experiment_id": "E24B",
+  "timestamp": "2026-05-02 23:49:13",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "n_cells": 6,
+  "n_cells_positive_delta_bic_diff": 2,
+  "fraction_positive_delta_bic_diff": 0.3333333333333333,
+  "delta_bic_diff_boot_mean": -7.994884666622055,
+  "delta_bic_diff_ci95": [
+    -16.36645980911608,
+    1.2165992673069124
+  ],
+  "auc_diff_boot_mean": -0.024934635416666667,
+  "auc_diff_ci95": [
+    -0.045735439453124985,
+    -0.011026770833333343
+  ],
+  "interpretation": "no_si_enrichment",
+  "claim_status": "not_supported",
+  "note": "Positive delta means SI-ranked arm is more non-linear than matched non-SI arm."
+}

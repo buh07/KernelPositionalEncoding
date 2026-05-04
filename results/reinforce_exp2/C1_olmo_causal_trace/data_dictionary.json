@@ -1,0 +1,51 @@
+{
+  "experiment_id": "C1_olmo_causal_trace",
+  "tables": [
+    {
+      "path": "results/reinforce_exp2/C1_olmo_causal_trace/causal_trace_matrix.parquet",
+      "description": "Per-example clean/corrupt/patch restoration data.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "phenomenon",
+          "dtype": "str",
+          "description": "Position-diagnostic phenomenon."
+        },
+        {
+          "name": "head_set",
+          "dtype": "str",
+          "description": "SI/LowSI/ContentCond."
+        },
+        {
+          "name": "a_clean",
+          "dtype": "float",
+          "description": "Clean accuracy."
+        },
+        {
+          "name": "a_corrupt",
+          "dtype": "float",
+          "description": "Corrupt accuracy."
+        },
+        {
+          "name": "a_patch",
+          "dtype": "float",
+          "description": "Patch/channel-isolation accuracy."
+        },
+        {
+          "name": "rr",
+          "dtype": "float",
+          "description": "Restoration ratio."
+        },
+        {
+          "name": "confirmatory_gap_eligible",
+          "dtype": "bool",
+          "description": "Gap eligibility flag."
+        }
+      ]
+    }
+  ]
+}

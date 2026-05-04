@@ -1,0 +1,112 @@
+{
+  "rows": [
+    {
+      "task": "lm_wiki",
+      "trial": 0,
+      "target_kl": 0.11162354490110742,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.12518267573617795,
+      "rel_err": 0.12147196048184283
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 1,
+      "target_kl": 0.11162354490110742,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.11257648619006778,
+      "rel_err": 0.008537099317215057
+    },
+    {
+      "task": "lm_code",
+      "trial": 0,
+      "target_kl": 0.20723987584925038,
+      "matched": true,
+      "alpha": 0.6875,
+      "matched_kl": 0.17500188576561052,
+      "rel_err": 0.15555881777834252
+    },
+    {
+      "task": "lm_code",
+      "trial": 1,
+      "target_kl": 0.20723987584925038,
+      "matched": true,
+      "alpha": 0.5625,
+      "matched_kl": 0.24761432710226913,
+      "rel_err": 0.19481989693135976
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 0,
+      "target_kl": 0.09266471503345293,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.10610105057207309,
+      "rel_err": 0.14499948047937664
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 1,
+      "target_kl": 0.09266471503345293,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.10645740256975394,
+      "rel_err": 0.1488450866257098
+    },
+    {
+      "task": "icl",
+      "trial": 0,
+      "target_kl": 0.044344638141312426,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.04690462445293866,
+      "rel_err": 0.05772933141247787
+    },
+    {
+      "task": "icl",
+      "trial": 1,
+      "target_kl": 0.044344638141312426,
+      "matched": true,
+      "alpha": 0.41500000000000004,
+      "matched_kl": 0.046452889477825283,
+      "rel_err": 0.047542418314352304
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 0,
+      "target_kl": 0.04097695913106856,
+      "matched": true,
+      "alpha": 0.41500000000000004,
+      "matched_kl": 0.03572517474973141,
+      "rel_err": 0.12816432679982032
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 1,
+      "target_kl": 0.04097695913106856,
+      "matched": true,
+      "alpha": 0.41500000000000004,
+      "matched_kl": 0.03801138782691951,
+      "rel_err": 0.07237167830495657
+    },
+    {
+      "task": "induction",
+      "trial": 0,
+      "target_kl": 0.07624127220145727,
+      "matched": true,
+      "alpha": 0.41500000000000004,
+      "matched_kl": 0.07107939842009453,
+      "rel_err": 0.06770445497975403
+    },
+    {
+      "task": "induction",
+      "trial": 1,
+      "target_kl": 0.07624127220145727,
+      "matched": true,
+      "alpha": 0.5,
+      "matched_kl": 0.08673236514285432,
+      "rel_err": 0.13760385469009168
+    }
+  ]
+}

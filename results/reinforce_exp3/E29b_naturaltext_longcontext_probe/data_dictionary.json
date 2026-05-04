@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E29B",
+  "tables": [
+    {
+      "path": "<model>/family_summary.parquet",
+      "description": "Family-level preferential-gap summaries for true vs permuted interventions.",
+      "columns": []
+    },
+    {
+      "path": "<model>/prompt_level_gaps.parquet",
+      "description": "Per-prompt preferential-gap deltas used for pooled inference.",
+      "columns": []
+    }
+  ]
+}

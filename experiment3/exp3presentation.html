@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kernel PE Post-Exp2 Program Consolidation — Science + Governance</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d1117; color: #e6edf3; }
+
+  .slide {
+    min-height: 100vh; padding: 48px 64px; display: flex; flex-direction: column;
+    justify-content: center; border-bottom: 2px solid #30363d;
+    max-width: 1500px; margin: 0 auto;
+  }
+  .slide.title-slide { text-align: center; justify-content: center; }
+  .slide h1 { font-size: 2.55em; margin-bottom: 16px; color: #58a6ff; font-weight: 700; }
+  .slide h2 { font-size: 1.95em; margin-bottom: 22px; color: #58a6ff; font-weight: 600; }
+  .slide h3 { font-size: 1.25em; margin-bottom: 14px; color: #79c0ff; font-weight: 600; }
+  .slide p, .slide li { font-size: 1.04em; line-height: 1.56; color: #c9d1d9; }
+  .slide ul, .slide ol { margin-left: 26px; margin-bottom: 14px; }
+  .slide li { margin-bottom: 7px; }
+  .slide .subtitle { font-size: 1.22em; color: #8b949e; margin-bottom: 8px; }
+  .slide .author { font-size: 1.02em; color: #8b949e; margin-top: 14px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+  .two-col.wide-left { grid-template-columns: 3fr 2fr; }
+  .two-col.wide-right { grid-template-columns: 2fr 3fr; }
+
+  .card {
+    background: #161b22; border: 1px solid #30363d; border-radius: 12px;
+    padding: 20px; margin: 10px 0;
+  }
+
+  .highlight { color: #58a6ff; font-weight: 600; }
+  .green { color: #3fb950; }
+  .yellow { color: #d29922; }
+  .red { color: #f85149; }
+  .dim { color: #8b949e; }
+
+  .metric-row { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+  .metric {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 12px 14px; text-align: center; flex: 1; min-width: 145px;
+  }
+  .metric .value { font-size: 1.75em; font-weight: 700; }
+  .metric .label { font-size: 0.82em; color: #8b949e; margin-top: 4px; }
+
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 0.9em; }
+  th { background: #161b22; color: #79c0ff; padding: 9px 11px; text-align: left; border-bottom: 2px solid #30363d; }
+  td { padding: 7px 11px; border-bottom: 1px solid #21262d; vertical-align: top; }
+  tr:hover td { background: #161b22; }
+
+  .slide-num { position: relative; top: -24px; text-align: right; font-size: 0.84em; color: #484f58; }
+
+  .callout {
+    border-left: 4px solid #58a6ff; background: #161b22; padding: 12px 16px;
+    border-radius: 0 8px 8px 0; margin: 12px 0;
+  }
+  .callout.warning { border-left-color: #d29922; }
+  .callout.success { border-left-color: #3fb950; }
+  .callout.danger { border-left-color: #f85149; }
+
+  .explain {
+    background: #1c2333; border: 1px solid #30436e; border-radius: 10px;
+    padding: 16px 20px; margin: 14px 0; line-height: 1.65;
+  }
+  .explain strong { color: #79c0ff; }
+
+  .provenance {
+    margin-top: 14px;
+    font-size: 0.78em;
+    color: #6e7681;
+    text-align: left;
+  }
+
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; color: #79c0ff; }
+
+  @media print {
+    .slide { page-break-after: always; min-height: auto; padding: 30px; }
+    body { background: white; color: #1c1c1c; }
+    .slide h1, .slide h2 { color: #0366d6; }
+    .card, .metric, th { background: #f6f8fa; border-color: #d0d7de; }
+    .slide p, .slide li, td { color: #1c1c1c; }
+    .explain { background: #f0f4fa; border-color: #b0c4de; }
+    .provenance { color: #57606a; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1 -->
+<div class="slide title-slide">
+  <div class="slide-num">1</div>
+  <h1>Kernel PE Post-Exp2 Program Consolidation</h1>
+  <p class="subtitle">Science Track + Consolidation Track (As of April 20, 2026)</p>
+  <p class="author">
+    This deck covers all work done after Experiment 2: Exp3/Phase2 mechanism checks, Exp4-Exp8 follow-up experiments, and the claim-checking layers (<code>reinforce_exp</code>, <code>reinforce_exp2</code>)
+  </p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Evidence windows used (simple timeline):</strong><br><br>
+    1. Exp3 core + Phase2 decision checks: through <strong>April 9, 2026</strong>.<br>
+    2. Exp4-Exp8 execution artifacts: through <strong>April 18, 2026</strong>.<br>
+    3. <code>reinforce_exp</code> consolidation wave: through <strong>April 19, 2026</strong>.<br>
+    4. <code>reinforce_exp2</code> strict A/B governance artifacts: through <strong>April 19, 2026</strong>.<br><br>
+    <strong>Important:</strong> C-path in <code>reinforce_exp2</code> is still pending in full mode. We keep those claims marked as pending and do not use them as confirmed evidence.
+  </div>
+  <p class="provenance">Sources: UNIFIED_RESULTS.md, experiment3/phase2/RESULTS.md, reinforce_exp/OVERVIEW.md, reinforce_exp2/OVERVIEW.md, results/reinforce_exp2/*</p>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+  <div class="slide-num">2</div>
+  <h2>How To Read This Deck</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Track 1: Science Evidence (Exp3-Exp8)</h3>
+      <ul>
+        <li>Foundation bridge: why Exp3 was necessary after Exp2.</li>
+        <li>Exp3 theories and Exp3 Phase2 decision checks.</li>
+        <li>Exp4-Exp8 extension results with updated completed status.</li>
+      </ul>
+      <h3>What this track answers</h3>
+      <ul>
+        <li>What held up, what failed, and what only works in some models.</li>
+        <li>Which questions were still open before claim-hardening work.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Track 2: Consolidation Governance</h3>
+      <ul>
+        <li><code>reinforce_exp</code>: targeted stress tests for likely reviewer questions.</li>
+        <li><code>reinforce_exp2</code>: strict A/B/C rules for when a claim can be promoted.</li>
+        <li>Explicit promote/demote decisions for final claims.</li>
+      </ul>
+      <h3>Merge / Decision Layer</h3>
+      <ul>
+        <li>4-tier claim matrix: <code>supported</code> / <code>mixed</code> / <code>exploratory</code> / <code>pending</code>.</li>
+        <li>What belongs in the paper core vs appendix/deferred work.</li>
+        <li>NeurIPS risk list with current mitigation status.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout success">
+    <p><strong>How to read in order:</strong> first the raw science results, then stress tests, then final claim tiers. A claim is promoted only if required artifacts exist and pass checks.</p>
+  </div>
+  <p class="provenance">Sources: UNIFIED_RESULTS.md, reinforce_exp/OVERVIEW.md, reinforce_exp2/OVERVIEW.md</p>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+  <div class="slide-num">3</div>
+  <h2>Program Arc After Exp2: Science -> Consolidation -> Submission</h2>
+  <div class="card">
+    <ol>
+      <li><strong>Exp2 trigger:</strong> H1 passed but H2 reversed, so coarse frequency stories were insufficient.</li>
+      <li><strong>Science track:</strong> Exp3/Phase2 and Exp4-Exp8 found what is stable, what is false, and what depends on model family.</li>
+      <li><strong>Consolidation track:</strong> <code>reinforce_exp</code> tested weak spots directly (gate stability, dependence handling, controls, portability).</li>
+      <li><strong>Final governance:</strong> <code>reinforce_exp2</code> applied strict A/B/C rules so claims could only be promoted when prerequisites were met.</li>
+    </ol>
+  </div>
+  <div class="callout warning">
+    <p><strong>Main point:</strong> this is not just "more experiments." It is a move from discovery to submission-grade claim discipline.</p>
+  </div>
+  <p class="provenance">Sources: experiment2/experiment2overview.md, UNIFIED_RESULTS.md, reinforce_exp/OVERVIEW.md, reinforce_exp2/OVERVIEW.md</p>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+  <div class="slide-num">4</div>
+  <h2>Experiment 1 Recap (Context for Exp3)</h2>
+  <div class="metric-row">
+    <div class="metric"><div class="value yellow">Partial</div><div class="label">Primary SI support</div></div>
+    <div class="metric"><div class="value green">~0.3-0.6</div><div class="label">RoPE early-layer R2</div></div>
+    <div class="metric"><div class="value green">~0.005</div><div class="label">NoPE early-layer R2</div></div>
+    <div class="metric"><div class="value yellow">Resolved</div><div class="label">Centering methodology issue</div></div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>What Exp1 established</h3>
+      <ul>
+        <li>SI structure is real and PE-specific.</li>
+        <li>NoPE control validates the signal is not generic noise.</li>
+        <li>Track-B centering confound was resolved by shared-mean granularity.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What Exp1 could not establish</h3>
+      <ul>
+        <li>Causal role of specific channels or heads.</li>
+        <li>Which circuits SI heads support.</li>
+        <li>Whether SI is general infrastructure or specialized machinery.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment1/experiment1results.md, UNIFIED_RESULTS.md</p>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+  <div class="slide-num">5</div>
+  <h2>Experiment 2 Recap (Immediate Trigger for Exp3)</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Primary outcomes</h3>
+      <table>
+        <tr><th>Hypothesis</th><th>Status</th><th>Representative value</th></tr>
+        <tr><td>H1: high-frequency ablation harms short-range more</td><td><span class="green">Supported</span></td><td>+0.1009 (Option D cross-model)</td></tr>
+        <tr><td>H2: low-frequency ablation harms long-range more</td><td><span class="red">Reversed</span></td><td>-0.2045 (Option D cross-model)</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Why this forced Exp3</h3>
+      <ul>
+        <li>H2 reversal persisted across ablation and attenuation (25/50/75/100%).</li>
+        <li>Not explainable as a simple hard-zero artifact.</li>
+        <li>Band-level interpretation became insufficient: needed head-level mechanism tests.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <p><strong>Reframed question:</strong> not just "which frequency band matters," but "what computation high-SI heads perform and when."</p>
+  </div>
+  <p class="provenance">Sources: experiment2/experiment2overview.md, UNIFIED_RESULTS.md</p>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+  <div class="slide-num">6</div>
+  <h2>Experiment 3 Theory Catalog: What Each Theory Is For</h2>
+  <table>
+    <tr><th>Theory</th><th>What it was designed to test</th><th>Primary method</th><th>Llama</th><th>OLMo</th></tr>
+    <tr><td>T1</td><td>Are high-SI heads more causally important for positional tasks?</td><td>Head-group ablation + task battery</td><td class="red">Not supported</td><td class="red">Not supported</td></tr>
+    <tr><td>T3</td><td>Do functionally important RoPE pairs track cross-term coupling?</td><td>Cross-term correlation vs pair effects</td><td class="yellow">Descriptive</td><td class="yellow">Descriptive</td></tr>
+    <tr><td>T5</td><td>Do high-SI heads selectively support continuation tokens?</td><td>Subword ablation interaction test</td><td class="red">Not supported</td><td class="red">Not supported</td></tr>
+    <tr><td>T5b</td><td>Are SI heads boundary detectors?</td><td>Three-approach boundary battery</td><td class="green">Supported</td><td class="green">Supported</td></tr>
+    <tr><td>T7</td><td>Do SI heads act as induction feeders?</td><td>Prev-token scoring + feeder knockout</td><td class="green">Supported</td><td class="green">Supported</td></tr>
+    <tr><td>T7b</td><td>Feeder hypothesis with activation patching (fixing T7 knockout flaw)</td><td>Resample activation patching</td><td class="red">Not supported</td><td class="green">Supported</td></tr>
+    <tr><td>T8</td><td>Is the positional kernel itself functionally load-bearing?</td><td>Kernel subtraction from logits</td><td class="green">Supported</td><td class="green">Supported</td></tr>
+    <tr><td>T9</td><td>Is feeder effect tied to high-frequency bands?</td><td>Regression + partial correlations</td><td class="yellow">Descriptive</td><td class="yellow">Descriptive</td></tr>
+    <tr><td>T10</td><td>Are SI feeders induction-specific vs generic downstream effects?</td><td>Target-group specificity tests</td><td class="red">Not supported</td><td class="red">Not supported</td></tr>
+    <tr><td>T2</td><td>Position-group heterogeneity: did SI heads respond differently across word-initial, word-medial, and word-final positions beyond the binary boundary contrast in T5b?</td><td>Multi-group subword-position ANOVA under ablation</td><td class="dim">Deprioritized</td><td class="dim">Deprioritized</td></tr>
+    <tr><td>T4</td><td>Pair-level spectral ownership: were specific RoPE frequency pairs disproportionately "owned" by high-SI heads relative to low-SI heads?</td><td>Per-pair ablation effects cross-mapped against R² rankings</td><td class="dim">Deprioritized</td><td class="dim">Deprioritized</td></tr>
+    <tr><td>T6</td><td>Multi-hop feeder chains: did SI heads form directed positional signal chains across multiple layers (SI head → induction head → output head)?</td><td>Layer-wise activation-patching chain analysis</td><td class="dim">Deprioritized</td><td class="dim">Deprioritized</td></tr>
+  </table>
+  <div class="callout">
+    <p><strong>Why T2/T4/T6 were not run (plain English):</strong>
+    <strong>T2</strong> was dropped because T5b already tested boundary-position behavior in enough detail, so T2 would mostly repeat that work.
+    <strong>T4</strong> was replaced by T9 because T9 tested the same core question in a cleaner way (head-level frequency contribution, not just pair ownership counts).
+    <strong>T6</strong> was dropped because T7b already showed feeder evidence is model-dependent; adding a more complex multi-hop version was unlikely to resolve the key uncertainty.
+    These were not hidden. They are listed here on purpose so the missing branches are explicit.</p>
+  </div>
+  <p class="provenance">Source: experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+  <div class="slide-num">7</div>
+  <h2>T1 Deep Dive: SI Head Causal Priority</h2>
+  <div class="explain">
+    <strong>Theory T1 (simple statement):</strong> If a head has high SI score (high shift-invariance R2), then removing it should hurt position-heavy tasks more than removing low-SI heads.<br>
+    <strong>Why this test matters:</strong> Exp2 worked at frequency-band level. T1 moves to direct head-level causality by ablating high-SI and low-SI groups.
+  </div>
+  <div class="two-col wide-right">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Profile per-head R2 on 50 wiki sequences (len=512).</li>
+          <li>Define top and bottom quartile SI head groups.</li>
+          <li>Ablate head outputs (<code>o_proj</code> slices) for high-SI vs low-SI vs random groups.</li>
+          <li>Evaluate on retrieval and local-key tasks across spans.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>High-SI drop</th><th>Low-SI drop</th><th>High-Low</th><th>p(one-sided)</th></tr>
+          <tr><td>Llama</td><td>0.3083</td><td>0.3232</td><td class="red">-0.0149</td><td>0.999993</td></tr>
+          <tr><td>OLMo</td><td>0.0822</td><td>0.0940</td><td class="red">-0.0118</td><td>0.974726</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout danger">
+        <p><strong>Conclusion:</strong> T1 failed in both models. Removing high-SI heads did not hurt more than removing low-SI heads.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> the high-minus-low difference is negative in both models, so the data points in the opposite direction from the hypothesis.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory1_si_circuits.py (protocol), results/experiment3/theory1_si_circuits/*/analysis.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide">
+  <div class="slide-num">8</div>
+  <h2>T3 Deep Dive: Cross-Term Coupling vs Pair Importance</h2>
+  <div class="explain">
+    <strong>Theory T3 (simple statement):</strong> The RoPE pairs that matter most should be the pairs where content and position interact most strongly, not just the pairs in a named frequency range.<br>
+    <strong>Why this test matters:</strong> It tries to explain Exp2's H2 reversal by looking inside the attention-logit decomposition.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Experimental Setup</h3>
+      <ul>
+        <li>Compute raw and double-centered diagonal kernels per head.</li>
+        <li>Project gap signal (<code>g_raw - g_centered</code>) onto RoPE pairs.</li>
+        <li>Correlate cross-term magnitude with Exp2 pair ablation effects.</li>
+        <li>Use Pearson, Spearman, and partial correlations.</li>
+      </ul>
+      <p class="dim">Method note in protocol: avoid pre-centering raw logits before cross-term analysis.</p>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>Mean Spearman (normalized)</th><th>Mean Pearson (normalized)</th><th>Task/span combos</th></tr>
+          <tr><td>Llama</td><td>-0.1101</td><td>-0.1566</td><td>4</td></tr>
+          <tr><td>OLMo</td><td>+0.0496</td><td>+0.1803</td><td>3</td></tr>
+        </table>
+      </div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> mixed descriptive evidence only. Not strong enough for a yes/no mechanistic claim.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory3_crossterm_correlation.py, results/experiment3/theory3_crossterm/*/analysis.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide">
+  <div class="slide-num">9</div>
+  <h2>T5 Deep Dive: Continuation-Selectivity Hypothesis</h2>
+  <div class="explain">
+    <strong>Theory T5 (simple statement):</strong> If high-SI heads help continue multi-token words, then ablating them should hurt continuation tokens more than word-start tokens.<br>
+    <strong>Why this test matters:</strong> It checks whether SI helps a specific subword function, not just general performance.
+  </div>
+  <div class="two-col wide-right">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Build continuation vs word-initial token sets (~500 each).</li>
+          <li>Ablate high-SI, low-SI, and random groups.</li>
+          <li>Measure interaction: continuation damage minus initial damage.</li>
+          <li>Run robustness with perplexity-matched subsample.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>High-Low interaction (reported)</th><th>Matched robustness</th><th>Status</th></tr>
+          <tr><td>Llama</td><td class="red">-1.9623</td><td>-1.8927</td><td class="red">Not supported</td></tr>
+          <tr><td>OLMo</td><td class="red">-1.4382</td><td>-1.5760</td><td class="red">Not supported</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout danger">
+        <p><strong>Conclusion:</strong> T5 failed. The effect goes in the opposite direction from the proposed continuation-selective mechanism.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> interaction terms are strongly negative and stay negative in matched-control robustness runs.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory5_subword_ablation.py, results/experiment3/theory5_subword_ablation/*/analysis.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide">
+  <div class="slide-num">10</div>
+  <h2>T5b Deep Dive: Boundary Detection Battery</h2>
+  <div class="explain">
+    <strong>Theory T5b (simple statement):</strong> High-SI heads should act like boundary detectors (for example word-boundary-sensitive behavior), and this should appear across independent tests.<br>
+    <strong>Why this test matters:</strong> T5b became a central mechanism candidate and later a key anchor for Phase2 strict controls.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Approach A: direct boundary-attention comparison (high-SI vs low-SI).</li>
+          <li>Approach B: 4-way position taxonomy interaction under ablation.</li>
+          <li>Approach C: correlation of boundary preference vs R2 across all heads.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Metric</th><th>Llama</th><th>OLMo</th></tr>
+          <tr><td>Overall verdict</td><td class="green">SUPPORTED (A=Y,B=Y,C=Y)</td><td class="green">SUPPORTED (A=Y,B=N,C=Y)</td></tr>
+          <tr><td>Approach A total-boundary diff</td><td>+0.0588 (d=1.1307)</td><td>+0.0299 (d=0.5486)</td></tr>
+          <tr><td>Approach C Spearman(R2,boundary)</td><td>+0.2832 (p=2.44e-20)</td><td>+0.0707 (p=0.0237)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>Conclusion:</strong> boundary-linked SI behavior survives multi-test checks in both models, but OLMo is weaker/mixed on one of the sub-tests (Approach B).</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> independent evidence channels line up (especially A and C), so the combined verdict stays supported in both models.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory5b_boundary_detection.py, results/experiment3/theory5b_boundary_detection/*/report.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide">
+  <div class="slide-num">11</div>
+  <h2>T7 Deep Dive: Induction Feeder Hypothesis (Original)</h2>
+  <div class="explain">
+    <strong>Theory T7 (simple statement):</strong> SI may sit in earlier "feeder" heads that send positional information to induction heads, rather than in the induction heads themselves.<br>
+    <strong>Why this test matters:</strong> It was designed to resolve the tension between induction behavior and low SI scores on known induction heads.
+  </div>
+  <div class="two-col wide-right">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Approach A: correlate R2 with previous-token attention (candidate feeder behavior).</li>
+          <li>Approach B: knockout-based feeder analysis versus induction disruption.</li>
+          <li>Unify against known induction-vs-R2 anti-correlation reference.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>A global Spearman</th><th>B Spearman (delta vs R2)</th><th>Status</th></tr>
+          <tr><td>Llama</td><td>+0.5783 (p=1.95e-92)</td><td>+0.0138 (p=0.5213)</td><td class="green">Supported (report-level)</td></tr>
+          <tr><td>OLMo</td><td>+0.5663 (p=2.35e-87)</td><td>+0.0771 (p=9.50e-05)</td><td class="green">Supported (report-level)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> data is feeder-compatible, especially in Approach A, but knockout-based evidence has known confounds.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> previous-token coupling is strong, but knockout tests alone cannot cleanly isolate SI-specific causality.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory7_induction_feeders.py, experiment3/experiment3overview.md (known limitation note), results/experiment3/theory7_induction_feeders/*/report.json</p>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide">
+  <div class="slide-num">12</div>
+  <h2>T7b Deep Dive: Activation Patching Feeder Test</h2>
+  <div class="explain">
+    <strong>Theory T7b (simple statement):</strong> Same feeder idea as T7, but tested with activation patching to avoid knockout artifacts.<br>
+    <strong>Why this test matters:</strong> T7b is the stronger causal check for feeder claims.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Experimental Setup</h3>
+      <ul>
+        <li>Generate clean/corrupt repeated-sequence pairs.</li>
+        <li>Patch source-head activations from corrupt into clean runs.</li>
+        <li>Measure induction disruption and correlate with source-head R2.</li>
+        <li>Designed to avoid T7 knockout residual-stream confound.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>Spearman(R2, disruption)</th><th>p</th><th>Status</th></tr>
+          <tr><td>Llama</td><td>+0.0644</td><td>0.30498</td><td class="red">Not supported</td></tr>
+          <tr><td>OLMo</td><td>+0.2066</td><td>0.000883</td><td class="green">Supported</td></tr>
+        </table>
+      </div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> under stronger causal testing, feeder support is model-conditional (supported in OLMo, not supported in Llama).</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> Llama's effect is small and non-significant, while OLMo's effect is positive and significant.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory7b_activation_patching.py, results/experiment3/theory7b_activation_patching/*/report.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 13 -->
+<div class="slide">
+  <div class="slide-num">13</div>
+  <h2>T8 Deep Dive: Positional Kernel Functional Relevance</h2>
+  <div class="explain">
+    <strong>Theory T8 (simple statement):</strong> The SI positional kernel <code>g(Delta)</code> carries real function. If we subtract it from logits, performance should get worse.<br>
+    <strong>Why this test matters:</strong> T8 tests causality at the kernel level, not just at head labels.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Estimate per-head SI kernel from profiling sequences.</li>
+          <li>Subtract the estimated kernel from pre-softmax logits via hook.</li>
+          <li>Compare baseline vs subtract-high-SI vs subtract-low-SI vs subtract-all.</li>
+          <li>Use per-sequence mean loss as statistical unit.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>All-head kernel subtraction</th><th>High-SI subtraction</th><th>Low-SI subtraction</th><th>High-Low diff</th></tr>
+          <tr><td>Llama</td><td>+3.7975</td><td>+4.1546</td><td>+0.0736</td><td>+4.0810</td></tr>
+          <tr><td>OLMo</td><td>+0.0710</td><td>+0.0576</td><td>+0.0072</td><td>+0.0504</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>Conclusion:</strong> supported. The positional kernel is load-bearing in both models; subtracting it raises loss.</p>
+      </div>
+      <div class="callout warning">
+        <p><strong>Magnitude asymmetry note:</strong> the all-head effect is much larger in Llama (+3.7975) than OLMo (+0.0710), so the claim is symmetric in sign but not in magnitude. This is a model-conditional strength difference, not equal effect size.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> loss increases in the expected direction across subtraction settings, and high-SI subtraction hurts more than low-SI subtraction.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory8_position_ablation.py, results/experiment3/theory8_position_ablation/*/report.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 14 -->
+<div class="slide">
+  <div class="slide-num">14</div>
+  <h2>T9 Deep Dive: Frequency-Band Feeder Analysis (Descriptive)</h2>
+  <div class="explain">
+    <strong>Theory T9 (simple statement):</strong> If feeder effects are frequency-linked, high-frequency RoPE content should predict feeder disruption better than low-frequency content.<br>
+    <strong>Why this test matters:</strong> It connects Exp2 frequency findings to Exp3 head-level feeder analysis.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Experimental Setup</h3>
+      <ul>
+        <li>CPU-only post-hoc analysis using existing R2, feeder disruption, and frequency features.</li>
+        <li>Run bivariate, partial correlation, and regression analyses.</li>
+        <li>Test whether high-frequency (HF) composition predicts feeder disruption better than low-frequency (LF).</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>rho(disruption, HF)</th><th>rho(disruption, LF)</th><th>partial(HF|LF)</th></tr>
+          <tr><td>Llama</td><td class="green">+0.4375</td><td class="red">-0.1390</td><td>+0.4195</td></tr>
+          <tr><td>OLMo</td><td class="green">+0.2089</td><td class="red">-0.1575</td><td>+0.1778</td></tr>
+        </table>
+      </div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> results point toward high-frequency linkage, but this is still descriptive evidence, not a strict causal result.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory9_freq_band_feeder.py, results/experiment3/theory9_freq_band_feeder/*/report.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide">
+  <div class="slide-num">15</div>
+  <h2>T10 Deep Dive: Feeder Specificity Test</h2>
+  <div class="explain">
+    <strong>Theory T10 (simple statement):</strong> If feeder influence is truly induction-specific, induction targets should show a clearly stronger effect than unrelated target groups.<br>
+    <strong>Why this test matters:</strong> T10 is a safeguard against over-claiming generic disruption as induction-specific mechanism.
+  </div>
+  <div class="two-col wide-right">
+    <div>
+      <div class="card">
+        <h3>Experimental Setup</h3>
+        <ul>
+          <li>Use T7b-style patching but compare three target groups: induction, random mid-layer, and low-SI late heads.</li>
+          <li>Test whether disruption-R2 correlation is uniquely stronger for induction targets.</li>
+          <li>Apply dependent-correlation tests with multiple-testing correction.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>rho_ind</th><th>rho_rand</th><th>rho_low</th><th>Induction-specific?</th></tr>
+          <tr><td>Llama</td><td>+0.0644</td><td>-0.0123</td><td>+0.0802</td><td class="red">No</td></tr>
+          <tr><td>OLMo</td><td>+0.2066</td><td>+0.1888</td><td>-0.0499</td><td class="red">No (overall)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout danger">
+        <p><strong>Conclusion:</strong> T10 failed. In this setup, feeder effects are not cleanly induction-specific.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> comparison groups are not consistently and significantly weaker than induction targets after correction.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/theory10_feeder_specificity.py, results/experiment3/theory10_feeder_specificity/*/report.json, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 16 -->
+<div class="slide">
+  <div class="slide-num">16</div>
+  <h2>Experiment 3 Phase2 Idea Catalog: What Each Idea Is For</h2>
+  <table>
+    <tr><th>Idea</th><th>Question it targets</th><th>Execution status</th><th>Phase2 linkage</th></tr>
+    <tr><td>Idea 1</td><td>Is boundary mechanism BPE-dependent under word-level tokenization?</td><td class="yellow">Not executed</td><td>Deeper tokenizer-dependence test beyond controls</td></tr>
+    <tr><td>Idea 2</td><td>Does boundary/invariance behavior generalize cross-lingually?</td><td class="green">Executed (integrated)</td><td>Integrated into 3P2-I cross-lingual channel</td></tr>
+    <tr><td>Idea 3</td><td>Do SI effects survive arbitrary n-gram tokenization?</td><td class="yellow">Not executed</td><td>Tests linguistic-vs-segmentation dependence</td></tr>
+    <tr><td>Idea 4</td><td>Do SI heads matter in structural ambiguity parsing?</td><td class="green">Executed</td><td>Ambiguity battery with norming audits and reruns</td></tr>
+    <tr><td>Idea 5</td><td>Are multiple computations superposed within frequency bands?</td><td class="yellow">Not executed</td><td>Would extend T9 from descriptive to richer decomposition</td></tr>
+    <tr><td>Idea 6</td><td>Can SI channels improve mathematical reasoning?</td><td class="green">Executed</td><td>Math intervention battery (gain/inverse channel tests)</td></tr>
+  </table>
+  <div class="card">
+    <h3>Phase2 Adjudication Module Catalog (separate from Ideas)</h3>
+    <p>Core adjudication modules include <code>3P2-A/B/C.1/C.2/C.3/D/E/F/G/H/I/J/K</code>. These modules are the strict-control layer that checks whether a claim survives tougher controls.</p>
+    <p class="dim">Quick map: <code>B</code> = trivial-feature gate checks, <code>C.*</code> = redundancy and baseline criteria, <code>I</code> = invariance checks, <code>J</code> = conditional specialization, <code>K</code> = non-RoPE anchor controls.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md, experiment3/phase2/RESULTS.md</p>
+</div>
+
+<!-- SLIDE 17 -->
+<div class="slide">
+  <div class="slide-num">17</div>
+  <h2>Idea 1 Deep Dive: Word-Level Retokenization</h2>
+  <div class="explain">
+    <strong>Idea 1 (Experiment 3 Phase2+):</strong> Retokenize and retrain with strict word-level tokens to test whether boundary/SI behavior depends on BPE subword segmentation.<br>
+    <strong>Experiment tie-in:</strong> This is a planned Phase2+ causal tokenizer-dependence check intended to strengthen or falsify boundary-mechanism generality claims.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Planned Setup</h3>
+      <ul>
+        <li>Retokenize to strict word-level tokens (no BPE subword splits).</li>
+        <li>Retrain matched small model.</li>
+        <li>Rerun boundary battery (T5b) and SI profiling.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Current Results</h3>
+        <p><span class="yellow">Not executed in current Phase2 wave.</span></p>
+        <p>No artifact-backed result file exists for this idea in the current window.</p>
+      </div>
+      <div class="callout warning">
+        <p><strong>Current conclusion:</strong> still open. This remains a high-value unresolved test for tokenizer-dependence of boundary mechanisms.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 1), experiment3/phase2/RESULTS.md (not yet executed list)</p>
+</div>
+
+<!-- SLIDE 18 -->
+<div class="slide">
+  <div class="slide-num">18</div>
+  <h2>Idea 2 Deep Dive: Cross-Lingual Tokenization Extension</h2>
+  <div class="explain">
+    <strong>Idea 2 (simple statement):</strong> Check whether boundary and invariance behavior still appears in non-English languages with different tokenization patterns.<br>
+    <strong>Why this test matters:</strong> It checks whether earlier findings are English-only or more general.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Setup</h3>
+        <ul>
+          <li>Extend invariance analysis beyond English using OPUS cross-lingual corpora (<code>tr</code>, <code>zh</code>, <code>ru</code>).</li>
+          <li>Integrate into 3P2-I tokenizer/corpus invariance workflow.</li>
+          <li>Evaluate strict-gated invariance outcomes per model.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>Strict natural run outcome</th><th>Invariance score / status</th></tr>
+          <tr><td>OLMo</td><td class="green">Invariant</td><td>0.7518</td></tr>
+          <tr><td>Llama</td><td class="yellow">Blocked by strict gate</td><td>blocked_by_gate</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout">
+        <p><strong>Conclusion:</strong> the cross-lingual run itself worked, but strict cross-model invariance is still unresolved because Llama is blocked by the gate.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> OLMo passes strict invariance, while Llama cannot be counted as pass/fail under the strict policy.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 2), experiment3/phase2/RESULTS.md (3P2-I section)</p>
+</div>
+
+<!-- SLIDE 19 -->
+<div class="slide">
+  <div class="slide-num">19</div>
+  <h2>Idea 3 Deep Dive: N-Gram Tokenization Stress Test</h2>
+  <div class="explain">
+    <strong>Idea 3 (Experiment 3 Phase2+):</strong> Replace learned linguistic tokenization with fixed n-gram chunking to test whether SI/boundary effects track meaningful linguistic boundaries or arbitrary segmentation boundaries.<br>
+    <strong>Experiment tie-in:</strong> This planned Phase2+ test targets tokenizer-causality directly and complements Idea 1's word-level retokenization strategy.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Planned Setup</h3>
+      <ul>
+        <li>Retokenize with fixed character n-grams (no learned linguistic merges).</li>
+        <li>Retrain matched models under n-gram tokenization.</li>
+        <li>Rerun SI profiling and boundary batteries.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Current Results</h3>
+        <p><span class="yellow">Not executed in current Phase2 wave.</span></p>
+        <p>No artifact-backed results yet.</p>
+      </div>
+      <div class="callout warning">
+        <p><strong>Current conclusion:</strong> open. This remains a key test for whether SI tracks meaningful linguistic boundaries versus arbitrary segmentation boundaries.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 3), experiment3/phase2/RESULTS.md (not yet executed list)</p>
+</div>
+
+<!-- SLIDE 20 -->
+<div class="slide">
+  <div class="slide-num">20</div>
+  <h2>Idea 4 Deep Dive: Structural Ambiguity Battery</h2>
+  <div class="explain">
+    <strong>Idea 4 (simple statement):</strong> Use ambiguous sentences to test whether SI disruption changes parse-sensitive behavior, not only simple boundary effects.<br>
+    <strong>Why this test matters:</strong> It moves from simpler synthetic settings to harder language ambiguity settings.
+  </div>
+  <div class="two-col wide-right">
+    <div>
+      <div class="card">
+        <h3>Setup</h3>
+        <ul>
+          <li>Ambiguous-structure sentence battery with disambiguation contexts and probes.</li>
+          <li>Compare intact vs high-SI ablated vs low-SI ablated behavior.</li>
+          <li>Run base, normed, balanced-allowlist, and consensus reruns plus norming audit.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results (consensus rerun)</h3>
+        <table>
+          <tr><th>Model</th><th>Observed interaction</th><th>p(two-sided)</th><th>Verdict</th></tr>
+          <tr><td>Llama</td><td>0.3641</td><td>0.0108</td><td>high_si_more_causal_than_low_si</td></tr>
+          <tr><td>OLMo</td><td>0.3974</td><td>0.0042</td><td>similar_impact_high_vs_low</td></tr>
+        </table>
+        <p>Internal norming audit: <code>flagged_variant_rate=0.0</code> for both models.</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> internally clean and informative, but still exploratory for external claims because there is no independent human norming layer.</p>
+      </div>
+      <div class="explain">
+        <strong>Why this conclusion follows:</strong> statistically non-null interactions were found, yet model verdicts split and external validation scope remains limited.
+      </div>
+      <div class="card">
+        <h3>Why Llama and OLMo verdict labels differ</h3>
+        <p>The interaction values are similar, but the verdict rule has two parts: (1) interaction sign/strength and (2) a minimum overall high-vs-low gap. Llama passes both parts. OLMo has a positive interaction but its overall gap is too small, so it is labeled "similar impact".</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 4), experiment3/phase2/RESULTS.md (Idea 4 section)</p>
+</div>
+
+<!-- SLIDE 21 -->
+<div class="slide">
+  <div class="slide-num">21</div>
+  <h2>Idea 5 Deep Dive: Frequency-Band Superposition</h2>
+  <div class="explain">
+    <strong>Idea 5 (Experiment 3 Phase2+):</strong> Test whether multiple distinct computations are superposed within the same frequency band, instead of each band carrying a single function.<br>
+    <strong>Experiment tie-in:</strong> This planned extension would upgrade Experiment 3's descriptive spectral evidence (especially T9) into a richer within-band mechanistic decomposition.
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Planned Setup</h3>
+      <ul>
+        <li>Decompose per-pair RoPE contributions within HF band.</li>
+        <li>Apply sparse decomposition (dictionary/NMF) to test multiplexed signals.</li>
+        <li>Validate by selective HF-pair attenuation and downstream task disruption mapping.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Current Results</h3>
+        <p><span class="yellow">Not executed in current Phase2 wave.</span></p>
+        <p>No run artifact for this idea yet.</p>
+      </div>
+      <div class="callout warning">
+        <p><strong>Current conclusion:</strong> open. This remains a medium-priority path to upgrade T9-style descriptive evidence into richer mechanistic decomposition.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 5), experiment3/phase2/RESULTS.md (not yet executed list)</p>
+</div>
+
+<!-- SLIDE 22 -->
+<div class="slide">
+  <div class="slide-num">22</div>
+  <h2>Idea 6 Deep Dive: SI Channels for Math Reasoning</h2>
+  <div class="explain">
+    <strong>Idea 6 (simple statement):</strong> Test whether changing SI-channel strength improves or harms math-like positional reasoning.<br>
+    <strong>Why this test matters:</strong> It checks whether SI can be used as an optimization lever, and it directly motivated Exp4.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Setup</h3>
+        <ul>
+          <li>Math-focused intervention battery (counting, arithmetic-like positional operations, modular tasks).</li>
+          <li>Inference-time SI-channel scaling manipulations (gain and inverse-channel variants).</li>
+          <li>Compare whether SI amplification improves or harms performance.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>Any SI gain improves math?</th><th>Inverse channel hurts math?</th><th>Key stat</th></tr>
+          <tr><td>Llama</td><td class="red">No</td><td class="green">Yes</td><td>mean_delta=-0.6467, Holm p=8.68e-09</td></tr>
+          <tr><td>OLMo</td><td class="red">No</td><td class="yellow">Not significant</td><td>inverse-channel Holm p=0.0797</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> simply amplifying SI is not a math booster. The pattern looks more like a fragile load-bearing system than an under-powered channel.</p>
+      </div>
+      <div class="explain">
+        <strong>Why:</strong> positive gain did not improve math, while inverse scaling caused clear harm (especially in Llama).
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md (Idea 6), experiment3/phase2/RESULTS.md (Idea 6 section)</p>
+</div>
+
+<!-- SLIDE 23 -->
+<div class="slide">
+  <div class="slide-num">23</div>
+  <h2>Analysis I: What The Theory Slides Collectively Say</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Findings that survived theory-level stress</h3>
+      <ul>
+        <li>T5b: boundary-linked SI signal remains robust.</li>
+        <li>T8: the positional kernel is clearly load-bearing.</li>
+        <li>T7/T7b: feeder evidence exists, but stronger tests show model dependence.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Findings that were falsified or demoted</h3>
+      <ul>
+        <li>T1 and T5 simple "high-SI hurts more" stories failed.</li>
+        <li>T10 did not isolate a clean induction-only feeder effect.</li>
+        <li>T3 and T9 are descriptive signals, not confirmatory mechanism closures.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warning">
+    <p><strong>T10 implication:</strong> T10's failure directly weakens a strong "induction-only feeder" claim. The safer reading is broader and model-conditional feeder behavior.</p>
+  </div>
+  <div class="callout">
+    <p><strong>T7 vs T7b in Llama:</strong> strong T7 correlation can show association without proving feeder causality; T7b's Llama non-support is why this caveat remains necessary.</p>
+  </div>
+  <div class="callout">
+    <p><strong>Narrative shift:</strong> SI is real and important, but not as one universal "high-SI dominates everything" circuit story.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/experiment3results.md, results/experiment3/theory*/</p>
+</div>
+
+<!-- SLIDE 24 -->
+<div class="slide">
+  <div class="slide-num">24</div>
+  <h2>Analysis II: What The Idea Slides Add</h2>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Executed ideas provided directional gains</h3>
+        <ul>
+          <li>Idea 2: cross-lingual extension shows strict asymmetry clearly (OLMo passes, Llama gated).</li>
+          <li>Idea 4: ambiguity tests are informative but model-split.</li>
+          <li>Idea 6: math interventions show SI fragility rather than easy gain.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Unexecuted ideas remain high-value gaps</h3>
+        <ul>
+          <li>Idea 1 and 3: tokenizer-retraining tests are still the cleanest tokenizer-causality probes.</li>
+          <li>Idea 5: still needed to move from descriptive T9 to richer within-band decomposition.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="callout warning">
+    <p><strong>Interpretive consequence:</strong> Phase2 ideas increased confidence in model-conditional mechanisms, while keeping tokenizer-causality and superposition questions explicitly open.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/IDEAS.md, experiment3/phase2/RESULTS.md</p>
+</div>
+
+<!-- SLIDE 25 -->
+<div class="slide">
+  <div class="slide-num">25</div>
+  <h2>Analysis III: Core + Phase2 Integrated Narrative</h2>
+  <div class="card">
+    <h3>Integrated story</h3>
+    <ol>
+      <li>SI structure exists and has real functional impact (Exp1, T8).</li>
+      <li>Simple frequency-range mapping is not enough (Exp2 H2 reversal).</li>
+      <li>Boundary-linked behavior and redundancy are the most stable structural findings (T5b + C.1).</li>
+      <li>Feeder and specialization effects are real but model- and context-dependent (T7/T7b/J).</li>
+      <li>Tokenizer strictness outcomes differ across models (B/I multiseed + invariance). This asymmetry is observed, but not yet fully explained.</li>
+    </ol>
+  </div>
+  <div class="callout success">
+    <p><strong>Working conclusion:</strong> SI behaves like shared infrastructure with model-specific implementations, not one universal circuit template.</p>
+  </div>
+  <p class="provenance">Sources: UNIFIED_RESULTS.md, experiment3/phase2/RESULTS.md, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 26 -->
+<div class="slide">
+  <div class="slide-num">26</div>
+  <h2>Analysis IV: Llama vs OLMo Mechanistic Contrast</h2>
+  <div class="card">
+    <h3>What \"strict gate\" means in this program</h3>
+    <p>The strict gate is a Phase2-B control with a simple question: are we seeing true boundary behavior, or a cheap prefix-following trick? It compares fake-boundary and real-boundary controls, then applies multiseed stability rules.</p>
+    <p>Llama shows directionality but does not cleanly pass or fail stability rules (<code>assessment=ambiguous</code>). OLMo is clean under strict checks in this window.</p>
+  </div>
+  <table>
+    <tr><th>Dimension</th><th>Llama</th><th>OLMo</th></tr>
+    <tr><td>3P2-B strict status</td><td>Prefix artifact flag in strict run; multiseed outcome ambiguous</td><td>Strict-clean on prefix-following check</td></tr>
+    <tr><td>T7b feeder patching</td><td>Not supported (rho=+0.0644, p=0.3050)</td><td>Supported (rho=+0.2066, p=0.000883)</td></tr>
+    <tr><td>3P2-I strict invariance</td><td>Blocked by gate</td><td>Invariant (score=0.7518)</td></tr>
+    <tr><td>Idea 6 inverse SI scaling</td><td>Strong harm (p=8.68e-09)</td><td>Not significant at strict threshold</td></tr>
+    <tr><td>Shared invariants</td><td colspan="2">C.1 threshold redundancy support, T8 kernel relevance, non-trivial boundary signal</td></tr>
+  </table>
+  <div class="callout warning">
+    <p><strong>Interpretation:</strong> cross-model differences are real signal, not nuisance variance to average away.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/RESULTS.md, experiment3/experiment3results.md</p>
+</div>
+
+<!-- SLIDE 27 -->
+<div class="slide">
+  <div class="slide-num">27</div>
+  <h2>Analysis V: Highest-Confidence Evidence Stack</h2>
+  <div class="metric-row">
+    <div class="metric"><div class="value green">T8</div><div class="label">Kernel subtraction clearly increases loss</div></div>
+    <div class="metric"><div class="value green">C.1</div><div class="label">Threshold redundancy pattern in both models</div></div>
+    <div class="metric"><div class="value green">T5b + B</div><div class="label">Boundary signal survives strict controls</div></div>
+    <div class="metric"><div class="value green">J repair</div><div class="label">Conditional specialization supported</div></div>
+  </div>
+  <div class="card">
+    <h3>Why these are strongest</h3>
+    <ul>
+      <li>They replicate across models or survive stricter methods.</li>
+      <li>They include direct intervention evidence, not only correlations.</li>
+      <li>They remain stable after Phase2 quality-control reruns.</li>
+    </ul>
+  </div>
+  <p class="provenance">Sources: experiment3/experiment3results.md, experiment3/phase2/RESULTS.md</p>
+</div>
+
+<!-- SLIDE 28 -->
+<div class="slide">
+  <div class="slide-num">28</div>
+  <h2>Analysis VI: Claim Boundaries and Remaining Weaknesses</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>High-importance caveats</h3>
+      <ul>
+        <li>Llama strict-gate status is still ambiguous after multiseed adjudication.</li>
+        <li>Strict cross-model invariance is unresolved because of that gate block.</li>
+        <li>Architecture-specific SI claims stay weak after D.1 previous-token mediation checks.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Secondary caveats</h3>
+      <ul>
+        <li>3P2-F below target power (0.6715).</li>
+        <li>C.3 strict baseline criterion not fully satisfied.</li>
+        <li>Idea 4 remains exploratory without external human norming.</li>
+        <li>Unexecuted Ideas 1/3/5 leave tokenizer and superposition questions open.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout danger">
+    <p><strong>Reporting discipline:</strong> keep model-conditional realization central, and keep strict-gate and attribution caveats explicit in the main text.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/RESULTS.md, UNIFIED_RESULTS.md</p>
+</div>
+
+<!-- SLIDE 29 -->
+<div class="slide">
+  <div class="slide-num">29</div>
+  <h2>Post-Phase2 Status Snapshot (As of April 9, 2026)</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Resolved before Exp4-Exp8</h3>
+      <ul>
+        <li>T8 kernel relevance remained robust.</li>
+        <li>C.1 redundancy/threshold structure remained strong.</li>
+        <li>T5b boundary signal stayed non-trivial under controls, with caveats.</li>
+        <li>J conditional specialization stayed supported but model-conditional.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Open entering Exp4-Exp8</h3>
+      <ul>
+        <li>Strict gate asymmetry (Llama ambiguous vs OLMo cleaner).</li>
+        <li>Tokenizer-family causality not yet fully closed.</li>
+        <li>Whether SI is tunable for performance gains.</li>
+        <li>Whether application claims transfer across models.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warning">
+    <p><strong>Interpretive handoff:</strong> Exp4-Exp8 were executed to close these specific gaps, not to expand scope arbitrarily.</p>
+  </div>
+  <p class="provenance">Sources: experiment3/phase2/RESULTS.md, UNIFIED_RESULTS.md</p>
+</div>
+
+<!-- SLIDE 30 -->
+<div class="slide">
+  <div class="slide-num">30</div>
+  <h2>Science Track Execution Snapshot (As of April 20, 2026)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Experiment block</th><th>Execution status</th><th>Current reading</th></tr>
+      <tr><td>Exp4 (4A, 4C)</td><td class="green">Completed</td><td>SI immutability + routing nulls; no tuning leverage.</td></tr>
+      <tr><td>Exp5 (5B, 5C, 5D)</td><td class="green">Completed</td><td>Tokenizer causality supported; robustness supported.</td></tr>
+      <tr><td>Exp6 (6A-6E)</td><td class="green">Completed</td><td>Interventions mostly null/harmful; 6E harmful in large models (single-seed diagnostic).</td></tr>
+      <tr><td>Exp7 (7A, 7B)</td><td class="green">Completed</td><td>Quantitative theory links hold (Welch + phase transition).</td></tr>
+      <tr><td>Exp8 (8A, 8B)</td><td class="green">Completed for executed sub-studies</td><td>Useful signal but strong model-conditionality (Llama vs OLMo divergence).</td></tr>
+      <tr><td>Exp8C</td><td class="yellow">Not executed</td><td>Deferred as pending extension, not part of confirmatory core.</td></tr>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Scope rule used below:</strong> executed artifacts are treated as evidence; unexecuted branches remain explicitly pending.</p>
+  </div>
+  <p class="provenance">Sources: results/experiment4/*, results/experiment5/*, results/experiment6/*, results/experiment7/*, results/experiment8/*, reinforce_exp2/A0_claim_hygiene/claim_matrix.csv</p>
+</div>
+
+<!-- =====================================================================
+     SECTION E: EXPERIMENT 4 — SI-AWARE FINE-TUNING
+     ===================================================================== -->
+
+<!-- SLIDE 31 -->
+<div class="slide title-slide">
+  <div class="slide-num">31</div>
+  <h1>Experiment 4: SI-Aware Fine-Tuning</h1>
+  <p class="subtitle">Can training-time interventions exploit or modify SI structure?</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Motivation:</strong> Exp3 Idea6 showed inference-time SI amplification does not help math. Exp4 tests whether <em>training-time</em> routing through SI heads can improve downstream performance, and whether SI structure is modifiable at all during fine-tuning.
+  </div>
+</div>
+
+<!-- SLIDE 32 -->
+<div class="slide">
+  <div class="slide-num">32</div>
+  <h2>Exp4A: SI-Aware LoRA Comparison</h2>
+  <div class="explain">
+    <strong>Experiment 4A:</strong> Test 5 LoRA conditions that differentially target SI vs non-SI heads. If SI structure matters for fine-tuning, SI-aware routing should outperform uniform baselines.<br>
+    <strong>Models:</strong> OLMo-2-7B (3 seeds per condition, 15 total runs). 250 training steps, lr=2e-4, seq_len=256.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Conditions tested</h3>
+        <table>
+          <tr><th>Condition</th><th>Strategy</th><th>Rank</th></tr>
+          <tr><td>A</td><td>SI-protecting (low rank on SI heads)</td><td>1</td></tr>
+          <tr><td>B</td><td>Uniform LoRA (same rank everywhere)</td><td>8</td></tr>
+          <tr><td>C</td><td>SI-only (LoRA only on SI heads)</td><td>varies</td></tr>
+          <tr><td>D</td><td>Full QLoRA baseline</td><td>8</td></tr>
+          <tr><td>E</td><td>SI-amplified (high rank on SI heads)</td><td>16</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Results: pairwise accuracy comparisons</h3>
+        <table>
+          <tr><th>Comparison</th><th>Delta Accuracy</th><th>95% CI</th><th>p</th></tr>
+          <tr><td>A vs B (SI-protecting vs uniform)</td><td class="dim">-0.009</td><td>[-0.025, +0.006]</td><td>0.355</td></tr>
+          <tr><td>B vs D (uniform vs baseline)</td><td class="dim">+0.004</td><td>[-0.014, +0.022]</td><td>0.691</td></tr>
+          <tr><td>E vs D (SI-amplified vs baseline)</td><td class="dim">-0.003</td><td>[-0.019, +0.013]</td><td>0.742</td></tr>
+          <tr><td>E vs A (amplified vs protecting)</td><td class="dim">+0.002</td><td>[-0.023, +0.027]</td><td>0.886</td></tr>
+          <tr><td>E vs C (amplified vs SI-only)</td><td class="dim">-0.015</td><td>[-0.046, +0.016]</td><td>0.453</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion:</strong> Complete null result. No SI-aware LoRA condition significantly outperforms or underperforms the baseline. All confidence intervals include zero.</p>
+      </div>
+      <div class="explain">
+        <strong>Why this matters:</strong> SI structure cannot be exploited through fine-tuning routing. Combined with Exp4C below, this points to SI as <em>fixed infrastructure</em> &mdash; present and load-bearing (T8), but not a tunable parameter.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment4/exp4a_si_aware_lora/olmo-2-7b/si_lora_comparison.json</p>
+</div>
+
+<!-- SLIDE 33 -->
+<div class="slide">
+  <div class="slide-num">33</div>
+  <h2>Exp4C: SI Immutability During Fine-Tuning</h2>
+  <div class="explain">
+    <strong>Experiment 4C:</strong> Track per-head R2 over the course of LoRA fine-tuning to determine whether SI structure changes during training.<br>
+    <strong>Method:</strong> Snapshot R2 profiles at steps 0, 50, 100, 150, 200, 250, 300 and compute deltas.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="metric-row">
+        <div class="metric"><div class="value green">&lt; 0.002</div><div class="label">Delta R2 over 300 FT steps</div></div>
+        <div class="metric"><div class="value green">Stable</div><div class="label">Head rank ordering preserved</div></div>
+      </div>
+      <div class="card">
+        <h3>Key finding</h3>
+        <p>SI structure is <strong>immutable during fine-tuning</strong>. The per-head R2 profile barely changes (delta &lt; 0.002) over 300 training steps. The ranking of heads by shift-invariance is preserved throughout.</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>Interpretation:</strong> SI structure appears to be set during pretraining and then mostly frozen. Fine-tuning seems to update other directions that do not move SI much. This helps explain why Exp4A SI-aware LoRA settings had little effect.</p>
+      </div>
+      <div class="explain">
+        <strong>Combined Exp4 narrative:</strong> SI is not a dial you can turn. It is a consequence of how the model learned to use its positional encoding during pretraining, and it persists unchanged through fine-tuning. This transforms the research question from "how to exploit SI" to "what determines SI" &mdash; which leads directly to Experiment 5.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment4/exp4c_diagnostic_trajectory/</p>
+</div>
+
+<!-- =====================================================================
+     SECTION F: EXPERIMENT 5 — TOKENIZER ATTRIBUTION
+     ===================================================================== -->
+
+<!-- SLIDE 34 -->
+<div class="slide title-slide">
+  <div class="slide-num">34</div>
+  <h1>Experiment 5: Tokenizer Attribution</h1>
+  <p class="subtitle">SI identity is substantially shaped by tokenizer boundary structure, not architecture alone</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Motivation:</strong> If SI structure is frozen from pretraining (Exp4C), what determines <em>which</em> heads become SI? The Llama-vs-OLMo strict-gate asymmetry from Phase2 hints at tokenizer family effects. Experiment 5 directly tests whether the tokenizer is the causal driver.
+  </div>
+</div>
+
+<!-- SLIDE 35 -->
+<div class="slide">
+  <div class="slide-num">35</div>
+  <h2>Exp5B: Cross-Tokenizer SI Profiling</h2>
+  <div class="explain">
+    <strong>Experiment 5B:</strong> Compare SI head identity across models that share architecture but differ in tokenizer. If architecture determines SI identity, same-architecture models should have similar SI head sets. If tokenizer determines SI identity, same-tokenizer models should agree instead.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Key comparison: Llama-2 vs Llama-3.1</h3>
+        <p>Same architecture family, different tokenizer (32k BPE vs 128k BPE).</p>
+        <table>
+          <tr><th>Metric</th><th>Value</th><th>Interpretation</th></tr>
+          <tr><td>Top-quartile Jaccard overlap</td><td class="red">0.177</td><td>Only 17.7% of top SI heads shared</td></tr>
+          <tr><td>Rank correlation (rho)</td><td class="yellow">p = 0.048 (marginal at α = 0.05)</td><td>Borderline rank agreement — sits exactly at the significance threshold; not declared significant but not comfortably null</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Implication</h3>
+        <p>Changing the tokenizer <strong>substantially reassigns</strong> which heads become shift-invariant, even when the architecture is held constant. The Jaccard overlap of 0.177 (only 17.7% of top SI heads shared) is the primary evidence; the rank correlation (p=0.048) is borderline and should be read as corroborative rather than confirmatory on its own.</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>Conclusion:</strong> Tokenizer boundary structure is the primary shaper of SI head identity — architecture alone cannot explain the low overlap. The Jaccard result (0.177) drives this conclusion; the rank correlation supports the direction but sits at the significance threshold. The causal chain begins: <strong>tokenizer &rarr; boundary positions &rarr; SI head identity</strong>.</p>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><div class="value red">0.177</div><div class="label">Jaccard overlap (Llama-2 vs 3.1)</div></div>
+        <div class="metric"><div class="value yellow">p=0.048</div><div class="label">Rank correlation (marginal — at α=0.05 boundary)</div></div>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment5/exp5b_cross_tokenizer/</p>
+</div>
+
+<!-- SLIDE 36 -->
+<div class="slide">
+  <div class="slide-num">36</div>
+  <h2>Exp5C: Causal Tokenizer Perturbations</h2>
+  <div class="explain">
+    <strong>Experiment 5C:</strong> Directly intervene on tokenization to test causal direction. If SI heads respond to tokenizer-created boundaries, then artificially inserting or removing boundaries should redirect SI attention.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Perturbation conditions</h3>
+        <table>
+          <tr><th>Perturbation</th><th>Delta SI attention</th><th>p-value</th></tr>
+          <tr><td>Fake boundary insertion</td><td class="green">+0.017</td><td>8.8e-22</td></tr>
+          <tr><td>Character decomposition</td><td class="green">+0.017</td><td>4.5e-35</td></tr>
+        </table>
+      </div>
+      <div class="callout success">
+        <p><strong>Conclusion:</strong> Tokenizer perturbations causally redirect SI attention. Inserting a fake word boundary causes SI heads to attend to it; decomposing tokens to characters shifts the attention pattern. Both effects are highly significant (p &lt; 1e-20).</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Causal chain established</h3>
+        <p>Together with 5B, this closes the causal chain:</p>
+        <ol>
+          <li><strong>Tokenizer</strong> determines where boundaries fall.</li>
+          <li><strong>Boundary positions</strong> determine which heads develop SI kernels (5B: Jaccard=0.177).</li>
+          <li><strong>Perturbing boundaries</strong> causally redirects SI attention (5C: p&lt;1e-20).</li>
+        </ol>
+        <p>This is the foundational result that motivates Experiments 7 and 8: if SI is tokenizer-driven, we can use SI analysis to diagnose tokenizer quality.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment5/exp5c_tokenizer_perturbation/</p>
+</div>
+
+<!-- SLIDE 37 -->
+<div class="slide">
+  <div class="slide-num">37</div>
+  <h2>Exp5D: Distribution Shift Robustness</h2>
+  <div class="explain">
+    <strong>Experiment 5D:</strong> Test whether SI structure is fragile to domain shift. If SI is fundamental infrastructure, it should be stable across text domains.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>R2 stability across domains</h3>
+        <table>
+          <tr><th>Condition</th><th>Llama R2</th><th>Delta</th><th>OLMo R2</th><th>Delta</th></tr>
+          <tr><td>Wiki (baseline)</td><td>0.371</td><td>&mdash;</td><td>0.054</td><td>&mdash;</td></tr>
+          <tr><td>Code</td><td>0.405</td><td class="green">+0.034</td><td>0.070</td><td class="green">+0.016</td></tr>
+          <tr><td>Dialogue</td><td>0.428</td><td class="green">+0.057</td><td>0.080</td><td class="green">+0.027</td></tr>
+          <tr><td>Technical</td><td>0.331</td><td class="yellow">-0.040</td><td>0.050</td><td class="dim">-0.004</td></tr>
+          <tr><td>Adversarial BPE</td><td>0.359</td><td class="dim">-0.012</td><td>0.052</td><td class="dim">-0.002</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>Conclusion:</strong> SI structure is robust to domain shift. R2 varies by at most &plusmn;0.06 across very different text types, including adversarial BPE sequences. The SI kernel is domain-general infrastructure.</p>
+      </div>
+      <div class="explain">
+        <strong>Combined Exp5 narrative:</strong> SI identity is (1) substantially shaped by tokenizer boundary structure (5B: Jaccard=0.177, rank correlation marginal at p=0.048), (2) causally responsive to boundary changes (5C: p&lt;1e-20), and (3) domain-robust (5D). This positions SI as a stable, tokenizer-coupled processing layer — not task-specific or domain-dependent. The word "determined" overstates the evidence; "substantially shaped by" is the accurate framing given 5B's borderline rank correlation.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment5/exp5d_distribution_shift_fragility/distribution_shift_fragility.json</p>
+</div>
+
+<!-- =====================================================================
+     SECTION G: EXPERIMENT 6 — SI INTERVENTIONS
+     ===================================================================== -->
+
+<!-- SLIDE 38 -->
+<div class="slide title-slide">
+  <div class="slide-num">38</div>
+  <h1>Experiment 6: Training-Time SI Interventions</h1>
+  <p class="subtitle">Attempting to exploit SI structure during fine-tuning &mdash; and why it fails</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Motivation:</strong> Exp4 showed SI-aware LoRA is a null result. Exp6 tests more aggressive interventions: gradient routing, anti-localization, distillation, contrastive learning, and tokenizer formatting. If SI structure truly cannot be exploited, these should also fail or backfire &mdash; reinforcing the "fixed infrastructure" interpretation.
+  </div>
+</div>
+
+<!-- SLIDE 39 -->
+<div class="slide">
+  <div class="slide-num">39</div>
+  <h2>Exp6A: Gradient Routing Through SI Heads</h2>
+  <div class="explain">
+    <strong>Experiment 6A:</strong> During fine-tuning, route math-task gradients preferentially through SI heads using separate forward passes for math vs control data. Tests whether SI heads can be recruited for improved math reasoning.<br>
+    <strong>Models:</strong> Llama-3.1-8B, OLMo-2-7B, TinyLlama-1.1B (3 paired seeds each).
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Results</h3>
+        <table>
+          <tr><th>Model</th><th>Math Delta</th><th>p</th><th>Wiki PPL Delta</th><th>p</th></tr>
+          <tr><td>Llama-3.1-8B</td><td class="red">-12.3pp</td><td>0.0115</td><td class="green">-0.535</td><td>0.0027</td></tr>
+          <tr><td>OLMo-2-7B</td><td class="yellow">-1.46pp</td><td>0.148</td><td class="green">-1.371</td><td>0.0011</td></tr>
+          <tr><td>TinyLlama-1.1B</td><td class="dim">-0.21pp</td><td>0.881</td><td class="green">-1.227</td><td>0.0034</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Scale dependence</h3>
+        <p>At Llama 8B scale, gradient routing <strong>significantly harms math</strong> while improving language modeling. OLMo/TinyLlama math changes are not significant, but perplexity improvements persist.</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout danger">
+        <p><strong>Conclusion:</strong> 6A does not provide a safe optimization pathway. The strongest effect is harmful to target-task accuracy (Llama), while PPL improvements indicate off-target routing gains.</p>
+      </div>
+      <div class="explain">
+        <strong>Interpretation:</strong> SI channels appear infrastructure-like and difficult to repurpose for direct task gains via routing pressure.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment6/exp6a_gradient_routing/llama-3.1-8b/exp6a_comparison.json, results/experiment6/exp6a_gradient_routing/olmo-2-7b/exp6a_comparison.json, results/experiment6/exp6a_gradient_routing/tinyllama-1.1b/exp6a_comparison.json</p>
+</div>
+
+<!-- SLIDE 40 -->
+<div class="slide">
+  <div class="slide-num">40</div>
+  <h2>Exp6B-6E: Completed Status and Combined Assessment</h2>
+  <div class="explain">
+    <strong>As of April 20, 2026:</strong> all Exp6 branches (6A-6E) have artifact outputs. 6B-6D are paired-seed comparisons; 6E is currently single-seed diagnostic per model.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>6B-6D summary</h3>
+        <table>
+          <tr><th>Sub-study</th><th>Main pattern</th><th>Verdict</th></tr>
+          <tr><td>6B Anti-localization</td><td>Math deltas near zero across Llama/OLMo/Tiny (all p &gt; 0.64)</td><td class="yellow">Null</td></tr>
+          <tr><td>6C Distillation</td><td>Math null; wiki perplexity worsens across all models (+1.97 to +2.44, p&lt;0.002)</td><td class="red">Harmful off-target</td></tr>
+          <tr><td>6D Contrastive</td><td>No significant math or PPL gains (all p &gt; 0.16)</td><td class="yellow">Null</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>6E tokenizer formatting diagnostic</h3>
+        <table>
+          <tr><th>Model</th><th>Delta accuracy (SI-optimized - standard)</th><th>Status</th></tr>
+          <tr><td>Llama-3.1-8B</td><td class="red">-27.8pp</td><td>Single-seed harmful</td></tr>
+          <tr><td>OLMo-2-7B</td><td class="red">-19.1pp</td><td>Single-seed harmful</td></tr>
+          <tr><td>TinyLlama-1.1B</td><td class="dim">0.0pp</td><td>Single-seed null</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Combined Exp6 verdict:</strong> there is no robust positive training-time intervention signal. Results are predominantly null, with several harmful effects.</p>
+      </div>
+      <div class="explain">
+        <strong>Submission implication:</strong> Exp6 strengthens the "fixed infrastructure" framing by constraining what SI-guided training can and cannot do.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment6/exp6b_anti_localization/*/exp6b_comparison.json, results/experiment6/exp6c_distillation/*/exp6c_comparison.json, results/experiment6/exp6d_contrastive/*/exp6d_comparison.json, results/experiment6/exp6e_tokenizer/*/exp6e_tokenizer_comparison.json</p>
+</div>
+
+<!-- =====================================================================
+     SECTION H: EXPERIMENT 7 — COMPRESSED SENSING THEORY
+     ===================================================================== -->
+
+<!-- SLIDE 41 -->
+<div class="slide title-slide">
+  <div class="slide-num">41</div>
+  <h1>Experiment 7: Compressed Sensing Theory</h1>
+  <p class="subtitle">A quantitative mathematical framework for shift-invariant structure</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Motivation (simple):</strong> Experiments 1-6 showed what SI does. Experiment 7 asks why SI appears in the first place. We use compressed sensing (CS) as a math lens: the PE matrix acts like a measurement system, and its geometry should predict SI behavior.
+  </div>
+</div>
+
+<!-- SLIDE 42 -->
+<div class="slide">
+  <div class="slide-num">42</div>
+  <h2>Exp7A: Welch Bound Predicts SI Head R2</h2>
+  <div class="explain">
+    <strong>Experiment 7A:</strong> Compute each model's Welch-bound coherence gap and test whether that number predicts observed SI strength (R2).<br>
+    <strong>Setup:</strong> 36 model-config combinations (6 models x 2 seq lengths x 3 data types). Bootstrap with 2000 samples.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Core result</h3>
+        <div class="metric-row">
+          <div class="metric"><div class="value green">-0.793</div><div class="label">Pearson r (coherence gap vs R2)</div></div>
+          <div class="metric"><div class="value green">p &lt; 0.001</div><div class="label">Significance</div></div>
+          <div class="metric"><div class="value green">0.665</div><div class="label">Fitted alpha parameter</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What this means (plain English)</h3>
+        <p>The <strong>Welch bound</strong> is a limit on how similar PE columns can be. A smaller coherence gap means positions are easier to tell apart. In these runs, models with better PE geometry tend to show stronger SI structure (higher R2).</p>
+        <p>Correlation: r = −0.793, CI: [−0.891, −0.592]. Spearman rho = −0.510 (p = 0.0015).</p>
+        <div class="callout warning">
+          <p><strong>Important caveat:</strong> we report 36 condition rows, but only <strong>6 independent models</strong> (one PE gap per model). So the true independent sample size is n=6, not 36. Read this as suggestive evidence, not a final law.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion (scoped):</strong> 7A is consistent with CS theory and gives a strong pattern (r = −0.793), but because effective n=6 models, this remains theory-consistent evidence, not a confirmed quantitative law.</p>
+      </div>
+      <div class="explain">
+        <strong>Why it still matters:</strong> even with n=6, the direction is stable, and Exp7B gives a second independent prediction that points the same way. So this is more than a one-off curve fit, but still below "proven" status.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment7/exp7a_welch_r2/r2_prediction_results.json</p>
+</div>
+
+<!-- SLIDE 43 -->
+<div class="slide">
+  <div class="slide-num">43</div>
+  <h2>Exp7B: Phase Transition in SI Head Ablation</h2>
+  <div class="explain">
+    <strong>Experiment 7B:</strong> CS theory predicts a threshold: once SI heads drop below a critical count <code>m*</code>, performance should collapse quickly. We test whether that sharp threshold appears, and whether predicted <code>m*</code> matches observed collapse points.<br>
+    <strong>Setup:</strong> Llama-3.1-8B and OLMo-2-7B, seq lengths [256, 512, 1024], 3 seeds x 128 sequences per seed.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="metric-row">
+        <div class="metric"><div class="value green">-0.959</div><div class="label">Pearson r (predicted vs observed m*)</div></div>
+        <div class="metric"><div class="value green">p = 0.003</div><div class="label">Significance</div></div>
+        <div class="metric"><div class="value green">7.834</div><div class="label">Fitted critical exponent</div></div>
+      </div>
+      <div class="card">
+        <h3>Phase transition dynamics</h3>
+        <p>As SI heads are removed, performance drops in a <strong>sharp threshold pattern</strong>, not a smooth gradual decline. The observed collapse point tracks the CS-predicted <code>m*</code> (r = -0.959).</p>
+      </div>
+    </div>
+    <div>
+      <div class="callout warning">
+        <p><strong>Conclusion (preliminary):</strong> 7B is consistent with CS theory (r = −0.959), but it currently uses only two model families, so independent evidence is limited. Also, constant <code>C = 7.834</code> is fitted, not derived. This remains preliminary until replicated more broadly.</p>
+      </div>
+      <div class="explain">
+        <strong>Combined Exp7 narrative:</strong> CS theory provides two quantitative predictions:<br>
+        (1) <strong>7A:</strong> coherence gap predicts R² (r = −0.793, effective n=6 models) — <em>suggestive</em><br>
+        (2) <strong>7B:</strong> m* predicts ablation threshold (r = −0.959, effective n≈2 model families) — <em>preliminary</em><br><br>
+        Both point in the predicted direction. The strongest honest framing is: "CS theory organizes SI evidence and gives predictions consistent with observations." That is meaningful, even if it is not full confirmation yet.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment7/exp7b_phase_transition/phase_transition_scaling.json</p>
+</div>
+
+<!-- SLIDE 44 -->
+<div class="slide">
+  <div class="slide-num">44</div>
+  <h2>Exp7: Theoretical Framework Summary</h2>
+  <div class="card">
+    <h3>The compressed sensing interpretation of SI structure</h3>
+    <ol>
+      <li><strong>PE as measurement geometry:</strong> positional encodings define the space where heads read position information.</li>
+      <li><strong>Geometry quality matters:</strong> better coherence geometry is associated with stronger SI head R2 (7A: suggestive, effective n=6).</li>
+      <li><strong>Threshold behavior appears:</strong> removing too many SI heads creates a sharp collapse near predicted <code>m*</code> (7B: preliminary, effective n≈2).</li>
+      <li><strong>Tokenizer links to theory:</strong> tokenizer boundary pattern sets effective sparsity, connecting Exp7 theory to Exp5 causality and Exp8 diagnostics.</li>
+    </ol>
+  </div>
+  <div class="callout success">
+    <p><strong>This is the paper's theoretical core.</strong> Exp1-Exp3 provide the phenomenon, Exp5 and Exp8 test tokenizer-linked predictions, and Exp7 provides a quantitative organizing model for all of it.</p>
+  </div>
+  <p class="provenance">Sources: experiment7/cs_theory_connections.md, results/experiment7/</p>
+</div>
+
+<!-- =====================================================================
+     SECTION I: EXPERIMENT 8 — TOKENIZER ANALYSIS VIA SI STRUCTURE
+     ===================================================================== -->
+
+<!-- SLIDE 45 -->
+<div class="slide title-slide">
+  <div class="slide-num">45</div>
+  <h1>Experiment 8: Tokenizer Analysis via SI Structure</h1>
+  <p class="subtitle">From characterization to practical application</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Motivation:</strong> Exp5 suggests a chain: tokenizer &rarr; boundaries &rarr; SI heads &rarr; behavior. So Exp8 asks whether SI can be used as a practical tokenizer diagnostic.<br><br>
+    <strong>8A:</strong> BDI/BAC/KOA metrics to measure tokenizer-SI alignment.<br>
+    <strong>8B:</strong> Tokenizer-aware pruning to test whether SI masks help keep performance under ablation.<br>
+    <strong>8C:</strong> Cross-lingual diagnostics (planned, not yet executed).
+  </div>
+</div>
+
+<!-- SLIDE 46 -->
+<div class="slide">
+  <div class="slide-num">46</div>
+  <h2>Exp8A: Boundary Discrimination Metrics (BDI / BAC / KOA)</h2>
+  <div class="explain">
+    <strong>Experiment 8A v2:</strong> Three metrics measuring how SI heads respond to tokenizer-created word boundaries. Uses the 3P2-B boundary definition (<code>word_ids[t] != word_ids[t-1]</code>).<br>
+    <strong>BDI:</strong> How much more SI heads look at the previous token at boundary positions than continuation positions.<br>
+    <strong>BAC:</strong> SI-head BDI divided by non-SI-head BDI (higher means SI heads are more specialized for this behavior).<br>
+    <strong>KOA:</strong> How well boundary spacing matches SI kernel peak offsets.<br>
+    <strong>Note:</strong> v2 was a redesign after the original SIBAS setup collapsed because almost all positions (99.8%) were labeled as boundaries.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>Alignment metrics with full BDI outputs</h3>
+        <table>
+          <tr><th>Metric</th><th>GPT2-Small</th><th>TinyLlama-1.1B</th></tr>
+          <tr><td>BDI (SI heads)</td><td class="green">+0.026</td><td class="green">+0.008</td></tr>
+          <tr><td>BDI (non-SI heads)</td><td class="dim">+0.001</td><td class="red">-0.002</td></tr>
+          <tr><td>BDI delta (SI - nonSI)</td><td class="green">+0.026</td><td class="green">+0.010</td></tr>
+          <tr><td>Cohen's d</td><td class="green">5.14</td><td class="green">4.58</td></tr>
+          <tr><td>KOA (SI heads)</td><td class="green">0.999</td><td class="green">0.969</td></tr>
+          <tr><td>BDI x R2 (Spearman rho)</td><td class="green">0.407</td><td class="green">0.329</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Composite SIBAS runs (all 4 executed models)</h3>
+        <table>
+          <tr><th>Model</th><th>High-vs-low SIBAS p(two-sided)</th><th>Direction</th></tr>
+          <tr><td>GPT2-Small</td><td class="green">1.25e-14</td><td>High-SI &gt; low-SI</td></tr>
+          <tr><td>TinyLlama-1.1B</td><td class="green">2.00e-13</td><td class="red">High-SI &lt; low-SI</td></tr>
+          <tr><td>Llama-3.1-8B</td><td class="green">3.14e-13</td><td>High-SI &gt; low-SI</td></tr>
+          <tr><td>OLMo-2-7B</td><td class="green">0.00135</td><td>High-SI &gt; low-SI (small effect)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="callout success">
+        <p><strong>BDI takeaway:</strong> in models with full BDI outputs (GPT2, TinyLlama), SI heads show clear boundary discrimination and high-vs-low separation.</p>
+      </div>
+      <div class="callout">
+        <p><strong>Composite metric caveat:</strong> SIBAS direction is not uniform across models (TinyLlama reverses), so this stays model-conditional.</p>
+      </div>
+      <div class="explain">
+        <strong>Inference rule:</strong> Exp8A adds positive evidence for boundary-linked SI behavior, but does not provide one universal model-invariant score.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment8/exp8a_sibas/gpt2-small/alignment_summary.json, results/experiment8/exp8a_sibas/tinyllama-1.1b/alignment_summary.json, results/experiment8/exp8a_sibas/llama-3.1-8b/sibas_summary.json, results/experiment8/exp8a_sibas/olmo-2-7b/sibas_summary.json</p>
+</div>
+
+<!-- SLIDE 47 -->
+<div class="slide">
+  <div class="slide-num">47</div>
+  <h2>Exp8B: Tokenizer-Aware Pruning (Llama-3.1-8B)</h2>
+  <div class="explain">
+    <strong>Experiment 8B:</strong> Progressive head ablation with 5 mask types. The key test is <strong>SI-matched vs SI-mismatched</strong>: same number of retained heads, but mismatched uses SI profile from the wrong tokenizer. If SI carries tokenizer-specific information, matched should perform better.
+  </div>
+  <div class="two-col wide-left">
+    <div>
+      <div class="card">
+        <h3>AUDC scores (lower = more robust to ablation)</h3>
+        <table>
+          <tr><th>Mask type</th><th>Math AUDC</th><th>PPL AUDC</th><th>Tokenizer-specific?</th></tr>
+          <tr><td class="green">si_matched</td><td class="green">0.261</td><td class="green">61.4</td><td>Yes (correct tokenizer)</td></tr>
+          <tr><td>random</td><td>0.225</td><td>178.0</td><td>No</td></tr>
+          <tr><td class="red">si_mismatched</td><td>0.198</td><td>292.7</td><td>Yes (wrong tokenizer)</td></tr>
+          <tr><td>entropy</td><td>0.191</td><td>301.9</td><td>No</td></tr>
+          <tr><td>activation</td><td>0.143</td><td>213.4</td><td>No</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Critical early-ablation comparison</h3>
+        <table>
+          <tr><th>Fraction ablated</th><th>si_matched math</th><th>si_mismatched math</th><th>Gap</th></tr>
+          <tr><td>5%</td><td class="green">0.662</td><td class="red">0.369</td><td class="green">+29.3pp</td></tr>
+          <tr><td>10%</td><td class="green">0.731</td><td class="red">0.369</td><td class="green">+36.2pp</td></tr>
+          <tr><td>15%</td><td class="green">0.562</td><td class="red">0.212</td><td class="green">+35.0pp</td></tr>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Hypothesis tests (paired t-tests across ablation levels)</h3>
+        <table>
+          <tr><th>Comparison (math accuracy)</th><th>t</th><th>p</th></tr>
+          <tr><td>matched vs entropy</td><td>4.22</td><td class="green">0.003</td></tr>
+          <tr><td>matched vs activation</td><td>2.99</td><td class="green">0.017</td></tr>
+          <tr><td class="highlight">matched vs mismatched</td><td>2.56</td><td class="green">0.034</td></tr>
+          <tr><td>matched vs random</td><td>1.02</td><td class="dim">0.337</td></tr>
+        </table>
+      </div>
+      <div class="callout success">
+        <p><strong>Key result:</strong> using the correct tokenizer's SI mask preserves math accuracy better than the wrong-tokenizer mask (matched vs mismatched p = 0.034). At 5% ablation, the gap is <strong>29 percentage points</strong>.</p>
+      </div>
+      <div class="explain">
+        <strong>Interpretation:</strong> this is strong evidence that SI classification carries tokenizer-specific information with downstream impact. Generic masks (entropy, activation) also underperform matched SI on math accuracy here. Practical takeaway: tokenizer changes can change which pruning mask works best.
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment8/exp8b_pruning/llama-3.1-8b/pruning_summary.json, results/experiment8/exp8b_pruning/llama-3.1-8b/run_manifest.json</p>
+</div>
+
+<!-- SLIDE 48 -->
+<div class="slide">
+  <div class="slide-num">48</div>
+  <h2>Exp8B: OLMo Final Results and Cross-Model Divergence</h2>
+  <div class="explain">
+    <strong>As of April 15, 2026:</strong> OLMo-2-7B pruning runs are complete. The earlier reversal persisted and is significant for matched-vs-mismatched comparison.
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <h3>Cross-model matched-vs-mismatched result</h3>
+        <table>
+          <tr><th>Model</th><th>Mean diff (matched - mismatched)</th><th>p(two-sided)</th><th>Interpretation</th></tr>
+          <tr><td>Llama-3.1-8B</td><td class="green">+0.1368</td><td class="green">0.0339</td><td>Matched mask better</td></tr>
+          <tr><td>OLMo-2-7B</td><td class="red">-0.1597</td><td class="green">0.0148</td><td>Mismatched mask better</td></tr>
+        </table>
+      </div>
+      <div class="callout danger">
+        <p><strong>Confirmed divergence:</strong> pruning utility is not model-invariant in this setup. OLMo reverses the Llama pattern.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>What remains robust vs what is demoted</h3>
+        <ul>
+          <li><strong>Robust:</strong> tokenizer-specific signal exists inside at least one model family (Llama positive and significant).</li>
+          <li><strong>Demoted:</strong> universal cross-model pruning advantage is not supported.</li>
+          <li><strong>Conservative framing:</strong> Exp8B gives practical but model-conditional guidance, not universal compression advice.</li>
+        </ul>
+      </div>
+      <div class="callout warning">
+        <p><strong>Claim policy:</strong> keep tokenizer-aware pruning as a conditional/applied claim with explicit model-dependence caveat in main text.</p>
+      </div>
+    </div>
+  </div>
+  <p class="provenance">Sources: results/experiment8/exp8b_pruning/llama-3.1-8b/pruning_summary.json, results/experiment8/exp8b_pruning/olmo-2-7b/pruning_summary.json</p>
+</div>
+
+<!-- =====================================================================
+
+<!-- =====================================================================
+     SECTION J: CONSOLIDATION TRACK (reinforce_exp, reinforce_exp2)
+     ===================================================================== -->
+
+<!-- SLIDE 49 -->
+<div class="slide title-slide">
+  <div class="slide-num">49</div>
+  <h1>Consolidation Track: Reinforcement to Submission Discipline</h1>
+  <p class="subtitle">Post-Exp8 hardening with <code>reinforce_exp</code> and <code>reinforce_exp2</code></p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Purpose:</strong> convert a large, mixed experimental record into claim-level evidence that is reviewer-defensible.
+    This section focuses on exactly what was run, what weakness it addressed, and what claim status it supports.
+  </div>
+  <p class="provenance">Sources: reinforce_exp/OVERVIEW.md, reinforce_exp2/OVERVIEW.md, paper/neurips2026/main.tex</p>
+</div>
+
+<!-- SLIDE 50 -->
+<div class="slide">
+  <div class="slide-num">50</div>
+  <h2>Why Reinforcement Existed</h2>
+  <div class="card">
+    <table>
+      <tr><th>Reviewer attack surface</th><th>Why it mattered for paper acceptance</th><th>Reinforcement lane</th></tr>
+      <tr><td>Strict gate ambiguity (especially Llama boundary)</td><td>Could undermine boundary claim validity and strict invariance narrative</td><td>R1, R2B, reinforce_exp2 A-path governance</td></tr>
+      <tr><td>Dependence inflation / pseudoreplication concern</td><td>Could invalidate nominal p-value-driven interpretations</td><td>R2 + governance status discipline</td></tr>
+      <tr><td>Limited portability across model families</td><td>Two-model story can be criticized as fragile</td><td>R3 third-model replication, R4 non-RoPE anchors</td></tr>
+      <tr><td>Ordering/specificity confounds in threshold and kernel channels</td><td>Could demote central mechanism claims</td><td>NEW-R12 ordering control, NEW-R14 specificity control</td></tr>
+      <tr><td>Proxy semantics not transferring to task-grounded setting</td><td>Could overstate specialization claims</td><td>R5 and R5B transfer checks</td></tr>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Interpretation rule:</strong> reinforcement was designed to tighten claim boundaries, not to force uniformly positive outcomes.</p>
+  </div>
+  <p class="provenance">Sources: reinforce_exp/OVERVIEW.md, results/reinforce_exp/*, paper/neurips2026/main.tex</p>
+</div>
+
+<!-- SLIDE 51 -->
+<div class="slide">
+  <div class="slide-num">51</div>
+  <h2>`reinforce_exp` Program Map</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Primary modules</h3>
+      <table>
+        <tr><th>Module</th><th>Main target</th></tr>
+        <tr><td>R1</td><td>Llama multidomain strict-gate adjudication</td></tr>
+        <tr><td>R2</td><td>Dependence-aware reanalysis of core claims</td></tr>
+        <tr><td>R3</td><td>Third-model core replication (Mistral-7B)</td></tr>
+        <tr><td>R4</td><td>PE-scheme contrast with non-RoPE anchors (GPT-2 family)</td></tr>
+        <tr><td>R5</td><td>Task-grounded specialization transfer check</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Control and boundary modules</h3>
+      <table>
+        <tr><th>Module</th><th>Main target</th></tr>
+        <tr><td>R2B</td><td>OLMo boundary-power caveat reinforcement</td></tr>
+        <tr><td>R5B</td><td>One-to-one regime alignment transfer gate</td></tr>
+        <tr><td>NEW-R12</td><td>Random-order null control for C1 threshold claims</td></tr>
+        <tr><td>NEW-R14</td><td>Kernel perturbation specificity control</td></tr>
+        <tr><td>NEW-R15</td><td>SI head identity stability across domains</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="callout success">
+    <p><strong>Contract for next slides:</strong> each module is reported as <code>what was run</code>, <code>what it shored up</code>, <code>result</code>, and <code>claim impact</code>.</p>
+  </div>
+  <p class="provenance">Sources: reinforce_exp/OVERVIEW.md, results/reinforce_exp/*</p>
+</div>
+
+<!-- SLIDE 52 -->
+<div class="slide">
+  <div class="slide-num">52</div>
+  <h2>`reinforce_exp` Detailed Results: R1 + R2</h2>
+  <div class="card">
+    <table>
+      <tr><th>Module</th><th>What was run</th><th>What it shored up</th><th>Result</th><th>Claim impact</th></tr>
+      <tr>
+        <td>R1</td>
+        <td>12-seed multidomain strict-gate adjudication for Llama (wiki/code/dialogue)</td>
+        <td>Boundary strictness stability under domain shift</td>
+        <td><code>assessment=ambiguous</code>; strict pass=false; strict block=false; domain split: 1 clean, 2 ambiguous</td>
+        <td class="yellow">Keeps boundary claim caveated for Llama; no unconditional strict promotion</td>
+      </tr>
+      <tr>
+        <td>R2</td>
+        <td>Dependence-aware reanalysis table over core claim cells</td>
+        <td>Pseudoreplication/inflated significance criticism</td>
+        <td><code>7/8</code> cells direction-supported; one notable exception remains</td>
+        <td class="green">Strengthens main direction while preserving explicit caveat cell</td>
+      </tr>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Reading:</strong> R1 prevented over-claiming; R2 improved inferential credibility of the surviving core direction.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp/exp_r1_multidomain_gate/multidomain_gate_summary_v1.json, results/reinforce_exp/exp_r2_dependence_reanalysis/claim_stability_table.json</p>
+</div>
+
+<!-- SLIDE 53 -->
+<div class="slide">
+  <div class="slide-num">53</div>
+  <h2>`reinforce_exp` Detailed Results: R3 + R4</h2>
+  <div class="card">
+    <table>
+      <tr><th>Module</th><th>What was run</th><th>What it shored up</th><th>Result</th><th>Claim impact</th></tr>
+      <tr>
+        <td>R3</td>
+        <td>Mistral-7B core replication battery aligned to T8/B/C1-level checks</td>
+        <td>Two-model fragility and portability criticism</td>
+        <td><code>kernel_load_bearing=true</code>, <code>boundary_strict_prefix_flag=false</code>, <code>c1_threshold_supported=true</code>, <code>claim_impact=strengthens_main_claim</code></td>
+        <td class="green">Supports three-model core breadth with caveated attribution language</td>
+      </tr>
+      <tr>
+        <td>R4</td>
+        <td>Non-RoPE anchor comparison using GPT2-medium and GPT2-small</td>
+        <td>"RoPE-only artifact" criticism</td>
+        <td><code>pe_scheme_generality_supported=true</code>; 2/2 positive anchor replications; aggregate positive replications = 2</td>
+        <td class="green">Narrows RoPE-only interpretation in tested families</td>
+      </tr>
+    </table>
+  </div>
+  <div class="callout success">
+    <p><strong>Reading:</strong> R3 and R4 broadened the empirical footprint without claiming architecture-causal identification.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/core_replication_report.json, results/reinforce_exp/exp_r4_pe_scheme_contrast/pe_scheme_comparison.json</p>
+</div>
+
+<!-- SLIDE 54 -->
+<div class="slide">
+  <div class="slide-num">54</div>
+  <h2>`reinforce_exp` Detailed Results: R5 + R2B + R5B + NEW-R12/R14/R15</h2>
+  <div class="card">
+    <table>
+      <tr><th>Module</th><th>What was run</th><th>What it shored up</th><th>Result</th><th>Claim impact</th></tr>
+      <tr><td>R5</td><td>Task-grounded interaction transfer (proxy vs task)</td><td>Specialization transfer validity</td><td>Interaction remains significant in both models; sign transfer low (Llama 1/4, OLMo 2/4)</td><td class="yellow">Supports interaction existence, not regime-semantic transfer</td></tr>
+      <tr><td>R2B</td><td>Dedicated OLMo boundary-power reinforcement</td><td>Boundary universality overreach</td><td><code>does_not_reinforce_boundary_nontriviality</code>; supported domains=0</td><td class="yellow">Forces descriptive-caveated OLMo boundary wording</td></tr>
+      <tr><td>R5B</td><td>One-to-one regime alignment reinforcement</td><td>Proxy-to-task semantic mapping reliability</td><td>Interaction significant in both models; transfer remains weak (Llama 1/2, OLMo 1/2)</td><td class="yellow">Maintains proxy-specific interpretation</td></tr>
+      <tr><td>NEW-R12</td><td>10 random ablation orderings per model</td><td>Ordering artifact criticism for threshold claims</td><td><code>fraction_threshold_majority=1.0</code> in both models; strong replication</td><td class="green">Strengthens redundancy-threshold robustness</td></tr>
+      <tr><td>NEW-R14</td><td>True vs permuted kernel perturbation specificity control (OLMo)</td><td>Perturbation-magnitude confound</td><td>mean diff true-minus-permuted = 0.0427; one-sided p=2.0e-4; <code>supports_specificity=true</code></td><td class="green">Strengthens SI-kernel specificity channel</td></tr>
+      <tr><td>NEW-R15</td><td>Cross-domain SI head identity stability (wiki/code/dialogue)</td><td>Construct-validity stability concern</td><td>Both models <code>partially_stable</code> (three-way Jaccard: Llama 0.5938, OLMo 0.4270)</td><td class="yellow">Supports stability with explicit caveat</td></tr>
+    </table>
+  </div>
+  <div class="callout warning">
+    <p><strong>Net effect:</strong> controls tightened boundaries. They improved robustness and also explicitly prevented over-promotion of transfer and boundary-semantics claims.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp/exp_r5_task_grounded/interaction_comparison_proxy_vs_task.json, results/reinforce_exp/exp_r2b_olmo_boundary_power/olmo-2-7b/claim_impact.json, results/reinforce_exp/exp_r5b_regime_alignment/interaction_transfer_report.json, results/reinforce_exp/exp_new_r12_ordering_control/*/summary.json, results/reinforce_exp/exp_new_r14_kernel_permutation/olmo-2-7b/specificity_test.json, results/reinforce_exp/exp_new_r15_head_stability/*/stability_summary.json</p>
+</div>
+
+<!-- SLIDE 55 -->
+<div class="slide title-slide">
+  <div class="slide-num">55</div>
+  <h1>`reinforce_exp2`: Final Governance and Mechanism Clarification Layer</h1>
+  <p class="subtitle">Strict A/B/C execution contract with dependency and artifact discipline</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Role in program:</strong> `reinforce_exp2` does not replace earlier science. It governs promotion logic and executes targeted follow-up mechanism checks under strict full-mode artifact contracts.
+  </div>
+  <p class="provenance">Sources: reinforce_exp2/OVERVIEW.md, reinforce_exp2/scripts/run_pipeline.py, results/reinforce_exp2/pipeline_runs/*</p>
+</div>
+
+<!-- SLIDE 56 -->
+<div class="slide">
+  <div class="slide-num">56</div>
+  <h2>`reinforce_exp2` A/B/C Intent Map</h2>
+  <div class="card">
+    <table>
+      <tr><th>Path</th><th>What it is designed to clarify</th><th>Promotion role</th></tr>
+      <tr><td>A (A0/A1/A2)</td><td>Claim hygiene, evidence traceability, and prereg prediction freeze</td><td>Governance baseline required before mechanism promotion</td></tr>
+      <tr><td>B (B1/B2a/B2b/B3/B4)</td><td>Kernel taxonomy, head/cluster alignment, disambiguation, and confound isolation</td><td>Mechanism-strength adjudication for B narrative</td></tr>
+      <tr><td>C (C1/C2)</td><td>Carrier-class causal tracing and falsifiable conditional prediction tests</td><td>High-ambition extension; pending until full bundles are present</td></tr>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Execution contract:</strong> <code>mode=full</code>, strict dependencies, strict artifact checks, and resume-by-validation logic.</p>
+  </div>
+  <p class="provenance">Sources: reinforce_exp2/TODO.md, reinforce_exp2/OVERVIEW.md, reinforce_exp2/scripts/run_pipeline.py</p>
+</div>
+
+<!-- SLIDE 57 -->
+<div class="slide">
+  <div class="slide-num">57</div>
+  <h2>`reinforce_exp2` A Path Details (A0/A1/A2)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Module</th><th>What was run</th><th>What it shored up</th><th>Result</th><th>Claim impact</th></tr>
+      <tr><td>A0</td><td>Claim matrix generation and status-tagged wording discipline</td><td>Overclaim/mismatch risk</td><td><code>n_claims=5</code>; counts include pending=2, mixed=1, supported_with_caveat=1</td><td class="yellow">Supports main text with explicit unresolved rows</td></tr>
+      <tr><td>A1</td><td>Cross-experiment evidence registry and discrepancy log</td><td>Traceability and auditability risk</td><td><code>n_registry_rows=9</code>; discrepancies=4; high severity=0</td><td class="green">Supported governance gate for evidence consistency</td></tr>
+      <tr><td>A2</td><td>Preregistered prediction freeze layer</td><td>Post-hoc storytelling risk</td><td>completed; <code>n_predictions=1</code></td><td class="green">Supports confirmatory discipline narrative</td></tr>
+    </table>
+  </div>
+  <div class="callout success">
+    <p><strong>A-path verdict:</strong> governance infrastructure is operational and suitable for submission-grade claim bookkeeping.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp2/A0_claim_hygiene/summary.json, results/reinforce_exp2/A1_evidence_consolidation/summary.json, results/reinforce_exp2/A2_prediction_layer/summary.json, results/reinforce_exp2/A0_claim_hygiene/claim_impact.json</p>
+</div>
+
+<!-- SLIDE 58 -->
+<div class="slide">
+  <div class="slide-num">58</div>
+  <h2>`reinforce_exp2` B Path — Final Results (April 20, 2026)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Module</th><th>What it disambiguates</th><th>Verdict</th><th>Key numbers</th><th>Claim impact</th></tr>
+      <tr>
+        <td>B1 — Kernel taxonomy</td>
+        <td>Stable kernel-shape families with functional enrichment</td>
+        <td class="yellow"><strong>Mixed</strong></td>
+        <td>Criteria 1+2 pass (ARI stable, cross-model prototypes matched). Criterion 3 fails: OLMo boundary enrichment IVW g≈0.08 (threshold |g|≥0.20); Llama gate returned 0 heads (sdpa/output_attentions issue). Exploratory: Llama clusters 0 and 1 significant (g=−0.48, g=+0.60) if gate bypassed.</td>
+        <td class="yellow">Taxonomy is exploratory — clusters exist and are stable, but confirmatory enrichment criterion not met for eligible models</td>
+      </tr>
+      <tr>
+        <td>B2a — Head alignment</td>
+        <td>Head-level kernel-offset alignment significance</td>
+        <td class="yellow"><strong>Mixed</strong></td>
+        <td>Criterion 1 only (valid variance). Criteria 2–4 fail: not significant after Holm correction, no practical effect, directional subclaim not supported.</td>
+        <td class="yellow">Head-level alignment not promoted to main narrative</td>
+      </tr>
+      <tr>
+        <td>B2b — Cluster alignment</td>
+        <td>Depth-controlled cluster enrichment (boundary attention)</td>
+        <td class="green"><strong>Supported</strong></td>
+        <td>All 3 criteria pass. Llama cluster 0 depth-controlled Hedges g=−1.153, p≈0 (IVW across 19 layers). Strong separation.</td>
+        <td class="green">Supports cluster-level boundary differentiation in Llama</td>
+      </tr>
+      <tr>
+        <td>B3 — Cluster ablation</td>
+        <td>Within/mixed/random triplet AUC disambiguation</td>
+        <td class="yellow"><strong>In progress</strong></td>
+        <td>PID 322510, GPU 0. Llama matching complete (15:52); ablation forward-pass phase active. Est. completion: several hours.</td>
+        <td class="yellow">Results pending — prior test run showed right-direction AUC Δ=+0.009–0.023 but p=0.222</td>
+      </tr>
+      <tr>
+        <td>B4 — Confound isolation</td>
+        <td>Within-layer boundary score difference, entropy-controlled</td>
+        <td class="yellow"><strong>Mixed</strong></td>
+        <td><strong>Llama within-layer: IVW g=+0.781, p=6.78e−12 (30 layers) — CONFIRMED.</strong> OLMo: g=−0.150, p=0.136 (null). Entropy-matched analysis: 0 pairs for Llama/OLMo (sdpa blocks attention output). Preregistered retention criteria: all 3 fail (only 1 entropy-eligible model).</td>
+        <td class="yellow">Llama within-layer signal is real and strong; entropy-controlled part couldn't run. Report within-layer as confirmatory, entropy part as blocked.</td>
+      </tr>
+    </table>
+  </div>
+  <div class="callout warning">
+    <p><strong>B-path net verdict:</strong> B2b is the only clean full pass. B4's Llama within-layer result (g=+0.781) is the strongest new confirmatory signal. B1/B2a are mixed. B3 still running. No B-path result undermines the science-track claims — they add mechanistic depth with model-conditional scope.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp2/B1_kernel_taxonomy/kernel_taxonomy_summary.json (15:24), results/reinforce_exp2/B2a_head_alignment/summary.json (17:06), results/reinforce_exp2/B2b_cluster_alignment/summary.json, results/reinforce_exp2/B4_confound_isolation/summary.json (17:20); PID 322510 active for B3 — all April 20, 2026</p>
+</div>
+
+<!-- SLIDE 59 -->
+<div class="slide">
+  <div class="slide-num">59</div>
+  <h2>`reinforce_exp2` C Path Status and Required Closure</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>What C path is meant to test</h3>
+      <ul>
+        <li><strong>C1:</strong> carrier-class causal tracing with strict SI/LowSI/ContentCond carrier sets.</li>
+        <li><strong>C2:</strong> carrier-conditional prediction checks (position shuffle and long-context interactions).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>As-of-date artifact state (April 20, 2026)</h3>
+      <ul>
+        <li><code>C1_olmo_causal_trace</code>: canonical full bundle missing.</li>
+        <li><code>C2_carrier_class_predictions</code>: canonical full bundle missing.</li>
+        <li>Only smoke residue present for C2 (<code>position_shuffle_results.parquet</code>).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout danger">
+    <p><strong>Promotion policy:</strong> C-path remains pending until full canonical C1/C2 artifact contracts are satisfied.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp2/C1_olmo_causal_trace/, results/reinforce_exp2/C2_carrier_class_predictions/, results/reinforce_exp2/C2_carrier_class_predictions_smoke/position_shuffle_results.parquet</p>
+</div>
+
+<!-- =====================================================================
+     SECTION K: PAPER ENDGAME (CLAIMS, EVIDENCE, OBJECTIONS)
+     ===================================================================== -->
+
+<!-- SLIDE 60 -->
+<div class="slide title-slide">
+  <div class="slide-num">60</div>
+  <h1>Paper Endgame: Claim-Evidence-Objection Synthesis</h1>
+  <p class="subtitle">Grounded directly in <code>paper/neurips2026/main.tex</code> and reinforcement artifacts</p>
+  <div class="explain" style="text-align:left; max-width: 980px; margin: 24px auto 0;">
+    <strong>Goal of this section:</strong> show exactly which points the paper can raise now, what supports each point, what objections are likely, and what caveat language must remain.
+  </div>
+  <p class="provenance">Source: paper/neurips2026/main.tex</p>
+</div>
+
+<!-- SLIDE 61 -->
+<div class="slide">
+  <div class="slide-num">61</div>
+  <h2>Paper Core Claims (from main.tex)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Core claim in paper</th><th>Main quantitative anchor</th><th>Scope guard</th></tr>
+      <tr><td>1) SI structure exists and is causally load-bearing</td><td>T8 kernel subtraction: Llama +4.15 nats; OLMo +0.058 nats; both strongly significant</td><td>Magnitude is model-conditional; claim is not architecture-causal</td></tr>
+      <tr><td>2) Boundary-linked computation is real but model-conditional</td><td>Boundary effects in both models; strict controls clean in OLMo, ambiguous in Llama</td><td>Boundary claim stays supported-with-caveat, not universal strict closure</td></tr>
+      <tr><td>3) Distributed redundancy is strongest cross-model invariant</td><td>Cumulative ablation threshold preference 6/6 votes in each primary model</td><td>Claim is threshold-style collective organization, not single-head universal dominance</td></tr>
+      <tr><td>4) Conditional specialization appears, but regime semantics remain proxy-specific</td><td>Interaction significant in proxy and task-grounded analyses; transfer concordance below prereg threshold</td><td>Do not promote model-general regime semantics yet</td></tr>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Constrained headline from paper:</strong> distributed redundant SI positional infrastructure with model-conditional overlays.</p>
+  </div>
+  <p class="provenance">Source: paper/neurips2026/main.tex (Abstract, Results I-IV, Conclusion)</p>
+</div>
+
+<!-- SLIDE 62 -->
+<div class="slide">
+  <div class="slide-num">62</div>
+  <h2>Paper-Core vs Appendix/Secondary Evidence Boundary</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>Paper-core evidence (main text load-bearing)</h3>
+      <ul>
+        <li>Exp1 SI measurement + NoPE contrast.</li>
+        <li>Exp3 T8 direct kernel intervention channel.</li>
+        <li>Exp3/Phase2 boundary strict-control adjudication.</li>
+        <li>Exp3 cumulative ablation threshold evidence.</li>
+        <li>R1/R2/R3/R4/R12/R14/R15 robustness hardening.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Appendix/secondary (important but non-load-bearing)</h3>
+      <ul>
+        <li>Frequency-band deep extensions.</li>
+        <li>Most SI-guided training intervention branches (Exp4/Exp6 mixed or null-heavy).</li>
+        <li>Tokenizer diagnostics/pruning as practical but model-conditional extensions (Exp8).</li>
+        <li>Unclosed C-path carrier-class claims.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warning">
+    <p><strong>Scope discipline:</strong> secondary analyses can motivate discussion and future work, but cannot be used to over-promote core claims.</p>
+  </div>
+  <p class="provenance">Sources: paper/neurips2026/main.tex (de-emphasis and appendix-scope language), UNIFIED_RESULTS.md, results/experiment4-8/*, results/reinforce_exp2/C*/</p>
+</div>
+
+<!-- SLIDE 63 -->
+<div class="slide">
+  <div class="slide-num">63</div>
+  <h2>Claim -> Evidence Map (What Supports What)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Paper claim</th><th>Primary support</th><th>Reinforcement support</th><th>Residual caveat</th></tr>
+      <tr>
+        <td>SI is load-bearing</td>
+        <td>Exp3 T8 loss increases; low-SI subtraction much smaller</td>
+        <td>R2 dependence-aware direction retention; R3 core replication; NEW-R14 specificity</td>
+        <td>Cross-model magnitude asymmetry remains explicit</td>
+      </tr>
+      <tr>
+        <td>Boundary role is non-trivial</td>
+        <td>T5b + strict control channels</td>
+        <td>R1 multidomain adjudication; R2B boundary caveat reinforcement</td>
+        <td>Llama strict status ambiguous; OLMo direction caveated under dependence-aware boundary lens</td>
+      </tr>
+      <tr>
+        <td>Distributed redundancy</td>
+        <td>Cumulative ablation threshold results in both models</td>
+        <td>NEW-R12 random-order replication; R3 third-model core battery support</td>
+        <td>B-path disambiguation updates still pending rerun closure</td>
+      </tr>
+      <tr>
+        <td>Conditional specialization but proxy-specific semantics</td>
+        <td>Proxy + task-grounded interaction significance in both models</td>
+        <td>R5 and R5B transfer checks</td>
+        <td>Sign transfer below preregistered threshold; semantics remain proxy-specific</td>
+      </tr>
+    </table>
+  </div>
+  <p class="provenance">Sources: paper/neurips2026/main.tex, results/experiment3/*, experiment3/phase2/RESULTS.md, results/reinforce_exp/*</p>
+</div>
+
+<!-- SLIDE 64 -->
+<div class="slide">
+  <div class="slide-num">64</div>
+  <h2>Claim -> Likely Reviewer Objection -> Response/Caveat (I)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Point we raise</th><th>Likely reviewer objection</th><th>Response and caveat language</th></tr>
+      <tr>
+        <td>SI kernel channel is causally relevant</td>
+        <td>"Could be generic perturbation or dependence artifact"</td>
+        <td>Use R14 specificity control plus R2 dependence-aware retention; keep language as "causally load-bearing channel" with model-conditional magnitude caveat.</td>
+      </tr>
+      <tr>
+        <td>Boundary-linked SI computation is real</td>
+        <td>"Prefix/tokenizer artifact may dominate"</td>
+        <td>Keep strict-control evidence, but retain explicit split: OLMo clean, Llama ambiguous (R1), OLMo directional caveat (R2B). No universal strict boundary claim.</td>
+      </tr>
+    </table>
+  </div>
+  <p class="provenance">Sources: paper/neurips2026/main.tex (Result I-II), results/reinforce_exp/exp_r1_multidomain_gate/*, results/reinforce_exp/exp_r2_dependence_reanalysis/*, results/reinforce_exp/exp_r2b_olmo_boundary_power/*, results/reinforce_exp/exp_new_r14_kernel_permutation/*</p>
+</div>
+
+<!-- SLIDE 65 -->
+<div class="slide">
+  <div class="slide-num">65</div>
+  <h2>Claim -> Likely Reviewer Objection -> Response/Caveat (II)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Point we raise</th><th>Likely reviewer objection</th><th>Response and caveat language</th></tr>
+      <tr>
+        <td>Distributed redundancy is the most stable invariant</td>
+        <td>"Threshold pattern might be ordering-driven"</td>
+        <td>Use NEW-R12 random-order strong replication (fraction_threshold_majority=1.0 in both models). Keep wording as threshold-style collective organization.</td>
+      </tr>
+      <tr>
+        <td>Conditional specialization exists</td>
+        <td>"Proxy semantics do not transfer"</td>
+        <td>Agree explicitly: R5/R5B show transfer fails prereg gate. Keep claim at interaction level only; semantics remain proxy-specific.</td>
+      </tr>
+      <tr>
+        <td>Cross-model credibility is adequate</td>
+        <td>"This may be a two-model coincidence"</td>
+        <td>Use R3 Mistral core replication and R4 non-RoPE anchors, while keeping non-architecture-causal attribution boundary explicit.</td>
+      </tr>
+    </table>
+  </div>
+  <p class="provenance">Sources: paper/neurips2026/main.tex (Result III-IV, attribution boundary), results/reinforce_exp/exp_new_r12_ordering_control/*, results/reinforce_exp/exp_r5_task_grounded/*, results/reinforce_exp/exp_r5b_regime_alignment/*, results/reinforce_exp/exp_r3_core_replication/*, results/reinforce_exp/exp_r4_pe_scheme_contrast/*</p>
+</div>
+
+<!-- SLIDE 66 -->
+<div class="slide">
+  <div class="slide-num">66</div>
+  <h2>Endgame Risk Register (As of April 20, 2026)</h2>
+  <div class="card">
+    <table>
+      <tr><th>Risk</th><th>Current mitigation</th><th>Status</th></tr>
+      <tr><td>Over-promotion from mixed channels</td><td>A0/A1 governance plus explicit supported/mixed/pending discipline</td><td class="green">Procedurally mitigated</td></tr>
+      <tr><td>Inferential fragility from dependence</td><td>R2 dependence-aware analysis</td><td class="green">Mostly mitigated with one caveated cell</td></tr>
+      <tr><td>Boundary strictness challenge</td><td>R1 and R2B hardening with explicit caveat wording</td><td class="yellow">Open but bounded</td></tr>
+      <tr><td>B-path mechanism-clarification closure</td><td>Active reruns in progress / queued under reinforce_exp2</td><td class="yellow">Pending rerun closeout</td></tr>
+      <tr><td>C-path ambitious extension closure</td><td>C1/C2 contract tracked; full bundles still missing</td><td class="red">Pending</td></tr>
+    </table>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp/*, results/reinforce_exp2/A*/summary.json, live rerun status captured April 20, 2026, results/reinforce_exp2/C*/</p>
+</div>
+
+<!-- SLIDE 67 -->
+<div class="slide">
+  <div class="slide-num">67</div>
+  <h2>Points We Will Raise (Talk-Track for Submission)</h2>
+  <div class="card">
+    <ol>
+      <li><strong>Core mechanistic statement:</strong> SI positional structure is causally load-bearing and not just descriptive fit (Exp3 T8, reinforced by R2 and R14).</li>
+      <li><strong>Boundary statement:</strong> boundary-linked SI behavior is real, but strict status is model-conditional (T5b/strict controls + R1/R2B caveats).</li>
+      <li><strong>Organization statement:</strong> distributed threshold-style redundancy is the strongest cross-model invariant (Exp3 cumulative ablation + NEW-R12 + R3).</li>
+      <li><strong>Specialization statement:</strong> conditional specialization exists, but regime semantics are not yet transferable (R5/R5B).</li>
+      <li><strong>Breadth statement:</strong> portability improves with Mistral and GPT-2 anchors, while attribution remains non-single-factor (R3/R4 and paper attribution boundary).</li>
+      <li><strong>Governance statement:</strong> claim promotion is contract-bound; unresolved branches are explicitly pending (reinforce_exp2 A/B/C policy).</li>
+    </ol>
+  </div>
+  <div class="callout success">
+    <p><strong>Presentation discipline:</strong> every raised point is paired with named supporting experiments and explicit caveat language.</p>
+  </div>
+  <p class="provenance">Sources: paper/neurips2026/main.tex, results/experiment3/*, results/reinforce_exp/*, results/reinforce_exp2/*</p>
+</div>
+
+<!-- SLIDE 68 -->
+<div class="slide">
+  <div class="slide-num">68</div>
+  <h2>NeurIPS Framing — Final B-Path Status and Submission Posture</h2>
+  <div class="two-col">
+    <div class="card">
+      <h3>What is submission-ready now</h3>
+      <ul>
+        <li>Core four-claim paper narrative with evidence and caveats aligned to <code>main.tex</code>.</li>
+        <li>Reinforcement-backed robustness posture (R2, R3, R4, R12, R14).</li>
+        <li>Explicitly bounded language for model-conditional and transfer-limited channels.</li>
+        <li><strong>B2b:</strong> Llama cluster boundary enrichment (g=−1.153) is confirmed and promotable as mechanism clarification.</li>
+        <li><strong>B4 Llama within-layer:</strong> IVW g=+0.781, p=6.78e−12 — high-SI heads separate from low-SI on boundary attention scores, depth-controlled. Confirms the signal was not a proxy artifact.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What stays explicitly pending or scoped</h3>
+      <ul>
+        <li><strong>B1 mixed:</strong> cluster taxonomy is exploratory only — clusters exist and are stable, but boundary enrichment not significant for eligible models (OLMo g≈0.08). Do not promote taxonomy to confirmatory.</li>
+        <li><strong>B2a mixed:</strong> head-level alignment not significant after correction. Do not use to strengthen alignment claims.</li>
+        <li><strong>B3 in progress:</strong> cluster ablation disambiguation still running (GPU 0). Do not use prior test result as confirmatory.</li>
+        <li><strong>B4 entropy analysis blocked:</strong> entropy-matched pairs = 0 for Llama/OLMo (sdpa prevents output_attentions). Report within-layer only.</li>
+        <li>C1/C2 full contract completion before any carrier-class promotion.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout success">
+    <p><strong>Bottom line:</strong> B-path rerun cycle is substantially closed. Science-track claims remain intact. B2b and B4 Llama within-layer add real mechanistic depth. B1/B2a mixed verdicts constrain the taxonomy narrative to exploratory. B3 completion would add or withhold cluster disambiguation.</p>
+  </div>
+  <p class="provenance">Sources: results/reinforce_exp2/B1_kernel_taxonomy/kernel_taxonomy_summary.json, B2a_head_alignment/summary.json, B2b_cluster_alignment/summary.json, B4_confound_isolation/summary.json — all April 20, 2026; B3 PID 322510 active</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "model": "llama-3.1-8b",
+  "alignment_method": "fasttext_static_embedding_partial_spearman_offset_bins",
+  "fasttext_model_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+  "calibration_sequence_count": 96,
+  "calibration_sequence_hash_sha256": "8750034f8e61a127b026c3105b5949fc97d1e234988f57822e3b6d304802e8f4",
+  "calibration_eval_overlap_count": 0,
+  "calibration_eval_overlap_ratio": 0.0,
+  "calibration_eval_disjoint": true,
+  "data_quality": {
+    "total_tokens": 49152,
+    "covered_tokens": 48080,
+    "missing_token_ratio": 0.02180989583333337,
+    "usable_sequences": 96,
+    "skipped_sequences": 0,
+    "n_payloads": 96
+  },
+  "content_similarity_data_quality_failure": false,
+  "model_median_r2": 0.38846799626058587,
+  "threshold_T_q75_low_r2": 0.001401369777763969,
+  "low_r2_pool_size": 512,
+  "content_conditional_size": 81,
+  "set_sizes": {
+    "SI": 256,
+    "LowSI": 256,
+    "ContentCond": 81
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 15:44:22",
+  "experiment_id": "E28D",
+  "model": "mistral-7b-v0.1",
+  "n_bins": 20,
+  "rho_full_vs_disruption": 0.9639097744360902,
+  "p_full_vs_disruption": 8.65358685156246e-12,
+  "rho_excess_vs_disruption": 0.8120300751879698,
+  "p_excess_vs_disruption": 1.3751698807413044e-05,
+  "supports_nontrivial_excess_tracking": true
+}

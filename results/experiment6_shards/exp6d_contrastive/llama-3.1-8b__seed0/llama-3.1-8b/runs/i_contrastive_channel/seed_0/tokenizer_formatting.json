@@ -1,0 +1,13 @@
+{
+  "standard": {
+    "accuracy": 0.90625,
+    "n_total": 320,
+    "correct": 290
+  },
+  "si_optimized": {
+    "accuracy": 0.63125,
+    "n_total": 320,
+    "correct": 202
+  },
+  "delta_accuracy": -0.275
+}

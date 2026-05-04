@@ -1,0 +1,272 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-17 06:41:31",
+  "input_root": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue",
+  "canonical_output_root": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_dialogue",
+  "decision_rule": {
+    "per_seed_flag": {
+      "diff_fake_minus_real_with_prefix_ge": 0.005,
+      "cohens_d_ge": 0.2,
+      "p_one_sided_lt": 0.05
+    },
+    "meta_test": "weighted_stouffer_one_sided",
+    "weight": "sqrt(n_fake_with_prefix)",
+    "stable_blocked_rule": {
+      "min_flagged_seeds": 9,
+      "meta_p_one_lt": 0.01,
+      "pooled_diff_ge": 0.005
+    },
+    "stable_clean_rule": {
+      "max_flagged_seeds": 2,
+      "meta_p_one_gt": 0.2,
+      "pooled_diff_le": 0.0
+    }
+  },
+  "seeds_requested": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "seeds_completed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_seeds": [],
+  "seed_rows": [
+    {
+      "seed": 0,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed0/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed0/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed0/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed0/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0002926414922746895,
+      "cohens_d_fake_minus_real": -0.007168725278107825,
+      "p_one_sided_fake_gt_real": 0.5978249796872496,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 14647,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 1,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed1/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed1/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed1/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed1/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0022915552940905304,
+      "cohens_d_fake_minus_real": 0.05836590663376141,
+      "p_one_sided_fake_gt_real": 0.09742216113341036,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13675,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 2,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed2/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed2/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed2/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed2/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.002616386231154691,
+      "cohens_d_fake_minus_real": 0.06541698198439352,
+      "p_one_sided_fake_gt_real": 0.049109579192081636,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 14196,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 3,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed3/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed3/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed3/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed3/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0035640261786695215,
+      "cohens_d_fake_minus_real": 0.09788371710369197,
+      "p_one_sided_fake_gt_real": 0.013466127235459728,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13768,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 4,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed4/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed4/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed4/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed4/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0016310672628729178,
+      "cohens_d_fake_minus_real": 0.04401561179539841,
+      "p_one_sided_fake_gt_real": 0.11855610713417218,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13881,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 5,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed5/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed5/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed5/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed5/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0011176506111830464,
+      "cohens_d_fake_minus_real": 0.02868794109990663,
+      "p_one_sided_fake_gt_real": 0.23955559217207573,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 14006,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 6,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed6/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed6/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed6/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed6/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.004294561404850766,
+      "cohens_d_fake_minus_real": 0.10781538986254131,
+      "p_one_sided_fake_gt_real": 0.003577621029323036,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13435,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 7,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed7/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed7/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed7/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed7/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.004019570410768364,
+      "cohens_d_fake_minus_real": 0.10260673549487571,
+      "p_one_sided_fake_gt_real": 0.0022863700978899724,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13246,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 8,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed8/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed8/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed8/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed8/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -9.059006100477218e-05,
+      "cohens_d_fake_minus_real": -0.0022393320821599513,
+      "p_one_sided_fake_gt_real": 0.5306734935287412,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13997,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 9,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed9/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed9/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed9/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed9/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0010058073819524255,
+      "cohens_d_fake_minus_real": 0.026523586011003412,
+      "p_one_sided_fake_gt_real": 0.2681147406948018,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 14020,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 10,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed10/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed10/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed10/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed10/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0011334792742248578,
+      "cohens_d_fake_minus_real": 0.030013027628570586,
+      "p_one_sided_fake_gt_real": 0.1580216931933957,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 13749,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 11,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed11/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed11/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed11/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed11/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": -0.0014569250741479634,
+      "cohens_d_fake_minus_real": -0.037852079094331435,
+      "p_one_sided_fake_gt_real": 0.9558259969320569,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 14076,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    }
+  ],
+  "pooled": {
+    "n_completed": 12,
+    "n_flagged": 0,
+    "meta_p_one": 0.0002214159938110113,
+    "pooled_diff_fake_minus_real_with_prefix": 0.0016528289518616414,
+    "pooled_cohens_d": 0.04283906342996198
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

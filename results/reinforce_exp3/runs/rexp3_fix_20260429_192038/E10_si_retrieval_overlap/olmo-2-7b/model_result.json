@@ -1,0 +1,7 @@
+{
+  "model": "olmo-2-7b",
+  "jaccard_si_retrieval": 0.09401709401709402,
+  "r2_retrieval_spearman_rho": -0.2649757054489047,
+  "cluster_enrichment_pval": NaN,
+  "status": "ok"
+}

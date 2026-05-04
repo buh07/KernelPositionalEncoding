@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-17 23:28:22",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    10
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "results/reinforce_exp/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 14648.44168138504,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 10,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.00797431060536094,
+      "cohens_d_fake_minus_real": -0.22832680259466076,
+      "p_one_sided_fake_gt_real": 0.9999999999135374,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_wiki/seed10/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 26051,
+      "elapsed_sec": 5325.720771074295
+    },
+    {
+      "domain": "code",
+      "seed": 10,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.0026215219812324893,
+      "cohens_d_fake_minus_real": -0.07368679603882929,
+      "p_one_sided_fake_gt_real": 0.9754687164672041,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_code/seed10/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9039,
+      "elapsed_sec": 3029.8379707336426
+    },
+    {
+      "domain": "dialogue",
+      "seed": 10,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.0058696624929266104,
+      "cohens_d_fake_minus_real": -0.16641978536388036,
+      "p_one_sided_fake_gt_real": 0.9999997416161419,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_dialogue/seed10/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18176,
+      "elapsed_sec": 6292.882780790329
+    }
+  ]
+}

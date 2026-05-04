@@ -1,0 +1,150 @@
+{
+  "timestamp": "2026-04-09 23:49:44",
+  "models": {
+    "llama-3.1-8b": {
+      "timestamp": "2026-04-09 22:16:37",
+      "model": "llama-3.1-8b",
+      "settings": {
+        "num_sequences": 16,
+        "seq_len": 512,
+        "top_k_dims": 16,
+        "synthetic_target_per_cell": 300,
+        "seed": 0
+      },
+      "baseline": {
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b",
+        "post_ablation_d": 1.0666295894631435,
+        "prefix_following_artifact_flag": true
+      },
+      "feature_summaries": [
+        {
+          "feature": "space_prefix",
+          "dependence_index_delta_d": 0.0,
+          "post_ablation_d": 1.0666295894631435,
+          "p_one_sided_high_gt_low": 1.8403482333201313E-27,
+          "p_one_sided_high_gt_low_holm_features": 1.8403482333201313E-27,
+          "prefix_following_artifact_flag": true,
+          "classifier_accuracy": 0.9970824215900802,
+          "collapse_flag": false
+        },
+        {
+          "feature": "capitalization_marker",
+          "dependence_index_delta_d": -0.0585533733373782,
+          "post_ablation_d": 1.1251829628005217,
+          "p_one_sided_high_gt_low": 8.316021510592177E-30,
+          "p_one_sided_high_gt_low_holm_features": 2.4948064531776532E-29,
+          "prefix_following_artifact_flag": true,
+          "classifier_accuracy": 0.9879649890590809,
+          "collapse_flag": false
+        },
+        {
+          "feature": "punctuation_adjacency",
+          "dependence_index_delta_d": -0.06752947044227664,
+          "post_ablation_d": 1.13415905990542,
+          "p_one_sided_high_gt_low": 3.587988004603708E-30,
+          "p_one_sided_high_gt_low_holm_features": 1.4351952018414831E-29,
+          "prefix_following_artifact_flag": true,
+          "classifier_accuracy": 0.8690736688548505,
+          "collapse_flag": false
+        },
+        {
+          "feature": "token_length_bucket",
+          "dependence_index_delta_d": -0.05022545380361043,
+          "post_ablation_d": 1.1168550432667539,
+          "p_one_sided_high_gt_low": 1.8532093023439507E-29,
+          "p_one_sided_high_gt_low_holm_features": 3.7064186046879013E-29,
+          "prefix_following_artifact_flag": true,
+          "classifier_accuracy": 0.9770240700218819,
+          "collapse_flag": false
+        }
+      ],
+      "verdict": {
+        "baseline_prefix_following_artifact_flag": true,
+        "olmo_robust_to_feature_battery": false,
+        "llama_tokenizer_entangled": false,
+        "dominant_dependence_feature": "space_prefix"
+      },
+      "limitations": [
+        "Tokenizer features are embedding-dimension surrogates and do not isolate all contextual confounds.",
+        "Punctuation adjacency uses corpus-derived token-level rates rather than direct contextual interventions."
+      ]
+    },
+    "olmo-2-7b": {
+      "timestamp": "2026-04-09 22:13:50",
+      "model": "olmo-2-7b",
+      "settings": {
+        "num_sequences": 16,
+        "seq_len": 512,
+        "top_k_dims": 16,
+        "synthetic_target_per_cell": 300,
+        "seed": 0
+      },
+      "baseline": {
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2b_trivial_feature_control/olmo-2-7b",
+        "post_ablation_d": 0.5594242193697856,
+        "prefix_following_artifact_flag": false
+      },
+      "feature_summaries": [
+        {
+          "feature": "space_prefix",
+          "dependence_index_delta_d": 0.0,
+          "post_ablation_d": 0.5594242193697856,
+          "p_one_sided_high_gt_low": 5.485327185635356E-10,
+          "p_one_sided_high_gt_low_holm_features": 9.123401793744181E-10,
+          "prefix_following_artifact_flag": false,
+          "classifier_accuracy": 0.9996283909327388,
+          "collapse_flag": false
+        },
+        {
+          "feature": "capitalization_marker",
+          "dependence_index_delta_d": -0.018610968673830608,
+          "post_ablation_d": 0.5780351880436162,
+          "p_one_sided_high_gt_low": 1.6619250409562515E-10,
+          "p_one_sided_high_gt_low_holm_features": 5.489512792947489E-10,
+          "prefix_following_artifact_flag": false,
+          "classifier_accuracy": 0.9996283909327388,
+          "collapse_flag": false
+        },
+        {
+          "feature": "punctuation_adjacency",
+          "dependence_index_delta_d": -0.021558988883988217,
+          "post_ablation_d": 0.5809832082537738,
+          "p_one_sided_high_gt_low": 1.3723781982368722E-10,
+          "p_one_sided_high_gt_low_holm_features": 5.489512792947489E-10,
+          "prefix_following_artifact_flag": false,
+          "classifier_accuracy": 0.9925678186547752,
+          "collapse_flag": false
+        },
+        {
+          "feature": "token_length_bucket",
+          "dependence_index_delta_d": -0.0029060429492142603,
+          "post_ablation_d": 0.5623302623189999,
+          "p_one_sided_high_gt_low": 4.5617008968720907E-10,
+          "p_one_sided_high_gt_low_holm_features": 9.123401793744181E-10,
+          "prefix_following_artifact_flag": false,
+          "classifier_accuracy": 1.0,
+          "collapse_flag": false
+        }
+      ],
+      "verdict": {
+        "baseline_prefix_following_artifact_flag": false,
+        "olmo_robust_to_feature_battery": true,
+        "llama_tokenizer_entangled": false,
+        "dominant_dependence_feature": "space_prefix"
+      },
+      "limitations": [
+        "Tokenizer features are embedding-dimension surrogates and do not isolate all contextual confounds.",
+        "Punctuation adjacency uses corpus-derived token-level rates rather than direct contextual interventions."
+      ]
+    }
+  },
+  "models_present": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "incomplete_aggregate": false,
+  "verdict": {
+    "olmo_robust": true,
+    "llama_entangled": false
+  }
+}

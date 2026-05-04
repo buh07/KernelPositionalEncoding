@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-16 09:09:59",
+  "model": "llama-3.1-8b",
+  "condition": "i_contrastive_channel",
+  "seed": 2,
+  "elapsed_sec": 266.25868105888367,
+  "lambda_contrast": 0.05,
+  "contrast_interval": 5,
+  "lora": {
+    "trainable_params": 22030336,
+    "total_params": 8052291584
+  }
+}

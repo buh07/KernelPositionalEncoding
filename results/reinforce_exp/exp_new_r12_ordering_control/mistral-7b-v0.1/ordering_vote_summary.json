@@ -1,0 +1,576 @@
+{
+  "rows": [
+    {
+      "ordering_id": 0,
+      "order_seed": 20260417,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 38.87144099361267
+    },
+    {
+      "ordering_id": 1,
+      "order_seed": 20261426,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 28.506046486610416
+    },
+    {
+      "ordering_id": 2,
+      "order_seed": 20262435,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 31.703033140934977
+    },
+    {
+      "ordering_id": 3,
+      "order_seed": 20263444,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 36.355410945239434
+    },
+    {
+      "ordering_id": 4,
+      "order_seed": 20264453,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 16.348578999538862
+    },
+    {
+      "ordering_id": 5,
+      "order_seed": 20265462,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 36.495149614077775
+    },
+    {
+      "ordering_id": 6,
+      "order_seed": 20266471,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 33.406203536799616
+    },
+    {
+      "ordering_id": 7,
+      "order_seed": 20267480,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 22.066725203371387
+    },
+    {
+      "ordering_id": 8,
+      "order_seed": 20268489,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 35.54700451680116
+    },
+    {
+      "ordering_id": 9,
+      "order_seed": 20269498,
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "n_fits": 3,
+      "threshold_fraction": 1.0,
+      "threshold_majority": true,
+      "mean_bic_delta_linear_minus_threshold": 18.290037623080455
+    }
+  ],
+  "per_ordering_fits": {
+    "0": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.8210009126384693,
+          "intercept": 0.027760888721047317,
+          "rss": 0.04216108102174204,
+          "bic": -43.87689164673367
+        },
+        "threshold_piecewise": {
+          "rss": 0.0017682314977181218,
+          "bic": -68.02610131230666,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.19968349877715433,
+          "intercept": -0.00948739390015824,
+          "rss": 0.008230954291648683,
+          "bic": -58.57925189533466
+        },
+        "threshold_piecewise": {
+          "rss": 0.00024045460254918549,
+          "bic": -85.98293579105,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 6.7143415560855715,
+          "intercept": -0.44261013005135896,
+          "rss": 2.59084130799981,
+          "bic": -6.812728170537914
+        },
+        "threshold_piecewise": {
+          "rss": 0.0011530586207278873,
+          "bic": -71.87415759008759,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "1": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.6570923922816863,
+          "intercept": 0.04802834124586391,
+          "rss": 0.05052855996380823,
+          "bic": -42.247521068254635
+        },
+        "threshold_piecewise": {
+          "rss": 0.0011602653216304657,
+          "bic": -71.81808198713601,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.08555873255646673,
+          "intercept": 0.03885016544382102,
+          "rss": 0.0021081814142449523,
+          "bic": -70.83793833198897
+        },
+        "threshold_piecewise": {
+          "rss": 0.00016786758184163838,
+          "bic": -89.21713823827936,
+          "best_threshold_fraction": 0.02
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 5.215081890595982,
+          "intercept": -0.25864040478347755,
+          "rss": 0.5775550746751674,
+          "bic": -20.32113530478763
+        },
+        "threshold_piecewise": {
+          "rss": 0.005453553325638407,
+          "bic": -57.88951393944711,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "2": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.3689430927204718,
+          "intercept": -0.028120054668393003,
+          "rss": 0.008241962035494746,
+          "bic": -58.56722370223456
+        },
+        "threshold_piecewise": {
+          "rss": 8.682929473641414e-05,
+          "bic": -95.15022042028193,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.11461367968637609,
+          "intercept": 0.025412350740900563,
+          "rss": 0.0028557723797797384,
+          "bic": -68.10628844272836
+        },
+        "threshold_piecewise": {
+          "rss": 0.00021677187036995028,
+          "bic": -86.91610792731372,
+          "best_threshold_fraction": 0.02
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 3.2071567036625197,
+          "intercept": -0.12548462137843838,
+          "rss": 0.13815057954835483,
+          "bic": -33.195271333767664
+        },
+        "threshold_piecewise": {
+          "rss": 0.001027523719341319,
+          "bic": -72.91155455393987,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "3": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.7338287656452309,
+          "intercept": 0.0182026866637894,
+          "rss": 0.059589934208357315,
+          "bic": -40.7629895146558
+        },
+        "threshold_piecewise": {
+          "rss": 0.00802165862425223,
+          "bic": -54.41661348392272,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1858860235937275,
+          "intercept": -0.0150250863185153,
+          "rss": 0.004947274073274828,
+          "bic": -63.160838942184235
+        },
+        "threshold_piecewise": {
+          "rss": 0.0010057717630540378,
+          "bic": -73.10412378477518,
+          "best_threshold_fraction": 0.05
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 9.381982746451786,
+          "intercept": -0.6701996388650168,
+          "rss": 6.329333068422793,
+          "bic": 1.2261817901581802
+        },
+        "threshold_piecewise": {
+          "rss": 0.0002917337907070677,
+          "bic": -84.24314223370226,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "4": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.6560218403826789,
+          "intercept": 0.06915281973816717,
+          "rss": 0.07252371130793156,
+          "bic": -38.99514750285165
+        },
+        "threshold_piecewise": {
+          "rss": 0.0016238821867073693,
+          "bic": -68.79254310184659,
+          "best_threshold_fraction": 0.1
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1458749190763919,
+          "intercept": 0.01571167817580203,
+          "rss": 0.004644714149998649,
+          "bic": -63.72880105501259
+        },
+        "threshold_piecewise": {
+          "rss": 0.0008192173304803372,
+          "bic": -74.9505731245879,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 8.690900215438358,
+          "intercept": -0.06854779699321047,
+          "rss": 0.31276178046647635,
+          "bic": -25.841393207965638
+        },
+        "threshold_piecewise": {
+          "rss": 0.0786752523891456,
+          "bic": -33.867962538011966,
+          "best_threshold_fraction": 0.1
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "5": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.5235319108761328,
+          "intercept": -0.047235649546827733,
+          "rss": 0.034851056106941294,
+          "bic": -45.59061857990353
+        },
+        "threshold_piecewise": {
+          "rss": 0.0012118044380567336,
+          "bic": -71.42692565167346,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.15686029887785932,
+          "intercept": 0.011857646381815563,
+          "rss": 0.0024051750249327146,
+          "bic": -69.65176543136971
+        },
+        "threshold_piecewise": {
+          "rss": 0.0001953853546626985,
+          "bic": -87.8509534175387,
+          "best_threshold_fraction": 0.1
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 6.427503465743901,
+          "intercept": -0.41109790774219007,
+          "rss": 2.1993398284136516,
+          "bic": -8.287156905274118
+        },
+        "threshold_piecewise": {
+          "rss": 0.0009374641998280074,
+          "bic": -73.73711068956852,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "6": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1313536271759459,
+          "intercept": 0.039918132283124706,
+          "rss": 0.016514894296815054,
+          "bic": -52.31200562180317
+        },
+        "threshold_piecewise": {
+          "rss": 0.002447935379667578,
+          "bic": -65.09871566046778,
+          "best_threshold_fraction": 0.05
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.20371956373183708,
+          "intercept": -0.02297807869371311,
+          "rss": 0.007519583829271418,
+          "bic": -59.39277239021776
+        },
+        "threshold_piecewise": {
+          "rss": 0.0028698927133282794,
+          "bic": -63.667448546681314,
+          "best_threshold_fraction": 0.15
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 3.7183931499526937,
+          "intercept": -0.12952636886359012,
+          "rss": 0.7713006298371778,
+          "bic": -17.717665576305876
+        },
+        "threshold_piecewise": {
+          "rss": 4.596450980484951e-05,
+          "bic": -100.87488999157658,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "7": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.42571325169040425,
+          "intercept": 0.0015953190188462095,
+          "rss": 0.020335357994709237,
+          "bic": -50.439119251684154
+        },
+        "threshold_piecewise": {
+          "rss": 0.0025328389362740513,
+          "bic": -64.79185331993816,
+          "best_threshold_fraction": 0.2
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1036002014098691,
+          "intercept": 0.0017472306143000982,
+          "rss": 0.006789170023497819,
+          "bic": -60.312411249498005
+        },
+        "threshold_piecewise": {
+          "rss": 0.0025980365989340714,
+          "bic": -64.56311631685456,
+          "best_threshold_fraction": 0.2
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 3.4176075255679756,
+          "intercept": -0.20455018733985872,
+          "rss": 0.4960170059813176,
+          "bic": -21.69087764052105
+        },
+        "threshold_piecewise": {
+          "rss": 0.0015369682439930255,
+          "bic": -69.28761411502465,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "8": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.4910500737303985,
+          "intercept": 0.0403122302546396,
+          "rss": 0.02751142758189394,
+          "bic": -47.718956348150286
+        },
+        "threshold_piecewise": {
+          "rss": 0.00528306411735231,
+          "bic": -58.17536409033195,
+          "best_threshold_fraction": 0.2
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1536671881743634,
+          "intercept": 0.0005062221263127633,
+          "rss": 0.0014061781709316403,
+          "bic": -74.48248992963292
+        },
+        "threshold_piecewise": {
+          "rss": 2.389583807680623e-05,
+          "bic": -106.76237577609896,
+          "best_threshold_fraction": 0.05
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 4.912007558090651,
+          "intercept": -0.3000659404280983,
+          "rss": 1.2491745544652388,
+          "bic": -13.37822525049315
+        },
+        "threshold_piecewise": {
+          "rss": 0.0006321944064562531,
+          "bic": -77.2829452122489,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "9": {
+      "local_key_match::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.1568749100848799,
+          "intercept": 0.019621772047187444,
+          "rss": 0.02505139044367117,
+          "bic": -48.56200555444511
+        },
+        "threshold_piecewise": {
+          "rss": 0.0017966043476158075,
+          "bic": -67.88283466492734,
+          "best_threshold_fraction": 0.2
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 9,
+        "linear": {
+          "slope": 0.12922039095094232,
+          "intercept": 0.0202099518054956,
+          "rss": 0.001201057661723583,
+          "bic": -75.90154650440302
+        },
+        "threshold_piecewise": {
+          "rss": 0.00035581795304366376,
+          "bic": -82.45594459087887,
+          "best_threshold_fraction": 0.25
+        },
+        "preferred_model": "threshold_piecewise"
+      },
+      "wiki_ntp::loss": {
+        "n_points": 9,
+        "linear": {
+          "slope": 7.728232464096126,
+          "intercept": -0.3327519377636777,
+          "rss": 0.9318510329344093,
+          "bic": -16.015812858077183
+        },
+        "threshold_piecewise": {
+          "rss": 0.022811091198061375,
+          "bic": -45.01069853036046,
+          "best_threshold_fraction": 0.2
+        },
+        "preferred_model": "threshold_piecewise"
+      }
+    }
+  }
+}

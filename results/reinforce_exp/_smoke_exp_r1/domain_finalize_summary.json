@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-04-16 16:54:17",
+  "experiment": "EXP-R1",
+  "model": "llama-3.1-8b",
+  "domains": [
+    "wiki"
+  ],
+  "seeds": [
+    99
+  ],
+  "domain_summaries": [
+    {
+      "domain": "wiki",
+      "assessment": "ambiguous",
+      "meta_p_one": 0.11500752402639275,
+      "pooled_diff": 0.0038937253478104755,
+      "n_flagged": 0,
+      "n_completed": 1,
+      "summary_path": "results/reinforce_exp/_smoke_exp_r1/canonical/domain_wiki/llama-3.1-8b/multiseed_gate_summary.json"
+    }
+  ],
+  "output_root": "results/reinforce_exp/_smoke_exp_r1"
+}

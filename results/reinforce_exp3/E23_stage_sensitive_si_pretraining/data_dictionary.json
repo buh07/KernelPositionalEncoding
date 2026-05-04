@@ -1,0 +1,57 @@
+{
+  "experiment_id": "E23",
+  "tables": [
+    {
+      "path": "<arm>/seed_<k>/offset_eval.parquet",
+      "description": "Per-example unseen/seen offset evaluation outcomes for arithmetic and copy tasks.",
+      "columns": [
+        {
+          "name": "task",
+          "dtype": "str",
+          "description": "arith/copy"
+        },
+        {
+          "name": "bucket",
+          "dtype": "str",
+          "description": "seen/unseen offset bucket"
+        },
+        {
+          "name": "offset",
+          "dtype": "int",
+          "description": "absolute answer offset"
+        },
+        {
+          "name": "target_logprob",
+          "dtype": "float",
+          "description": "log probability on target token"
+        },
+        {
+          "name": "correct",
+          "dtype": "int",
+          "description": "1 if argmax token equals target"
+        }
+      ]
+    },
+    {
+      "path": "<arm>/seed_<k>/si_r2_summary.parquet",
+      "description": "Per-head SI R\u00b2 summary of trained model.",
+      "columns": [
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "head index"
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "mean SI R\u00b2"
+        }
+      ]
+    }
+  ]
+}

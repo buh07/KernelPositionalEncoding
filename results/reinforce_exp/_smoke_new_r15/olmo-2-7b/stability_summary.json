@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-04-17 13:50:51",
+  "experiment": "NEW-R15",
+  "model": "olmo-2-7b",
+  "settings": {
+    "seq_len": 256,
+    "num_sequences_per_domain": 8,
+    "quantile": 0.25,
+    "n_boot": 1000,
+    "seed": 5
+  },
+  "domain_meta": {
+    "wiki": {
+      "n_sequences": 8,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 100.05470728874207
+    },
+    "code": {
+      "n_sequences": 8,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 102.31188535690308
+    },
+    "dialogue": {
+      "n_sequences": 8,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 101.93220925331116
+    }
+  },
+  "universe_size": 1024,
+  "top_set_size": 256,
+  "hypergeometric_expected_jaccard": 0.14285714285714285,
+  "pairwise_jaccard": [
+    {
+      "pair": "wiki__code",
+      "jaccard": 0.6253968253968254,
+      "ci95": [
+        0.5681799305345817,
+        0.6777426309464905
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "wiki__dialogue",
+      "jaccard": 0.6410256410256411,
+      "ci95": [
+        0.5865354938271605,
+        0.6918478658568457
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "code__dialogue",
+      "jaccard": 0.6463022508038585,
+      "ci95": [
+        0.5935483870967742,
+        0.7006838202497769
+      ],
+      "ci_excludes_random_expected": true
+    }
+  ],
+  "pairwise_spearman": [
+    {
+      "pair": "wiki__code",
+      "rho": 0.8855472994485812
+    },
+    {
+      "pair": "wiki__dialogue",
+      "rho": 0.8904955387188694
+    },
+    {
+      "pair": "code__dialogue",
+      "rho": 0.8660555553347351
+    }
+  ],
+  "three_way": {
+    "intersection_size": 180,
+    "union_size": 350,
+    "jaccard": 0.5142857142857142
+  },
+  "verdict": {
+    "status": "partially_stable",
+    "stable_high_confidence": false,
+    "partially_stable": true,
+    "unstable": false
+  },
+  "runtime_sec": 316.12610483169556
+}

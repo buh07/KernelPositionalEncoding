@@ -1,0 +1,19 @@
+{
+  "n_models": 2,
+  "per_model_rho": [
+    {
+      "model": "llama-3.1-8b",
+      "rho": 0.0926454939403429
+    },
+    {
+      "model": "olmo-2-7b",
+      "rho": -0.022527289430518436
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "rho": NaN
+    }
+  ],
+  "interpretation": "mixed_or_weak",
+  "note": "Mixed correlation signs or weak effects (|\u03c1| < 0.3) across models. No clear frequency-boundary division of labor detected."
+}

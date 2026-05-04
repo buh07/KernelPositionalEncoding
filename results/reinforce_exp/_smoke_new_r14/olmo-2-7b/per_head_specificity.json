@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-17 13:44:24",
+  "experiment": "NEW-R14",
+  "model": "olmo-2-7b",
+  "n_heads_evaluated": 2,
+  "rows": [
+    {
+      "layer": 20,
+      "head": 15,
+      "true_mean_delta": 0.0025504231452941895,
+      "permuted_mean_delta": 7.402896881103516e-05,
+      "specificity_ratio": 34.45169082125604
+    },
+    {
+      "layer": 7,
+      "head": 8,
+      "true_mean_delta": -0.0005714297294616699,
+      "permuted_mean_delta": -0.00026088953018188477,
+      "specificity_ratio": -2.190312999771533
+    }
+  ]
+}

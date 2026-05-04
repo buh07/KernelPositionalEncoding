@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "status": "ok",
+      "n_clusters_ge_5": 3,
+      "n_triplets": 9,
+      "fraction_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "n_confirmatory_fractions": 10,
+      "layer_match_pass_rate": 1.0,
+      "magnitude_match_pass_rate": 0.6888888888888889,
+      "model_selection_confirmatory": false,
+      "n_confirmatory_triplets": 9,
+      "n_confirmatory_rows": 213,
+      "reliability_eligible": true
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "status": "ok",
+      "n_clusters_ge_5": 3,
+      "n_triplets": 9,
+      "fraction_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "n_confirmatory_fractions": 11,
+      "layer_match_pass_rate": 1.0,
+      "magnitude_match_pass_rate": 0.8888888888888888,
+      "model_selection_confirmatory": true,
+      "n_confirmatory_triplets": 9,
+      "n_confirmatory_rows": 267,
+      "reliability_eligible": true
+    },
+    "mistral-7b-v0.1": {
+      "model": "mistral-7b-v0.1",
+      "status": "ok",
+      "n_clusters_ge_5": 5,
+      "n_triplets": 15,
+      "fraction_grid": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0
+      ],
+      "n_confirmatory_fractions": 11,
+      "layer_match_pass_rate": 1.0,
+      "magnitude_match_pass_rate": 0.7466666666666667,
+      "model_selection_confirmatory": true,
+      "n_confirmatory_triplets": 15,
+      "n_confirmatory_rows": 381,
+      "reliability_eligible": true
+    }
+  },
+  "calibration": {
+    "split_id": "calibration_v1",
+    "available": true,
+    "sha256_ids_parquet": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+    "disjoint_with_evaluation": true,
+    "overlap_count": 0,
+    "overlap_ratio": 0.0,
+    "note": "B3 uses calibration corpus for m_h estimation; evaluation uses separate synthetic task examples"
+  }
+}

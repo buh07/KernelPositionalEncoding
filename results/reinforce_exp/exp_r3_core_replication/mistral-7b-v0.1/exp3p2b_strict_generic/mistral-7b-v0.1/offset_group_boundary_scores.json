@@ -1,0 +1,8 @@
+{
+  "status": "skipped",
+  "reason": "Missing theory5b or prev_token per-head artifacts for this model.",
+  "expected": [
+    "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory5b_boundary_detection/mistral-7b-v0.1/boundary_attention_scores.parquet",
+    "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory7_induction_feeders/mistral-7b-v0.1/prev_token_scores.parquet"
+  ]
+}

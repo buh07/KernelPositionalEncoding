@@ -1,0 +1,162 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Barbero et~al.(2024)Barbero, Vitvitskyi, Perivolaropoulos, Pascanu,
+  and Velickovic]{barbero2024round}
+Federico Barbero, Alex Vitvitskyi, Christos Perivolaropoulos, Razvan Pascanu,
+  and Petar Velickovic.
+\newblock Round and round we go! what makes rotary positional encodings useful?
+\newblock \emph{arXiv preprint arXiv:2410.06205}, 2024.
+
+\bibitem[Chan et~al.(2022)Chan, Garriga-Alonso, Goldowsky-Dill, Greenblatt,
+  Nanda, Pearce, Radhakrishnan, Ruhkamp, Schiefer, Schubert,
+  et~al.]{chan2022causal}
+Lawrence Chan, Adri{\`a} Garriga-Alonso, Noah Goldowsky-Dill, Ryan Greenblatt,
+  Neel Nanda, Adam Pearce, Ansh Radhakrishnan, Thomas Ruhkamp, Nicholas
+  Schiefer, Ludwig Schubert, et~al.
+\newblock Causal scrubbing: A method for rigorously testing interpretability
+  hypotheses.
+\newblock \emph{arXiv preprint arXiv:2212.06800}, 2022.
+
+\bibitem[Chen et~al.(2023)Chen, Li, Shen, Yang, Zhang, Gan, Tao, and
+  Carin]{chen2023extending}
+Shouyuan Chen, Liyuan Li, Junxian Shen, Deyi Yang, Yizhe Zhang, Zhe Gan,
+  Dacheng Tao, and Lawrence Carin.
+\newblock Extending context window of large language models via positional
+  interpolation.
+\newblock \emph{arXiv preprint arXiv:2306.15595}, 2023.
+
+\bibitem[Clark et~al.(2019)Clark, Khandelwal, Levy, and
+  Manning]{clark2019analyzing}
+Kevin Clark, Urvashi Khandelwal, Omer Levy, and Christopher~D. Manning.
+\newblock What does bert look at? an analysis of bert's attention.
+\newblock In \emph{BlackboxNLP Workshop at ACL}, 2019.
+
+\bibitem[Conmy et~al.(2023)Conmy, Mavor-Parker, Lynch, Heimersheim, and
+  Garriga-Alonso]{conmy2023acdc}
+Arthur Conmy, Augustine~N. Mavor-Parker, Aengus Lynch, Stefan Heimersheim, and
+  Adri{\`a} Garriga-Alonso.
+\newblock Towards automated circuit discovery for mechanistic interpretability.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2023.
+
+\bibitem[Dubey et~al.(2024)Dubey, Jauhri, Pandey, Kadian, Al-Dahle,
+  et~al.]{dubey2024llama3}
+Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad
+  Al-Dahle, et~al.
+\newblock The llama 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem[Elhage et~al.(2021)Elhage, Nanda, Olsson, Henighan, Joseph, Mann,
+  Askell, Bai, Chen, Conerly, et~al.]{elhage2021framework}
+Nelson Elhage, Neel Nanda, Catherine Olsson, Tom Henighan, Nicholas Joseph, Ben
+  Mann, Amanda Askell, Yuntao Bai, Anna Chen, Tom Conerly, et~al.
+\newblock A mathematical framework for transformer circuits.
+\newblock \emph{Transformer Circuits Thread}, 2021.
+
+\bibitem[Groeneveld et~al.(2024)Groeneveld, Beltagy, Walsh, Bhagia, Kinney,
+  Tafjord, Jha, et~al.]{groeneveld2024olmo}
+Dirk Groeneveld, Iz~Beltagy, Pete Walsh, Akshita Bhagia, Rodney Kinney, Oyvind
+  Tafjord, Ananya~Harsh Jha, et~al.
+\newblock Olmo: Accelerating the science of language models.
+\newblock \emph{arXiv preprint arXiv:2402.00838}, 2024.
+
+\bibitem[Hendrycks et~al.(2021)Hendrycks, Burns, Kadavath, Arora, Basart, Tang,
+  Song, and Steinhardt]{hendrycks2021math}
+Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric
+  Tang, Dawn Song, and Jacob Steinhardt.
+\newblock Measuring mathematical problem solving with the math dataset.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2021.
+
+\bibitem[Jiang et~al.(2023)Jiang, Sablayrolles, Mensch, Bamford, Devins,
+  Bressand, et~al.]{jiang2023mistral}
+Albert~Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford,
+  Shreya~Ghosh Devins, Florian Bressand, et~al.
+\newblock Mistral 7b.
+\newblock \emph{arXiv preprint arXiv:2310.06825}, 2023.
+
+\bibitem[Meng et~al.(2022)Meng, Sharma, Andonian, Belinkov, and
+  Bau]{meng2022locating}
+Kevin Meng, Arnab Sharma, Alex Andonian, Yonatan Belinkov, and David Bau.
+\newblock Locating and editing factual associations in gpt.
+\newblock \emph{Advances in Neural Information Processing Systems}, 2022.
+
+\bibitem[Michel et~al.(2019)Michel, Levy, and Neubig]{michel2019sixteen}
+Paul Michel, Omer Levy, and Graham Neubig.
+\newblock Are sixteen heads really better than one?
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2019.
+
+\bibitem[Olsson et~al.(2022)Olsson, Elhage, Nanda, Joseph, DasSarma, Henighan,
+  Mann, Askell, Bai, Chen, et~al.]{olsson2022context}
+Catherine Olsson, Nelson Elhage, Neel Nanda, Nicholas Joseph, Nova DasSarma,
+  Tom Henighan, Ben Mann, Amanda Askell, Yuntao Bai, Anna Chen, et~al.
+\newblock In-context learning and induction heads.
+\newblock \emph{Transformer Circuits Thread}, 2022.
+
+\bibitem[Peng et~al.(2023)Peng, Quesnelle, Fan, and Shippole]{peng2023yarn}
+Bowen Peng, Jeffrey Quesnelle, Honglu Fan, and Enrico Shippole.
+\newblock Yarn: Efficient context window extension of large language models.
+\newblock \emph{arXiv preprint arXiv:2309.00071}, 2023.
+
+\bibitem[Press et~al.(2022)Press, Smith, and Lewis]{press2022train}
+Ofir Press, Noah~A. Smith, and Mike Lewis.
+\newblock Train short, test long: Attention with linear biases enables input
+  length extrapolation.
+\newblock In \emph{ICLR}, 2022.
+
+\bibitem[Radford et~al.(2019)Radford, Wu, Child, Luan, Amodei, and
+  Sutskever]{radford2019language}
+Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya
+  Sutskever.
+\newblock Language models are unsupervised multitask learners.
+\newblock OpenAI Blog, 2019.
+
+\bibitem[Shaw et~al.(2018)Shaw, Uszkoreit, and Vaswani]{shaw2018self}
+Peter Shaw, Jakob Uszkoreit, and Ashish Vaswani.
+\newblock Self-attention with relative position representations.
+\newblock In \emph{NAACL}, 2018.
+
+\bibitem[Su et~al.(2024)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2021roformer}
+Jianlin Su, Yu~Lu, Shengfeng Pan, Ahmed Murtadha, Bo~Wen, and Yunfeng Liu.
+\newblock Roformer: Enhanced transformer with rotary position embedding.
+\newblock \emph{Neurocomputing}, 2024.
+
+\bibitem[Touvron et~al.(2023)Touvron, Martin, Stone, Albert, Almahairi,
+  et~al.]{touvron2023llama2}
+Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, et~al.
+\newblock Llama 2: Open foundation and fine-tuned chat models.
+\newblock \emph{arXiv preprint arXiv:2307.09288}, 2023.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2017.
+
+\bibitem[Voita et~al.(2019)Voita, Talbot, Moiseev, Sennrich, and
+  Titov]{voita2019analyzing}
+Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov.
+\newblock Analyzing multi-head self-attention: Specialized heads do the heavy
+  lifting, the rest can be pruned.
+\newblock In \emph{ACL}, 2019.
+
+\bibitem[Wu et~al.(2024)Wu, Wang, Xiao, Peng, and Fu]{wu2024retrieval}
+Yuxiang Wu, Yizhong Wang, Guangxuan Xiao, Hao Peng, and Jingjing Fu.
+\newblock Retrieval head mechanistically explains long-context factuality.
+\newblock \emph{arXiv preprint arXiv:2404.15574}, 2024.
+
+\bibitem[Xiao et~al.(2023)Xiao, Tian, Chen, Han, and Lewis]{xiao2023efficient}
+Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis.
+\newblock Efficient streaming language models with attention sinks.
+\newblock \emph{arXiv preprint arXiv:2309.17453}, 2023.
+
+\bibitem[Zhang et~al.(2024)Zhang, Zeng, Wang, and Lu]{zhang2024tinyllama}
+Peiyuan Zhang, Guangtao Zeng, Tianhao Wang, and Wei Lu.
+\newblock Tinyllama: An open-source small language model.
+\newblock \emph{arXiv preprint arXiv:2401.02385}, 2024.
+
+\end{thebibliography}

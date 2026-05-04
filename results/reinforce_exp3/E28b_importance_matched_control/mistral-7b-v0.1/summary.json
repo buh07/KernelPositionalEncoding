@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-03 15:43:49",
+  "experiment_id": "E28B",
+  "model": "mistral-7b-v0.1",
+  "n_eval_seqs": 64,
+  "n_cal_eval_seqs": 8,
+  "n_high_si_heads": 256,
+  "n_importance_non_si_heads": 256,
+  "si_mean_delta": 3.2785435244441032,
+  "importance_mean_delta": 0.06997541710734367,
+  "delta_true_si_vs_importance": 3.2085681073367596,
+  "ci_delta_true_si_vs_importance": [
+    3.139738362748176,
+    3.27775032077916
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 4360.36416220665
+}

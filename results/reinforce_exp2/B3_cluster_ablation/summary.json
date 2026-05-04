@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "experiment_id": "B3_cluster_ablation",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "execution_mode": "aggregate",
+  "partial_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1",
+  "resume_partials": true,
+  "verdict": {
+    "final": "B3_inconclusive",
+    "reason": "insufficient_clusters"
+  },
+  "n_reliability_eligible_models": 2,
+  "criteria": {
+    "n_models_redundancy_supported": 0,
+    "n_models_group_structure_supported": 0
+  },
+  "run_mode": "full",
+  "dependency_inputs": {
+    "depends_on": [
+      "B1_kernel_taxonomy",
+      "B2a_head_alignment"
+    ],
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation"
+  },
+  "resume_decision": "rerun_missing_or_invalid",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B3_cluster_ablation/2026-04-23_13-13-25__b3_aggregate.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

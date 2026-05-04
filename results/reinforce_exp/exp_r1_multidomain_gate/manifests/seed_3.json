@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-04-17 06:40:37",
+  "experiment_id": "EXP-R1",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "llama-3.1-8b",
+  "seed_set": [
+    3
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 48,
+  "synthetic_target_per_cell": 1000,
+  "output_root": "results/reinforce_exp/exp_r1_multidomain_gate",
+  "elapsed_sec": 11011.024701356888,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 3,
+      "n_sequences": 48,
+      "fake_minus_real_with_prefix": 0.00622274974743893,
+      "cohens_d_fake_minus_real": 0.1601473839761746,
+      "p_one_sided_fake_gt_real": 1.257914758722476e-14,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed3/llama-3.1-8b",
+      "elapsed_sec": 5333.906035900116
+    },
+    {
+      "domain": "code",
+      "seed": 3,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.0039493417636971145,
+      "cohens_d_fake_minus_real": -0.10068242433726939,
+      "p_one_sided_fake_gt_real": 0.9998054453416448,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r1_multidomain_gate/domain_code/seed3/llama-3.1-8b",
+      "elapsed_sec": 3032.49543261528
+    },
+    {
+      "domain": "dialogue",
+      "seed": 3,
+      "n_sequences": 48,
+      "fake_minus_real_with_prefix": 0.0035640261786695215,
+      "cohens_d_fake_minus_real": 0.09788371710369197,
+      "p_one_sided_fake_gt_real": 0.013466127235459728,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r1_multidomain_gate/domain_dialogue/seed3/llama-3.1-8b",
+      "elapsed_sec": 2644.623104095459
+    }
+  ]
+}

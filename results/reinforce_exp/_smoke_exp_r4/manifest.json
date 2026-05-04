@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-16 16:53:57",
+  "experiment_id": "EXP-R4",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "pe_scheme_contrast",
+  "model": "gpt2-medium+gpt2-small",
+  "seed_set": [
+    1
+  ],
+  "device": "cuda:0",
+  "num_sequences": 8,
+  "seq_len": 256,
+  "top_k_dims": 16,
+  "synthetic_target_per_cell": 64,
+  "output_root": "results/reinforce_exp/_smoke_exp_r4"
+}

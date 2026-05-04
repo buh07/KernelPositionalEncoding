@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-04-27 13:40:05",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "output_dir": "results/reinforce_exp/_smoke_new_r12_equiv/shard_a/olmo-2-7b",
+  "runtime_sec": 75.53650116920471,
+  "aggregate": {
+    "timestamp": "2026-04-27 13:40:05",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "n_orderings": 5,
+    "ordering_id_start": 0,
+    "ordering_id_stop": 5,
+    "n_threshold_majority": 0,
+    "fraction_threshold_majority": 0.0,
+    "robustness_assessment": "failure",
+    "acceptance_thresholds": {
+      "strong_replication_ge": 0.8,
+      "partial_replication_ge": 0.5
+    },
+    "mean_random_bic_delta_linear_minus_threshold": NaN,
+    "std_random_bic_delta_linear_minus_threshold": NaN,
+    "mean_random_bic_delta_logistic_minus_threshold": NaN,
+    "std_random_bic_delta_logistic_minus_threshold": NaN,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 4,
+      "long_range_retrieval::span32": 4
+    },
+    "effective_batch_size_ntp": 2,
+    "ntp_coverage": {
+      "requested_total": 2,
+      "available_total": 2,
+      "effective_per_seed": 2,
+      "total_used": 2,
+      "reuse_mode": "strict_split"
+    }
+  },
+  "canonical_vs_random": {
+    "timestamp": "2026-04-27 13:40:05",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+    "canonical_mean_bic_delta_linear_minus_threshold": 9.545128203736827,
+    "canonical_mean_bic_delta_logistic_minus_threshold": NaN,
+    "random_mean_bic_delta_linear_minus_threshold": NaN,
+    "random_mean_bic_delta_logistic_minus_threshold": NaN,
+    "random_distribution": [
+      NaN,
+      NaN,
+      NaN,
+      NaN,
+      NaN
+    ],
+    "random_distribution_logistic_minus_threshold": [
+      NaN,
+      NaN,
+      NaN,
+      NaN,
+      NaN
+    ],
+    "ranked_ordering_outlier": null
+  },
+  "runtime_metadata": {
+    "ordering_id_start": 0,
+    "ordering_id_stop": 5,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 4,
+      "long_range_retrieval::span32": 4
+    },
+    "effective_batch_size_ntp": 2,
+    "ntp_coverage": {
+      "requested_total": 2,
+      "available_total": 2,
+      "effective_per_seed": 2,
+      "total_used": 2,
+      "reuse_mode": "strict_split"
+    }
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "timestamp": "2026-04-12 03:00:52",
+  "experiment": "5D",
+  "status": "completed",
+  "device": "cuda:0",
+  "seq_len": 256,
+  "num_sequences": 50,
+  "seed": 0,
+  "artifacts": {
+    "distribution_shift_fragility": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/distribution_shift_fragility.json",
+    "shift_results": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5d_distribution_shift_fragility/shift_results.parquet"
+  },
+  "summary": {
+    "timestamp": "2026-04-12 03:00:52",
+    "status": "completed",
+    "acceptance": {
+      "required_cells": 10,
+      "completed_cells_at_target_sequences": 10,
+      "required_sequences_per_cell": 50,
+      "interaction_rows_required": 4,
+      "interaction_rows_observed": 4,
+      "passed": true
+    },
+    "rows": [
+      {
+        "model": "llama-3.1-8b",
+        "condition": "wiki",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.3714063994369789,
+        "mean_r2_ci95_low": 0.32129617832110996,
+        "mean_r2_ci95_high": 0.4326145357284995,
+        "boundary_d": 1.163863101141706,
+        "delta_r2_vs_wiki": 0.0,
+        "delta_boundary_d_vs_wiki": 0.0
+      },
+      {
+        "model": "llama-3.1-8b",
+        "condition": "code",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.40502421397522964,
+        "mean_r2_ci95_low": 0.32181536337534206,
+        "mean_r2_ci95_high": 0.5075194147072059,
+        "boundary_d": 1.1145857924335318,
+        "delta_r2_vs_wiki": 0.033617814538250745,
+        "delta_boundary_d_vs_wiki": -0.04927730870817415
+      },
+      {
+        "model": "llama-3.1-8b",
+        "condition": "dialogue",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.4284882497393116,
+        "mean_r2_ci95_low": 0.3542183510190895,
+        "mean_r2_ci95_high": 0.5054469329459857,
+        "boundary_d": 1.1641403287683612,
+        "delta_r2_vs_wiki": 0.057081850302332704,
+        "delta_boundary_d_vs_wiki": 0.0002772276266551632
+      },
+      {
+        "model": "llama-3.1-8b",
+        "condition": "technical_scientific",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.3310244199181024,
+        "mean_r2_ci95_low": 0.29868963147768424,
+        "mean_r2_ci95_high": 0.39827145762230515,
+        "boundary_d": 1.1511377686627304,
+        "delta_r2_vs_wiki": -0.04038197951887651,
+        "delta_boundary_d_vs_wiki": -0.01272533247897556
+      },
+      {
+        "model": "llama-3.1-8b",
+        "condition": "adversarial_bpe",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.35950280516201155,
+        "mean_r2_ci95_low": 0.31662010492186454,
+        "mean_r2_ci95_high": 0.4122847296408351,
+        "boundary_d": 1.1632136802899453,
+        "delta_r2_vs_wiki": -0.011903594274967344,
+        "delta_boundary_d_vs_wiki": -0.0006494208517606737
+      },
+      {
+        "model": "olmo-2-7b",
+        "condition": "wiki",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.05389119824908099,
+        "mean_r2_ci95_low": 0.0438983842155131,
+        "mean_r2_ci95_high": 0.06780371024438413,
+        "boundary_d": 0.6194004455851153,
+        "delta_r2_vs_wiki": 0.0,
+        "delta_boundary_d_vs_wiki": 0.0
+      },
+      {
+        "model": "olmo-2-7b",
+        "condition": "code",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.07022244894351613,
+        "mean_r2_ci95_low": 0.05030251355290361,
+        "mean_r2_ci95_high": 0.0896274000586225,
+        "boundary_d": 0.5520236970106783,
+        "delta_r2_vs_wiki": 0.01633125069443514,
+        "delta_boundary_d_vs_wiki": -0.06737674857443698
+      },
+      {
+        "model": "olmo-2-7b",
+        "condition": "dialogue",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.08038427235157565,
+        "mean_r2_ci95_low": 0.05748577324946311,
+        "mean_r2_ci95_high": 0.11849140625615905,
+        "boundary_d": 0.5790737519917206,
+        "delta_r2_vs_wiki": 0.026493074102494657,
+        "delta_boundary_d_vs_wiki": -0.04032669359339469
+      },
+      {
+        "model": "olmo-2-7b",
+        "condition": "technical_scientific",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.05037008419084757,
+        "mean_r2_ci95_low": 0.040206358465263714,
+        "mean_r2_ci95_high": 0.07043764581196874,
+        "boundary_d": 0.6687792123697821,
+        "delta_r2_vs_wiki": -0.003521114058233424,
+        "delta_boundary_d_vs_wiki": 0.049378766784666794
+      },
+      {
+        "model": "olmo-2-7b",
+        "condition": "adversarial_bpe",
+        "status": "completed",
+        "n_sequences": 50,
+        "mean_r2": 0.05210303160340571,
+        "mean_r2_ci95_low": 0.04460990063370443,
+        "mean_r2_ci95_high": 0.06256497386430046,
+        "boundary_d": 0.6092448574220464,
+        "delta_r2_vs_wiki": -0.0017881666456752848,
+        "delta_boundary_d_vs_wiki": -0.01015558816306894
+      }
+    ],
+    "interaction_test": [
+      {
+        "condition": "code",
+        "llama_delta_r2": 0.033617814538250745,
+        "olmo_delta_r2": 0.01633125069443514,
+        "interaction_delta_r2": 0.017286563843815606,
+        "llama_boundary_delta": -0.04927730870817415,
+        "olmo_boundary_delta": -0.06737674857443698
+      },
+      {
+        "condition": "dialogue",
+        "llama_delta_r2": 0.057081850302332704,
+        "olmo_delta_r2": 0.026493074102494657,
+        "interaction_delta_r2": 0.030588776199838047,
+        "llama_boundary_delta": 0.0002772276266551632,
+        "olmo_boundary_delta": -0.04032669359339469
+      },
+      {
+        "condition": "technical_scientific",
+        "llama_delta_r2": -0.04038197951887651,
+        "olmo_delta_r2": -0.003521114058233424,
+        "interaction_delta_r2": -0.036860865460643086,
+        "llama_boundary_delta": -0.01272533247897556,
+        "olmo_boundary_delta": 0.049378766784666794
+      },
+      {
+        "condition": "adversarial_bpe",
+        "llama_delta_r2": -0.011903594274967344,
+        "olmo_delta_r2": -0.0017881666456752848,
+        "interaction_delta_r2": -0.01011542762929206,
+        "llama_boundary_delta": -0.0006494208517606737,
+        "olmo_boundary_delta": -0.01015558816306894
+      }
+    ]
+  }
+}

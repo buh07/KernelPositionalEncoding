@@ -1,0 +1,62 @@
+{
+  "experiment_id": "B1_kernel_taxonomy",
+  "tables": [
+    {
+      "path": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3_calib_v2_intended/cluster_membership.parquet",
+      "description": "Head-level cluster assignments across feature spaces.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name."
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer index."
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Head index."
+        },
+        {
+          "name": "cluster_descriptor_kmeans",
+          "dtype": "int",
+          "description": "Primary descriptor-space cluster id."
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "Mean SI-R2."
+        },
+        {
+          "name": "boundary_attn_score",
+          "dtype": "float",
+          "description": "Boundary effect score."
+        }
+      ]
+    },
+    {
+      "path": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3_calib_v2_intended/prototype_similarity_matrix.parquet",
+      "description": "Cross-model prototype cosine matches.",
+      "columns": [
+        {
+          "name": "model_a",
+          "dtype": "str",
+          "description": "Left model."
+        },
+        {
+          "name": "model_b",
+          "dtype": "str",
+          "description": "Right model."
+        },
+        {
+          "name": "shape_only_cosine",
+          "dtype": "float",
+          "description": "Prototype cosine similarity."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reinforce_exp2/artifact_manifest.schema.json",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "experiment_id",
+    "command",
+    "model",
+    "analysis_tier",
+    "canonical_eligible",
+    "override_used"
+  ],
+  "properties": {
+    "timestamp": { "type": "string" },
+    "experiment_id": { "type": "string" },
+    "cwd": { "type": "string" },
+    "python": { "type": "string" },
+    "command": { "type": "string" },
+    "model": { "type": "string" },
+    "analysis_tier": { "type": "string", "enum": ["confirmatory", "exploratory"] },
+    "canonical_eligible": { "type": "boolean" },
+    "override_used": { "type": "boolean" },
+    "seed_set": {
+      "type": "array",
+      "items": { "type": "integer" }
+    }
+  },
+  "additionalProperties": true
+}

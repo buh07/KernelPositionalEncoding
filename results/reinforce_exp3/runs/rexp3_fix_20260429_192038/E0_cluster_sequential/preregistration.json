@@ -1,0 +1,56 @@
+{
+  "experiment_id": "E0",
+  "question": "Does exhausting SI heads cluster-by-cluster (sequential ordering) produce earlier threshold-style collapse than interleaving removals across clusters?",
+  "primary_hypothesis": "If genuine distributed redundancy drives the threshold, sequential and interleaved orderings produce statistically indistinguishable collapse fractions. If cluster-boundary depletion drives the threshold, sequential ordering collapses significantly earlier (lower tau).",
+  "primary_endpoints": [
+    "p_seq_lt_int > 0.20 in all three models (redundancy consistent)",
+    "|mean_tau_seq - mean_tau_int| < 0.05 in all three models"
+  ],
+  "secondary_endpoints": [
+    "BIC vote tally per ordering type matches R12 r2-ranked tally",
+    "AUC under degradation curve indistinguishable across sequential/interleaved"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "dataset_sources": [
+    "experiment3/theory1_si_circuits (R\u00b2 rankings)",
+    "reinforce_exp2/B1_kernel_taxonomy (cluster assignments)",
+    "Wikipedia held-out sequences for NTP loss"
+  ],
+  "inclusion_exclusion_rules": [
+    "Include all high-SI heads (top quartile by R\u00b2) per model",
+    "Use cluster_descriptor_kmeans column from B1 cluster_membership.parquet",
+    "Exclude models where B1 cluster_membership.parquet is unavailable"
+  ],
+  "sample_size_plan": {
+    "fractions": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      40,
+      50
+    ],
+    "num_seeds": 5,
+    "n_perm_tau_test": 10000
+  },
+  "seed_plan": {
+    "seed_base": 0,
+    "n_perm": 10000
+  },
+  "stopping_rule": "Run all three orderings at all fractions; no early stopping.",
+  "multiplicity_family": [
+    "Holm-Bonferroni across three models for tau comparison"
+  ],
+  "acceptance_criteria": [
+    "Redundancy consistent: p_seq_lt_int > 0.20 AND |delta_tau| < 0.05 in all models",
+    "Cluster structure: p_seq_lt_int < 0.05 (Holm) in >= 2/3 models AND AUC ratio >= 1.2"
+  ],
+  "fallback_interpretation_if_null": "If inconclusive: report that the experiment could not distinguish redundancy from cluster-boundary depletion at current power. Retain Result III as 'threshold-style capacity collapse' without mechanistic attribution."
+}

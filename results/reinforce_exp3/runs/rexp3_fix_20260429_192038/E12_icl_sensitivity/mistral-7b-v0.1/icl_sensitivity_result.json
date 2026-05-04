@@ -1,0 +1,20 @@
+{
+  "model": "mistral-7b-v0.1",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.855,
+  "intact_non_icl_accuracy": 0.0,
+  "ablated_icl_accuracy": 0.14,
+  "ablated_non_icl_accuracy": 0.005,
+  "icl_acc_loss": 0.715,
+  "non_icl_acc_loss": -0.005,
+  "icl_lp_loss": 6.826245727539064,
+  "non_icl_lp_loss": 0.05937499999999929,
+  "accuracy_sensitivity_ratio": NaN,
+  "logprob_sensitivity_ratio": 114.96834909539614,
+  "icl_preferentially_degraded": true,
+  "acc_denominator_valid": false,
+  "lp_denominator_valid": true,
+  "acc_vote": "indeterminate",
+  "lp_vote": "preferential",
+  "model_level_status": "supported"
+}

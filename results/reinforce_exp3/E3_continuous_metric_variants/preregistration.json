@@ -1,0 +1,26 @@
+{
+  "experiment_id": "E3",
+  "hypothesis": "Threshold-piecewise BIC preference persists when binary accuracy is replaced by continuous log-probability metrics.",
+  "primary_criterion": "0/12 linear BIC votes in continuous-metric cells",
+  "models": [
+    "mistral-7b-v0.1"
+  ],
+  "fractions": [
+    0.0,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.5
+  ],
+  "n_seeds": 5,
+  "tasks": [
+    "local_keymatch_logprob",
+    "longrange_retrieval_logprob"
+  ],
+  "metric_type": "continuous (normalized log-probability)",
+  "timestamp": "2026-04-29 16:50:16"
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-15 23:19:11",
+  "conditions": [
+    "h_si_student",
+    "h_teacher_baseline"
+  ],
+  "seeds": [
+    2
+  ],
+  "n_runs": 2,
+  "experiment": "6C",
+  "model": "llama-3.1-8b"
+}

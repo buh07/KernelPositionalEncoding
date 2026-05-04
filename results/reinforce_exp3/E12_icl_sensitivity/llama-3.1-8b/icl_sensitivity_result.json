@@ -1,0 +1,15 @@
+{
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.875,
+  "intact_non_icl_accuracy": 0.005,
+  "ablated_icl_accuracy": 0.055,
+  "ablated_non_icl_accuracy": 0.005,
+  "icl_acc_loss": 0.82,
+  "non_icl_acc_loss": 0.0,
+  "icl_lp_loss": 10.584078521728516,
+  "non_icl_lp_loss": 2.1828125000000007,
+  "accuracy_sensitivity_ratio": NaN,
+  "logprob_sensitivity_ratio": 4.848826237585002,
+  "icl_preferentially_degraded": true
+}

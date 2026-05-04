@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E10",
+  "hypothesis": "High-SI heads (top-quartile R\u00b2) and retrieval heads (Wu et al. copy score) are disjoint populations: Jaccard < 0.10 and |\u03c1| < 0.20 in all three models.",
+  "primary_criterion": "Jaccard < 0.10 and |Spearman \u03c1| < 0.20 in all models",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "n_eval_examples": 200,
+  "seed_base": 20260429,
+  "timestamp": "2026-04-29 18:00:44"
+}

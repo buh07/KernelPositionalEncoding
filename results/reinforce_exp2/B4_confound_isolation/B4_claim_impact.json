@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-22 15:59:49",
+  "experiment_id": "B4_confound_isolation",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If mixed due entropy eligibility shortfall, report within-layer as confirmatory and entropy as exploratory/caveated."
+  ]
+}

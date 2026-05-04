@@ -1,0 +1,150 @@
+{
+  "n_heads": 1024,
+  "correlation": {
+    "pearson_r": 0.22642929626911856,
+    "pearson_p": 2.2619678480741353e-13,
+    "pearson_ci_95": [
+      0.1511247495540551,
+      0.3095064498786649
+    ],
+    "spearman_rho": 0.039310471617662,
+    "spearman_p": 0.20879546484395634,
+    "spearman_ci_95": [
+      -0.02635801290541445,
+      0.10414959613737217
+    ]
+  },
+  "group_comparison": {
+    "high_si_mean_boundary_score": 0.0011541895160007698,
+    "low_si_mean_boundary_score": -0.015921915417140803,
+    "n_high_si": 256,
+    "n_low_si": 256,
+    "t_statistic": 6.105976394902803,
+    "p_value": 3.5858188471781023e-09,
+    "cohens_d": 0.5396971643250951
+  },
+  "top_20_by_r2": [
+    {
+      "layer": 7,
+      "head": 8,
+      "mean_r2": 0.5831288625052355,
+      "boundary_attn_score": -0.020900443429127336
+    },
+    {
+      "layer": 20,
+      "head": 15,
+      "mean_r2": 0.5757630547300634,
+      "boundary_attn_score": -0.023618793580681086
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "mean_r2": 0.5143014327321221,
+      "boundary_attn_score": -0.020677495398558676
+    },
+    {
+      "layer": 0,
+      "head": 15,
+      "mean_r2": 0.5022602370504666,
+      "boundary_attn_score": -0.01736799639184028
+    },
+    {
+      "layer": 1,
+      "head": 8,
+      "mean_r2": 0.43650082955535646,
+      "boundary_attn_score": -0.017018741578795016
+    },
+    {
+      "layer": 0,
+      "head": 9,
+      "mean_r2": 0.3595826889315763,
+      "boundary_attn_score": -0.016648538294248283
+    },
+    {
+      "layer": 5,
+      "head": 23,
+      "mean_r2": 0.26469115866054327,
+      "boundary_attn_score": -0.01702084776479751
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "mean_r2": 0.2535817349467582,
+      "boundary_attn_score": -0.016933629871346056
+    },
+    {
+      "layer": 25,
+      "head": 25,
+      "mean_r2": 0.2505074349895486,
+      "boundary_attn_score": 0.22361993044614792
+    },
+    {
+      "layer": 19,
+      "head": 7,
+      "mean_r2": 0.24381613457011336,
+      "boundary_attn_score": -0.023551482474431396
+    },
+    {
+      "layer": 4,
+      "head": 28,
+      "mean_r2": 0.23260639138606973,
+      "boundary_attn_score": -0.018193952506408095
+    },
+    {
+      "layer": 11,
+      "head": 12,
+      "mean_r2": 0.23054592431148385,
+      "boundary_attn_score": -0.016775442869402468
+    },
+    {
+      "layer": 25,
+      "head": 4,
+      "mean_r2": 0.22111610027000964,
+      "boundary_attn_score": 0.18939983379095793
+    },
+    {
+      "layer": 28,
+      "head": 12,
+      "mean_r2": 0.21952649877721078,
+      "boundary_attn_score": 0.1899024210870266
+    },
+    {
+      "layer": 6,
+      "head": 27,
+      "mean_r2": 0.21906756628986818,
+      "boundary_attn_score": -0.017513658734969795
+    },
+    {
+      "layer": 6,
+      "head": 12,
+      "mean_r2": 0.21125449224791693,
+      "boundary_attn_score": -0.01867022376973182
+    },
+    {
+      "layer": 0,
+      "head": 4,
+      "mean_r2": 0.20742960845600616,
+      "boundary_attn_score": -0.017318759229965508
+    },
+    {
+      "layer": 6,
+      "head": 29,
+      "mean_r2": 0.20401291503868305,
+      "boundary_attn_score": -0.01620381628163159
+    },
+    {
+      "layer": 20,
+      "head": 16,
+      "mean_r2": 0.20260258439333695,
+      "boundary_attn_score": -0.007593544200062752
+    },
+    {
+      "layer": 17,
+      "head": 29,
+      "mean_r2": 0.20185067905898463,
+      "boundary_attn_score": -0.015449769329279661
+    }
+  ],
+  "hypothesis_supported": false,
+  "_score_df_path": "boundary_attention_scores.parquet"
+}

@@ -1,0 +1,37 @@
+{
+  "overall_accuracy": 0.690625,
+  "n_total": 320,
+  "correct_total": 221,
+  "by_task": [
+    {
+      "task": "addition",
+      "n": 64,
+      "correct": 50,
+      "accuracy": 0.78125
+    },
+    {
+      "task": "subtraction",
+      "n": 64,
+      "correct": 43,
+      "accuracy": 0.671875
+    },
+    {
+      "task": "counting",
+      "n": 64,
+      "correct": 64,
+      "accuracy": 1.0
+    },
+    {
+      "task": "modular_arithmetic",
+      "n": 64,
+      "correct": 13,
+      "accuracy": 0.203125
+    },
+    {
+      "task": "sequence_continuation",
+      "n": 64,
+      "correct": 51,
+      "accuracy": 0.796875
+    }
+  ]
+}

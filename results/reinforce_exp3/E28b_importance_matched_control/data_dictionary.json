@@ -1,0 +1,36 @@
+{
+  "experiment_id": "E28B",
+  "tables": [
+    {
+      "path": "<model>/head_importance_proxy.parquet",
+      "description": "Per-head generic importance proxy from single-head output zeroing.",
+      "columns": [
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "head index"
+        },
+        {
+          "name": "importance_abs_delta_mean",
+          "dtype": "float",
+          "description": "mean absolute calibration loss delta"
+        },
+        {
+          "name": "importance_abs_delta_median",
+          "dtype": "float",
+          "description": "median absolute calibration loss delta"
+        }
+      ]
+    },
+    {
+      "path": "<model>/si_vs_importance_trials.parquet",
+      "description": "Per-sequence deltas for SI vs importance-matched interventions.",
+      "columns": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-19 10:10:44",
+  "experiment_id": "NEW-R15",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "single_model",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "seq_len": 512,
+  "num_sequences": 500,
+  "quantile": 0.25,
+  "output_root": "results/reinforce_exp/exp_new_r15_head_stability"
+}

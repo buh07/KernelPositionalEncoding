@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E24",
+  "question": "Is nonlinear cumulative-depletion behavior specific to SI-ranked ablation versus matched non-SI ablation?",
+  "primary_criterion": "At least one matched non-SI cell must prefer linear while SI-ranked cells reject linear for SI-specific nonlinearity support.",
+  "decision_rules": [
+    "supports_si_specific_nonlinearity: SI linear votes=0 and non-SI linear votes>0",
+    "not_supported: SI linear votes=0 and non-SI linear votes=0",
+    "mixed otherwise"
+  ]
+}

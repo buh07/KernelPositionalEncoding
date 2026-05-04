@@ -1,0 +1,34 @@
+{
+  "experiment_id": "E20",
+  "mode": "proxy",
+  "question": "Does cross-model SI heterogeneity exceed matched-setup training-run variance?",
+  "primary_hypothesis": "Between-model SI variance exceeds within-model seed variance under matched proxy training.",
+  "primary_endpoints": [
+    "between_model_var_si",
+    "within_model_seed_var_si",
+    "between_over_within_ratio"
+  ],
+  "secondary_endpoints": [
+    "mean_c1_deg",
+    "boundary_d",
+    "si_high_mean_r2"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "seed_list": [
+    0,
+    1,
+    2
+  ],
+  "sample_size_plan": {
+    "seeds_per_model": 3,
+    "models": 3
+  },
+  "acceptance_criteria": [
+    "between_model_var_si > 1.25 * within_model_seed_var_si indicates model-family-dominant heterogeneity"
+  ],
+  "fallback_interpretation_if_null": "Heterogeneity remains descriptive; variance decomposition does not isolate model-family dominance."
+}

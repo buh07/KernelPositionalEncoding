@@ -1,0 +1,21 @@
+{
+  "experiment_id": "E6",
+  "timestamp": "2026-05-01 14:14:19",
+  "model": "llama-3.1-8b",
+  "phase_run": "both",
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "seeds_per_domain": 8,
+  "phase2_features": [
+    "space_prefix",
+    "bpe_merge_rank",
+    "subword_length",
+    "intraword_position",
+    "capitalization"
+  ],
+  "seed_base_phase1": 20260429,
+  "seed_base_phase2": 20260500
+}

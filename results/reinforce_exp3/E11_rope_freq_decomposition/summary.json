@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E11",
+  "status": "complete",
+  "models_analyzed": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "interpretation": "no_data",
+  "timestamp_start": "2026-04-29 16:52:35",
+  "timestamp_end": "2026-04-29 16:52:38"
+}

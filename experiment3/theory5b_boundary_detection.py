@@ -302,6 +302,105 @@ def parse_head_list(entries: list[dict]) -> list[HeadID]:
 # APPROACH A + C: COMBINED ATTENTION CAPTURE PASS
 # ═══════════════════════════════════════════════════════════════════════════════
 
+def _expected_layer_head_counts(r2_df: pd.DataFrame) -> tuple[int, int]:
+    """Infer expected (n_layers, n_heads) from per-head R² frame."""
+    if r2_df is None or r2_df.empty:
+        return 0, 0
+    if "layer" not in r2_df.columns or "head" not in r2_df.columns:
+        return 0, 0
+    n_layers = int(pd.to_numeric(r2_df["layer"], errors="coerce").max()) + 1
+    n_heads = int(pd.to_numeric(r2_df["head"], errors="coerce").max()) + 1
+    if not np.isfinite(n_layers) or not np.isfinite(n_heads):
+        return 0, 0
+    return max(0, int(n_layers)), max(0, int(n_heads))
+
+
+def _align_logits_layer_head_axes(
+    logits: torch.Tensor,
+    r2_df: pd.DataFrame,
+) -> tuple[torch.Tensor, bool]:
+    """Ensure logits are arranged as [layers, heads, seq, seq].
+
+    Some adapters can emit [heads, layers, seq, seq] for certain models.
+    We detect this via the expected counts from ``r2_df`` and transpose when
+    the swapped signature is unambiguous.
+    """
+    if logits.ndim != 4:
+        return logits, False
+    got_layers, got_heads = int(logits.shape[0]), int(logits.shape[1])
+    exp_layers, exp_heads = _expected_layer_head_counts(r2_df)
+    if exp_layers <= 0 or exp_heads <= 0:
+        return logits, False
+    # Exact swapped signature.
+    if got_layers == exp_heads and got_heads == exp_layers and (got_layers != exp_layers or got_heads != exp_heads):
+        return logits.permute(1, 0, 2, 3).contiguous(), True
+    return logits, False
+
+
+def _resolve_visible_head_sets(
+    *,
+    high_si_set: set[tuple[int, int]],
+    low_si_set: set[tuple[int, int]],
+    r2_df: pd.DataFrame,
+    n_layers: int,
+    n_heads: int,
+) -> tuple[set[tuple[int, int]], set[tuple[int, int]], bool]:
+    """Restrict SI head sets to heads actually present in captured attention.
+
+    Some model adapters expose a reduced head space in captured logits.  When that
+    happens, precomputed high/low SI sets can fall partially or fully out-of-space.
+    We first intersect with visible heads; if either side becomes too small, we
+    rebuild quartile high/low sets from the visible subset of `r2_df`.
+    """
+    visible = {(int(layer), int(head)) for layer in range(n_layers) for head in range(n_heads)}
+    high = {h for h in high_si_set if h in visible}
+    low = {h for h in low_si_set if h in visible}
+    used_fallback = False
+
+    if len(high) >= 2 and len(low) >= 2:
+        return high, low, used_fallback
+
+    if "mean_r2" in r2_df.columns:
+        r2_mean = r2_df[["layer", "head", "mean_r2"]].copy()
+    elif "r2" in r2_df.columns:
+        r2_mean = (
+            r2_df.groupby(["layer", "head"], as_index=False)["r2"]
+            .mean()
+            .rename(columns={"r2": "mean_r2"})
+        )
+    else:
+        return high, low, used_fallback
+
+    if r2_mean.empty:
+        return high, low, used_fallback
+
+    r2_mean["layer"] = r2_mean["layer"].astype(int)
+    r2_mean["head"] = r2_mean["head"].astype(int)
+    r2_mean = r2_mean[r2_mean.apply(lambda r: (int(r.layer), int(r.head)) in visible, axis=1)]
+    r2_mean = r2_mean.replace([np.inf, -np.inf], np.nan).dropna(subset=["mean_r2"])
+    if r2_mean.empty:
+        return high, low, used_fallback
+
+    r2_mean = r2_mean.sort_values("mean_r2", ascending=False).reset_index(drop=True)
+    n_select = max(2, int(round(0.25 * len(r2_mean))))
+    top = {
+        (int(r.layer), int(r.head))
+        for r in r2_mean.head(n_select).itertuples()
+    }
+    bottom = {
+        (int(r.layer), int(r.head))
+        for r in r2_mean.tail(n_select).itertuples()
+    }
+
+    if len(high) < 2 and len(top) >= 2:
+        high = top
+        used_fallback = True
+    if len(low) < 2 and len(bottom) >= 2:
+        low = bottom
+        used_fallback = True
+
+    return high, low, used_fallback
+
 def run_attention_analysis(
     model,
     adapter,
@@ -312,7 +411,7 @@ def run_attention_analysis(
     high_si: list[HeadID],
     low_si: list[HeadID],
     r2_df: pd.DataFrame,
-) -> tuple[dict[str, Any], dict[str, Any]]:
+) -> tuple[dict[str, Any], tuple[dict[str, Any], pd.DataFrame]]:
     """Combined Approach A (boundary attention flow) and Approach C (boundary score).
 
     Returns (approach_a_results, approach_c_results).
@@ -336,6 +435,7 @@ def run_attention_analysis(
     per_head_nonboundary_scores: dict[tuple[int, int], list[float]] = defaultdict(list)
 
     total_boundaries = 0
+    resolved_sets = False
 
     for seq_idx in range(n_seqs):
         t0 = time.time()
@@ -363,7 +463,25 @@ def run_attention_analysis(
 
         # capture.logits: [layers, heads, seq, seq] — pre-softmax
         logits = capture.logits.float()
+        logits, axes_swapped = _align_logits_layer_head_axes(logits, r2_df)
+        if axes_swapped and seq_idx == 0:
+            print("  NOTE: Detected swapped [heads,layers] logits; transposed to [layers,heads].")
         n_layers, n_heads, seq_len, _ = logits.shape
+
+        if not resolved_sets:
+            high_si_set, low_si_set, used_fallback = _resolve_visible_head_sets(
+                high_si_set=high_si_set,
+                low_si_set=low_si_set,
+                r2_df=r2_df,
+                n_layers=n_layers,
+                n_heads=n_heads,
+            )
+            resolved_sets = True
+            if used_fallback:
+                print(
+                    "  NOTE: Rebuilt high/low SI sets within captured head space "
+                    f"(n_layers={n_layers}, n_heads={n_heads})."
+                )
 
         # Apply causal mask and softmax
         causal_mask = torch.triu(torch.ones(seq_len, seq_len, dtype=torch.bool), diagonal=1)
@@ -461,11 +579,15 @@ def _build_approach_a_results(
     """Statistical tests comparing high-SI vs low-SI attention at word boundaries."""
 
     def _per_head_means(values_by_head: dict[tuple[int, int], list[float]]) -> np.ndarray:
-        vals = [
-            float(np.mean(v))
-            for v in values_by_head.values()
-            if len(v) > 0
-        ]
+        vals: list[float] = []
+        for v in values_by_head.values():
+            if len(v) == 0:
+                continue
+            arr = np.asarray(v, dtype=np.float64)
+            arr = arr[np.isfinite(arr)]
+            if len(arr) == 0:
+                continue
+            vals.append(float(np.mean(arr)))
         return np.asarray(vals, dtype=np.float64)
 
     def group_stats(values: np.ndarray) -> dict[str, Any]:
@@ -505,9 +627,44 @@ def _build_approach_a_results(
                 "n_high": int(len(h)),
                 "n_low": int(len(l)),
             }
-        t_stat, t_p = scipy_stats.ttest_ind(h, l, equal_var=False)
-        u_stat, u_p = scipy_stats.mannwhitneyu(h, l, alternative="two-sided")
-        d = cohens_d(h, l)
+
+        # Guard degenerate cases that can throw in scipy on some model/task slices.
+        h_var = float(np.var(h, ddof=1)) if len(h) > 1 else float("nan")
+        l_var = float(np.var(l, ddof=1)) if len(l) > 1 else float("nan")
+        if (not np.isfinite(h_var)) or (not np.isfinite(l_var)) or (h_var == 0.0 and l_var == 0.0):
+            return {
+                "t_statistic": float("nan"),
+                "t_p_value": float("nan"),
+                "mannwhitney_u": float("nan"),
+                "mannwhitney_p": float("nan"),
+                "cohens_d": cohens_d(h, l),
+                "high_si_mean": float(np.mean(h)),
+                "low_si_mean": float(np.mean(l)),
+                "difference": float(np.mean(h) - np.mean(l)),
+                "n_high": int(len(h)),
+                "n_low": int(len(l)),
+                "error": "degenerate_or_zero_variance",
+            }
+
+        try:
+            t_stat, t_p = scipy_stats.ttest_ind(h, l, equal_var=False)
+            u_stat, u_p = scipy_stats.mannwhitneyu(h, l, alternative="two-sided")
+            d = cohens_d(h, l)
+        except Exception as exc:
+            return {
+                "t_statistic": float("nan"),
+                "t_p_value": float("nan"),
+                "mannwhitney_u": float("nan"),
+                "mannwhitney_p": float("nan"),
+                "cohens_d": cohens_d(h, l),
+                "high_si_mean": float(np.mean(h)),
+                "low_si_mean": float(np.mean(l)),
+                "difference": float(np.mean(h) - np.mean(l)),
+                "n_high": int(len(h)),
+                "n_low": int(len(l)),
+                "error": f"{type(exc).__name__}: {exc}",
+            }
+
         return {
             "t_statistic": float(t_stat),
             "t_p_value": float(t_p),
@@ -596,40 +753,80 @@ def _build_approach_c_results(
     score_df = pd.DataFrame(rows)
 
     # Merge with R2
-    merged = pd.merge(score_df, r2_df, on=["layer", "head"], how="inner")
+    if score_df.empty:
+        return {"error": "No finite boundary score rows", "n_heads": 0}, score_df
+
+    score_df = score_df.replace([np.inf, -np.inf], np.nan)
+    score_df = score_df.dropna(subset=["boundary_attn_score", "mean_boundary_prev_attn", "mean_nonboundary_prev_attn"])
+    r2_clean = r2_df.copy().replace([np.inf, -np.inf], np.nan).dropna(subset=["mean_r2"])
+    merged = pd.merge(score_df, r2_clean, on=["layer", "head"], how="inner")
+    merged = merged.replace([np.inf, -np.inf], np.nan).dropna(subset=["mean_r2", "boundary_attn_score"])
 
     if len(merged) < 5:
         return {"error": "Too few heads for correlation", "n_heads": len(merged)}, score_df
 
+    r2_vals = merged["mean_r2"].to_numpy(dtype=np.float64)
+    score_vals = merged["boundary_attn_score"].to_numpy(dtype=np.float64)
+    finite = np.isfinite(r2_vals) & np.isfinite(score_vals)
+    r2_vals = r2_vals[finite]
+    score_vals = score_vals[finite]
+    if len(r2_vals) < 5:
+        return {"error": "Too few finite heads for correlation", "n_heads": int(len(r2_vals))}, score_df
+
+    def _safe_corr(x: np.ndarray, y: np.ndarray, fn):
+        if len(x) < 2 or len(y) < 2:
+            return float("nan"), float("nan")
+        if np.unique(x).size < 2 or np.unique(y).size < 2:
+            return float("nan"), float("nan")
+        try:
+            r, p = fn(x, y)
+            return float(r), float(p)
+        except Exception:
+            return float("nan"), float("nan")
+
     # Correlations
-    r_p, p_p = pearsonr(merged["mean_r2"], merged["boundary_attn_score"])
-    r_s, p_s = spearmanr(merged["mean_r2"], merged["boundary_attn_score"])
+    r_p, p_p = _safe_corr(r2_vals, score_vals, pearsonr)
+    r_s, p_s = _safe_corr(r2_vals, score_vals, spearmanr)
 
     # Bootstrap CI for correlations
     rng = np.random.RandomState(BOOTSTRAP_SEED)
-    n = len(merged)
-    boot_pearson = np.empty(BOOTSTRAP_N)
-    boot_spearman = np.empty(BOOTSTRAP_N)
-    r2_vals = merged["mean_r2"].values
-    score_vals = merged["boundary_attn_score"].values
+    n = len(r2_vals)
+    boot_pearson = np.full(BOOTSTRAP_N, np.nan, dtype=np.float64)
+    boot_spearman = np.full(BOOTSTRAP_N, np.nan, dtype=np.float64)
     for i in range(BOOTSTRAP_N):
         idx = rng.randint(0, n, size=n)
-        bp, _ = pearsonr(r2_vals[idx], score_vals[idx])
-        bs, _ = spearmanr(r2_vals[idx], score_vals[idx])
-        boot_pearson[i] = bp
-        boot_spearman[i] = bs
+        bp, _ = _safe_corr(r2_vals[idx], score_vals[idx], pearsonr)
+        bs, _ = _safe_corr(r2_vals[idx], score_vals[idx], spearmanr)
+        boot_pearson[i] = float(bp)
+        boot_spearman[i] = float(bs)
+
+    boot_pearson_f = boot_pearson[np.isfinite(boot_pearson)]
+    boot_spearman_f = boot_spearman[np.isfinite(boot_spearman)]
+    pearson_ci = [
+        float(np.percentile(boot_pearson_f, 2.5)) if len(boot_pearson_f) else float("nan"),
+        float(np.percentile(boot_pearson_f, 97.5)) if len(boot_pearson_f) else float("nan"),
+    ]
+    spearman_ci = [
+        float(np.percentile(boot_spearman_f, 2.5)) if len(boot_spearman_f) else float("nan"),
+        float(np.percentile(boot_spearman_f, 97.5)) if len(boot_spearman_f) else float("nan"),
+    ]
 
     # Group comparison
     high_si_scores = merged[
         merged.apply(lambda r: (int(r["layer"]), int(r["head"])) in high_si_set, axis=1)
-    ]["boundary_attn_score"]
+    ]["boundary_attn_score"].to_numpy(dtype=np.float64)
     low_si_scores = merged[
         merged.apply(lambda r: (int(r["layer"]), int(r["head"])) in low_si_set, axis=1)
-    ]["boundary_attn_score"]
+    ]["boundary_attn_score"].to_numpy(dtype=np.float64)
+    high_si_scores = high_si_scores[np.isfinite(high_si_scores)]
+    low_si_scores = low_si_scores[np.isfinite(low_si_scores)]
 
     if len(high_si_scores) >= 2 and len(low_si_scores) >= 2:
-        t_grp, p_grp = scipy_stats.ttest_ind(high_si_scores, low_si_scores, equal_var=False)
-        d_grp = cohens_d(high_si_scores.values, low_si_scores.values)
+        try:
+            t_grp, p_grp = scipy_stats.ttest_ind(high_si_scores, low_si_scores, equal_var=False)
+        except Exception:
+            t_grp, p_grp = float("nan"), float("nan")
+        d_grp = cohens_d(high_si_scores, low_si_scores)
     else:
         t_grp, p_grp, d_grp = float("nan"), float("nan"), float("nan")
 
@@ -641,16 +838,14 @@ def _build_approach_c_results(
         "correlation": {
             "pearson_r": float(r_p),
             "pearson_p": float(p_p),
-            "pearson_ci_95": [float(np.percentile(boot_pearson, 2.5)),
-                              float(np.percentile(boot_pearson, 97.5))],
+            "pearson_ci_95": pearson_ci,
             "spearman_rho": float(r_s),
             "spearman_p": float(p_s),
-            "spearman_ci_95": [float(np.percentile(boot_spearman, 2.5)),
-                                float(np.percentile(boot_spearman, 97.5))],
+            "spearman_ci_95": spearman_ci,
         },
         "group_comparison": {
-            "high_si_mean_boundary_score": float(high_si_scores.mean()) if len(high_si_scores) > 0 else float("nan"),
-            "low_si_mean_boundary_score": float(low_si_scores.mean()) if len(low_si_scores) > 0 else float("nan"),
+            "high_si_mean_boundary_score": float(np.mean(high_si_scores)) if len(high_si_scores) > 0 else float("nan"),
+            "low_si_mean_boundary_score": float(np.mean(low_si_scores)) if len(low_si_scores) > 0 else float("nan"),
             "n_high_si": len(high_si_scores),
             "n_low_si": len(low_si_scores),
             "t_statistic": float(t_grp),

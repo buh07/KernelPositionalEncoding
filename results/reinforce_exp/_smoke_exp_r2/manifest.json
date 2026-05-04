@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-16 16:31:26",
+  "experiment_id": "EXP-R2",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "dependence_reanalysis",
+  "model": "llama-3.1-8b+olmo-2-7b",
+  "seed_set": [
+    5
+  ],
+  "n_boot": 1000,
+  "n_perm": 1000,
+  "output_root": "results/reinforce_exp/_smoke_exp_r2"
+}

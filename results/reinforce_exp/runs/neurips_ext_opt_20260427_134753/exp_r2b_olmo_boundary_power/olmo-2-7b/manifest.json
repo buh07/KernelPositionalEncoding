@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-29 05:01:38",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "finalize-claim",
+  "model": "olmo-2-7b",
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power",
+  "boundary_claim_status": "descriptive_caveated",
+  "impact": "does_not_reinforce_boundary_nontriviality"
+}

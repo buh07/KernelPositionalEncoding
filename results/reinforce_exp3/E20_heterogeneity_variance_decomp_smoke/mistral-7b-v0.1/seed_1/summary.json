@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-02 10:17:58",
+  "experiment_id": "E20",
+  "mode": "proxy",
+  "model": "mistral-7b-v0.1",
+  "seed": 1,
+  "runtime_sec": 7087.365675449371,
+  "train_elapsed_sec": 3.930233955383301,
+  "final_total_loss": NaN,
+  "si_mean_r2": 0.4860948054854315,
+  "si_high_mean_r2": NaN,
+  "boundary_d": 0.9056083788888153,
+  "boundary_artifact_flag": false,
+  "c1_overall_degradation_mean": 0.005859375,
+  "c1_local_keymatch_deg": 0.0,
+  "c1_longrange_deg": 0.01171875
+}

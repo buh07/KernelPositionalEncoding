@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E24B",
+  "source_roots": [
+    "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification",
+    "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification"
+  ],
+  "artifacts": [
+    "per_model_summary.parquet",
+    "all_model_cell_contrasts.parquet",
+    "cross_model_contrast_summary.json"
+  ]
+}

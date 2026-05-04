@@ -1,0 +1,82 @@
+{
+  "experiment_id": "E19",
+  "tables": [
+    {
+      "path": "<model>/si_r2_robustness_per_head.parquet",
+      "description": "Per-head baseline and reweighted SI R2 scores by domain.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "model"
+        },
+        {
+          "name": "domain",
+          "dtype": "str",
+          "description": "domain"
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "layer"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "head"
+        },
+        {
+          "name": "r2_baseline",
+          "dtype": "float",
+          "description": "baseline SI R2"
+        },
+        {
+          "name": "r2_offset_reweighted",
+          "dtype": "float",
+          "description": "offset-reweighted SI R2"
+        },
+        {
+          "name": "r2_equalcount_reweight_proxy",
+          "dtype": "float",
+          "description": "equal-count reweight proxy SI R2"
+        }
+      ]
+    },
+    {
+      "path": "<model>/cross_corpus_transfer.parquet",
+      "description": "Source->target kernel-transfer SI scoring summary.",
+      "columns": [
+        {
+          "name": "source_domain",
+          "dtype": "str",
+          "description": "source domain"
+        },
+        {
+          "name": "target_domain",
+          "dtype": "str",
+          "description": "target domain"
+        },
+        {
+          "name": "n_common_heads",
+          "dtype": "int",
+          "description": "heads used"
+        },
+        {
+          "name": "mean_transfer_r2",
+          "dtype": "float",
+          "description": "transfer R2"
+        },
+        {
+          "name": "mean_target_in_domain_r2",
+          "dtype": "float",
+          "description": "in-domain R2"
+        },
+        {
+          "name": "transfer_minus_in_domain",
+          "dtype": "float",
+          "description": "transfer - in-domain"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 20:30:01",
+  "experiment_id": "E23",
+  "claim_status": "mixed",
+  "supports_main_text": true,
+  "notes": [
+    "Some improvement exists but late-only constraint failed or improvements are inconsistent."
+  ],
+  "outcome_summary": "Some improvement exists but late-only constraint failed or improvements are inconsistent."
+}

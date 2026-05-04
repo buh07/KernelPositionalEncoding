@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-16 22:22:31",
+  "model": "olmo-2-7b",
+  "condition": "f_gradient_routed",
+  "seed": 2,
+  "elapsed_sec": 598.9375703334808,
+  "lora": {
+    "trainable_params": 28377088,
+    "total_params": 7326994432,
+    "si_attn_params": 8388608,
+    "non_si_attn_params": 8388608,
+    "mlp_params": 11599872
+  }
+}

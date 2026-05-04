@@ -1,0 +1,24 @@
+{
+  "n_models": 3,
+  "mean_jaccard": 0.04677209130650426,
+  "mean_r2_retrieval_rho": -0.4891989320418458,
+  "per_model": [
+    {
+      "model": "llama-3.1-8b",
+      "jaccard": 0.03643724696356275,
+      "spearman_rho": -0.5537454402403261
+    },
+    {
+      "model": "olmo-2-7b",
+      "jaccard": 0.09401709401709402,
+      "spearman_rho": -0.2649757054489047
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "jaccard": 0.009861932938856016,
+      "spearman_rho": -0.6488756504363065
+    }
+  ],
+  "interpretation": "disjoint_populations",
+  "note": "Jaccard < 0.1 and \u03c1 <= -0.20 (active separation signal) in all models. SI heads and retrieval heads are empirically disjoint populations. Add to Result III: 'SI infrastructure heads are distinct from retrieval heads (Wu et al. 2024)'."
+}

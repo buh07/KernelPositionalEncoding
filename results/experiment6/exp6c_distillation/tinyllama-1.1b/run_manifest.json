@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "experiment": "6C",
+  "status": "merged",
+  "model": "tinyllama-1.1b",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_runs": 6,
+  "artifacts": {
+    "runs": "results/experiment6/exp6c_distillation/tinyllama-1.1b/exp6c_runs.parquet",
+    "comparison": "results/experiment6/exp6c_distillation/tinyllama-1.1b/exp6c_comparison.json"
+  }
+}

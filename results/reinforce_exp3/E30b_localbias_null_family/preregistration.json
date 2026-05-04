@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E30B",
+  "question": "Does SI-linked disruption tracking survive richer local-bias null families?",
+  "primary_hypothesis": "Bin-level disruption tracks R\u00b2_excess over best local-bias family fit.",
+  "primary_endpoints": [
+    "rho_excess_family_vs_disruption",
+    "p_excess_family_vs_disruption"
+  ]
+}

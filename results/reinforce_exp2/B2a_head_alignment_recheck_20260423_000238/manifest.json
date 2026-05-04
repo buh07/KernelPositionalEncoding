@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-23 00:04:33",
+  "experiment_id": "B2a_head_alignment",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b2a_head_alignment.py",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "num_sequences": 32,
+  "n_null": 64,
+  "seed": 20260417
+}

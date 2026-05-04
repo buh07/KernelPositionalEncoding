@@ -1,0 +1,55 @@
+{
+  "method": "full_forward_embedding_dimension_ablation",
+  "note": "Applied embedding-dimension mean ablation on top-k prefix-predictive dimensions and recomputed boundary attention (Approach A) via fresh forward passes.",
+  "high_vs_low_attn_to_prev_last": {
+    "difference": 0.026913124998115625,
+    "cohens_d": 0.5416716236274048,
+    "t_p_value": 3.3341866496361714e-09,
+    "t_p_value_holm": 3.3341866496361714e-09,
+    "n_high": 256,
+    "n_low": 256
+  },
+  "group_estimates": {
+    "high_si_mean": 0.03780943178790039,
+    "high_si_ci_95": [
+      0.029848009340590124,
+      0.04691304269446572
+    ],
+    "low_si_mean": 0.010896306789784763,
+    "low_si_ci_95": [
+      0.01052228215254622,
+      0.01132785427647846
+    ]
+  },
+  "space_prefix_classifier_summary": {
+    "classifier_accuracy": 0.9997214872580421,
+    "meets_90pct_threshold": true
+  },
+  "decision_rule": {
+    "non_trivial_if_d_gt_0_5": true,
+    "trivial_if_d_lt_0_2": false
+  },
+  "embedding_ablation": {
+    "top_k_dims": [
+      2594,
+      2225,
+      3651,
+      2177,
+      3446,
+      1463,
+      2832,
+      2238,
+      2150,
+      2106,
+      3499,
+      3887,
+      808,
+      3525,
+      1741,
+      3128
+    ],
+    "n_dims": 16
+  },
+  "domain": "dialogue",
+  "seed": 17
+}

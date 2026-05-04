@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E30A",
+  "question": "What boundary (context length vs offset regularity) governs SI preferential disruption transfer?",
+  "primary_hypothesis": "High-regularity families preserve positive preferential SI gaps more consistently than low-regularity families.",
+  "primary_endpoints": [
+    "regularity_effect_high_minus_low",
+    "length_effect_long_minus_short",
+    "model_directional_pass"
+  ]
+}

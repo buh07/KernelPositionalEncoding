@@ -1,0 +1,50 @@
+{
+  "experiment_id": "B1_kernel_taxonomy",
+  "question": "Do high-SI heads decompose into stable kernel-shape families with interpretable functional enrichment?",
+  "primary_hypothesis": "Descriptor-space clustering yields stable, cross-model comparable kernel families with depth-controlled boundary enrichment.",
+  "primary_endpoints": [
+    "bootstrap ARI (descriptor_space)",
+    "cross-model shape_only prototype cosine",
+    "depth-controlled boundary enrichment",
+    "descriptor-vs-spectral ARI"
+  ],
+  "secondary_endpoints": [
+    "cluster-level directional behavioral proxy"
+  ],
+  "model_list": [
+    "llama-3.1-8b"
+  ],
+  "dataset_sources": [
+    "results/experiment3/theory8_position_ablation/*/estimated_kernels.json",
+    "results/experiment3/theory1_si_circuits/*/head_r2_summary.parquet",
+    "results/experiment3/theory5b_boundary_detection/*/boundary_attention_scores.parquet"
+  ],
+  "inclusion_exclusion_rules": [
+    "Model must pass reliability gate for confirmatory cross-model interpretation.",
+    "Depth-controlled strata require n_cluster>=3 and n_noncluster>=10 per layer."
+  ],
+  "sample_size_plan": {
+    "k_candidates": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "n_boot": 5
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after all models complete clustering and acceptance checks.",
+  "multiplicity_family": [
+    "per-model Holm over clusters for depth-controlled enrichment"
+  ],
+  "acceptance_criteria": [
+    "All B1.6 criteria in reinforce_exp2/TODO.md must pass for B1_supported."
+  ],
+  "fallback_interpretation_if_null": "Report B1 as exploratory heterogeneity map only."
+}

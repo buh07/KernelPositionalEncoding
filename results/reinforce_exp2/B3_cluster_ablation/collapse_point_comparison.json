@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "models": {
+    "llama-3.1-8b": {
+      "auc_drop": {
+        "within": 0.24760742187499998,
+        "mixed": 0.2608235677083333,
+        "random": 0.25237630208333334
+      },
+      "collapse_fraction": {
+        "within": 0.10434792525183,
+        "mixed": 0.10358468933089249,
+        "random": 0.1
+      },
+      "d_auc_within_minus_mixed": -0.013216145833333331,
+      "d_fc_mixed_minus_within": -0.0007632359209375078,
+      "group_structure_test": {
+        "n_triplets": 9,
+        "mean_d_auc_within_minus_mixed": -0.004811378761574083,
+        "p_one_sided_within_gt_mixed": 0.890625,
+        "p_one_sided_within_gt_mixed_holm": 1.0
+      }
+    },
+    "olmo-2-7b": {
+      "auc_drop": {
+        "within": 0.13247884114583333,
+        "mixed": 0.12827962239583332,
+        "random": 0.12899576822916667
+      },
+      "collapse_fraction": {
+        "within": 0.11139110491624389,
+        "mixed": 0.1288574921536438,
+        "random": 0.11084949598380495
+      },
+      "d_auc_within_minus_mixed": 0.004199218750000011,
+      "d_fc_mixed_minus_within": 0.01746638723739992,
+      "group_structure_test": {
+        "n_triplets": 9,
+        "mean_d_auc_within_minus_mixed": 0.0001338252314814816,
+        "p_one_sided_within_gt_mixed": 0.5,
+        "p_one_sided_within_gt_mixed_holm": 1.0
+      }
+    },
+    "mistral-7b-v0.1": {
+      "auc_drop": {
+        "within": 0.15013834635416665,
+        "mixed": 0.15059407552083334,
+        "random": 0.143359375
+      },
+      "collapse_fraction": {
+        "within": 0.1274783811373391,
+        "mixed": 0.11334222211088549,
+        "random": 0.10754287459422326
+      },
+      "d_auc_within_minus_mixed": -0.00045572916666669627,
+      "d_fc_mixed_minus_within": -0.014136159026453599,
+      "group_structure_test": {
+        "n_triplets": 15,
+        "mean_d_auc_within_minus_mixed": -0.0014382595486111093,
+        "p_one_sided_within_gt_mixed": 0.58392333984375,
+        "p_one_sided_within_gt_mixed_holm": 1.0
+      }
+    }
+  }
+}

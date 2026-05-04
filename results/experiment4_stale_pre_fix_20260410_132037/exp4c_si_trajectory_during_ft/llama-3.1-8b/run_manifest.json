@@ -1,0 +1,116 @@
+{
+  "timestamp": "2026-04-10 10:50:27",
+  "experiment": "4C",
+  "status": "completed",
+  "model": "llama-3.1-8b",
+  "device": "cuda:0",
+  "train_config": {
+    "max_steps": 300,
+    "batch_size": 1,
+    "lr": 0.0002,
+    "weight_decay": 0.0,
+    "warmup_steps": 20,
+    "grad_clip": 1.0,
+    "max_length": 256,
+    "log_every": 10,
+    "aux_interval": 20,
+    "math_per_task": 120,
+    "control_fraction": 0.2
+  },
+  "lora": {
+    "rank": 8,
+    "alpha": 16.0,
+    "dropout": 0.0,
+    "si_rank": 1
+  },
+  "checkpoints": [
+    0,
+    100,
+    300
+  ],
+  "artifacts": {
+    "trajectory": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_during_ft.parquet",
+    "summary": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_summary.json"
+  },
+  "summary": {
+    "timestamp": "2026-04-10 10:50:27",
+    "model": "llama-3.1-8b",
+    "train_summary": {
+      "timestamp": "2026-04-10 10:32:53",
+      "model": "llama-3.1-8b",
+      "condition": "d_full_qlora_baseline",
+      "seed": 0,
+      "elapsed_sec": 268.1306052207947,
+      "train_config": {
+        "max_steps": 300,
+        "batch_size": 1,
+        "lr": 0.0002,
+        "weight_decay": 0.0,
+        "warmup_steps": 20,
+        "grad_clip": 1.0,
+        "max_length": 256,
+        "log_every": 10,
+        "aux_interval": 20,
+        "math_per_task": 120,
+        "control_fraction": 0.2
+      },
+      "aux_config": {
+        "mode": "none",
+        "lambda_preserve": 0.0,
+        "lambda_routing": 0.0
+      },
+      "lora": {
+        "rank": 8,
+        "alpha": 16.0,
+        "dropout": 0.0,
+        "si_rank": 1,
+        "replaced_modules": 224,
+        "trainable_params": 20971520,
+        "total_params": 8051232768,
+        "sample_trainable_names": [
+          "model.layers.0.self_attn.q_proj.lora_a",
+          "model.layers.0.self_attn.q_proj.lora_b",
+          "model.layers.0.self_attn.k_proj.lora_a",
+          "model.layers.0.self_attn.k_proj.lora_b",
+          "model.layers.0.self_attn.v_proj.lora_a",
+          "model.layers.0.self_attn.v_proj.lora_b",
+          "model.layers.0.self_attn.o_proj.lora_a",
+          "model.layers.0.self_attn.o_proj.lora_b",
+          "model.layers.0.mlp.gate_proj.lora_a",
+          "model.layers.0.mlp.gate_proj.lora_b",
+          "model.layers.0.mlp.up_proj.lora_a",
+          "model.layers.0.mlp.up_proj.lora_b",
+          "model.layers.0.mlp.down_proj.lora_a",
+          "model.layers.0.mlp.down_proj.lora_b",
+          "model.layers.1.self_attn.q_proj.lora_a",
+          "model.layers.1.self_attn.q_proj.lora_b",
+          "model.layers.1.self_attn.k_proj.lora_a",
+          "model.layers.1.self_attn.k_proj.lora_b",
+          "model.layers.1.self_attn.v_proj.lora_a",
+          "model.layers.1.self_attn.v_proj.lora_b",
+          "model.layers.1.self_attn.o_proj.lora_a",
+          "model.layers.1.self_attn.o_proj.lora_b",
+          "model.layers.1.mlp.gate_proj.lora_a",
+          "model.layers.1.mlp.gate_proj.lora_b",
+          "model.layers.1.mlp.up_proj.lora_a",
+          "model.layers.1.mlp.up_proj.lora_b",
+          "model.layers.1.mlp.down_proj.lora_a",
+          "model.layers.1.mlp.down_proj.lora_b",
+          "model.layers.2.self_attn.q_proj.lora_a",
+          "model.layers.2.self_attn.q_proj.lora_b",
+          "model.layers.2.self_attn.k_proj.lora_a",
+          "model.layers.2.self_attn.k_proj.lora_b"
+        ]
+      }
+    },
+    "checkpoints": [
+      0,
+      100,
+      300
+    ],
+    "n_points": 3,
+    "trajectory_mean_r2_delta": -0.0010544702017801222,
+    "trajectory_boundary_d_delta": 0.0011416200205851545,
+    "status": "completed"
+  }
+}

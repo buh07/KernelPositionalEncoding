@@ -1,0 +1,3157 @@
+{
+  "timestamp": "2026-04-21 17:31:19",
+  "experiment_id": "B2b_cluster_alignment",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "criteria": {
+    "criterion_1_holm_sig": true,
+    "criterion_2_depth_retention": true,
+    "criterion_3_practical": true
+  },
+  "verdict": {
+    "B2b_supported": true
+  },
+  "models": {
+    "llama-3.1-8b": {
+      "status": "ok",
+      "confirmatory_clusters": [
+        0,
+        1,
+        2
+      ],
+      "cluster_rows": [
+        {
+          "cluster": 0,
+          "n_cluster": 617,
+          "unadjusted_hedges_g_signed": 0.18788776906891413,
+          "unadjusted_hedges_g_absolute": -0.35754857256363676,
+          "depth_control_absolute": {
+            "ivw_hedges_g": -0.20103861445283494,
+            "ivw_ci95": [
+              -0.36921259531569556,
+              -0.032864633589974324
+            ],
+            "p_two": 0.01912814925880779,
+            "n_valid_layers": 19,
+            "rows": [
+              {
+                "layer": 1,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.10718550059290316,
+                "variance": 0.13871961738709437
+              },
+              {
+                "layer": 2,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -1.4155935424683814,
+                "variance": 0.27043545499500676
+              },
+              {
+                "layer": 3,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.2827089930866222,
+                "variance": 0.1283161998969945
+              },
+              {
+                "layer": 4,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.20748167318887772,
+                "variance": 0.1262076734902523
+              },
+              {
+                "layer": 5,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -1.028568293143962,
+                "variance": 0.14312274163944944
+              },
+              {
+                "layer": 6,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -1.2828470702605008,
+                "variance": 0.1529184728396972
+              },
+              {
+                "layer": 7,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.3213759468505808,
+                "variance": 0.13127603085734713
+              },
+              {
+                "layer": 12,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": -0.37536062051538704,
+                "variance": 0.12734825992389495
+              },
+              {
+                "layer": 16,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": -0.1463431730763979,
+                "variance": 0.12734106572256146
+              },
+              {
+                "layer": 17,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": -0.19861983067038463,
+                "variance": 0.14611204274013764
+              },
+              {
+                "layer": 18,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.586212487628614,
+                "variance": 0.13528207388130747
+              },
+              {
+                "layer": 19,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": -0.625344612840496,
+                "variance": 0.15197214353468927
+              },
+              {
+                "layer": 20,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": 0.3713479696365713,
+                "variance": 0.1477528673637655
+              },
+              {
+                "layer": 21,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.8031978380814574,
+                "variance": 0.14030676865542413
+              },
+              {
+                "layer": 23,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.11932593191128225,
+                "variance": 0.12572750737887298
+              },
+              {
+                "layer": 24,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.43033681703065435,
+                "variance": 0.12857669234663263
+              },
+              {
+                "layer": 25,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.896665067295096,
+                "variance": 0.13889033346022003
+              },
+              {
+                "layer": 28,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": -0.5587364817419601,
+                "variance": 0.13853644093382306
+              },
+              {
+                "layer": 31,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.06420533249232525,
+                "variance": 0.13340203874534085
+              }
+            ],
+            "p_two_holm_family": 0.07651259703523117,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.562269380664508,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": false,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": false
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": 0.18171965376816643,
+            "ivw_ci95": [
+              0.01357926689399827,
+              0.34986004064233456
+            ],
+            "p_two": 0.03415030295838206,
+            "n_valid_layers": 19,
+            "rows": [
+              {
+                "layer": 1,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.08222017911583403,
+                "variance": 0.13864080782570254
+              },
+              {
+                "layer": 2,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 1.4155935424683814,
+                "variance": 0.27043545499500676
+              },
+              {
+                "layer": 3,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.2662241632280822,
+                "variance": 0.12816538206890185
+              },
+              {
+                "layer": 4,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.18691497375666832,
+                "variance": 0.12607248286867231
+              },
+              {
+                "layer": 5,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.9994818933706313,
+                "variance": 0.14213959699802708
+              },
+              {
+                "layer": 6,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 1.2718175202641013,
+                "variance": 0.15244885949261017
+              },
+              {
+                "layer": 7,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.3181991131951533,
+                "variance": 0.13124216713108172
+              },
+              {
+                "layer": 12,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": 0.3726331433488789,
+                "variance": 0.1273142576587011
+              },
+              {
+                "layer": 16,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": 0.1521561025838154,
+                "variance": 0.12736998497668525
+              },
+              {
+                "layer": 17,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": 0.18775454608453265,
+                "variance": 0.14604207494746893
+              },
+              {
+                "layer": 18,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.5853010912634837,
+                "variance": 0.13526427866101576
+              },
+              {
+                "layer": 19,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": 0.6218196103013998,
+                "variance": 0.15189887258380186
+              },
+              {
+                "layer": 20,
+                "n_cluster": 22,
+                "n_noncluster": 10,
+                "hedges_g": -0.373013025432811,
+                "variance": 0.14777352407358776
+              },
+              {
+                "layer": 21,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.8104353669163334,
+                "variance": 0.14050141393625887
+              },
+              {
+                "layer": 23,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.11932593191128225,
+                "variance": 0.12572750737887298
+              },
+              {
+                "layer": 24,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.4305599439779652,
+                "variance": 0.12857989383440319
+              },
+              {
+                "layer": 25,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.8959701140981455,
+                "variance": 0.13886957016771542
+              },
+              {
+                "layer": 28,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": 0.5671705654104723,
+                "variance": 0.13869470750446725
+              },
+              {
+                "layer": 31,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.18324530295049093,
+                "variance": 0.13389298068422362
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 1,
+          "n_cluster": 374,
+          "unadjusted_hedges_g_signed": -0.44288166367894527,
+          "unadjusted_hedges_g_absolute": 0.36318820635535143,
+          "depth_control_absolute": {
+            "ivw_hedges_g": 0.27329558450235386,
+            "ivw_ci95": [
+              0.13036603659744847,
+              0.4162251324072592
+            ],
+            "p_two": 0.00017845218291179243,
+            "n_valid_layers": 30,
+            "rows": [
+              {
+                "layer": 1,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.10718550059290316,
+                "variance": 0.13871961738709437
+              },
+              {
+                "layer": 3,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": 0.2827089930866222,
+                "variance": 0.1283161998969945
+              },
+              {
+                "layer": 4,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.20748167318887772,
+                "variance": 0.1262076734902523
+              },
+              {
+                "layer": 5,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 1.028568293143962,
+                "variance": 0.14312274163944944
+              },
+              {
+                "layer": 6,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 1.2828470702605008,
+                "variance": 0.1529184728396972
+              },
+              {
+                "layer": 7,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.3213759468505808,
+                "variance": 0.13127603085734713
+              },
+              {
+                "layer": 8,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.6641563179312008,
+                "variance": 0.19020886976794169
+              },
+              {
+                "layer": 9,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 1.1632328953880933,
+                "variance": 0.2054089890056923
+              },
+              {
+                "layer": 10,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 1.0759668606215758,
+                "variance": 0.20215222094307367
+              },
+              {
+                "layer": 11,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 1.1711412697462589,
+                "variance": 0.25989656826541835
+              },
+              {
+                "layer": 12,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": 0.37536062051538704,
+                "variance": 0.12734825992389495
+              },
+              {
+                "layer": 13,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.5433911945892709,
+                "variance": 0.3727373251266422
+              },
+              {
+                "layer": 14,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 2.6815626890414097,
+                "variance": 0.35688334462468696
+              },
+              {
+                "layer": 15,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.8474593222483284,
+                "variance": 0.1665591603617696
+              },
+              {
+                "layer": 16,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.1463431730763979,
+                "variance": 0.12734106572256146
+              },
+              {
+                "layer": 17,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.19861983067038463,
+                "variance": 0.14611204274013764
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.586212487628614,
+                "variance": 0.13528207388130747
+              },
+              {
+                "layer": 19,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.625344612840496,
+                "variance": 0.15197214353468927
+              },
+              {
+                "layer": 20,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.3713479696365713,
+                "variance": 0.1477528673637655
+              },
+              {
+                "layer": 21,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.8031978380814574,
+                "variance": 0.14030676865542413
+              },
+              {
+                "layer": 22,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.1444263925564323,
+                "variance": 0.1670143163811144
+              },
+              {
+                "layer": 23,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.11932593191128225,
+                "variance": 0.12572750737887298
+              },
+              {
+                "layer": 24,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.43033681703065435,
+                "variance": 0.12857669234663263
+              },
+              {
+                "layer": 25,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.896665067295096,
+                "variance": 0.13889033346022003
+              },
+              {
+                "layer": 26,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.3494524586184068,
+                "variance": 0.28774956939485985
+              },
+              {
+                "layer": 27,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.02262565214014732,
+                "variance": 0.16667519866891278
+              },
+              {
+                "layer": 28,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.5587364817419601,
+                "variance": 0.13853644093382306
+              },
+              {
+                "layer": 29,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.340738788245288,
+                "variance": 0.1565244206775908
+              },
+              {
+                "layer": 30,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.3631243878780345,
+                "variance": 0.28791194106548235
+              },
+              {
+                "layer": 31,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.20177105046002483,
+                "variance": 0.1302331818171744
+              }
+            ],
+            "p_two_holm_family": 0.001249165280382547,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.7524902508396855,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": true,
+            "depth_retention_ok": true,
+            "practical_threshold_ok": true
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": -0.27676459849511537,
+            "ivw_ci95": [
+              -0.41960540122608025,
+              -0.1339237957641505
+            ],
+            "p_two": 0.0001460775225630151,
+            "n_valid_layers": 30,
+            "rows": [
+              {
+                "layer": 1,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": -0.08222017911583403,
+                "variance": 0.13864080782570254
+              },
+              {
+                "layer": 3,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": -0.2662241632280822,
+                "variance": 0.12816538206890185
+              },
+              {
+                "layer": 4,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.18691497375666832,
+                "variance": 0.12607248286867231
+              },
+              {
+                "layer": 5,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.9994818933706313,
+                "variance": 0.14213959699802708
+              },
+              {
+                "layer": 6,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -1.2718175202641013,
+                "variance": 0.15244885949261017
+              },
+              {
+                "layer": 7,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.3181991131951533,
+                "variance": 0.13124216713108172
+              },
+              {
+                "layer": 8,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.6793713193152641,
+                "variance": 0.19054956601561224
+              },
+              {
+                "layer": 9,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -1.0983607734920342,
+                "variance": 0.20296374933624317
+              },
+              {
+                "layer": 10,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -1.0651862711290052,
+                "variance": 0.20176750606050475
+              },
+              {
+                "layer": 11,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -1.0593896484091128,
+                "variance": 0.2557421441563101
+              },
+              {
+                "layer": 12,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": -0.3726331433488789,
+                "variance": 0.1273142576587011
+              },
+              {
+                "layer": 13,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.601453758650115,
+                "variance": 0.3738452023505955
+              },
+              {
+                "layer": 14,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -2.6801571949230087,
+                "variance": 0.35675774686199657
+              },
+              {
+                "layer": 15,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.8391300608905151,
+                "variance": 0.166325026298845
+              },
+              {
+                "layer": 16,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.1521561025838154,
+                "variance": 0.12736998497668525
+              },
+              {
+                "layer": 17,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.18775454608453265,
+                "variance": 0.14604207494746893
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.5853010912634837,
+                "variance": 0.13526427866101576
+              },
+              {
+                "layer": 19,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.6218196103013998,
+                "variance": 0.15189887258380186
+              },
+              {
+                "layer": 20,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.373013025432811,
+                "variance": 0.14777352407358776
+              },
+              {
+                "layer": 21,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.8104353669163334,
+                "variance": 0.14050141393625887
+              },
+              {
+                "layer": 22,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.1475210297220099,
+                "variance": 0.16702937423683736
+              },
+              {
+                "layer": 23,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.11932593191128225,
+                "variance": 0.12572750737887298
+              },
+              {
+                "layer": 24,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.4305599439779652,
+                "variance": 0.12857989383440319
+              },
+              {
+                "layer": 25,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.8959701140981455,
+                "variance": 0.13886957016771542
+              },
+              {
+                "layer": 26,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.36792850666094845,
+                "variance": 0.2879704754811816
+              },
+              {
+                "layer": 27,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.024648809540123984,
+                "variance": 0.16667679273019576
+              },
+              {
+                "layer": 28,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.5671705654104723,
+                "variance": 0.13869470750446725
+              },
+              {
+                "layer": 29,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.3293773581115632,
+                "variance": 0.15639752938128554
+              },
+              {
+                "layer": 30,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.3633290624426296,
+                "variance": 0.287914419174543
+              },
+              {
+                "layer": 31,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.11369139004627635,
+                "variance": 0.12977008473995624
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 2,
+          "n_cluster": 33,
+          "unadjusted_hedges_g_signed": 1.8787853817093136,
+          "unadjusted_hedges_g_absolute": 0.04501950381033454,
+          "depth_control_absolute": {
+            "ivw_hedges_g": NaN,
+            "ivw_ci95": [
+              NaN,
+              NaN
+            ],
+            "p_two": NaN,
+            "n_valid_layers": 0,
+            "rows": [],
+            "p_two_holm_family": NaN,
+            "attenuation_ratio_vs_unadjusted_abs_g": NaN,
+            "sign_match_vs_unadjusted": false,
+            "holm_significant": false,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": false
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": NaN,
+            "ivw_ci95": [
+              NaN,
+              NaN
+            ],
+            "p_two": NaN,
+            "n_valid_layers": 0,
+            "rows": []
+          }
+        }
+      ],
+      "model_acceptance": {
+        "has_holm_significant_cluster": true,
+        "has_depth_retention_cluster": true,
+        "has_practical_cluster": true
+      }
+    },
+    "olmo-2-7b": {
+      "status": "ok",
+      "confirmatory_clusters": [
+        0,
+        2,
+        1
+      ],
+      "cluster_rows": [
+        {
+          "cluster": 0,
+          "n_cluster": 532,
+          "unadjusted_hedges_g_signed": -0.8440668607726036,
+          "unadjusted_hedges_g_absolute": 0.7626019049281941,
+          "depth_control_absolute": {
+            "ivw_hedges_g": -0.27495171034712745,
+            "ivw_ci95": [
+              -0.46514066851028735,
+              -0.08476275218396756
+            ],
+            "p_two": 0.004603756693934313,
+            "n_valid_layers": 16,
+            "rows": [
+              {
+                "layer": 3,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.6246637307775306,
+                "variance": 0.21163161807068684
+              },
+              {
+                "layer": 4,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.4868261660622882,
+                "variance": 0.20907820039425357
+              },
+              {
+                "layer": 5,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.27588103970771416,
+                "variance": 0.1308231616716155
+              },
+              {
+                "layer": 6,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.46210966082099536,
+                "variance": 0.1331137448475136
+              },
+              {
+                "layer": 7,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.38787325694511327,
+                "variance": 0.16917409439088682
+              },
+              {
+                "layer": 8,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.1932376901516982,
+                "variance": 0.14607689220279818
+              },
+              {
+                "layer": 9,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.2532665362915544,
+                "variance": 0.12655926171851672
+              },
+              {
+                "layer": 10,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.15529412307302404,
+                "variance": 0.15499130972502664
+              },
+              {
+                "layer": 11,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.11124304210580348,
+                "variance": 0.15479562222095888
+              },
+              {
+                "layer": 12,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.5659974079349224,
+                "variance": 0.1348938736335962
+              },
+              {
+                "layer": 13,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.7794677242328825,
+                "variance": 0.1396808214224585
+              },
+              {
+                "layer": 14,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.12610149801274703,
+                "variance": 0.1548543984440273
+              },
+              {
+                "layer": 15,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.6721050027780858,
+                "variance": 0.1741954189126555
+              },
+              {
+                "layer": 16,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.5312374826227038,
+                "variance": 0.15929292636306477
+              },
+              {
+                "layer": 17,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.5677828728886638,
+                "variance": 0.13870628984576175
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.08561673808011054,
+                "variance": 0.1296768263011033
+              }
+            ],
+            "p_two_holm_family": 0.023018783469671567,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.3605442217889774,
+            "sign_match_vs_unadjusted": false,
+            "holm_significant": true,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": true
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": 0.20665203089813194,
+            "ivw_ci95": [
+              0.01678023956528568,
+              0.3965238222309782
+            ],
+            "p_two": 0.03290682232963427,
+            "n_valid_layers": 16,
+            "rows": [
+              {
+                "layer": 3,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.9563499549643218,
+                "variance": 0.22037162573420946
+              },
+              {
+                "layer": 4,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.22853688678213943,
+                "variance": 0.205998690271873
+              },
+              {
+                "layer": 5,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.30981701966285863,
+                "variance": 0.13115443229832494
+              },
+              {
+                "layer": 6,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.052430089269161574,
+                "variance": 0.1296004711081249
+              },
+              {
+                "layer": 7,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.3738984445933706,
+                "variance": 0.16899666744782235
+              },
+              {
+                "layer": 8,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.278646298885434,
+                "variance": 0.14674860811925464
+              },
+              {
+                "layer": 9,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.3046130173937688,
+                "variance": 0.1270366809178603
+              },
+              {
+                "layer": 10,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.18691271953924174,
+                "variance": 0.15517164472610223
+              },
+              {
+                "layer": 11,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.5653820656985006,
+                "variance": 0.15991698665090137
+              },
+              {
+                "layer": 12,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.5743274160652405,
+                "variance": 0.13505218888451495
+              },
+              {
+                "layer": 13,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.6399602191779945,
+                "variance": 0.13638047390595112
+              },
+              {
+                "layer": 14,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.19434817772709448,
+                "variance": 0.15521889221710702
+              },
+              {
+                "layer": 15,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.6291505143289933,
+                "variance": 0.17326383949467394
+              },
+              {
+                "layer": 16,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.02308621328946062,
+                "variance": 0.1545982548680771
+              },
+              {
+                "layer": 17,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.25030383945424045,
+                "variance": 0.13437753353409224
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.23517667320157118,
+                "variance": 0.13047645699741467
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 2,
+          "n_cluster": 251,
+          "unadjusted_hedges_g_signed": 0.733773760911463,
+          "unadjusted_hedges_g_absolute": -0.9034553733957552,
+          "depth_control_absolute": {
+            "ivw_hedges_g": -0.18631213471689806,
+            "ivw_ci95": [
+              -0.3727994370565757,
+              0.000175167622779554
+            ],
+            "p_two": 0.050211361829046286,
+            "n_valid_layers": 18,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": -1.9317957740991833,
+                "variance": 0.18719724854712438
+              },
+              {
+                "layer": 1,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": -0.38950007283964394,
+                "variance": 0.14105664364050666
+              },
+              {
+                "layer": 3,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -1.7505013387484423,
+                "variance": 0.17656111169443284
+              },
+              {
+                "layer": 4,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.8237760408876412,
+                "variance": 0.13680031217077332
+              },
+              {
+                "layer": 5,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.04438858216248197,
+                "variance": 0.12701696608790022
+              },
+              {
+                "layer": 6,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -1.2969303645771146,
+                "variance": 0.19470047284270212
+              },
+              {
+                "layer": 7,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.6509494459821098,
+                "variance": 0.13661690889085226
+              },
+              {
+                "layer": 8,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.5614433873101474,
+                "variance": 0.13074384069766956
+              },
+              {
+                "layer": 9,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.5215945283719308,
+                "variance": 0.13408900340423763
+              },
+              {
+                "layer": 10,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.23653265924825972,
+                "variance": 0.1264226577266156
+              },
+              {
+                "layer": 11,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.3472221426716791,
+                "variance": 0.13534272027269187
+              },
+              {
+                "layer": 12,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.17446485963899236,
+                "variance": 0.16717396645414753
+              },
+              {
+                "layer": 13,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.5149712348651959,
+                "variance": 0.14987446833352186
+              },
+              {
+                "layer": 14,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 2.890725389978183,
+                "variance": 0.42498584038536097
+              },
+              {
+                "layer": 15,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.05430277038816006,
+                "variance": 0.1333824798478638
+              },
+              {
+                "layer": 17,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.031192622393225743,
+                "variance": 0.23705325336523314
+              },
+              {
+                "layer": 18,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.6359952431586563,
+                "variance": 0.2437785361923777
+              },
+              {
+                "layer": 29,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.08158176943375399,
+                "variance": 0.28582521213268475
+              }
+            ],
+            "p_two_holm_family": 0.14018313258573523,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.20622173513299227,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": false,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": false
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": -0.032271127985183404,
+            "ivw_ci95": [
+              -0.21785023280125088,
+              0.15330797683088404
+            ],
+            "p_two": 0.7332295987384838,
+            "n_valid_layers": 18,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": 1.1304149472049698,
+                "variance": 0.14629729921440693
+              },
+              {
+                "layer": 1,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.2896238539851598,
+                "variance": 0.1399261714747588
+              },
+              {
+                "layer": 3,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 1.5391575071030303,
+                "variance": 0.1649736266062916
+              },
+              {
+                "layer": 4,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.9635703464421409,
+                "variance": 0.1409646596208085
+              },
+              {
+                "layer": 5,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.019428204999582487,
+                "variance": 0.1269904179032854
+              },
+              {
+                "layer": 6,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.8838575511470366,
+                "variance": 0.1796867361786606
+              },
+              {
+                "layer": 7,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.6573259843835491,
+                "variance": 0.13675594669954205
+              },
+              {
+                "layer": 8,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.5516320020107055,
+                "variance": 0.13056182717247036
+              },
+              {
+                "layer": 9,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.08127844336011049,
+                "variance": 0.12966475895969606
+              },
+              {
+                "layer": 10,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.45653993439634405,
+                "variance": 0.128964007940075
+              },
+              {
+                "layer": 11,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.1095706890113936,
+                "variance": 0.1335334289315072
+              },
+              {
+                "layer": 12,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.6847188572606037,
+                "variance": 0.17448066522480443
+              },
+              {
+                "layer": 13,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.6393545808913947,
+                "variance": 0.1522674501229923
+              },
+              {
+                "layer": 14,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -3.1690567900923816,
+                "variance": 0.45309630136146284
+              },
+              {
+                "layer": 15,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.8445061987039607,
+                "variance": 0.14521984532749022
+              },
+              {
+                "layer": 17,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.3210731725878835,
+                "variance": 0.23875517007296454
+              },
+              {
+                "layer": 18,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.7491543466116102,
+                "variance": 0.24639090762115484
+              },
+              {
+                "layer": 29,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.6983048246112508,
+                "variance": 0.2938414461822082
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 1,
+          "n_cluster": 241,
+          "unadjusted_hedges_g_signed": 0.3633941140200479,
+          "unadjusted_hedges_g_absolute": -0.122771421142166,
+          "depth_control_absolute": {
+            "ivw_hedges_g": 0.16727633914223763,
+            "ivw_ci95": [
+              0.002419020404770461,
+              0.33213365787970484
+            ],
+            "p_two": 0.04672771086191174,
+            "n_valid_layers": 28,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 1.7706382319411167,
+                "variance": 0.17923678945765303
+              },
+              {
+                "layer": 1,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.5435229753419819,
+                "variance": 0.15037816586662212
+              },
+              {
+                "layer": 2,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.9642765295220482,
+                "variance": 0.2525341907934885
+              },
+              {
+                "layer": 3,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 1.3355195195535245,
+                "variance": 0.18431624509915093
+              },
+              {
+                "layer": 4,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 1.4212498763980952,
+                "variance": 0.17219399204749855
+              },
+              {
+                "layer": 5,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.5976720270131103,
+                "variance": 0.24299056790160306
+              },
+              {
+                "layer": 6,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 1.9918666590187646,
+                "variance": 0.20465368498331477
+              },
+              {
+                "layer": 7,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.6003260909918546,
+                "variance": 0.2430435606291297
+              },
+              {
+                "layer": 8,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.5584275295203524,
+                "variance": 0.18805449795257959
+              },
+              {
+                "layer": 9,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.548462502516674,
+                "variance": 0.2907278043253999
+              },
+              {
+                "layer": 10,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.6074581850413406,
+                "variance": 0.21127829590443378
+              },
+              {
+                "layer": 11,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.46709961433606617,
+                "variance": 0.14216450602335357
+              },
+              {
+                "layer": 12,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.4468865156574947,
+                "variance": 0.14185659782608012
+              },
+              {
+                "layer": 13,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.33548833653858345,
+                "variance": 0.15646524571323342
+              },
+              {
+                "layer": 14,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -1.2140410965819017,
+                "variance": 0.15411958560694178
+              },
+              {
+                "layer": 15,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.47285368294977254,
+                "variance": 0.13705984342465274
+              },
+              {
+                "layer": 16,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.315669247530261,
+                "variance": 0.14018892309207723
+              },
+              {
+                "layer": 17,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.514607180073453,
+                "variance": 0.12990387190815056
+              },
+              {
+                "layer": 18,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.24922639002551608,
+                "variance": 0.12801935687554616
+              },
+              {
+                "layer": 19,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.4795506635205927,
+                "variance": 0.20896101910958914
+              },
+              {
+                "layer": 20,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.3888003709259098,
+                "variance": 0.2076476339354072
+              },
+              {
+                "layer": 21,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -1.03331259465447,
+                "variance": 0.22292378709939767
+              },
+              {
+                "layer": 22,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.30277899092239435,
+                "variance": 0.3693440105764227
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.6050574867631977,
+                "variance": 0.41075291755093285
+              },
+              {
+                "layer": 27,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.3058268620414228,
+                "variance": 0.3962358218478388
+              },
+              {
+                "layer": 29,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.2209717093739179,
+                "variance": 0.39266229053888074
+              },
+              {
+                "layer": 30,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -1.456992128657747,
+                "variance": 0.27241747141988093
+              },
+              {
+                "layer": 31,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.558487992612748,
+                "variance": 0.4082975056726582
+              }
+            ],
+            "p_two_holm_family": 0.14018313258573523,
+            "attenuation_ratio_vs_unadjusted_abs_g": 1.3625022630351091,
+            "sign_match_vs_unadjusted": false,
+            "holm_significant": false,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": false
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": 0.08382353937122054,
+            "ivw_ci95": [
+              -0.07878935524272677,
+              0.24643643398516785
+            ],
+            "p_two": 0.31233293802846296,
+            "n_valid_layers": 28,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.8612637019532225,
+                "variance": 0.13934704638916312
+              },
+              {
+                "layer": 1,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.38990446461168715,
+                "variance": 0.14798830364661422
+              },
+              {
+                "layer": 2,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.5442372692986693,
+                "variance": 0.24197360712526492
+              },
+              {
+                "layer": 3,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.8658339227038395,
+                "variance": 0.1670838450090883
+              },
+              {
+                "layer": 4,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -1.323283796929508,
+                "variance": 0.1677128053150748
+              },
+              {
+                "layer": 5,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.6121909923257182,
+                "variance": 0.2432833338884495
+              },
+              {
+                "layer": 6,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.7933900668804185,
+                "variance": 0.1490192684985471
+              },
+              {
+                "layer": 7,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.6316905465960263,
+                "variance": 0.24368758614801683
+              },
+              {
+                "layer": 8,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.4321309221380381,
+                "variance": 0.18596942842160738
+              },
+              {
+                "layer": 9,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.5137548698510397,
+                "variance": 0.29011335348588
+              },
+              {
+                "layer": 10,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -1.062150131131433,
+                "variance": 0.2239309201459138
+              },
+              {
+                "layer": 11,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.38243993471027493,
+                "variance": 0.1409658102558252
+              },
+              {
+                "layer": 12,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.04544793003307718,
+                "variance": 0.13856256376721005
+              },
+              {
+                "layer": 13,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.07625653988596764,
+                "variance": 0.15468628964526598
+              },
+              {
+                "layer": 14,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 1.3853569781181143,
+                "variance": 0.1615415551507879
+              },
+              {
+                "layer": 15,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.29465645949051805,
+                "variance": 0.13478037381865812
+              },
+              {
+                "layer": 16,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.3235967134853546,
+                "variance": 0.14027338574444723
+              },
+              {
+                "layer": 17,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.06500257502925805,
+                "variance": 0.1255606183244386
+              },
+              {
+                "layer": 18,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.6492284317577789,
+                "variance": 0.13400908626083807
+              },
+              {
+                "layer": 19,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.6496388182099656,
+                "variance": 0.2121620483636258
+              },
+              {
+                "layer": 20,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.5445884315052345,
+                "variance": 0.21007114779036065
+              },
+              {
+                "layer": 21,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 1.0263720934204748,
+                "variance": 0.22268553303074393
+              },
+              {
+                "layer": 22,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.4588388436828258,
+                "variance": 0.3713249766952262
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.5428956213375675,
+                "variance": 0.4074915402597336
+              },
+              {
+                "layer": 27,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.295834699914979,
+                "variance": 0.39580255144575205
+              },
+              {
+                "layer": 29,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.368521223437912,
+                "variance": 0.39903026427068966
+              },
+              {
+                "layer": 30,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 1.5826457036618615,
+                "variance": 0.2787831607590262
+              },
+              {
+                "layer": 31,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.776318717416484,
+                "variance": 0.42040456171809204
+              }
+            ]
+          }
+        }
+      ],
+      "model_acceptance": {
+        "has_holm_significant_cluster": true,
+        "has_depth_retention_cluster": false,
+        "has_practical_cluster": true
+      }
+    },
+    "mistral-7b-v0.1": {
+      "status": "ok",
+      "confirmatory_clusters": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "cluster_rows": [
+        {
+          "cluster": 0,
+          "n_cluster": 322,
+          "unadjusted_hedges_g_signed": -0.4407784289765342,
+          "unadjusted_hedges_g_absolute": 0.46551245718098655,
+          "depth_control_absolute": {
+            "ivw_hedges_g": 0.27703023498190926,
+            "ivw_ci95": [
+              0.12381868921282099,
+              0.4302417807509975
+            ],
+            "p_two": 0.0003941292240690064,
+            "n_valid_layers": 27,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": -0.007254310688467355,
+                "variance": 0.1250008770837261
+              },
+              {
+                "layer": 1,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.3684142897261366,
+                "variance": 0.1851192943383831
+              },
+              {
+                "layer": 2,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.2747367719473242,
+                "variance": 0.16792467156433394
+              },
+              {
+                "layer": 3,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": 0.1608470143048878,
+                "variance": 0.16709786270017993
+              },
+              {
+                "layer": 4,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.7043844708810868,
+                "variance": 0.1352534183644341
+              },
+              {
+                "layer": 5,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.21029148919825183,
+                "variance": 0.1553264138211633
+              },
+              {
+                "layer": 6,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.9272591455537208,
+                "variance": 0.14766349205021695
+              },
+              {
+                "layer": 7,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.11186955011398712,
+                "variance": 0.13873671846551697
+              },
+              {
+                "layer": 8,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.7707717884678554,
+                "variance": 0.2150296909598374
+              },
+              {
+                "layer": 9,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.2264869187485887,
+                "variance": 0.20598314386760896
+              },
+              {
+                "layer": 10,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.9661087688489056,
+                "variance": 0.3012703882683982
+              },
+              {
+                "layer": 11,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.039840137433103676,
+                "variance": 0.2370634909795485
+              },
+              {
+                "layer": 12,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.25480445586166506,
+                "variance": 0.368898180466139
+              },
+              {
+                "layer": 14,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.8598935149563364,
+                "variance": 0.24936065132143642
+              },
+              {
+                "layer": 18,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.06966551814479933,
+                "variance": 0.14553543352818518
+              },
+              {
+                "layer": 19,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 1.2529768817301126,
+                "variance": 0.16469398963064047
+              },
+              {
+                "layer": 20,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": 0.7606890303927301,
+                "variance": 0.13662825700012418
+              },
+              {
+                "layer": 21,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.1585338848260467,
+                "variance": 0.12740301019476094
+              },
+              {
+                "layer": 22,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.46496821832154933,
+                "variance": 0.14213139592895713
+              },
+              {
+                "layer": 23,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.40621354331925635,
+                "variance": 0.14127829590773827
+              },
+              {
+                "layer": 24,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": 0.37201028301894773,
+                "variance": 0.1408346660393358
+              },
+              {
+                "layer": 26,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.34982562421137303,
+                "variance": 0.1315942886596933
+              },
+              {
+                "layer": 27,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": -0.508059427475171,
+                "variance": 0.13763540636410665
+              },
+              {
+                "layer": 28,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.005937405491415168,
+                "variance": 0.15458995952707583
+              },
+              {
+                "layer": 29,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.40545886731543207,
+                "variance": 0.13607328155141188
+              },
+              {
+                "layer": 30,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.9330487375664174,
+                "variance": 0.21963787090610987
+              },
+              {
+                "layer": 31,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.37754517449080577,
+                "variance": 0.23941270968339193
+              }
+            ],
+            "p_two_holm_family": 0.0023647753444140385,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.5951081022826479,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": true,
+            "depth_retention_ok": true,
+            "practical_threshold_ok": true
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": -0.26999999655703794,
+            "ivw_ci95": [
+              -0.4232421715622424,
+              -0.11675782155183345
+            ],
+            "p_two": 0.0005536550151221675,
+            "n_valid_layers": 27,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": 0.06997910200445769,
+                "variance": 0.12508161791195585
+              },
+              {
+                "layer": 1,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.3684965265731218,
+                "variance": 0.18512030435875046
+              },
+              {
+                "layer": 2,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.27520058356494576,
+                "variance": 0.16792892268657478
+              },
+              {
+                "layer": 3,
+                "n_cluster": 8,
+                "n_noncluster": 24,
+                "hedges_g": -0.15156868211284327,
+                "variance": 0.16704955108995706
+              },
+              {
+                "layer": 4,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.6873238873874741,
+                "variance": 0.13485769575368414
+              },
+              {
+                "layer": 5,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.20317536301899713,
+                "variance": 0.15527737578297468
+              },
+              {
+                "layer": 6,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.9385305053434612,
+                "variance": 0.14801399182433755
+              },
+              {
+                "layer": 7,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.11919830721631879,
+                "variance": 0.13876494246885912
+              },
+              {
+                "layer": 8,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.7708791389218697,
+                "variance": 0.21503244924195383
+              },
+              {
+                "layer": 9,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.24993480727123255,
+                "variance": 0.2061693285929669
+              },
+              {
+                "layer": 10,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -1.036583138545567,
+                "variance": 0.30362269576623535
+              },
+              {
+                "layer": 11,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.15624701779096975,
+                "variance": 0.23744392254651325
+              },
+              {
+                "layer": 12,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.254710171974617,
+                "variance": 0.36889737981581194
+              },
+              {
+                "layer": 14,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 1.0339959830285632,
+                "variance": 0.2548561652523571
+              },
+              {
+                "layer": 18,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.05036939708061206,
+                "variance": 0.14549683005724987
+              },
+              {
+                "layer": 19,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -1.2514426519241415,
+                "variance": 0.16462995037905398
+              },
+              {
+                "layer": 20,
+                "n_cluster": 18,
+                "n_noncluster": 14,
+                "hedges_g": -0.7572718898648779,
+                "variance": 0.13654180557045237
+              },
+              {
+                "layer": 21,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.16374365826615392,
+                "variance": 0.1274309934111667
+              },
+              {
+                "layer": 22,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": -0.45951907224279986,
+                "variance": 0.14204743482405324
+              },
+              {
+                "layer": 23,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.3840550729129727,
+                "variance": 0.140986443511975
+              },
+              {
+                "layer": 24,
+                "n_cluster": 21,
+                "n_noncluster": 11,
+                "hedges_g": -0.3769855009560978,
+                "variance": 0.1408967729936572
+              },
+              {
+                "layer": 26,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.3181296588822766,
+                "variance": 0.1312414305347879
+              },
+              {
+                "layer": 27,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": 0.5133145355482441,
+                "variance": 0.13772486354008515
+              },
+              {
+                "layer": 28,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.012239954369027545,
+                "variance": 0.15459186892205892
+              },
+              {
+                "layer": 29,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.40661458912102383,
+                "variance": 0.13608892373476764
+              },
+              {
+                "layer": 30,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.9285907708352469,
+                "variance": 0.21949955212287842
+              },
+              {
+                "layer": 31,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.3023067537714252,
+                "variance": 0.23856019325996733
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 1,
+          "n_cluster": 294,
+          "unadjusted_hedges_g_signed": 1.0652781563898008,
+          "unadjusted_hedges_g_absolute": -1.0496246294547977,
+          "depth_control_absolute": {
+            "ivw_hedges_g": -0.7679223671259113,
+            "ivw_ci95": [
+              -0.9409910860805871,
+              -0.5948536481712355
+            ],
+            "p_two": 0.0,
+            "n_valid_layers": 24,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.8223491921716698,
+                "variance": 0.21639917502596176
+              },
+              {
+                "layer": 5,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -1.6546404654992053,
+                "variance": 0.2507587896293289
+              },
+              {
+                "layer": 6,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.7820983740588536,
+                "variance": 0.3780107230657814
+              },
+              {
+                "layer": 7,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.988066996899516,
+                "variance": 0.16172581862724592
+              },
+              {
+                "layer": 8,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.6705798863973543,
+                "variance": 0.14602276159548333
+              },
+              {
+                "layer": 9,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.25211694987621946,
+                "variance": 0.13958752113505332
+              },
+              {
+                "layer": 10,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.6640436568506836,
+                "variance": 0.13283942904849183
+              },
+              {
+                "layer": 11,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.6002472937327592,
+                "variance": 0.13149514297232306
+              },
+              {
+                "layer": 12,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.7267557306186605,
+                "variance": 0.14213623153311772
+              },
+              {
+                "layer": 14,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": -0.3381604590831976,
+                "variance": 0.13523920826812263
+              },
+              {
+                "layer": 15,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": -0.7913967851445033,
+                "variance": 0.1399931370627296
+              },
+              {
+                "layer": 17,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -1.3336526442821204,
+                "variance": 0.15513401900510956
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": -0.6712816239943098,
+                "variance": 0.13706497284898597
+              },
+              {
+                "layer": 19,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -2.9575136173292886,
+                "variance": 0.2712716426899009
+              },
+              {
+                "layer": 20,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.8510773700946714,
+                "variance": 0.14540554483145438
+              },
+              {
+                "layer": 21,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.6791782706860758,
+                "variance": 0.190545194913345
+              },
+              {
+                "layer": 22,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -1.4155014345307788,
+                "variance": 0.31910835756693057
+              },
+              {
+                "layer": 23,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.8899154194114102,
+                "variance": 0.38101524951579274
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.4317878635924208,
+                "variance": 0.40198303339286545
+              },
+              {
+                "layer": 26,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -2.525875236853801,
+                "variance": 0.39204838091680644
+              },
+              {
+                "layer": 28,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.3744009652555722,
+                "variance": 0.1569256400270814
+              },
+              {
+                "layer": 29,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.8606016639470165,
+                "variance": 0.29805820611409195
+              },
+              {
+                "layer": 30,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.9093738959261427,
+                "variance": 0.21891088650473664
+              },
+              {
+                "layer": 31,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.17409365990950085,
+                "variance": 0.18336228623082093
+              }
+            ],
+            "p_two_holm_family": 0.0,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.7316161850401607,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": true,
+            "depth_retention_ok": true,
+            "practical_threshold_ok": true
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": 0.8114373886400142,
+            "ivw_ci95": [
+              0.6381514834894295,
+              0.984723293790599
+            ],
+            "p_two": 0.0,
+            "n_valid_layers": 24,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.8183866932253497,
+                "variance": 0.21629081812234383
+              },
+              {
+                "layer": 5,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 1.697535756034435,
+                "variance": 0.2531553325117951
+              },
+              {
+                "layer": 6,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.7976157624551152,
+                "variance": 0.37841927369597056
+              },
+              {
+                "layer": 7,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.9866086954124643,
+                "variance": 0.16167782408560352
+              },
+              {
+                "layer": 8,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.676764173142253,
+                "variance": 0.14616163429562049
+              },
+              {
+                "layer": 9,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.1421481884206221,
+                "variance": 0.13886490698599294
+              },
+              {
+                "layer": 10,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.633418097762472,
+                "variance": 0.1321771708546485
+              },
+              {
+                "layer": 11,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.7521431043450728,
+                "variance": 0.13491885023532876
+              },
+              {
+                "layer": 12,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.8316045375861201,
+                "variance": 0.14485943511556373
+              },
+              {
+                "layer": 14,
+                "n_cluster": 20,
+                "n_noncluster": 12,
+                "hedges_g": 0.4357063107971535,
+                "variance": 0.13649733315447443
+              },
+              {
+                "layer": 15,
+                "n_cluster": 19,
+                "n_noncluster": 13,
+                "hedges_g": 0.7746856014517911,
+                "variance": 0.1395569522220574
+              },
+              {
+                "layer": 17,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 1.2475153921835382,
+                "variance": 0.15142844030734548
+              },
+              {
+                "layer": 18,
+                "n_cluster": 13,
+                "n_noncluster": 19,
+                "hedges_g": 0.679434637540241,
+                "variance": 0.137248512981936
+              },
+              {
+                "layer": 19,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 2.9399212415244316,
+                "variance": 0.26954247785120733
+              },
+              {
+                "layer": 20,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.8425344876605833,
+                "variance": 0.14516440604829137
+              },
+              {
+                "layer": 21,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.7005764682086727,
+                "variance": 0.1910372659872718
+              },
+              {
+                "layer": 22,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 1.4940600932088475,
+                "variance": 0.32291787841627284
+              },
+              {
+                "layer": 23,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.9464839296957241,
+                "variance": 0.38274662244022734
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.4892467155209046,
+                "variance": 0.404780354948853
+              },
+              {
+                "layer": 26,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 2.5294476203778027,
+                "variance": 0.39234937345153453
+              },
+              {
+                "layer": 28,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.29009896119335127,
+                "variance": 0.15599199543543402
+              },
+              {
+                "layer": 29,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.9340687244230392,
+                "variance": 0.30025569208004044
+              },
+              {
+                "layer": 30,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 1.075537091374768,
+                "variance": 0.22440787237692006
+              },
+              {
+                "layer": 31,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.03348187163642353,
+                "variance": 0.1828758267859475
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 2,
+          "n_cluster": 267,
+          "unadjusted_hedges_g_signed": -0.6381098985028886,
+          "unadjusted_hedges_g_absolute": 0.6696958981368832,
+          "depth_control_absolute": {
+            "ivw_hedges_g": 0.6506893845438338,
+            "ivw_ci95": [
+              0.4589473709768849,
+              0.8424313981107827
+            ],
+            "p_two": 2.903344231697247e-11,
+            "n_valid_layers": 19,
+            "rows": [
+              {
+                "layer": 4,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": -0.6275921636052263,
+                "variance": 0.13156453206364482
+              },
+              {
+                "layer": 5,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.7110166122735694,
+                "variance": 0.13391593979391442
+              },
+              {
+                "layer": 6,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.550694867260294,
+                "variance": 0.13054461002554524
+              },
+              {
+                "layer": 7,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 1.0939053499292037,
+                "variance": 0.15847195377153409
+              },
+              {
+                "layer": 8,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.12660007970746684,
+                "variance": 0.12575732241479698
+              },
+              {
+                "layer": 10,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.2263386311236694,
+                "variance": 0.13418715293231562
+              },
+              {
+                "layer": 11,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 2.9769500730593,
+                "variance": 0.43341814800574857
+              },
+              {
+                "layer": 12,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 2.3501307918023313,
+                "variance": 0.27490905516676706
+              },
+              {
+                "layer": 15,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 2.086847517818045,
+                "variance": 0.30961924641409266
+              },
+              {
+                "layer": 16,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 1.6809352673765097,
+                "variance": 0.41490848150585863
+              },
+              {
+                "layer": 17,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 1.9430650560046407,
+                "variance": 0.1962583635311053
+              },
+              {
+                "layer": 18,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.8348490285612729,
+                "variance": 0.2167444201363668
+              },
+              {
+                "layer": 19,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 1.145407100665034,
+                "variance": 0.22699416223243643
+              },
+              {
+                "layer": 21,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": 0.32508603629811517,
+                "variance": 0.14028948737807218
+              },
+              {
+                "layer": 22,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.4737539194973955,
+                "variance": 0.2088689180655242
+              },
+              {
+                "layer": 23,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.4557590019697617,
+                "variance": 0.12895213387637258
+              },
+              {
+                "layer": 24,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.24047606816299705,
+                "variance": 0.2380008493596893
+              },
+              {
+                "layer": 27,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.8201412408870908,
+                "variance": 0.1566650730379424
+              },
+              {
+                "layer": 29,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": 0.6600474274027495,
+                "variance": 0.24429808047738685
+              }
+            ],
+            "p_two_holm_family": 2.3226753853577975e-10,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.9716191876851477,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": true,
+            "depth_retention_ok": true,
+            "practical_threshold_ok": true
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": -0.6332318709635292,
+            "ivw_ci95": [
+              -0.824432023584757,
+              -0.44203171834230137
+            ],
+            "p_two": 8.51079207109251e-11,
+            "n_valid_layers": 19,
+            "rows": [
+              {
+                "layer": 4,
+                "n_cluster": 16,
+                "n_noncluster": 16,
+                "hedges_g": 0.6113465585557606,
+                "variance": 0.1312290769109662
+              },
+              {
+                "layer": 5,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": -0.7358847633244852,
+                "variance": 0.13451563582665027
+              },
+              {
+                "layer": 6,
+                "n_cluster": 17,
+                "n_noncluster": 15,
+                "hedges_g": 0.5540096717870415,
+                "variance": 0.13060564135232447
+              },
+              {
+                "layer": 7,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -1.1032741132887567,
+                "variance": 0.15881503467902341
+              },
+              {
+                "layer": 8,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.13133486035333994,
+                "variance": 0.12577767683749855
+              },
+              {
+                "layer": 10,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.13548135040561327,
+                "variance": 0.13363925327179546
+              },
+              {
+                "layer": 11,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -2.7851850037142634,
+                "variance": 0.41500187746286604
+              },
+              {
+                "layer": 12,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -2.193033119077471,
+                "variance": 0.2630137138799872
+              },
+              {
+                "layer": 15,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -1.948267698919525,
+                "variance": 0.30029948748125673
+              },
+              {
+                "layer": 16,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.5043767547785036,
+                "variance": 0.40553524895932136
+              },
+              {
+                "layer": 17,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -1.8333872964374187,
+                "variance": 0.18935514964563513
+              },
+              {
+                "layer": 18,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.8364299236546644,
+                "variance": 0.2167884554146209
+              },
+              {
+                "layer": 19,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -1.1411440017807155,
+                "variance": 0.22683169900820688
+              },
+              {
+                "layer": 21,
+                "n_cluster": 11,
+                "n_noncluster": 21,
+                "hedges_g": -0.33403980191288846,
+                "variance": 0.1403878483491719
+              },
+              {
+                "layer": 22,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.4713565806975122,
+                "variance": 0.2088311555643193
+              },
+              {
+                "layer": 23,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.4509350061614502,
+                "variance": 0.12887923574146182
+              },
+              {
+                "layer": 24,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.2161259809621743,
+                "variance": 0.23781554436448474
+              },
+              {
+                "layer": 27,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.8250948554938674,
+                "variance": 0.1568009041305862
+              },
+              {
+                "layer": 29,
+                "n_cluster": 5,
+                "n_noncluster": 27,
+                "hedges_g": -0.6969204047724168,
+                "variance": 0.24513200454683953
+              }
+            ]
+          }
+        },
+        {
+          "cluster": 4,
+          "n_cluster": 118,
+          "unadjusted_hedges_g_signed": 0.07140846160751026,
+          "unadjusted_hedges_g_absolute": -0.17918881565319467,
+          "depth_control_absolute": {
+            "ivw_hedges_g": -0.03973019857292443,
+            "ivw_ci95": [
+              -0.2627155619586946,
+              0.18325516481284576
+            ],
+            "p_two": 0.7269233424516757,
+            "n_valid_layers": 15,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.9486219240948656,
+                "variance": 0.22012626437609586
+              },
+              {
+                "layer": 9,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": -0.2968969975591426,
+                "variance": 0.1348024637859939
+              },
+              {
+                "layer": 11,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.5956245955794452,
+                "variance": 0.2110410161091914
+              },
+              {
+                "layer": 12,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": -0.6978891378501125,
+                "variance": 0.153572032933365
+              },
+              {
+                "layer": 14,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 1.235678149160405,
+                "variance": 0.20830548432901758
+              },
+              {
+                "layer": 15,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.07718275854577683,
+                "variance": 0.1829564291607551
+              },
+              {
+                "layer": 18,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.2085691068569466,
+                "variance": 0.36854110982627475
+              },
+              {
+                "layer": 23,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.627607125230695,
+                "variance": 0.37438093701469527
+              },
+              {
+                "layer": 24,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": -0.7836026728724778,
+                "variance": 0.2959481715298339
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -1.0553413403197436,
+                "variance": 0.38637851436382087
+              },
+              {
+                "layer": 26,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.3980440155958047,
+                "variance": 0.18549779349633674
+              },
+              {
+                "layer": 28,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": -0.30160862703936625,
+                "variance": 0.1285002563825365
+              },
+              {
+                "layer": 29,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": -0.19639812617194258,
+                "variance": 0.15523224238007383
+              },
+              {
+                "layer": 30,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": 0.1599555900788679,
+                "variance": 0.125916625925056
+              },
+              {
+                "layer": 31,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.00265491724280326,
+                "variance": 0.20512832260463124
+              }
+            ],
+            "p_two_holm_family": 0.7269233424516757,
+            "attenuation_ratio_vs_unadjusted_abs_g": 0.22172253568447592,
+            "sign_match_vs_unadjusted": true,
+            "holm_significant": false,
+            "depth_retention_ok": false,
+            "practical_threshold_ok": false
+          },
+          "depth_control_signed": {
+            "ivw_hedges_g": -0.04564301466374102,
+            "ivw_ci95": [
+              -0.26882481107124956,
+              0.1775387817437675
+            ],
+            "p_two": 0.6885375394069555,
+            "n_valid_layers": 15,
+            "rows": [
+              {
+                "layer": 0,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.9836126512675829,
+                "variance": 0.22125310259043252
+              },
+              {
+                "layer": 9,
+                "n_cluster": 12,
+                "n_noncluster": 20,
+                "hedges_g": 0.14985318740176837,
+                "variance": 0.1337075996295745
+              },
+              {
+                "layer": 11,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": 0.43024456185601684,
+                "variance": 0.2082133781783164
+              },
+              {
+                "layer": 12,
+                "n_cluster": 10,
+                "n_noncluster": 22,
+                "hedges_g": 0.5423095836346147,
+                "variance": 0.15035620686291126
+              },
+              {
+                "layer": 14,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -1.625776434233026,
+                "variance": 0.22690962642560042
+              },
+              {
+                "layer": 15,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": 0.031845878233787386,
+                "variance": 0.18287404552315087
+              },
+              {
+                "layer": 18,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.2748976540302677,
+                "variance": 0.36907557062387875
+              },
+              {
+                "layer": 23,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": -0.6359250759539007,
+                "variance": 0.3745561036578059
+              },
+              {
+                "layer": 24,
+                "n_cluster": 4,
+                "n_noncluster": 28,
+                "hedges_g": 0.7633586458117309,
+                "variance": 0.295426226083211
+              },
+              {
+                "layer": 25,
+                "n_cluster": 3,
+                "n_noncluster": 29,
+                "hedges_g": 0.9639079742449254,
+                "variance": 0.38330140166757226
+              },
+              {
+                "layer": 26,
+                "n_cluster": 7,
+                "n_noncluster": 25,
+                "hedges_g": -0.4463191384994089,
+                "variance": 0.18617715574699042
+              },
+              {
+                "layer": 28,
+                "n_cluster": 14,
+                "n_noncluster": 18,
+                "hedges_g": 0.24819149814816097,
+                "variance": 0.12801077731334412
+              },
+              {
+                "layer": 29,
+                "n_cluster": 9,
+                "n_noncluster": 23,
+                "hedges_g": 0.17522639539826412,
+                "variance": 0.15510111014141414
+              },
+              {
+                "layer": 30,
+                "n_cluster": 15,
+                "n_noncluster": 17,
+                "hedges_g": -0.20595524394126008,
+                "variance": 0.12619715545354643
+              },
+              {
+                "layer": 31,
+                "n_cluster": 6,
+                "n_noncluster": 26,
+                "hedges_g": -0.11769692199686152,
+                "variance": 0.20535908121899737
+              }
+            ]
+          }
+        }
+      ],
+      "model_acceptance": {
+        "has_holm_significant_cluster": true,
+        "has_depth_retention_cluster": true,
+        "has_practical_cluster": true
+      }
+    }
+  },
+  "run_mode": "full",
+  "dependency_inputs": {
+    "depends_on": [
+      "B1_kernel_taxonomy",
+      "B2a_head_alignment"
+    ],
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_20260421_statfix_v2"
+  },
+  "resume_decision": "run",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/logs_20260421_statfix_v2/B2b_cluster_alignment/2026-04-21_17-31-17.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

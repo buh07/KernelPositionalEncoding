@@ -1,0 +1,78 @@
+{
+  "reliability_gate": {
+    "median_split_half_corr": 0.8162700359318065,
+    "median_kernel_snr": 17.277067960021817,
+    "fraction_corr_ge_0_50": 0.970703125,
+    "reliability_eligible": true,
+    "gate_method": "proxy_fallback"
+  },
+  "selected_k": 5,
+  "descriptor_vs_spectral_ari": 0.2507766668403435,
+  "cluster_enrichment": [
+    {
+      "cluster": 0,
+      "ivw_hedges_g": NaN,
+      "ivw_ci95": [
+        NaN,
+        NaN
+      ],
+      "p_two": NaN,
+      "p_two_holm_model": NaN,
+      "n_valid_layers": 0,
+      "supports_depth_control_enrichment": false
+    },
+    {
+      "cluster": 1,
+      "ivw_hedges_g": NaN,
+      "ivw_ci95": [
+        NaN,
+        NaN
+      ],
+      "p_two": NaN,
+      "p_two_holm_model": NaN,
+      "n_valid_layers": 0,
+      "supports_depth_control_enrichment": false
+    },
+    {
+      "cluster": 2,
+      "ivw_hedges_g": NaN,
+      "ivw_ci95": [
+        NaN,
+        NaN
+      ],
+      "p_two": NaN,
+      "p_two_holm_model": NaN,
+      "n_valid_layers": 0,
+      "supports_depth_control_enrichment": false
+    },
+    {
+      "cluster": 3,
+      "ivw_hedges_g": NaN,
+      "ivw_ci95": [
+        NaN,
+        NaN
+      ],
+      "p_two": NaN,
+      "p_two_holm_model": NaN,
+      "n_valid_layers": 0,
+      "supports_depth_control_enrichment": false
+    },
+    {
+      "cluster": 4,
+      "ivw_hedges_g": NaN,
+      "ivw_ci95": [
+        NaN,
+        NaN
+      ],
+      "p_two": NaN,
+      "p_two_holm_model": NaN,
+      "n_valid_layers": 0,
+      "supports_depth_control_enrichment": false
+    }
+  ],
+  "secondary_behavioral_direction": {
+    "rho_cluster_boundary_vs_cluster_mean_r2": NaN,
+    "p_one_sided": NaN,
+    "directionally_consistent": false
+  }
+}

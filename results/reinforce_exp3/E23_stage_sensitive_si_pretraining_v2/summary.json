@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-02 20:30:01",
+  "experiment_id": "E23",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "claim_status": "mixed",
+    "interpretation": "ambiguous_stage_signal",
+    "stage_pattern_pass": false
+  },
+  "limitations": [
+    "Tiny synthetic model/task setting; extrapolation to larger natural-corpus models requires follow-up.",
+    "Kernel-specificity check still uses perturbational ablation and includes softmax renormalization effects."
+  ]
+}

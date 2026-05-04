@@ -1,0 +1,19 @@
+{
+  "n_models": 0,
+  "per_model_rho": [
+    {
+      "model": "llama-3.1-8b",
+      "rho": NaN
+    },
+    {
+      "model": "olmo-2-7b",
+      "rho": NaN
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "rho": NaN
+    }
+  ],
+  "interpretation": "no_data",
+  "note": "No valid frequency-boundary correlations computed."
+}

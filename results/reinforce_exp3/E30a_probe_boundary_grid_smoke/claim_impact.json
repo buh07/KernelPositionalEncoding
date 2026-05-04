@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-05-04 02:56:57",
+  "experiment_id": "E30A",
+  "claim_status": "supported_with_caveat",
+  "impacts": [
+    "Refines the transfer boundary for Result III by separating context-length and regularity effects.",
+    "Can resolve or narrow the E28C vs E29B scope inconsistency in main-text wording."
+  ]
+}

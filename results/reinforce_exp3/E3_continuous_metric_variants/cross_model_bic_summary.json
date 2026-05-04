@@ -1,0 +1,24 @@
+{
+  "n_new_cells": 2,
+  "n_new_linear_votes": 0,
+  "km_linear_votes": 0,
+  "rt_linear_votes": 0,
+  "outcome": "metric_artifact_refuted",
+  "note": "0/2 continuous-metric cells prefer linear BIC. Schaeffer objection refuted.",
+  "new_cells": [
+    {
+      "model": "mistral-7b-v0.1",
+      "task": "local_keymatch_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "task": "longrange_retrieval_logprob",
+      "metric_type": "continuous",
+      "preferred_model": "threshold_piecewise",
+      "is_linear": false
+    }
+  ]
+}

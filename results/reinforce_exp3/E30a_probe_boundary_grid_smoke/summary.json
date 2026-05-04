@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-04 02:56:57",
+  "experiment_id": "E30A",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "boundary_grid_supported_with_caveat",
+    "n_model_pass": 2,
+    "n_models": 3
+  },
+  "limitations": [
+    "Boundary grid uses semi-naturalistic synthetic constructions, not benchmark tasks.",
+    "Intervention is evaluation-time SI subtraction, not a training counterfactual."
+  ]
+}

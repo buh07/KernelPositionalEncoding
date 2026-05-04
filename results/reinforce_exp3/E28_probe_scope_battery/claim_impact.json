@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 08:24:04",
+  "experiment_id": "E28",
+  "claim_status": "mixed",
+  "supports_main_text": true,
+  "outcome_summary": "Probe-family generalization is model-conditional across primary models.",
+  "notes": [
+    "Designed to test whether Result-III preferential disruption generalizes beyond a single short probe format.",
+    "Probe-family generalization is model-conditional across primary models."
+  ]
+}

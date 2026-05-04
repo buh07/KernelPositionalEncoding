@@ -1,0 +1,39 @@
+{
+  "method": "embedding_logistic_regression",
+  "feature_type": "embedding_dimensions",
+  "classifier_accuracy": 0.9988023952095808,
+  "precision_word_initial": 1.0,
+  "recall_word_initial": 0.9982847341337907,
+  "specificity_continuation": 1.0,
+  "n_samples": 835,
+  "n_word_initial": 583,
+  "n_continuation": 252,
+  "confusion_matrix": {
+    "tp": 582,
+    "tn": 252,
+    "fp": 0,
+    "fn": 1
+  },
+  "top_k_dims": [
+    2594,
+    2225,
+    2177,
+    514,
+    3887,
+    3651,
+    572,
+    3446
+  ],
+  "top_k_weights": [
+    1.6605879132961163,
+    -1.3730503291986789,
+    0.8634297571083787,
+    -0.8060279284568213,
+    -0.800364503756741,
+    -0.7508662894123844,
+    0.7197914911214692,
+    -0.7190077463080758
+  ],
+  "acceptance_threshold": 0.9,
+  "meets_threshold": true
+}

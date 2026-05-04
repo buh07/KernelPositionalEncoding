@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-04-11 03:48:07",
+  "model": "olmo-2-7b",
+  "train_summary": {
+    "timestamp": "2026-04-11 03:03:31",
+    "model": "olmo-2-7b",
+    "condition": "d_full_qlora_baseline",
+    "seed": 0,
+    "elapsed_sec": 251.60370302200317,
+    "train_config": {
+      "max_steps": 300,
+      "batch_size": 1,
+      "lr": 0.0002,
+      "weight_decay": 0.0,
+      "warmup_steps": 20,
+      "grad_clip": 1.0,
+      "max_length": 256,
+      "log_every": 10,
+      "aux_interval": 20,
+      "math_per_task": 120,
+      "control_fraction": 0.2
+    },
+    "aux_config": {
+      "mode": "none",
+      "lambda_preserve": 0.0,
+      "lambda_routing": 0.0
+    },
+    "lora": {
+      "rank": 8,
+      "alpha": 16.0,
+      "dropout": 0.0,
+      "si_rank": 1,
+      "replaced_modules": 224,
+      "trainable_params": 19988480,
+      "total_params": 7318605824,
+      "sample_trainable_names": [
+        "model.layers.0.self_attn.q_proj.lora_a",
+        "model.layers.0.self_attn.q_proj.lora_b",
+        "model.layers.0.self_attn.k_proj.lora_a",
+        "model.layers.0.self_attn.k_proj.lora_b",
+        "model.layers.0.self_attn.v_proj.lora_a",
+        "model.layers.0.self_attn.v_proj.lora_b",
+        "model.layers.0.self_attn.o_proj.lora_a",
+        "model.layers.0.self_attn.o_proj.lora_b",
+        "model.layers.0.mlp.gate_proj.lora_a",
+        "model.layers.0.mlp.gate_proj.lora_b",
+        "model.layers.0.mlp.up_proj.lora_a",
+        "model.layers.0.mlp.up_proj.lora_b",
+        "model.layers.0.mlp.down_proj.lora_a",
+        "model.layers.0.mlp.down_proj.lora_b",
+        "model.layers.1.self_attn.q_proj.lora_a",
+        "model.layers.1.self_attn.q_proj.lora_b",
+        "model.layers.1.self_attn.k_proj.lora_a",
+        "model.layers.1.self_attn.k_proj.lora_b",
+        "model.layers.1.self_attn.v_proj.lora_a",
+        "model.layers.1.self_attn.v_proj.lora_b",
+        "model.layers.1.self_attn.o_proj.lora_a",
+        "model.layers.1.self_attn.o_proj.lora_b",
+        "model.layers.1.mlp.gate_proj.lora_a",
+        "model.layers.1.mlp.gate_proj.lora_b",
+        "model.layers.1.mlp.up_proj.lora_a",
+        "model.layers.1.mlp.up_proj.lora_b",
+        "model.layers.1.mlp.down_proj.lora_a",
+        "model.layers.1.mlp.down_proj.lora_b",
+        "model.layers.2.self_attn.q_proj.lora_a",
+        "model.layers.2.self_attn.q_proj.lora_b",
+        "model.layers.2.self_attn.k_proj.lora_a",
+        "model.layers.2.self_attn.k_proj.lora_b"
+      ]
+    },
+    "optimizer": {
+      "name": "AdamW",
+      "warmup_steps_applied": 20,
+      "total_steps": 300
+    }
+  },
+  "checkpoints": [
+    0,
+    50,
+    100,
+    150,
+    200,
+    250,
+    300
+  ],
+  "n_points": 7,
+  "trajectory_mean_r2_delta": -0.0010358178052991274,
+  "trajectory_boundary_d_delta": -0.011773511812899873,
+  "status": "completed"
+}

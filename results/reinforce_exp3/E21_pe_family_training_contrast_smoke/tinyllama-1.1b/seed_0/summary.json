@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-05-02 07:59:56",
+  "experiment_id": "E21",
+  "mode": "proxy",
+  "model": "tinyllama-1.1b",
+  "pe_family": "rope",
+  "seed": 0,
+  "runtime_sec": 1896.966588973999,
+  "train_elapsed_sec": 2.383227825164795,
+  "final_total_loss": NaN,
+  "si_mean_r2": 0.47484786560876135,
+  "si_high_mean_r2": NaN,
+  "boundary_d": 0.8125132952692474,
+  "boundary_artifact_flag": false,
+  "c1_overall_degradation_mean": 0.0498046875,
+  "c1_local_keymatch_deg": 0.087890625,
+  "c1_longrange_deg": 0.01171875
+}

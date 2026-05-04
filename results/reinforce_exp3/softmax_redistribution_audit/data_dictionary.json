@@ -1,0 +1,6 @@
+{
+  "combined_summary.json": "Cross-model summary of redistribution audit results.",
+  "<model>/summary.json": "Per-model results.",
+  "<model>/per_seq_loss_deltas.parquet": "Per-sequence loss deltas for SI/perm/const conditions.",
+  "<model>/per_head_entropy.parquet": "Per-head attention entropy deltas."
+}

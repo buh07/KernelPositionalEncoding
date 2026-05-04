@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E29B",
+  "question": "Does SI subtraction preferentially disrupt long-context retrievable mappings over matched controls?",
+  "primary_hypothesis": "Pooled true preferential gap > 0 in LP units.",
+  "primary_endpoints": [
+    "mean_pooled_gap_true_lp",
+    "pooled_gap_true_ci",
+    "mean_pooled_gap_true_minus_perm_lp"
+  ]
+}

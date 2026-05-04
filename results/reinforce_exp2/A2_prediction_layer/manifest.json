@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A2_prediction_layer",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_a2_prediction_layer.py",
+  "model": "paper-level",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A2_prediction_layer"
+}

@@ -1,0 +1,37 @@
+{
+  "experiment_id": "B2b_cluster_alignment",
+  "question": "Are B1 clusters enriched for alignment after depth control?",
+  "primary_hypothesis": "At least one confirmatory-family cluster remains enriched after depth control in >=2 models.",
+  "primary_endpoints": [
+    "depth-controlled cluster enrichment",
+    "Holm-corrected p-values",
+    "attenuation retention"
+  ],
+  "secondary_endpoints": [
+    "signed-alignment depth control"
+  ],
+  "model_list": [
+    "llama-3.1-8b"
+  ],
+  "dataset_sources": [
+    "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke/cluster_membership.parquet",
+    "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment/head_alignment_scores.parquet"
+  ],
+  "inclusion_exclusion_rules": [
+    "Confirmatory clusters must have >=5 heads; capped to top 4 by size."
+  ],
+  "sample_size_plan": {
+    "max_confirmatory_clusters_per_model": 4
+  },
+  "seed_plan": {
+    "deterministic": true
+  },
+  "stopping_rule": "Stop after all model cluster tests complete.",
+  "multiplicity_family": [
+    "{tested_clusters_confirmatory} x {models}"
+  ],
+  "acceptance_criteria": [
+    "B2b.3 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Keep cluster-level enrichment exploratory only."
+}

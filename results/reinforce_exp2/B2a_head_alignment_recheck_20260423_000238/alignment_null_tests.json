@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-04-23 00:04:33",
+  "p_one_holm": {
+    "llama-3.1-8b::absolute": 0.001464486209421528,
+    "mistral-7b-v0.1::signed": 0.001464486209421528,
+    "olmo-2-7b::signed": 0.32609226263119356,
+    "olmo-2-7b::absolute": 0.32609226263119356,
+    "llama-3.1-8b::signed": 1.0,
+    "mistral-7b-v0.1::absolute": 1.0
+  },
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": -0.04208424436158921,
+        "t_stat": -6.653975917254613,
+        "t_stat_descriptive": -6.653975917254613,
+        "z_stat_null_resampling": -4.348217063397132,
+        "p_one": 1.0,
+        "hedges_g_vs_null": -0.2940212936052491,
+        "se": 0.0063246763867087896,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 1.0
+      },
+      "absolute": {
+        "delta_mean": 0.052948095688999205,
+        "t_stat": 8.51603968940343,
+        "t_stat_descriptive": 8.51603968940343,
+        "z_stat_null_resampling": 5.4894662684863444,
+        "p_one": 0.000244081034903588,
+        "hedges_g_vs_null": 0.3766329204860001,
+        "se": 0.006217455251515902,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 0.001464486209421528
+      },
+      "supports_directional_subclaim": false,
+      "supports_nondirectional_practical": true,
+      "supports_nondirectional_practical_holm": true,
+      "supports_directional_subclaim_holm": false
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": 0.011792294738421236,
+        "t_stat": 0.8214926849087153,
+        "t_stat_descriptive": 0.8214926849087153,
+        "z_stat_null_resampling": 1.4048516822580668,
+        "p_one": 0.08152306565779839,
+        "hedges_g_vs_null": 0.03632116634274555,
+        "se": 0.014354716670096218,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 0.32609226263119356
+      },
+      "absolute": {
+        "delta_mean": 0.010751644082792278,
+        "t_stat": 0.7527055038533081,
+        "t_stat_descriptive": 0.7527055038533081,
+        "z_stat_null_resampling": 1.2924991040282736,
+        "p_one": 0.09714425189162802,
+        "hedges_g_vs_null": 0.033248895126236834,
+        "se": 0.014283998227396547,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 0.32609226263119356
+      },
+      "supports_directional_subclaim": false,
+      "supports_nondirectional_practical": false,
+      "supports_nondirectional_practical_holm": false,
+      "supports_directional_subclaim_holm": false
+    },
+    "mistral-7b-v0.1": {
+      "model": "mistral-7b-v0.1",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": 0.055681062235814066,
+        "t_stat": 8.031248518120263,
+        "t_stat_descriptive": 8.031248518120263,
+        "z_stat_null_resampling": 5.641656791796121,
+        "p_one": 0.000244081034903588,
+        "hedges_g_vs_null": 0.35568777971182436,
+        "se": 0.006933051830009412,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 0.001464486209421528
+      },
+      "absolute": {
+        "delta_mean": -0.06408581363584555,
+        "t_stat": -8.765008065390997,
+        "t_stat_descriptive": -8.765008065390997,
+        "z_stat_null_resampling": -6.564444064983801,
+        "p_one": 1.0,
+        "hedges_g_vs_null": -0.3883666895789874,
+        "se": 0.00731155215805118,
+        "test_method": "model_level_null_resampling",
+        "p_one_holm_family": 1.0
+      },
+      "supports_directional_subclaim": true,
+      "supports_nondirectional_practical": false,
+      "supports_nondirectional_practical_holm": false,
+      "supports_directional_subclaim_holm": true
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "timestamp": "2026-04-25 18:04:28",
+  "experiment": "NEW-R12",
+  "models": {
+    "mistral-7b-v0.1": {
+      "timestamp": "2026-04-25 18:04:28",
+      "experiment": "NEW-R12",
+      "model": "mistral-7b-v0.1",
+      "output_dir": "results/reinforce_exp/exp_new_r12_ordering_control/mistral-7b-v0.1",
+      "runtime_sec": 91587.875041008,
+      "aggregate": {
+        "timestamp": "2026-04-25 18:04:27",
+        "experiment": "NEW-R12",
+        "model": "mistral-7b-v0.1",
+        "n_orderings": 10,
+        "n_threshold_majority": 10,
+        "fraction_threshold_majority": 1.0,
+        "robustness_assessment": "strong_replication",
+        "acceptance_thresholds": {
+          "strong_replication_ge": 0.8,
+          "partial_replication_ge": 0.5
+        },
+        "mean_random_bic_delta_linear_minus_threshold": 29.75896310600668,
+        "std_random_bic_delta_linear_minus_threshold": 8.128309637549712
+      },
+      "canonical_vs_random": {
+        "timestamp": "2026-04-25 18:04:28",
+        "experiment": "NEW-R12",
+        "model": "mistral-7b-v0.1",
+        "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/mistral-7b-v0.1/curve_fit_comparison.json",
+        "canonical_mean_bic_delta_linear_minus_threshold": 14.000118648133366,
+        "random_mean_bic_delta_linear_minus_threshold": 29.75896310600668,
+        "random_distribution": [
+          38.87144099361267,
+          28.506046486610416,
+          31.703033140934977,
+          36.355410945239434,
+          16.348578999538862,
+          36.495149614077775,
+          33.406203536799616,
+          22.066725203371387,
+          35.54700451680116,
+          18.290037623080455
+        ],
+        "ranked_ordering_outlier": {
+          "z_score": -1.9387603524690322,
+          "abs_z_gt_2": false
+        }
+      }
+    }
+  }
+}

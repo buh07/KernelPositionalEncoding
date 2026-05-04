@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 14:00:38",
+  "experiment_id": "E22",
+  "claim_status": "not_supported",
+  "supports_main_text": false,
+  "notes": [
+    "Task-conditional SI specificity does not pass primary gates in any model."
+  ],
+  "outcome_summary": "Task-conditional SI specificity does not pass primary gates in any model."
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-02 17:25:36",
+  "experiment_id": "E20",
+  "mode": "proxy",
+  "model": "llama-3.1-8b",
+  "seed": 1,
+  "runtime_sec": 491.2948751449585,
+  "train_elapsed_sec": 25.23643732070923,
+  "final_total_loss": NaN,
+  "si_mean_r2": 0.5364193341245685,
+  "si_high_mean_r2": NaN,
+  "boundary_d": 0.9198434629942832,
+  "boundary_artifact_flag": false,
+  "c1_overall_degradation_mean": 0.12369791666666663,
+  "c1_local_keymatch_deg": 0.00651041666666663,
+  "c1_longrange_deg": 0.24088541666666663
+}

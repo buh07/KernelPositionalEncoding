@@ -698,11 +698,31 @@ def main() -> None:
         )
         summary[model_name] = rep
 
-    _write_json(output_root / "j_summary.json", {
+    # Merge with existing per-model summaries so single-model reruns do not drop
+    # previously completed model outputs from the aggregate j_summary.
+    j_summary_path = output_root / "j_summary.json"
+    merged_summary: dict[str, Any] = {}
+    if j_summary_path.exists():
+        try:
+            prev = _load_json(j_summary_path)
+            if isinstance(prev.get("models"), dict):
+                merged_summary.update(prev["models"])
+        except Exception:
+            pass
+    for m in TARGET_MODELS:
+        model_summary_path = output_root / m / "regime_summary.json"
+        if model_summary_path.exists():
+            try:
+                merged_summary[m] = _load_json(model_summary_path)
+            except Exception:
+                pass
+    merged_summary.update(summary)
+
+    _write_json(j_summary_path, {
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
         "tier": TIER_LABEL,
         "primary_test_id": PRIMARY_TEST_ID,
-        "models": summary,
+        "models": merged_summary,
     })
 
 

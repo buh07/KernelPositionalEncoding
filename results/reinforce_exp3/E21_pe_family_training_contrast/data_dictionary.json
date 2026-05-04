@@ -1,0 +1,72 @@
+{
+  "experiment_id": "E21",
+  "tables": [
+    {
+      "path": "per_seed_metrics.parquet",
+      "description": "Per-seed outcomes for RoPE and NoPE runs.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "model name"
+        },
+        {
+          "name": "pe_family",
+          "dtype": "str",
+          "description": "PE family label used for contrast pairing"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "training seed"
+        },
+        {
+          "name": "si_mean_r2",
+          "dtype": "float",
+          "description": "post-FT SI mean R2"
+        },
+        {
+          "name": "boundary_d",
+          "dtype": "float",
+          "description": "post-FT boundary effect size (Cohen's d)"
+        },
+        {
+          "name": "boundary_artifact_flag",
+          "dtype": "bool",
+          "description": "synthetic boundary artifact guard flag"
+        },
+        {
+          "name": "c1_overall_degradation_mean",
+          "dtype": "float",
+          "description": "post-FT mini-ablation mean degradation"
+        }
+      ]
+    },
+    {
+      "path": "paired_seed_deltas.parquet",
+      "description": "Paired seed deltas (RoPE - NoPE) for primary contrast metrics.",
+      "columns": [
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "paired seed"
+        },
+        {
+          "name": "delta_si_mean_r2",
+          "dtype": "float",
+          "description": "SI mean R2 difference"
+        },
+        {
+          "name": "delta_c1_deg",
+          "dtype": "float",
+          "description": "C1 degradation difference"
+        },
+        {
+          "name": "delta_boundary_d",
+          "dtype": "float",
+          "description": "boundary effect size difference"
+        }
+      ]
+    }
+  ]
+}

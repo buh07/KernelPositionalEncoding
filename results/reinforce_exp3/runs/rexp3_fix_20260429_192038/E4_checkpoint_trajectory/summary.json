@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E4",
+  "status": "complete",
+  "model": "olmo-2-7b",
+  "n_checkpoints": 5,
+  "learned_framing_verdict": "not_supported",
+  "timestamp_start": "2026-04-30 16:16:01",
+  "timestamp_end": "2026-04-30 17:38:02"
+}

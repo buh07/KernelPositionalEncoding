@@ -1,0 +1,241 @@
+{
+  "timestamp": "2026-04-22 12:07:15",
+  "experiment_id": "B1_kernel_taxonomy",
+  "models": {
+    "llama-3.1-8b": {
+      "reliability_gate": {
+        "median_split_half_corr": 0.9995535180911721,
+        "median_kernel_snr": 226.20507235946053,
+        "fraction_corr_ge_0_50": 1.0,
+        "reliability_eligible": true,
+        "n_heads_evaluated": 1024,
+        "gate_method": "shard_wise_attention"
+      },
+      "selected_k": 3,
+      "descriptor_vs_spectral_ari": 0.2734234638876923,
+      "cluster_enrichment": [
+        {
+          "cluster": 0,
+          "ivw_hedges_g": -0.4843799032606763,
+          "ivw_ci95": [
+            -0.6546438381425719,
+            -0.31411596837878075
+          ],
+          "p_two": 2.461708170642396e-08,
+          "p_two_holm_model": 2.461708170642396e-08,
+          "n_valid_layers": 19,
+          "supports_depth_control_enrichment": true
+        },
+        {
+          "cluster": 1,
+          "ivw_hedges_g": 0.6036657215617203,
+          "ivw_ci95": [
+            0.45798993982272806,
+            0.7493415033007125
+          ],
+          "p_two": 4.440892098500626e-16,
+          "p_two_holm_model": 8.881784197001252e-16,
+          "n_valid_layers": 30,
+          "supports_depth_control_enrichment": true
+        },
+        {
+          "cluster": 2,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        }
+      ],
+      "secondary_behavioral_direction": {
+        "rho_cluster_boundary_vs_cluster_mean_r2": NaN,
+        "p_one_sided": NaN,
+        "directionally_consistent": false
+      }
+    },
+    "olmo-2-7b": {
+      "reliability_gate": {
+        "median_split_half_corr": 0.9857213209768494,
+        "median_kernel_snr": 50.76424993483906,
+        "fraction_corr_ge_0_50": 0.9970703125,
+        "reliability_eligible": true,
+        "n_heads_evaluated": 1024,
+        "gate_method": "shard_wise_attention"
+      },
+      "selected_k": 3,
+      "descriptor_vs_spectral_ari": 0.07717894912075363,
+      "cluster_enrichment": [
+        {
+          "cluster": 0,
+          "ivw_hedges_g": 0.06683725374509425,
+          "ivw_ci95": [
+            -0.1235061809582374,
+            0.2571806884484259
+          ],
+          "p_two": 0.49130479490090506,
+          "p_two_holm_model": 1.0,
+          "n_valid_layers": 16,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 1,
+          "ivw_hedges_g": -0.04601241863490495,
+          "ivw_ci95": [
+            -0.20595413824944442,
+            0.11392930097963454
+          ],
+          "p_two": 0.5728511058038352,
+          "p_two_holm_model": 1.0,
+          "n_valid_layers": 28,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 2,
+          "ivw_hedges_g": 0.0880937682677783,
+          "ivw_ci95": [
+            -0.09377019967154103,
+            0.2699577362070976
+          ],
+          "p_two": 0.3424112429268955,
+          "p_two_holm_model": 1.0,
+          "n_valid_layers": 18,
+          "supports_depth_control_enrichment": false
+        }
+      ],
+      "secondary_behavioral_direction": {
+        "rho_cluster_boundary_vs_cluster_mean_r2": -1.0,
+        "p_one_sided": 1.0,
+        "directionally_consistent": false
+      }
+    },
+    "mistral-7b-v0.1": {
+      "reliability_gate": {
+        "median_split_half_corr": 0.9995404578239846,
+        "median_kernel_snr": 723.4596176201983,
+        "fraction_corr_ge_0_50": 1.0,
+        "reliability_eligible": true,
+        "n_heads_evaluated": 1024,
+        "gate_method": "shard_wise_attention"
+      },
+      "selected_k": 5,
+      "descriptor_vs_spectral_ari": 0.2601575906762108,
+      "cluster_enrichment": [
+        {
+          "cluster": 0,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 1,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 2,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 3,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        },
+        {
+          "cluster": 4,
+          "ivw_hedges_g": NaN,
+          "ivw_ci95": [
+            NaN,
+            NaN
+          ],
+          "p_two": NaN,
+          "p_two_holm_model": NaN,
+          "n_valid_layers": 0,
+          "supports_depth_control_enrichment": false
+        }
+      ],
+      "secondary_behavioral_direction": {
+        "rho_cluster_boundary_vs_cluster_mean_r2": NaN,
+        "p_one_sided": NaN,
+        "directionally_consistent": false
+      }
+    }
+  },
+  "eligibility": {
+    "eligible_models": [
+      "llama-3.1-8b",
+      "olmo-2-7b",
+      "mistral-7b-v0.1"
+    ],
+    "n_eligible_models": 3
+  },
+  "prototype_pair_support": {
+    "llama-3.1-8b__mistral-7b-v0.1": {
+      "n_matches": 3,
+      "n_good": 3,
+      "criterion_min_required": 2,
+      "supports_pair": true
+    },
+    "llama-3.1-8b__olmo-2-7b": {
+      "n_matches": 3,
+      "n_good": 3,
+      "criterion_min_required": 2,
+      "supports_pair": true
+    },
+    "mistral-7b-v0.1__olmo-2-7b": {
+      "n_matches": 3,
+      "n_good": 3,
+      "criterion_min_required": 2,
+      "supports_pair": true
+    }
+  },
+  "criteria": {
+    "criterion_1_ari_threshold": true,
+    "criterion_2_prototype_similarity": true,
+    "criterion_3_depth_control_enrichment": false,
+    "criterion_4_secondary_directional": false,
+    "criterion_5_descriptor_spectral_concordance": false,
+    "criterion_6_min_eligible_models": true,
+    "min_required_prototype_matches": 2,
+    "common_k_used_for_pairing": 3
+  },
+  "verdict": {
+    "B1_supported": false,
+    "claim_status": "mixed"
+  },
+  "limitations": [
+    "Kernel reliability gate uses proxy statistics when shard-wise kernel estimates are unavailable.",
+    "Secondary behavioral directional endpoint uses cluster mean-R2 as fallback when per-head task-grounded endpoints are unavailable."
+  ]
+}

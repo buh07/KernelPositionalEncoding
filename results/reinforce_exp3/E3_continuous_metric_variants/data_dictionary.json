@@ -1,0 +1,67 @@
+{
+  "experiment_id": "E3",
+  "tables": [
+    {
+      "path": "<model>/local_keymatch_logprob_curve.parquet",
+      "description": "Continuous key-match log-prob scores per seed/fraction",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "Random seed"
+        },
+        {
+          "name": "fraction",
+          "dtype": "float",
+          "description": "Ablation fraction"
+        },
+        {
+          "name": "n_ablated",
+          "dtype": "int",
+          "description": "Number of heads ablated"
+        },
+        {
+          "name": "logprob_normalized",
+          "dtype": "float",
+          "description": "Mean normalized log-prob (log P - log P_prior)"
+        }
+      ]
+    },
+    {
+      "path": "<model>/longrange_logprob_curve.parquet",
+      "description": "Continuous retrieval log-prob scores per seed/fraction",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "seed",
+          "dtype": "int",
+          "description": "Random seed"
+        },
+        {
+          "name": "fraction",
+          "dtype": "float",
+          "description": "Ablation fraction"
+        },
+        {
+          "name": "n_ablated",
+          "dtype": "int",
+          "description": "Number of heads ablated"
+        },
+        {
+          "name": "logprob_normalized",
+          "dtype": "float",
+          "description": "Mean normalized log-prob (log P - log P_prior)"
+        }
+      ]
+    }
+  ]
+}

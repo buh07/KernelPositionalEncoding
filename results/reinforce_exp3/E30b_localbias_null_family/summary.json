@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-05-04 02:59:12",
+  "experiment_id": "E30B",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "localbias_family_excess_tracks_disruption_supported_with_caveat",
+    "n_model_pass": 2,
+    "n_models": 3
+  }
+}

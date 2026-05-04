@@ -1,0 +1,126 @@
+{
+  "timestamp": "2026-04-19 21:30:10",
+  "run_id": "full_20260419_212957",
+  "session": "reinforce_exp2_full",
+  "mode": "full",
+  "strict_todo": true,
+  "resume_policy": "strict_artifact_check",
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2",
+  "marker_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/pipeline_runs/tmux_markers_full_20260419_212957",
+  "n_events": 14,
+  "n_failures": 0,
+  "rows": [
+    {
+      "timestamp": "2026-04-19 21:29:57",
+      "stage": "launcher",
+      "item": "session",
+      "status": "running",
+      "log_path": "",
+      "message": "creating tmux session "
+    },
+    {
+      "timestamp": "2026-04-19 21:29:58",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/preflight/2026-04-19_21-29-57.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:29:59",
+      "stage": "preflight",
+      "item": "calibration_v1",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/calibration_v1/2026-04-19_21-29-58.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:02",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:03",
+      "stage": "phase_a",
+      "item": "A0_claim_hygiene",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A0_claim_hygiene/2026-04-19_21-30-02.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:03",
+      "stage": "phase_b_core",
+      "item": "B1_kernel_taxonomy",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-19_21-30-02.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:03",
+      "stage": "phase_b_core",
+      "item": "B2a_head_alignment",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-19_21-30-02.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:03",
+      "stage": "phase_b_core",
+      "item": "phase_b_core",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:04",
+      "stage": "phase_a",
+      "item": "A1_evidence_consolidation",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A1_evidence_consolidation/2026-04-19_21-30-03.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:06",
+      "stage": "phase_a",
+      "item": "A2_prediction_layer",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A2_prediction_layer/2026-04-19_21-30-04.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:06",
+      "stage": "phase_a",
+      "item": "phase_a",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:08",
+      "stage": "phase_b_adv",
+      "item": "B4_confound_isolation",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B4_confound_isolation/2026-04-19_21-30-07.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:08",
+      "stage": "phase_b_adv",
+      "item": "B2b_cluster_alignment",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2b_cluster_alignment/2026-04-19_21-30-07.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-19 21:30:10",
+      "stage": "phase_b_adv",
+      "item": "B3_cluster_ablation",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B3_cluster_ablation/2026-04-19_21-30-08.log",
+      "message": "starting "
+    }
+  ]
+}

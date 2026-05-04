@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-02 18:01:20",
+  "experiment_id": "E20",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "model_family_dominant",
+    "between_over_within_ratio": 182.7313087302531,
+    "n_models": 3,
+    "seeds_per_model": 3
+  },
+  "limitations": [
+    "Proxy training recipe is short-horizon and does not replace true pretraining-scale variance decomposition.",
+    "Head-group priors are inherited from baseline SI profiling artifacts."
+  ]
+}

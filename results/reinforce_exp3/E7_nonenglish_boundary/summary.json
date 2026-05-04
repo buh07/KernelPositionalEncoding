@@ -1,0 +1,14 @@
+{
+  "experiment_id": "E7",
+  "status": "complete",
+  "models_run": [
+    "llama-3.1-8b"
+  ],
+  "languages_tested": [
+    "zh",
+    "tr"
+  ],
+  "interpretation": "boundary_not_english_specific",
+  "timestamp_start": "2026-04-29 18:00:00",
+  "timestamp_end": "2026-04-29 18:00:38"
+}

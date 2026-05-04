@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-04-17 06:41:31",
+  "experiment": "EXP-R1",
+  "model": "llama-3.1-8b",
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "domain_summaries": [
+    {
+      "domain": "wiki",
+      "assessment": "ambiguous",
+      "meta_p_one": 2.5132391973760537e-70,
+      "pooled_diff": 0.006439589556890585,
+      "n_flagged": 2,
+      "n_completed": 12,
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_wiki/llama-3.1-8b/multiseed_gate_summary.json"
+    },
+    {
+      "domain": "code",
+      "assessment": "stable_clean",
+      "meta_p_one": 1.0,
+      "pooled_diff": -0.0030683203371121783,
+      "n_flagged": 0,
+      "n_completed": 12,
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_code/llama-3.1-8b/multiseed_gate_summary.json"
+    },
+    {
+      "domain": "dialogue",
+      "assessment": "ambiguous",
+      "meta_p_one": 0.0002214159938110113,
+      "pooled_diff": 0.0016528289518616414,
+      "n_flagged": 0,
+      "n_completed": 12,
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_dialogue/llama-3.1-8b/multiseed_gate_summary.json"
+    }
+  ],
+  "output_root": "results/reinforce_exp/exp_r1_multidomain_gate"
+}

@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-04-10 00:05:51",
+  "experiment": "5C",
+  "title": "Synthetic tokenizer perturbation battery",
+  "status": "scaffold_only",
+  "device": "cuda:0",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "perturbations": {
+    "fake_boundary_with_prefix": "Insert space before continuation token",
+    "real_boundary_no_prefix": "Strip space from word-initial token",
+    "morpheme_internal_break": "Insert space inside morpheme",
+    "character_decompose": "Replace merged BPE token with character subtokens",
+    "merge_across_boundary": "Concatenate adjacent tokens across word boundary",
+    "random_resegment": "Random span resegmentation control"
+  },
+  "positions_per_perturbation_min": 200,
+  "metrics": [
+    "high_si_boundary_attention_delta",
+    "local_perturbed_span_r2_delta",
+    "prefix_following_flag_change"
+  ],
+  "acceptance_criteria": {
+    "min_positions_per_perturbation_per_model": 200,
+    "effect_sizes_with_ci_required": true,
+    "required_reports": [
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5c_synthetic_tokenizer_perturbation/perturbation_sensitivity_matrix.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5c_synthetic_tokenizer_perturbation/perturbation_results.parquet"
+    ]
+  },
+  "artifacts_contract": {
+    "run_manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5c_synthetic_tokenizer_perturbation/run_manifest.json",
+    "perturbation_sensitivity_matrix": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5c_synthetic_tokenizer_perturbation/perturbation_sensitivity_matrix.json",
+    "perturbation_results": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment5/exp5c_synthetic_tokenizer_perturbation/perturbation_results.parquet"
+  },
+  "notes": [
+    "Prefer deterministic perturbation template generation with fixed seed registry.",
+    "Keep matched controls per perturbation to avoid lexical confounds."
+  ]
+}

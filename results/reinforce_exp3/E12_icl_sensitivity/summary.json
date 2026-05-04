@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E12",
+  "status": "complete",
+  "models_run": [
+    "llama-3.1-8b"
+  ],
+  "interpretation": "partial_icl_specificity",
+  "n_icl_preferential": 1,
+  "mean_accuracy_ratio": NaN,
+  "timestamp_start": "2026-04-29 18:02:32",
+  "timestamp_end": "2026-04-29 18:05:51"
+}

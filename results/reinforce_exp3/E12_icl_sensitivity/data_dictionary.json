@@ -1,0 +1,51 @@
+{
+  "experiment_id": "E12",
+  "tables": [
+    {
+      "path": "<model>/condition_summary.parquet",
+      "description": "Accuracy and log-prob for ICL vs non-ICL conditions, intact vs ablated",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "condition",
+          "dtype": "str",
+          "description": "icl or non_icl"
+        },
+        {
+          "name": "intact_accuracy",
+          "dtype": "float",
+          "description": "Accuracy without ablation"
+        },
+        {
+          "name": "ablated_accuracy",
+          "dtype": "float",
+          "description": "Accuracy with SI heads ablated"
+        },
+        {
+          "name": "intact_mean_logprob",
+          "dtype": "float",
+          "description": "Mean log-prob without ablation"
+        },
+        {
+          "name": "ablated_mean_logprob",
+          "dtype": "float",
+          "description": "Mean log-prob with ablation"
+        },
+        {
+          "name": "acc_loss",
+          "dtype": "float",
+          "description": "intact_accuracy - ablated_accuracy"
+        },
+        {
+          "name": "lp_loss",
+          "dtype": "float",
+          "description": "intact_mean_logprob - ablated_mean_logprob"
+        }
+      ]
+    }
+  ]
+}

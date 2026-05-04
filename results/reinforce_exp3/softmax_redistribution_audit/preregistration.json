@@ -1,0 +1,8 @@
+{
+  "experiment_id": "SoftmaxRedistributionAudit",
+  "question": "Does SI-kernel subtraction disrupt attention through position-specific redistribution (not just norm change)?",
+  "primary_endpoints": [
+    "si_vs_const_ratio > 2",
+    "frac_heads_si_entropy_gt_perm > 0.5"
+  ]
+}

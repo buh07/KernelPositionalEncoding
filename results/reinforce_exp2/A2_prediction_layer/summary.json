@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A2_prediction_layer",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "completed": true,
+    "n_predictions": 1
+  }
+}

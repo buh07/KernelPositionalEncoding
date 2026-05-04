@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-28 17:46:18",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    22
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 11454.745058298111,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 22,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.008329621664545657,
+      "cohens_d_fake_minus_real": -0.235403198287424,
+      "p_one_sided_fake_gt_real": 0.9999999999925804,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_wiki/seed22/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 25997,
+      "elapsed_sec": 2995.481380701065
+    },
+    {
+      "domain": "code",
+      "seed": 22,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.0057447976420807005,
+      "cohens_d_fake_minus_real": -0.17573468710261517,
+      "p_one_sided_fake_gt_real": 0.9999999998092983,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_code/seed22/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9038,
+      "elapsed_sec": 3060.4048705101013
+    },
+    {
+      "domain": "dialogue",
+      "seed": 22,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.007858856003629771,
+      "cohens_d_fake_minus_real": -0.22608971412627726,
+      "p_one_sided_fake_gt_real": 1.0,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed22/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17073,
+      "elapsed_sec": 5398.858661651611
+    }
+  ]
+}

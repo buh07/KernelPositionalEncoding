@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "experiment_id": "B3_cluster_ablation",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If inconclusive, use threshold-capacity wording and avoid over-disambiguation.",
+    "Model-conditional mechanism split must be reported explicitly when present."
+  ]
+}

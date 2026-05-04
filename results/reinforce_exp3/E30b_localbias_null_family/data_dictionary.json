@@ -1,0 +1,8 @@
+{
+  "head_r2_localbias_family_decomposition.parquet": {
+    "description": "Per-head full R\u00b2 and multi-family local-bias null fits."
+  },
+  "bin_level_localbias_family_vs_disruption.parquet": {
+    "description": "Bin-level link between local-bias-family excess R\u00b2 and disruption cost."
+  }
+}

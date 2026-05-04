@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-18 18:46:27",
+  "experiment_id": "B2b_cluster_alignment",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If mixed, B2b should not be used as required support for B_full narrative."
+  ]
+}

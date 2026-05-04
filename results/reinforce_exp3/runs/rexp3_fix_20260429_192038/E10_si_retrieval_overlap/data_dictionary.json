@@ -1,0 +1,31 @@
+{
+  "experiment_id": "E10",
+  "tables": [
+    {
+      "path": "<model>/retrieval_scores.parquet",
+      "description": "Per-head Wu et al. copy score (mean attention to needle position minus mean)",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Head index"
+        },
+        {
+          "name": "retrieval_score",
+          "dtype": "float",
+          "description": "Mean copy score: attn[last, needle] - mean_attn[last, :]"
+        }
+      ]
+    }
+  ]
+}

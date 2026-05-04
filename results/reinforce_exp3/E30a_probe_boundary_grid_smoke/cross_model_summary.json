@@ -1,0 +1,352 @@
+{
+  "timestamp": "2026-05-04 02:56:57",
+  "experiment_id": "E30A",
+  "interpretation": "boundary_grid_supported_with_caveat",
+  "claim_status": "supported_with_caveat",
+  "n_models": 3,
+  "n_model_pass": 2,
+  "per_model": [
+    {
+      "timestamp": "2026-05-04 02:36:43",
+      "experiment_id": "E30A",
+      "model": "llama-3.1-8b",
+      "n_high_si_heads": 256,
+      "n_families": 4,
+      "n_total_prompts": 48,
+      "mean_pooled_gap_true_lp": 6.03173828125,
+      "pooled_gap_true_ci": [
+        4.57779541015625,
+        7.518005371093751
+      ],
+      "p_one_gt_zero": 0.00024993751562109475,
+      "regularity_effect_high_minus_low": -2.1220703125,
+      "length_effect_long_minus_short": -0.3564453125,
+      "all_high_reg_positive": true,
+      "model_directional_pass": true,
+      "n_family_directional_pass": 4,
+      "family_results": [
+        {
+          "family": "short_high",
+          "context_band": "short",
+          "regularity_band": "high",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 5.678385416666667,
+          "mean_gap_perm_lp": 0.3268229166666667,
+          "mean_gap_true_minus_perm_lp": 5.3515625,
+          "gap_true_ci": [
+            2.710807291666667,
+            8.729557291666667
+          ],
+          "gap_true_minus_perm_ci": [
+            3.17421875,
+            7.503971354166667
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "short_low",
+          "context_band": "short",
+          "regularity_band": "low",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 6.741536458333333,
+          "mean_gap_perm_lp": 3.919921875,
+          "mean_gap_true_minus_perm_lp": 2.8216145833333335,
+          "gap_true_ci": [
+            4.363557942708333,
+            9.214290364583334
+          ],
+          "gap_true_minus_perm_ci": [
+            -0.05550130208333333,
+            5.2578125
+          ],
+          "intact_probe_acc": 0.16666666666666666,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.08333333333333333,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "long_high",
+          "context_band": "long",
+          "regularity_band": "high",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 4.263020833333333,
+          "mean_gap_perm_lp": -1.9153645833333333,
+          "mean_gap_true_minus_perm_lp": 6.178385416666667,
+          "gap_true_ci": [
+            0.9868489583333333,
+            7.919531250000001
+          ],
+          "gap_true_minus_perm_ci": [
+            2.575390625,
+            10.5599609375
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "long_low",
+          "context_band": "long",
+          "regularity_band": "low",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 7.444010416666667,
+          "mean_gap_perm_lp": 2.56640625,
+          "mean_gap_true_minus_perm_lp": 4.877604166666667,
+          "gap_true_ci": [
+            5.376041666666667,
+            9.24951171875
+          ],
+          "gap_true_minus_perm_ci": [
+            2.3813151041666667,
+            7.166796875
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        }
+      ],
+      "elapsed_sec": 336.71060967445374
+    },
+    {
+      "timestamp": "2026-05-04 02:35:58",
+      "experiment_id": "E30A",
+      "model": "mistral-7b-v0.1",
+      "n_high_si_heads": 256,
+      "n_families": 4,
+      "n_total_prompts": 48,
+      "mean_pooled_gap_true_lp": 3.2788899739583335,
+      "pooled_gap_true_ci": [
+        2.275089518229167,
+        4.299894205729166
+      ],
+      "p_one_gt_zero": 0.00024993751562109475,
+      "regularity_effect_high_minus_low": -2.5004882812499996,
+      "length_effect_long_minus_short": -0.24788411458333348,
+      "all_high_reg_positive": true,
+      "model_directional_pass": true,
+      "n_family_directional_pass": 4,
+      "family_results": [
+        {
+          "family": "short_high",
+          "context_band": "short",
+          "regularity_band": "high",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 1.8736979166666667,
+          "mean_gap_perm_lp": -0.25390625,
+          "mean_gap_true_minus_perm_lp": 2.1276041666666665,
+          "gap_true_ci": [
+            0.7050455729166667,
+            3.1139648437500003
+          ],
+          "gap_true_minus_perm_ci": [
+            1.2473958333333333,
+            3.1036132812500004
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "short_low",
+          "context_band": "short",
+          "regularity_band": "low",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 4.931966145833333,
+          "mean_gap_perm_lp": 1.1715494791666667,
+          "mean_gap_true_minus_perm_lp": 3.7604166666666665,
+          "gap_true_ci": [
+            2.2948893229166667,
+            7.692789713541667
+          ],
+          "gap_true_minus_perm_ci": [
+            1.7160807291666667,
+            6.139518229166668
+          ],
+          "intact_probe_acc": 0.4166666666666667,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.08333333333333333,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "long_high",
+          "context_band": "long",
+          "regularity_band": "high",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 2.18359375,
+          "mean_gap_perm_lp": -0.4309895833333333,
+          "mean_gap_true_minus_perm_lp": 2.6145833333333335,
+          "gap_true_ci": [
+            0.4847330729166667,
+            3.874381510416667
+          ],
+          "gap_true_minus_perm_ci": [
+            0.9491536458333333,
+            4.450651041666667
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        },
+        {
+          "family": "long_low",
+          "context_band": "long",
+          "regularity_band": "low",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 4.126302083333333,
+          "mean_gap_perm_lp": 2.4544270833333335,
+          "mean_gap_true_minus_perm_lp": 1.671875,
+          "gap_true_ci": [
+            2.3793294270833334,
+            5.773632812500001
+          ],
+          "gap_true_minus_perm_ci": [
+            -0.5587890625,
+            3.833463541666667
+          ],
+          "intact_probe_acc": 0.08333333333333333,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": true
+        }
+      ],
+      "elapsed_sec": 291.7751615047455
+    },
+    {
+      "timestamp": "2026-05-04 02:36:40",
+      "experiment_id": "E30A",
+      "model": "olmo-2-7b",
+      "n_high_si_heads": 256,
+      "n_families": 4,
+      "n_total_prompts": 48,
+      "mean_pooled_gap_true_lp": -0.7788899739583334,
+      "pooled_gap_true_ci": [
+        -1.1865478515625,
+        -0.36628824869791665
+      ],
+      "p_one_gt_zero": 1.0,
+      "regularity_effect_high_minus_low": -0.6811523437500002,
+      "length_effect_long_minus_short": -0.6648763020833333,
+      "all_high_reg_positive": false,
+      "model_directional_pass": false,
+      "n_family_directional_pass": 0,
+      "family_results": [
+        {
+          "family": "short_high",
+          "context_band": "short",
+          "regularity_band": "high",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": -1.0123697916666667,
+          "mean_gap_perm_lp": 0.16145833333333334,
+          "mean_gap_true_minus_perm_lp": -1.173828125,
+          "gap_true_ci": [
+            -1.7578776041666666,
+            -0.3251464843749998
+          ],
+          "gap_true_minus_perm_ci": [
+            -1.8770182291666666,
+            -0.5696614583333334
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.08333333333333333,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": false
+        },
+        {
+          "family": "short_low",
+          "context_band": "short",
+          "regularity_band": "low",
+          "context_len": 128,
+          "n_prompts": 12,
+          "mean_gap_true_lp": 0.11946614583333333,
+          "mean_gap_perm_lp": 0.2294921875,
+          "mean_gap_true_minus_perm_lp": -0.11002604166666667,
+          "gap_true_ci": [
+            -0.9705485026041667,
+            1.0007242838541675
+          ],
+          "gap_true_minus_perm_ci": [
+            -1.1223958333333333,
+            0.7253906250000005
+          ],
+          "intact_probe_acc": 0.16666666666666666,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.16666666666666666,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": false
+        },
+        {
+          "family": "long_high",
+          "context_band": "long",
+          "regularity_band": "high",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": -1.2265625,
+          "mean_gap_perm_lp": 0.13020833333333334,
+          "mean_gap_true_minus_perm_lp": -1.3567708333333333,
+          "gap_true_ci": [
+            -1.9603190104166668,
+            -0.5390625
+          ],
+          "gap_true_minus_perm_ci": [
+            -2.089225260416667,
+            -0.5891601562499998
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.0,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": false
+        },
+        {
+          "family": "long_low",
+          "context_band": "long",
+          "regularity_band": "low",
+          "context_len": 512,
+          "n_prompts": 12,
+          "mean_gap_true_lp": -0.99609375,
+          "mean_gap_perm_lp": -0.007161458333333333,
+          "mean_gap_true_minus_perm_lp": -0.9889322916666666,
+          "gap_true_ci": [
+            -1.6042317708333333,
+            -0.4498372395833332
+          ],
+          "gap_true_minus_perm_ci": [
+            -1.7669270833333333,
+            -0.333984375
+          ],
+          "intact_probe_acc": 0.0,
+          "intact_ctrl_acc": 0.0,
+          "true_probe_acc": 0.08333333333333333,
+          "true_ctrl_acc": 0.0,
+          "family_directional_pass": false
+        }
+      ],
+      "elapsed_sec": 333.4907166957855
+    }
+  ]
+}

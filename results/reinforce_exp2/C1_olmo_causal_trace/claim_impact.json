@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-25 03:30:41",
+  "experiment_id": "C1_olmo_causal_trace",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If mixed, keep C narrative exploratory and avoid two-carrier-class headline.",
+    "content_similarity_data_quality_failure hard-fails run when missing token ratio >5%."
+  ]
+}

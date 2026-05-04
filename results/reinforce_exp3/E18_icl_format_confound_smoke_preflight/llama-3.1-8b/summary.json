@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-05-01 16:58:38",
+  "experiment_id": "E18",
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "n_control_heads": 256,
+  "primary_ratio": NaN,
+  "primary_gap": 0.875,
+  "control_non_si_gap": 0.6000000000000001,
+  "control_label_shuffle_gap": 0.0,
+  "control_positional_perturb_gap": 0.5,
+  "survives_controls": true,
+  "model_level_status": "supported"
+}

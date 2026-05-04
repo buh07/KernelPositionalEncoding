@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E4",
+  "hypothesis": "For OLMo-2-7B, heads that are high-SI at the final checkpoint start with low R\u00b2 at early checkpoints and grow to high R\u00b2 during training (learned specialization). If architectural, R\u00b2 would be high from initialization.",
+  "primary_criterion": "n_learned_trajectory_heads > n_architectural_trajectory_heads",
+  "model": "olmo-2-7b",
+  "checkpoints": [
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step1000-tokens5B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step3000-tokens13B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step7000-tokens30B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step11000-tokens47B",
+    "olmo-2-7b"
+  ],
+  "n_eval_seqs": 500,
+  "timestamp": "2026-04-30 16:16:01"
+}

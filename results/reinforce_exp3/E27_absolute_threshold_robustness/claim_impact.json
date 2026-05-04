@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 04:11:01",
+  "experiment_id": "E27",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "notes": [
+    "Supports Weakness-1 response: absolute threshold replicates rank-based result.",
+    "Cross-model gradient at fixed T supports claim that SI amplitude drives disruption.",
+    "If direction fails at T=0.20, 'all three models' language for cross-model claims must be dropped."
+  ]
+}

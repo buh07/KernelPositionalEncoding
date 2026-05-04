@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-17 12:13:54",
+  "experiment_id": "EXP-R3",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "core_replication",
+  "model": "mistral-7b-v0.1",
+  "device": "cuda:0",
+  "num_sequences_b": 32,
+  "synthetic_b": 600,
+  "num_sequences_j": 160,
+  "output_root": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1",
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/20260416_233152"
+}

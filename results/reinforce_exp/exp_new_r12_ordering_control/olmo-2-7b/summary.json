@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-04-18 19:55:19",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "output_dir": "results/reinforce_exp/exp_new_r12_ordering_control/olmo-2-7b",
+  "runtime_sec": 108129.12325119972,
+  "aggregate": {
+    "timestamp": "2026-04-18 19:55:19",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "n_orderings": 10,
+    "n_threshold_majority": 10,
+    "fraction_threshold_majority": 1.0,
+    "robustness_assessment": "strong_replication",
+    "acceptance_thresholds": {
+      "strong_replication_ge": 0.8,
+      "partial_replication_ge": 0.5
+    },
+    "mean_random_bic_delta_linear_minus_threshold": 14.477630147677548,
+    "std_random_bic_delta_linear_minus_threshold": 4.1249631111642255
+  },
+  "canonical_vs_random": {
+    "timestamp": "2026-04-18 19:55:19",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+    "canonical_mean_bic_delta_linear_minus_threshold": 9.545128203736827,
+    "random_mean_bic_delta_linear_minus_threshold": 14.477630147677548,
+    "random_distribution": [
+      20.694431597094155,
+      15.874712865401358,
+      10.417869970322682,
+      15.777967792808404,
+      19.305631661519815,
+      6.80507119409559,
+      13.036475900575523,
+      11.755974619004071,
+      15.115163906981847,
+      15.99300196897201
+    ],
+    "ranked_ordering_outlier": {
+      "z_score": -1.1957687404745243,
+      "abs_z_gt_2": false
+    }
+  }
+}

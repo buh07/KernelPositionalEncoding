@@ -1,0 +1,40 @@
+{
+  "experiment_id": "B4_confound_isolation",
+  "question": "Do high-vs-low SI effects persist after depth and entropy controls?",
+  "primary_hypothesis": "Within-layer and entropy-matched contrasts retain sign, significance, and practical magnitude.",
+  "primary_endpoints": [
+    "within-layer IVW effect",
+    "entropy-matched effect",
+    "Holm-corrected significance"
+  ],
+  "secondary_endpoints": [
+    "retention ratio vs unadjusted"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "dataset_sources": [
+    "results/experiment3/theory8_position_ablation/*/estimated_kernels.json",
+    "results/experiment3/theory5b_boundary_detection/*/boundary_attention_scores.parquet",
+    "results/experiment3/theory1_si_circuits/*/head_groups.json"
+  ],
+  "inclusion_exclusion_rules": [
+    "Entropy confirmatory eligibility requires >=5 matched pairs per model."
+  ],
+  "sample_size_plan": {
+    "matching_tolerance": 0.02
+  },
+  "seed_plan": {
+    "deterministic": true
+  },
+  "stopping_rule": "Stop when all model contrasts are computed.",
+  "multiplicity_family": [
+    "{contrast_type in [within-layer, entropy-matched]} x {models}"
+  ],
+  "acceptance_criteria": [
+    "B4.3 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Downgrade SI-vs-low comparative language to caveated/descriptive."
+}

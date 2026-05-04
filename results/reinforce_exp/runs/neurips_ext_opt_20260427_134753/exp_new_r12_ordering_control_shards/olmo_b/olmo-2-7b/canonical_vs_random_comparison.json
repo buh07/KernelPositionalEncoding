@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-04-28 06:32:10",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+  "canonical_mean_bic_delta_linear_minus_threshold": 9.545128203736827,
+  "canonical_mean_bic_delta_logistic_minus_threshold": NaN,
+  "random_mean_bic_delta_linear_minus_threshold": 12.541137517925808,
+  "random_mean_bic_delta_logistic_minus_threshold": 4.074006500761757,
+  "random_distribution": [
+    6.80507119409559,
+    13.036475900575523,
+    11.755974619004071,
+    15.115163906981847,
+    15.99300196897201
+  ],
+  "random_distribution_logistic_minus_threshold": [
+    7.8985296646281595,
+    3.5849012507142626,
+    4.09051968691369,
+    -0.11336606609412551,
+    4.909447967646798
+  ],
+  "ranked_ordering_outlier": {
+    "z_score": -0.8285150433832739,
+    "abs_z_gt_2": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-18 14:09:45",
+  "conditions": [
+    "i_contrastive_channel",
+    "d_full_qlora_baseline"
+  ],
+  "seeds": [
+    1
+  ],
+  "n_runs": 2,
+  "experiment": "6D",
+  "model": "olmo-2-7b"
+}

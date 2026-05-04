@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-04-18 18:47:13",
+  "phase": "ALL",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "device_map": "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2",
+  "skip_existing": false,
+  "dry_run": true,
+  "n_tasks": 10,
+  "n_failures": 0,
+  "rows": [
+    {
+      "experiment_id": "A0_claim_hygiene",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_a0_claim_hygiene.py"
+      ]
+    },
+    {
+      "experiment_id": "A1_evidence_consolidation",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_a1_evidence_consolidation.py"
+      ]
+    },
+    {
+      "experiment_id": "A2_prediction_layer",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_a2_prediction_layer.py"
+      ]
+    },
+    {
+      "experiment_id": "B2a_head_alignment",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2a_head_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1"
+      ]
+    },
+    {
+      "experiment_id": "B1_kernel_taxonomy",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b1_kernel_taxonomy.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1"
+      ]
+    },
+    {
+      "experiment_id": "B2b_cluster_alignment",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2b_cluster_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1"
+      ]
+    },
+    {
+      "experiment_id": "B3_cluster_ablation",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b3_cluster_ablation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1"
+      ]
+    },
+    {
+      "experiment_id": "B4_confound_isolation",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b4_confound_isolation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1"
+      ]
+    },
+    {
+      "experiment_id": "C1_olmo_causal_trace",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_c1_olmo_causal_trace.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2"
+      ]
+    },
+    {
+      "experiment_id": "C2_carrier_class_predictions",
+      "status": "ok",
+      "return_code": 0,
+      "timestamp": "2026-04-18 18:47:13",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_c2_carrier_class_predictions.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2"
+      ]
+    }
+  ]
+}

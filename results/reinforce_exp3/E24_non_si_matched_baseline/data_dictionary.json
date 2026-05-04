@@ -1,0 +1,42 @@
+{
+  "tables": [
+    {
+      "path": "cell_fits_bic_votes.parquet",
+      "description": "Per model x arm x task x metric BIC fit votes.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str"
+        },
+        {
+          "name": "sort_order",
+          "dtype": "str"
+        },
+        {
+          "name": "task",
+          "dtype": "str"
+        },
+        {
+          "name": "metric_name",
+          "dtype": "str"
+        },
+        {
+          "name": "preferred_model",
+          "dtype": "str"
+        },
+        {
+          "name": "linear_bic",
+          "dtype": "float"
+        },
+        {
+          "name": "threshold_bic",
+          "dtype": "float"
+        },
+        {
+          "name": "logistic_bic",
+          "dtype": "float"
+        }
+      ]
+    }
+  ]
+}

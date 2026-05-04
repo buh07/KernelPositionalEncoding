@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-28 06:28:39",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    18
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 6381.777277946472,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 18,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.01132167974159835,
+      "cohens_d_fake_minus_real": -0.32382956472315655,
+      "p_one_sided_fake_gt_real": 1.0,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_wiki/seed18/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 25864,
+      "elapsed_sec": 2318.562153339386
+    },
+    {
+      "domain": "code",
+      "seed": 18,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.005749896809504211,
+      "cohens_d_fake_minus_real": -0.1679097241371356,
+      "p_one_sided_fake_gt_real": 0.9999999989071452,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_code/seed18/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9071,
+      "elapsed_sec": 1597.457170009613
+    },
+    {
+      "domain": "dialogue",
+      "seed": 18,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.008147757868491125,
+      "cohens_d_fake_minus_real": -0.236457173818537,
+      "p_one_sided_fake_gt_real": 1.0,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed18/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 16645,
+      "elapsed_sec": 2465.75780749321
+    }
+  ]
+}

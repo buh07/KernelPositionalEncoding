@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-05-02 23:49:28",
+  "experiment_id": "E24B",
+  "model": "llama-3.1-8b",
+  "source_curve": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification/llama-3.1-8b/cumulative_ablation_curve.parquet",
+  "n_rows_source": 72,
+  "n_cells": 2,
+  "n_cells_positive_delta_bic_diff": 0,
+  "mean_delta_bic_diff_high_minus_low": -16.086448646092762,
+  "mean_auc_diff_high_minus_low": -0.016974218750000006,
+  "smoke": true
+}

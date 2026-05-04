@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-16 16:37:11",
+  "experiment_id": "EXP-R3-J",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "conditional_regimes_generic",
+  "model": "mistral-7b-v0.1",
+  "output_root": "results/reinforce_exp/_smoke_exp_r3j",
+  "num_sequences": 16,
+  "num_seed_shards": 4,
+  "long_span_min_distance": 64
+}

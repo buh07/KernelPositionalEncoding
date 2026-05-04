@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-17 13:44:24",
+  "experiment": "NEW-R14",
+  "model": "olmo-2-7b",
+  "runtime_sec": 49.17014193534851,
+  "headline": {
+    "true_mean_delta": 0.03344665467739105,
+    "permuted_mean_delta": 0.002602115273475647,
+    "specificity_ratio": 12.853640658554044,
+    "supports_specificity": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "experiment_id": "E18",
+  "question": "Does E12 ICL-selective degradation remain after non-SI ablation, label-shuffle, and positional-perturb controls?",
+  "primary_hypothesis": "Primary high-SI ICL gap remains larger than each control gap.",
+  "primary_endpoints": [
+    "primary_gap_minus_non_si_gap",
+    "primary_gap_minus_shuffle_gap",
+    "primary_gap_minus_perturb_gap"
+  ],
+  "secondary_endpoints": [
+    "primary_ratio",
+    "per_model_survival_flag"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "synthetic ICL/non-ICL prompts generated from model vocabulary"
+  ],
+  "inclusion_exclusion_rules": [
+    "matched-cardinality non-SI head control required",
+    "prompt lengths matched across all controls"
+  ],
+  "sample_size_plan": {
+    "prompts_per_condition": 200,
+    "n_demos": 4
+  },
+  "seed_plan": {
+    "base_seed": 20260501
+  },
+  "stopping_rule": "fixed sample sizes",
+  "multiplicity_family": [
+    "cross-model directional control comparisons"
+  ],
+  "acceptance_criteria": [
+    "primary_gap > each control gap in all models => supported"
+  ],
+  "fallback_interpretation_if_null": "E12 may partly reflect format regularity rather than SI-specific ICL load."
+}

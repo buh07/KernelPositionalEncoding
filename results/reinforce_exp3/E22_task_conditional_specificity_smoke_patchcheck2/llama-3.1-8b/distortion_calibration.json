@@ -1,0 +1,58 @@
+{
+  "rows": [
+    {
+      "task": "lm_wiki",
+      "trial": 0,
+      "target_kl": 0.6360658648287587,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7090879107453574,
+      "rel_err": 0.11480264852171813
+    },
+    {
+      "task": "lm_code",
+      "trial": 0,
+      "target_kl": 0.6094894001582878,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.5627248144212478,
+      "rel_err": 0.07672747996092301
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 0,
+      "target_kl": 0.6163574427334334,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.7189201836061269,
+      "rel_err": 0.166401399191103
+    },
+    {
+      "task": "icl",
+      "trial": 0,
+      "target_kl": 0.1651927565174322,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.15209122802597969,
+      "rel_err": 0.07931055070244536
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 0,
+      "target_kl": 0.17937811719436014,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.2020296222106996,
+      "rel_err": 0.12627797286887588
+    },
+    {
+      "task": "induction",
+      "trial": 0,
+      "target_kl": 0.6131194790301988,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.608023133933904,
+      "rel_err": 0.008312156554471246
+    }
+  ]
+}

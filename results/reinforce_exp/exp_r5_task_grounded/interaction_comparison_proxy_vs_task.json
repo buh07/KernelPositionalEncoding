@@ -1,0 +1,188 @@
+{
+  "timestamp": "2026-04-17 10:06:27",
+  "experiment": "EXP-R5",
+  "models": {
+    "llama-3.1-8b": {
+      "timestamp": "2026-04-17 05:02:20",
+      "experiment": "EXP-R5",
+      "model": "llama-3.1-8b",
+      "n_rows": 48,
+      "n_raw_rows": 72,
+      "regime_configs": [
+        {
+          "regime": "long_span_64",
+          "task_name": "long_range_retrieval",
+          "span_override": 64,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Controlled long-span retrieval, 64-token dependency."
+        },
+        {
+          "regime": "long_span_128",
+          "task_name": "long_range_retrieval",
+          "span_override": 128,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Controlled longer-span retrieval, 128-token dependency."
+        },
+        {
+          "regime": "uncertainty_low",
+          "task_name": "local_key_match",
+          "span_override": null,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Low uncertainty setting via 10-way restricted evaluation."
+        },
+        {
+          "regime": "uncertainty_high",
+          "task_name": "local_key_match",
+          "span_override": null,
+          "candidate_size": 50,
+          "count": 200,
+          "description": "High uncertainty setting via 50-way restricted evaluation."
+        }
+      ],
+      "regime_tests": {
+        "long_span_128": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": 0.0002083333333333289,
+          "p_one_sided": 0.46301580957028987,
+          "cohens_d": 0.03985044297500405,
+          "p_one_sided_holm": 1.0,
+          "supports_high_gt_low": false
+        },
+        "long_span_64": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": -0.004270833333333325,
+          "p_one_sided": 0.8573951626547768,
+          "cohens_d": -0.48838603063702696,
+          "p_one_sided_holm": 1.0,
+          "supports_high_gt_low": false
+        },
+        "uncertainty_high": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": -0.030364583333333323,
+          "p_one_sided": 0.9999841399363378,
+          "cohens_d": -5.777319929143059,
+          "p_one_sided_holm": 1.0,
+          "supports_high_gt_low": false
+        },
+        "uncertainty_low": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": -0.03468749999999999,
+          "p_one_sided": 0.9999947562979401,
+          "cohens_d": -7.23622421753751,
+          "p_one_sided_holm": 1.0,
+          "supports_high_gt_low": false
+        }
+      },
+      "interaction_model": {
+        "f_interaction": 10.5764090056682,
+        "p_value": 2.976089582240604e-05,
+        "partial_eta_squared": 0.44234725977853717,
+        "supports_conditional_specialization": true,
+        "p_value_holm": 2.976089582240604e-05
+      },
+      "proxy_vs_task_sign_match": {
+        "n_matches": 1,
+        "n_compared": 4,
+        "fraction": 0.25
+      },
+      "verdict": {
+        "interaction_significant": true,
+        "supports_task_grounded_specialization": true
+      }
+    },
+    "olmo-2-7b": {
+      "timestamp": "2026-04-17 10:06:26",
+      "experiment": "EXP-R5",
+      "model": "olmo-2-7b",
+      "n_rows": 48,
+      "n_raw_rows": 72,
+      "regime_configs": [
+        {
+          "regime": "long_span_64",
+          "task_name": "long_range_retrieval",
+          "span_override": 64,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Controlled long-span retrieval, 64-token dependency."
+        },
+        {
+          "regime": "long_span_128",
+          "task_name": "long_range_retrieval",
+          "span_override": 128,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Controlled longer-span retrieval, 128-token dependency."
+        },
+        {
+          "regime": "uncertainty_low",
+          "task_name": "local_key_match",
+          "span_override": null,
+          "candidate_size": 10,
+          "count": 200,
+          "description": "Low uncertainty setting via 10-way restricted evaluation."
+        },
+        {
+          "regime": "uncertainty_high",
+          "task_name": "local_key_match",
+          "span_override": null,
+          "candidate_size": 50,
+          "count": 200,
+          "description": "High uncertainty setting via 50-way restricted evaluation."
+        }
+      ],
+      "regime_tests": {
+        "long_span_128": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": 0.009531250000000002,
+          "p_one_sided": 0.01003556755872153,
+          "cohens_d": 1.3723987893212934,
+          "p_one_sided_holm": 0.02007113511744306,
+          "supports_high_gt_low": true
+        },
+        "long_span_64": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": 0.0034895833333333307,
+          "p_one_sided": 0.16112079604631008,
+          "cohens_d": 0.4482593223992259,
+          "p_one_sided_holm": 0.16112079604631008,
+          "supports_high_gt_low": false
+        },
+        "uncertainty_high": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": 0.00997395833333333,
+          "p_one_sided": 0.0007982728928691089,
+          "cohens_d": 2.530029452474558,
+          "p_one_sided_holm": 0.0023948186786073265,
+          "supports_high_gt_low": true
+        },
+        "uncertainty_low": {
+          "n_pairs": 6,
+          "mean_delta_high_minus_low": 0.01992187499999999,
+          "p_one_sided": 0.0004888510254322035,
+          "cohens_d": 2.817997838309377,
+          "p_one_sided_holm": 0.001955404101728814,
+          "supports_high_gt_low": true
+        }
+      },
+      "interaction_model": {
+        "f_interaction": 4.601829949073226,
+        "p_value": 0.007373207383214453,
+        "partial_eta_squared": 0.2565814359542172,
+        "supports_conditional_specialization": true,
+        "p_value_holm": 0.007373207383214453
+      },
+      "proxy_vs_task_sign_match": {
+        "n_matches": 2,
+        "n_compared": 4,
+        "fraction": 0.5
+      },
+      "verdict": {
+        "interaction_significant": true,
+        "supports_task_grounded_specialization": true
+      }
+    }
+  }
+}

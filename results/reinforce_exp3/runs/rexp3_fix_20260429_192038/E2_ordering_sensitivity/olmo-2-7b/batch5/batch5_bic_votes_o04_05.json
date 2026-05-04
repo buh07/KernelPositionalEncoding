@@ -1,0 +1,27 @@
+{
+  "model": "olmo-2-7b",
+  "variation": "batch5",
+  "n_orderings_global_expected": 5,
+  "ordering_id_range": {
+    "start_inclusive": 4,
+    "stop_exclusive": 5
+  },
+  "n_orderings_expected": 1,
+  "n_orderings": 1,
+  "n_threshold_majority": 1,
+  "fraction_threshold_majority": 1.0,
+  "ordering_votes": [
+    {
+      "ordering_id": 4,
+      "batch_size": 5,
+      "threshold_votes": 2,
+      "linear_votes": 0,
+      "logistic_votes": 1,
+      "n_fits": 3,
+      "threshold_majority": true
+    }
+  ],
+  "ordering_seed_map": {
+    "4": 20264553
+  }
+}

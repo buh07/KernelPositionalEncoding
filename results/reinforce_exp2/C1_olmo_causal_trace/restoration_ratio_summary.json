@@ -1,0 +1,191 @@
+{
+  "timestamp": "2026-04-25 03:30:41",
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "sets": {
+        "ContentCond": {
+          "rr_mean": -0.6126635543106131,
+          "rr_ci95": [
+            -0.6404759964726631,
+            -0.5838435984023239
+          ],
+          "n": 1125,
+          "n_all": 3072
+        },
+        "LowSI": {
+          "rr_mean": -0.6399722792820831,
+          "rr_ci95": [
+            -0.6683318731196182,
+            -0.6106045103226476
+          ],
+          "n": 1125,
+          "n_all": 3072
+        },
+        "SI": {
+          "rr_mean": -0.6205595808693848,
+          "rr_ci95": [
+            -0.6495428789293496,
+            -0.5914045113600996
+          ],
+          "n": 1125,
+          "n_all": 3072
+        }
+      },
+      "phenomena": {
+        "copy_offset": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 886,
+          "clean_mean": 0.3719482421875,
+          "corrupt_mean": 0.20703125,
+          "clean_minus_corrupt": 0.1649169921875
+        },
+        "indexed_retrieval": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 70,
+          "clean_mean": 0.39453125,
+          "corrupt_mean": 0.393524169921875,
+          "clean_minus_corrupt": 0.001007080078125
+        },
+        "controlled_permutation": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 169,
+          "clean_mean": 0.404266357421875,
+          "corrupt_mean": 0.398651123046875,
+          "clean_minus_corrupt": 0.005615234375
+        }
+      },
+      "carrier_set_diagnostics": {
+        "model": "llama-3.1-8b",
+        "alignment_method": "fasttext_static_embedding_partial_spearman_offset_bins",
+        "fasttext_model_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+        "calibration_sequence_count": 96,
+        "calibration_sequence_hash_sha256": "d6df4d2ad1094343eb9a4448f57851bb4deccc7eca7c6128873a6b11ab606590",
+        "calibration_eval_overlap_count": 0,
+        "calibration_eval_overlap_ratio": 0.0,
+        "calibration_eval_disjoint": true,
+        "data_quality": {
+          "total_tokens": 49152,
+          "covered_tokens": 48072,
+          "missing_token_ratio": 0.02197265625,
+          "usable_sequences": 96,
+          "skipped_sequences": 0,
+          "n_payloads": 96
+        },
+        "content_similarity_data_quality_failure": false,
+        "model_median_r2": 0.38846799626058587,
+        "threshold_T_q75_low_r2": 0.0016439334313487776,
+        "low_r2_pool_size": 512,
+        "content_conditional_size": 73,
+        "set_sizes": {
+          "SI": 256,
+          "LowSI": 256,
+          "ContentCond": 73
+        }
+      }
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "sets": {
+        "ContentCond": {
+          "rr_mean": -0.30993673647469455,
+          "rr_ci95": [
+            -0.36958251527050606,
+            -0.25150059991273993
+          ],
+          "n": 764,
+          "n_all": 3072
+        },
+        "LowSI": {
+          "rr_mean": -0.28745636998254803,
+          "rr_ci95": [
+            -0.3464446989528795,
+            -0.227321662303665
+          ],
+          "n": 764,
+          "n_all": 3072
+        },
+        "SI": {
+          "rr_mean": -0.29139397905759157,
+          "rr_ci95": [
+            -0.3539708769633508,
+            -0.2325417212041886
+          ],
+          "n": 764,
+          "n_all": 3072
+        }
+      },
+      "phenomena": {
+        "copy_offset": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 451,
+          "clean_mean": 0.12054443359375,
+          "corrupt_mean": 0.09246826171875,
+          "clean_minus_corrupt": 0.028076171875
+        },
+        "indexed_retrieval": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 116,
+          "clean_mean": 0.262359619140625,
+          "corrupt_mean": 0.26141357421875,
+          "clean_minus_corrupt": 0.000946044921875
+        },
+        "controlled_permutation": {
+          "n_examples": 1024,
+          "n_confirmatory_gap_examples": 197,
+          "clean_mean": 0.364044189453125,
+          "corrupt_mean": 0.358489990234375,
+          "clean_minus_corrupt": 0.00555419921875
+        }
+      },
+      "carrier_set_diagnostics": {
+        "model": "olmo-2-7b",
+        "alignment_method": "fasttext_static_embedding_partial_spearman_offset_bins",
+        "fasttext_model_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+        "calibration_sequence_count": 96,
+        "calibration_sequence_hash_sha256": "4518e02eaf392490797aea01bbdafc13bf2da3ab78fa639ad099302dfdb2948d",
+        "calibration_eval_overlap_count": 0,
+        "calibration_eval_overlap_ratio": 0.0,
+        "calibration_eval_disjoint": true,
+        "data_quality": {
+          "total_tokens": 49152,
+          "covered_tokens": 48168,
+          "missing_token_ratio": 0.02001953125,
+          "usable_sequences": 96,
+          "skipped_sequences": 0,
+          "n_payloads": 96
+        },
+        "content_similarity_data_quality_failure": false,
+        "model_median_r2": 0.045697724745420186,
+        "threshold_T_q75_low_r2": 0.0033954932473485373,
+        "low_r2_pool_size": 512,
+        "content_conditional_size": 80,
+        "set_sizes": {
+          "SI": 256,
+          "LowSI": 256,
+          "ContentCond": 80
+        }
+      }
+    }
+  },
+  "head_set_reports": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "set_sizes": {
+        "SI": 256,
+        "LowSI": 256,
+        "ContentCond": 73
+      },
+      "content_conditional_definition": "mean_r2<median, entropy_proxy>layer_median, alignment>T (T=Q75 low_r2 alignment)"
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "set_sizes": {
+        "SI": 256,
+        "LowSI": 256,
+        "ContentCond": 80
+      },
+      "content_conditional_definition": "mean_r2<median, entropy_proxy>layer_median, alignment>T (T=Q75 low_r2 alignment)"
+    }
+  }
+}

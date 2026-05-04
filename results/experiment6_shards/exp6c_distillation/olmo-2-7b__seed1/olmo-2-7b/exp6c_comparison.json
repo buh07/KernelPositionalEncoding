@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-18 01:01:04",
+  "conditions": [
+    "h_si_student",
+    "h_teacher_baseline"
+  ],
+  "seeds": [
+    1
+  ],
+  "n_runs": 2,
+  "experiment": "6C",
+  "model": "olmo-2-7b"
+}

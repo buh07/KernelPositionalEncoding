@@ -1,0 +1,41 @@
+{
+  "experiment_id": "E17",
+  "question": "Does SI-kernel subtraction exceed both offset-permuted and norm-matched random perturbation controls?",
+  "primary_hypothesis": "True SI subtraction causes larger loss increase than both controls.",
+  "primary_endpoints": [
+    "true_minus_permuted_mean_delta",
+    "true_minus_normmatched_mean_delta"
+  ],
+  "secondary_endpoints": [
+    "ratio_true_over_permuted",
+    "ratio_true_over_normmatched",
+    "per_head_specificity_subset"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "wiki40b_en_pre2019 tokenized sequences (existing local cache)"
+  ],
+  "inclusion_exclusion_rules": [
+    "Require >=4 evaluation sequences per model",
+    "Use top-quartile high-SI head set from existing head groups"
+  ],
+  "sample_size_plan": {
+    "eval_sequences_per_model": "configured by --eval-seqs",
+    "permutation_trials": "configured by --n-permutations"
+  },
+  "seed_plan": {
+    "base_seed": 20260501
+  },
+  "stopping_rule": "Run fixed configured trials; no adaptive stopping",
+  "multiplicity_family": [
+    "per-model bootstrap comparisons"
+  ],
+  "acceptance_criteria": [
+    "ci95(true-permuted) > 0 and ci95(true-normmatched) > 0 in all models => supported"
+  ],
+  "fallback_interpretation_if_null": "Specificity remains incomplete; treat T8 as broader head-importance perturbation."
+}

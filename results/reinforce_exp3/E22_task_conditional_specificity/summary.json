@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-02 14:00:38",
+  "experiment_id": "E22",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "not_supported",
+    "n_primary_pass": 0,
+    "n_models": 3
+  },
+  "limitations": [
+    "Distortion matching uses KL calibration on short held-out batches and may not match all downstream distortions.",
+    "Prompt tasks are synthetic and probe positional dependence rather than full naturalistic ICL semantics.",
+    "Distortion controls can remain underpowered in models with hard-to-match attention geometry if capped extra trials are exhausted."
+  ]
+}

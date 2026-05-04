@@ -1,0 +1,134 @@
+{
+  "timestamp": "2026-05-02 18:37:53",
+  "experiment_id": "E23",
+  "arm": "late_si_aug",
+  "n_seeds": 2,
+  "seed_summaries": [
+    {
+      "timestamp": "2026-05-02 18:36:06",
+      "experiment_id": "E23",
+      "arm": "late_si_aug",
+      "seed": 0,
+      "runtime_sec": 110.48371076583862,
+      "smoke": true,
+      "token_budget": 2000000,
+      "steps": 245,
+      "tokens_per_step": 8192,
+      "effective_tokens": 2007040,
+      "train_config": {
+        "seq_len": 128,
+        "micro_batch": 16,
+        "grad_accum": 4,
+        "lr": 0.0003,
+        "warmup_frac": 0.05,
+        "weight_decay": 0.01,
+        "grad_clip": 1.0,
+        "lambda_consistency": 0.2,
+        "seen_offsets": [
+          8,
+          16,
+          24,
+          32,
+          40
+        ],
+        "unseen_offsets": [
+          12,
+          20,
+          28,
+          36,
+          44
+        ]
+      },
+      "model_config": {
+        "hidden_size": 384,
+        "num_hidden_layers": 10,
+        "num_attention_heads": 6,
+        "num_key_value_heads": 6,
+        "intermediate_size": 1536,
+        "max_position_embeddings": 256,
+        "vocab_size": 192,
+        "rope_theta": 10000.0
+      },
+      "metrics": {
+        "arith_unseen_acc": 0.09166666666666666,
+        "copy_unseen_acc": 1.0,
+        "joint_unseen_score": 0.5458333333333333,
+        "arith_seen_acc": 0.125,
+        "copy_seen_acc": 1.0,
+        "arith_unseen_logprob": -2.322161614894867,
+        "copy_unseen_logprob": -0.019917748938314616,
+        "si_mean_r2": 0.2788471210923269,
+        "si_median_r2": 0.27712055638689115,
+        "si_q75_r2": 0.38273001402268825,
+        "kernel_specificity_support": false
+      }
+    },
+    {
+      "timestamp": "2026-05-02 18:37:53",
+      "experiment_id": "E23",
+      "arm": "late_si_aug",
+      "seed": 1,
+      "runtime_sec": 107.14714980125427,
+      "smoke": true,
+      "token_budget": 2000000,
+      "steps": 245,
+      "tokens_per_step": 8192,
+      "effective_tokens": 2007040,
+      "train_config": {
+        "seq_len": 128,
+        "micro_batch": 16,
+        "grad_accum": 4,
+        "lr": 0.0003,
+        "warmup_frac": 0.05,
+        "weight_decay": 0.01,
+        "grad_clip": 1.0,
+        "lambda_consistency": 0.2,
+        "seen_offsets": [
+          8,
+          16,
+          24,
+          32,
+          40
+        ],
+        "unseen_offsets": [
+          12,
+          20,
+          28,
+          36,
+          44
+        ]
+      },
+      "model_config": {
+        "hidden_size": 384,
+        "num_hidden_layers": 10,
+        "num_attention_heads": 6,
+        "num_key_value_heads": 6,
+        "intermediate_size": 1536,
+        "max_position_embeddings": 256,
+        "vocab_size": 192,
+        "rope_theta": 10000.0
+      },
+      "metrics": {
+        "arith_unseen_acc": 0.1,
+        "copy_unseen_acc": 1.0,
+        "joint_unseen_score": 0.55,
+        "arith_seen_acc": 0.058333333333333334,
+        "copy_seen_acc": 1.0,
+        "arith_unseen_logprob": -2.326335565249125,
+        "copy_unseen_logprob": -0.025722975144162774,
+        "si_mean_r2": 0.28418443170661434,
+        "si_median_r2": 0.282428407765978,
+        "si_q75_r2": 0.40627706926715734,
+        "kernel_specificity_support": false
+      }
+    }
+  ],
+  "arm_metrics": {
+    "joint_unseen_score_mean": 0.5479166666666666,
+    "joint_unseen_score_std": 0.002946278254944016,
+    "arith_unseen_acc_mean": 0.09583333333333333,
+    "copy_unseen_acc_mean": 1.0,
+    "si_mean_r2_mean": 0.2815157763994706,
+    "kernel_specificity_support_rate": 0.0
+  }
+}

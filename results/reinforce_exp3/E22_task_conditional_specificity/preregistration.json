@@ -1,0 +1,50 @@
+{
+  "experiment_id": "E22",
+  "question": "Does SI-kernel subtraction show task-conditional specificity beyond baseline LM under strict controls?",
+  "primary_hypothesis": "True SI subtraction causes greater ICL and induction degradation than all controls.",
+  "primary_endpoints": [
+    "icl_true_minus_control_ci95_lo",
+    "induction_true_minus_control_ci95_lo"
+  ],
+  "secondary_endpoints": [
+    "lm_domain_true_minus_control_ci95_lo",
+    "nonicl_reference_behavior",
+    "accuracy_secondary_degradation"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "wiki",
+    "code",
+    "dialogue",
+    "synthetic ICL prompts",
+    "synthetic induction/copy prompts"
+  ],
+  "inclusion_exclusion_rules": [
+    "Use top-quartile high-SI head set from existing head groups",
+    "LM domains balanced by min loaded sequence count",
+    "Distortion-matched trial marked invalid when KL target not matched within tolerance",
+    "When initial distortion trials are insufficient, extra calibration trials are drawn up to a fixed cap"
+  ],
+  "sample_size_plan": {
+    "lm_sequences_per_domain": "configured by --lm-num-sequences",
+    "icl_prompts": "configured by --icl-eval",
+    "induction_prompts": "configured by --induction-eval",
+    "control_trials": "configured by --n-control-trials"
+  },
+  "seed_plan": {
+    "base_seed": 20260502
+  },
+  "stopping_rule": "fixed sample sizes and fixed trial counts",
+  "multiplicity_family": [
+    "per-task control comparisons"
+  ],
+  "acceptance_criteria": [
+    "Per-task pass requires ci95_lo(true-control) > 0 for permuted, normmatched, and distortion-matched controls",
+    "Model-level primary pass requires ICL and induction task passes"
+  ],
+  "fallback_interpretation_if_null": "SI load-bearing may be broad perturbation sensitivity rather than task-conditional specificity."
+}

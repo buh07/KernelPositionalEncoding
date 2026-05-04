@@ -1,0 +1,3 @@
+[exp7] running 7B (phase transition) on device=cuda:0
+[exp7] completed queue: ('7b',)
+[exp7] manifest: results/experiment7_csfix_global/run_manifest.json

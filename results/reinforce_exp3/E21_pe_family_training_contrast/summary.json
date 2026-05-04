@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-02 18:01:30",
+  "experiment_id": "E21",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "rope_gt_nope_proxy",
+    "n_paired_seeds": 3,
+    "si_delta_mean": 0.4665029201495751,
+    "si_delta_ci95": [
+      0.45526664203871364,
+      0.48721525624359935
+    ]
+  },
+  "limitations": [
+    "Proxy recipe is short-horizon and not equivalent to full pretraining-scale PE-family comparison.",
+    "Head-group priors for NoPE may be auto-derived from synthetic fallback profiling when natural-profile caches are unavailable."
+  ]
+}

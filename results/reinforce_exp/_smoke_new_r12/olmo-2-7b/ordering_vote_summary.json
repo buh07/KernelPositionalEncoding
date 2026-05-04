@@ -1,0 +1,26 @@
+{
+  "rows": [
+    {
+      "ordering_id": 0,
+      "order_seed": 20260417,
+      "threshold_votes": 0,
+      "linear_votes": 0,
+      "n_fits": 2,
+      "threshold_fraction": 0.0,
+      "threshold_majority": false,
+      "mean_bic_delta_linear_minus_threshold": NaN
+    }
+  ],
+  "per_ordering_fits": {
+    "0": {
+      "local_key_match::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      },
+      "long_range_retrieval::accuracy": {
+        "n_points": 2,
+        "preferred_model": "insufficient_points"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-28 05:36:02",
+  "experiment": "NEW-R14",
+  "model": "llama-3.1-8b",
+  "mean_diff_true_minus_permuted": 3.2773810448646543,
+  "bootstrap_ci95": [
+    3.2137612434506426,
+    3.341521220326424
+  ],
+  "p_one_bootstrap_true_gt_permuted": 0.0001999600079984003,
+  "t_stat": 100.40736631700105,
+  "p_one_ttest_true_gt_permuted": 1.0072860746465404e-101,
+  "supports_specificity": true
+}

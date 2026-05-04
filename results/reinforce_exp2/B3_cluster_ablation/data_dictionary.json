@@ -1,0 +1,41 @@
+{
+  "experiment_id": "B3_cluster_ablation",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/cluster_ablation_curve.parquet",
+      "description": "Triplet-matched ablation rows for within/mixed/random conditions.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "triplet_id",
+          "dtype": "str",
+          "description": "Matched triplet id."
+        },
+        {
+          "name": "condition",
+          "dtype": "str",
+          "description": "within/mixed/random."
+        },
+        {
+          "name": "ablation_fraction",
+          "dtype": "float",
+          "description": "Ablation fraction in percent."
+        },
+        {
+          "name": "degradation",
+          "dtype": "float",
+          "description": "Degradation metric."
+        },
+        {
+          "name": "confirmatory",
+          "dtype": "bool",
+          "description": "Exact match pass flag."
+        }
+      ]
+    }
+  ]
+}

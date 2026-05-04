@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-24 18:24:03",
+  "experiment_id": "preflight",
+  "strict_todo_ready": true,
+  "steps": [
+    {
+      "step": "schema_presence",
+      "ok": true,
+      "n_schemas": 5
+    },
+    {
+      "step": "fasttext_install",
+      "ok": true,
+      "installed": false
+    },
+    {
+      "step": "fasttext_model",
+      "ok": true,
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.bin",
+      "sha256": "14c7167b130056944cbdc37b7451f055867fe9a4e3fed3bbc1ecc0e74f6763ca",
+      "sha256_pin_path": "/jumbo/lisp/f004ndc/Kernel PE/shared_storage/reinforce_exp2_assets/fasttext/cc.en.300.sha256",
+      "checksum_pinned": true,
+      "size_bytes": 7237176312
+    }
+  ]
+}

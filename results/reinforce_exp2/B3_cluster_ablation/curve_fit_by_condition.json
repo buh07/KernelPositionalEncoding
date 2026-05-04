@@ -1,0 +1,191 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "models": {
+    "llama-3.1-8b": {
+      "within": {
+        "n_points": 10,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.409612554805291,
+          "b": 4.867505083539299,
+          "rss": 37.3590274927654,
+          "aicc": 18.894180607487986
+        },
+        "threshold_piecewise": {
+          "a": -9.210240370691423,
+          "b1": 76.4810086720649,
+          "b2": -75.95162425922678,
+          "tau": 0.10434792525183,
+          "rss": 0.09174472313574114,
+          "aicc": -30.913304002023764
+        },
+        "delta_aicc_linear_minus_threshold": 49.80748460951175,
+        "preferred_model": "threshold_piecewise"
+      },
+      "mixed": {
+        "n_points": 10,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.284053977045483,
+          "b": 4.740344007933957,
+          "rss": 39.271439295815455,
+          "aicc": 19.393409976340717
+        },
+        "threshold_piecewise": {
+          "a": -9.210240373813313,
+          "b1": 78.54389040959036,
+          "b2": -78.21361455410951,
+          "tau": 0.10358468933089249,
+          "rss": 0.04887142849091587,
+          "aicc": -37.21147430695376
+        },
+        "delta_aicc_linear_minus_threshold": 56.60488428329448,
+        "preferred_model": "threshold_piecewise"
+      },
+      "random": {
+        "n_points": 10,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.417410580808892,
+          "b": 4.921757324066223,
+          "rss": 37.215932616801254,
+          "aicc": 18.85580444171582
+        },
+        "threshold_piecewise": {
+          "a": -9.210240366975825,
+          "b1": 78.20567082868344,
+          "b2": -77.3810099347277,
+          "tau": 0.1,
+          "rss": 0.12853168691681907,
+          "aicc": -27.54164907247054
+        },
+        "delta_aicc_linear_minus_threshold": 46.39745351418636,
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "olmo-2-7b": {
+      "within": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.609774996967081,
+          "b": 4.155153051256449,
+          "rss": 31.690117118788528,
+          "aicc": 17.139205563287426
+        },
+        "threshold_piecewise": {
+          "a": -9.21024038698589,
+          "b1": 63.85269043498823,
+          "b2": -63.15692915012207,
+          "tau": 0.11139110491624389,
+          "rss": 0.31039377766964427,
+          "aicc": -24.57923024157063
+        },
+        "delta_aicc_linear_minus_threshold": 41.71843580485806,
+        "preferred_model": "threshold_piecewise"
+      },
+      "mixed": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.842548441051708,
+          "b": 4.458114124762332,
+          "rss": 29.781629545071343,
+          "aicc": 16.45596119645954
+        },
+        "threshold_piecewise": {
+          "a": -9.210240401487699,
+          "b1": 55.29172991950398,
+          "b2": -54.60491640597922,
+          "tau": 0.1288574921536438,
+          "rss": 0.17716992422209754,
+          "aicc": -30.747287148026512
+        },
+        "delta_aicc_linear_minus_threshold": 47.203248344486056,
+        "preferred_model": "threshold_piecewise"
+      },
+      "random": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.611162340606014,
+          "b": 4.115934452998701,
+          "rss": 31.554631000200335,
+          "aicc": 17.092075971387533
+        },
+        "threshold_piecewise": {
+          "a": -9.210240388112485,
+          "b1": 64.00561770494173,
+          "b2": -63.330519401376286,
+          "tau": 0.11084949598380495,
+          "rss": 0.2233844023462816,
+          "aicc": -28.19765469013328
+        },
+        "delta_aicc_linear_minus_threshold": 45.289730661520814,
+        "preferred_model": "threshold_piecewise"
+      }
+    },
+    "mistral-7b-v0.1": {
+      "within": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.570886803561184,
+          "b": 4.293302330085555,
+          "rss": 33.358940819445806,
+          "aicc": 17.703736095886725
+        },
+        "threshold_piecewise": {
+          "a": -9.21024040600865,
+          "b1": 58.738134543080044,
+          "b2": -58.41324446639865,
+          "tau": 0.1274783811373391,
+          "rss": 0.10465294037224046,
+          "aicc": -36.538344400221355
+        },
+        "delta_aicc_linear_minus_threshold": 54.24208049610808,
+        "preferred_model": "threshold_piecewise"
+      },
+      "mixed": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.500643497822791,
+          "b": 4.219401759433434,
+          "rss": 33.170267552578736,
+          "aicc": 17.641345108522497
+        },
+        "threshold_piecewise": {
+          "a": -9.210240390551103,
+          "b1": 64.56856848419213,
+          "b2": -63.954330467697396,
+          "tau": 0.11334222211088549,
+          "rss": 0.16257637645880682,
+          "aicc": -31.69286249931704
+        },
+        "delta_aicc_linear_minus_threshold": 49.33420760783954,
+        "preferred_model": "threshold_piecewise"
+      },
+      "random": {
+        "n_points": 11,
+        "fit_scale": "logit_bounded_degradation",
+        "linear": {
+          "a": -4.529720328005439,
+          "b": 4.196134276706463,
+          "rss": 32.36989362424862,
+          "aicc": 17.372668597782962
+        },
+        "threshold_piecewise": {
+          "a": -9.210240370887314,
+          "b1": 66.48092191473356,
+          "b2": -65.67534208014165,
+          "tau": 0.10754287459422326,
+          "rss": 0.07860718069532174,
+          "aicc": -39.686395823118104
+        },
+        "delta_aicc_linear_minus_threshold": 57.059064420901066,
+        "preferred_model": "threshold_piecewise"
+      }
+    }
+  }
+}

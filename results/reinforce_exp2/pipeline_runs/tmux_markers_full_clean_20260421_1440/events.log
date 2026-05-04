@@ -1,0 +1,11 @@
+2026-04-21 14:37:41	launcher	session	running		creating tmux session 
+2026-04-21 14:37:43	preflight	preflight	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/preflight/2026-04-21_14-37-42.log	strict artifact check passed 
+2026-04-21 14:37:44	preflight	calibration_v1	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/calibration_v1/2026-04-21_14-37-43.log	strict artifact check passed 
+2026-04-21 14:37:44	preflight	preflight	done		stage complete 
+2026-04-21 14:37:48	phase_b_core	B2a_head_alignment	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_14-37-47.log	starting 
+2026-04-21 14:37:48	phase_a	A0_claim_hygiene	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A0_claim_hygiene/2026-04-21_14-37-47.log	strict artifact check passed 
+2026-04-21 14:37:48	phase_b_core	B1_kernel_taxonomy	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_14-37-47.log	starting 
+2026-04-21 14:37:49	phase_a	A1_evidence_consolidation	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A1_evidence_consolidation/2026-04-21_14-37-48.log	strict artifact check passed 
+2026-04-21 14:37:50	phase_a	A2_prediction_layer	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A2_prediction_layer/2026-04-21_14-37-49.log	strict artifact check passed 
+2026-04-21 14:37:50	phase_a	phase_a	done		stage complete 
+2026-04-21 14:38:44	phase_b_core	B2a_head_alignment	ok	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_14-37-47.log	completed 

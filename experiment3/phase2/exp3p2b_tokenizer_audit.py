@@ -54,6 +54,25 @@ def _safe_float(x: Any) -> float:
         return float("nan")
 
 
+def _effect_metric_from_comp(comp: dict[str, Any]) -> float:
+    """Return a finite boundary-effect metric when possible.
+
+    Prefer Cohen's d, but fall back to raw mean difference if d is undefined
+    (e.g., zero-variance slices).
+    """
+    d = _safe_float(comp.get("cohens_d"))
+    if np.isfinite(d):
+        return d
+    diff = _safe_float(comp.get("difference"))
+    if np.isfinite(diff):
+        return diff
+    high = _safe_float(comp.get("high_si_mean"))
+    low = _safe_float(comp.get("low_si_mean"))
+    if np.isfinite(high) and np.isfinite(low):
+        return float(high - low)
+    return float("nan")
+
+
 def _token_has_prefix(token_str: str) -> bool:
     return token_str.startswith("\u0120") or token_str.startswith("\u2581")
 
@@ -262,7 +281,7 @@ def _feature_eval(
         )
 
     comp = approach_a.get("high_vs_low_comparison", {}).get("attn_to_prev_last", {})
-    d_post = _safe_float(comp.get("cohens_d"))
+    d_post = _effect_metric_from_comp(comp)
     t_stat = _safe_float(comp.get("t_statistic"))
     p_two = _safe_float(comp.get("t_p_value"))
     p_one = _safe_float(one_sided_p_from_two_sided(t_stat, p_two, alternative="greater"))
@@ -317,7 +336,8 @@ def run_model(
     b_root = ROOT / "results" / "experiment3_phase2" / "exp3p2b_trivial_feature_control" / model_name
     b_post = _load_json(b_root / "post_ablation_t5b_a.json")
     b_synth = _load_json(b_root / "synthetic_boundary_results.json")
-    baseline_d = _safe_float(b_post.get("high_vs_low_attn_to_prev_last", {}).get("cohens_d"))
+    baseline_comp = b_post.get("high_vs_low_attn_to_prev_last", {})
+    baseline_d = _effect_metric_from_comp(baseline_comp)
 
     features = [
         "space_prefix",
@@ -460,12 +480,46 @@ def main() -> None:
         )
         all_reports[m] = rep
 
+    # Build aggregate robustly:
+    # - Merge freshly produced reports.
+    # - Preserve existing per-model reports when only a subset is rerun.
+    # - Avoid coercing missing-model verdicts to False.
+    aggregate_path = output_root / "tokenizer_audit_report.json"
+    merged_reports: dict[str, Any] = {}
+    if aggregate_path.exists():
+        try:
+            prev = _load_json(aggregate_path)
+            if isinstance(prev.get("models"), dict):
+                merged_reports.update(prev["models"])
+        except Exception:
+            pass
+    for m in TARGET_MODELS:
+        model_report_path = output_root / m / "tokenizer_audit_report.json"
+        if model_report_path.exists():
+            try:
+                merged_reports[m] = _load_json(model_report_path)
+            except Exception:
+                pass
+    merged_reports.update(all_reports)
+
+    olmo_report = merged_reports.get("olmo-2-7b")
+    llama_report = merged_reports.get("llama-3.1-8b")
     aggregate = {
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "models": all_reports,
+        "models": merged_reports,
+        "models_present": sorted(list(merged_reports.keys())),
+        "incomplete_aggregate": len([m for m in TARGET_MODELS if m in merged_reports]) < len(TARGET_MODELS),
         "verdict": {
-            "olmo_robust": bool(all_reports.get("olmo-2-7b", {}).get("verdict", {}).get("olmo_robust_to_feature_battery", False)),
-            "llama_entangled": bool(all_reports.get("llama-3.1-8b", {}).get("verdict", {}).get("llama_tokenizer_entangled", False)),
+            "olmo_robust": (
+                bool(olmo_report.get("verdict", {}).get("olmo_robust_to_feature_battery", False))
+                if isinstance(olmo_report, dict)
+                else None
+            ),
+            "llama_entangled": (
+                bool(llama_report.get("verdict", {}).get("llama_tokenizer_entangled", False))
+                if isinstance(llama_report, dict)
+                else None
+            ),
         },
     }
     _write_json(output_root / "tokenizer_audit_report.json", aggregate)

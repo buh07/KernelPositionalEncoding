@@ -1,0 +1,14 @@
+{
+  "n_models": 1,
+  "n_icl_preferential": 1,
+  "mean_accuracy_sensitivity_ratio": NaN,
+  "interpretation": "partial_icl_specificity",
+  "note": "ICL preferentially degraded in 1/1 models. SI heads partially serve ICL computation; effect not uniform across models.",
+  "per_model": [
+    {
+      "model": "llama-3.1-8b",
+      "ratio": NaN,
+      "preferential": true
+    }
+  ]
+}

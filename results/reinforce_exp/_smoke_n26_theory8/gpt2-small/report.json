@@ -1,0 +1,109 @@
+{
+  "experiment": "3_theory8_position_ablation",
+  "model": "gpt2-small",
+  "timestamp": "2026-04-27 12:52:05",
+  "config": {
+    "estimation_sequences": 2,
+    "eval_sequences": 4,
+    "seq_len": 128,
+    "n_high_si_heads": 36,
+    "n_low_si_heads": 36,
+    "total_heads": 144,
+    "bootstrap_n": 10000
+  },
+  "analysis": {
+    "baseline": {
+      "mean_loss": 3.6598923206329346,
+      "median_loss": 2.8839573860168457,
+      "std_loss": 3.3820862770080566,
+      "n_tokens": 508
+    },
+    "subtract_kernel_high_si": {
+      "mean_loss": 4.275783538818359,
+      "median_loss": 3.676039457321167,
+      "std_loss": 3.4687089920043945,
+      "n_tokens": 508,
+      "mean_loss_increase": 0.6158910989761353,
+      "median_loss_increase": 0.34475433826446533,
+      "relative_increase_pct": 16.828120748361915
+    },
+    "subtract_kernel_low_si": {
+      "mean_loss": 4.0551018714904785,
+      "median_loss": 3.3927407264709473,
+      "std_loss": 3.38163685798645,
+      "n_tokens": 508,
+      "mean_loss_increase": 0.39520931243896484,
+      "median_loss_increase": 0.1818569004535675,
+      "relative_increase_pct": 10.798386340793167
+    },
+    "subtract_kernel_all": {
+      "mean_loss": 6.482348918914795,
+      "median_loss": 6.048626899719238,
+      "std_loss": 3.922072172164917,
+      "n_tokens": 508,
+      "mean_loss_increase": 2.8224563598632812,
+      "median_loss_increase": 2.2767372131347656,
+      "relative_increase_pct": 77.11856285911634
+    },
+    "comparisons": {
+      "subtract_kernel_high_si": {
+        "mean_loss_increase": 0.6158910989761353,
+        "std_loss_increase": 0.09377788752317429,
+        "bootstrap_ci_95": [
+          0.5446736812591553,
+          0.7061285972595215
+        ],
+        "paired_t_stat": 13.135103140004887,
+        "paired_t_pval": 0.0009531951612026015,
+        "wilcoxon_stat": 0.0,
+        "wilcoxon_pval": 0.125,
+        "cohens_d": 6.5675514264909935,
+        "fraction_sequences_increased": 1.0,
+        "n_sequences": 4
+      },
+      "subtract_kernel_low_si": {
+        "mean_loss_increase": 0.39520955085754395,
+        "std_loss_increase": 0.19291642308235168,
+        "bootstrap_ci_95": [
+          0.23868298530578613,
+          0.5517361164093018
+        ],
+        "paired_t_stat": 4.097209723304682,
+        "paired_t_pval": 0.026297511585742415,
+        "wilcoxon_stat": 0.0,
+        "wilcoxon_pval": 0.125,
+        "cohens_d": 2.048605010102421,
+        "fraction_sequences_increased": 1.0,
+        "n_sequences": 4
+      },
+      "subtract_kernel_all": {
+        "mean_loss_increase": 2.8224563598632812,
+        "std_loss_increase": 0.27085578441619873,
+        "bootstrap_ci_95": [
+          2.5719027519226074,
+          3.0053510665893555
+        ],
+        "paired_t_stat": 20.841026179325322,
+        "paired_t_pval": 0.00024161592956767585,
+        "wilcoxon_stat": 0.0,
+        "wilcoxon_pval": 0.125,
+        "cohens_d": 10.420513506650007,
+        "fraction_sequences_increased": 1.0,
+        "n_sequences": 4
+      }
+    },
+    "high_vs_low_si": {
+      "description": "Direct comparison: does removing high-SI kernels cause more damage than low-SI?",
+      "mean_diff": 0.2206815481185913,
+      "paired_t_stat": 3.1458945953609128,
+      "paired_t_pval": 0.05142836816369989,
+      "high_si_worse": false
+    }
+  },
+  "verdict": "VERDICT: The positional kernel IS functionally relevant. Removing it significantly increases loss.\n  all heads: mean loss increase = 2.8225 (d=10.421, p=2.42e-04, significant)\n  high-SI: mean loss increase = 0.6159 (d=6.568, p=9.53e-04, significant)\n  low-SI: mean loss increase = 0.3952 (d=2.049, p=2.63e-02, significant)\n  No significant difference between high-SI and low-SI kernel effects (diff=0.2207, p=5.14e-02)",
+  "runtime": {
+    "kernel_estimation_s": 0.6,
+    "evaluation_s": 11.8,
+    "total_s": 12.5
+  }
+}

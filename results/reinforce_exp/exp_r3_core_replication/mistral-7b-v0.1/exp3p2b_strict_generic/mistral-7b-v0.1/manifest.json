@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-17 04:57:56",
+  "experiment_id": "EXP-R3-B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "strict_b_generic",
+  "model": "mistral-7b-v0.1",
+  "seed_set": [
+    0
+  ],
+  "device": "cuda:0",
+  "num_sequences": 32,
+  "synthetic_target_per_cell": 600,
+  "output_root": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2b_strict_generic"
+}

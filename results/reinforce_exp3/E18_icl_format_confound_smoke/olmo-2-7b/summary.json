@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-05-01 23:21:33",
+  "experiment_id": "E18",
+  "model": "olmo-2-7b",
+  "n_high_si_heads": 256,
+  "n_control_heads": 256,
+  "primary_ratio": NaN,
+  "primary_gap_acc": 0.475,
+  "control_non_si_gap_acc": 0.75,
+  "control_label_shuffle_gap_acc": -0.025,
+  "control_positional_perturb_gap_acc": 0.6,
+  "primary_gap_lp": 5.4340881347656245,
+  "control_non_si_gap_lp": 6.458013916015624,
+  "control_label_shuffle_gap_lp": 0.2275390625,
+  "control_positional_perturb_gap_lp": 4.085357666015626,
+  "acc_informative": false,
+  "lp_survives": false,
+  "acc_survives": false,
+  "survives_controls": false,
+  "model_level_status": "mixed"
+}

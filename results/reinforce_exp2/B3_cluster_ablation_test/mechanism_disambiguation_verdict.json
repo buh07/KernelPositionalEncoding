@@ -1,0 +1,236 @@
+{
+  "timestamp": "2026-04-19 19:39:19",
+  "experiment_id": "B3_cluster_ablation",
+  "B3_redundancy_supported": false,
+  "B3_group_structure_supported": false,
+  "B3_inconclusive": true,
+  "B3_inconclusive_reason": "insufficient_eligible_models",
+  "n_reliability_eligible_models": 0,
+  "holm_family_p_values": {},
+  "per_model_mechanism_breakdown": [],
+  "models": {
+    "llama-3.1-8b": {
+      "status": "ok",
+      "reliability_eligible": false,
+      "matching": {
+        "model": "llama-3.1-8b",
+        "status": "ok",
+        "n_clusters_ge_5": 3,
+        "n_triplets": 3,
+        "fraction_grid": [
+          0.0,
+          0.1,
+          0.2,
+          0.3,
+          0.4,
+          0.5,
+          0.6,
+          0.7,
+          0.8,
+          0.9,
+          1.0
+        ],
+        "n_confirmatory_fractions": 4,
+        "layer_match_pass_rate": 1.0,
+        "magnitude_match_pass_rate": 0.26666666666666666
+      },
+      "model_selection_confirmatory": false,
+      "curve_fit": {
+        "within": {
+          "status": "insufficient_points"
+        },
+        "mixed": {
+          "status": "insufficient_points"
+        },
+        "random": {
+          "status": "insufficient_points"
+        }
+      },
+      "auc_drop": {
+        "within": NaN,
+        "mixed": NaN,
+        "random": NaN
+      },
+      "collapse_fraction": {
+        "within": NaN,
+        "mixed": NaN,
+        "random": NaN
+      },
+      "triplet_auc_table": [
+        {
+          "triplet_id": "llama-3.1-8b:c0:t0",
+          "auc_within": 0.541558401503673,
+          "auc_mixed": 0.5325136525076694,
+          "auc_random": 0.47920736453377016,
+          "d_auc_within_minus_mixed": 0.009044748996003604
+        },
+        {
+          "triplet_id": "llama-3.1-8b:c1:t0",
+          "auc_within": 0.5293261551025209,
+          "auc_mixed": 0.506720728817728,
+          "auc_random": 0.4847561206301398,
+          "d_auc_within_minus_mixed": 0.022605426284792896
+        },
+        {
+          "triplet_id": "llama-3.1-8b:c2:t0",
+          "auc_within": 0.5038732236238316,
+          "auc_mixed": 0.4841506572833624,
+          "auc_random": 0.4810958141770456,
+          "d_auc_within_minus_mixed": 0.019722566340469205
+        }
+      ],
+      "group_structure_test": {
+        "n_triplets": 3,
+        "mean_d_auc_within_minus_mixed": 0.017124247207088567,
+        "p_one_sided_within_gt_mixed": 0.2222222222222222,
+        "p_one_sided_within_gt_mixed_holm": NaN
+      },
+      "contribution": {
+        "model": "llama-3.1-8b",
+        "informative": false,
+        "non_informative_reason": "insufficient_clusters",
+        "n_confirmatory_eligible_clusters": 0,
+        "clusters": [
+          {
+            "cluster": 0,
+            "size": 617,
+            "coverage_confirmatory": 0.0,
+            "confirmatory_eligible": false,
+            "fraction_rows": [
+              {
+                "fraction": 0.0,
+                "target_budget_mass": 0.0,
+                "selected_mass": 9.496637750938536,
+                "relative_mass_error": 949663775.0938536,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 1,
+                "degradation": 0.2026296575087035
+              },
+              {
+                "fraction": 0.8,
+                "target_budget_mass": 5138.49405125679,
+                "selected_mass": 3230.2273551881335,
+                "relative_mass_error": 0.3713669174340926,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 617,
+                "degradation": 0.6538499472746444
+              },
+              {
+                "fraction": 0.9,
+                "target_budget_mass": 5766.642335127752,
+                "selected_mass": 3230.2273551881335,
+                "relative_mass_error": 0.4398426038127831,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 617,
+                "degradation": 0.6538499472746444
+              },
+              {
+                "fraction": 1.0,
+                "target_budget_mass": 6128.98554426057,
+                "selected_mass": 3230.2273551881335,
+                "relative_mass_error": 0.47295888824325116,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 617,
+                "degradation": 0.6538499472746444
+              }
+            ]
+          },
+          {
+            "cluster": 1,
+            "size": 374,
+            "coverage_confirmatory": 0.0,
+            "confirmatory_eligible": false,
+            "fraction_rows": [
+              {
+                "fraction": 0.0,
+                "target_budget_mass": 0.0,
+                "selected_mass": 14.415759655119873,
+                "relative_mass_error": 1441575965.5119872,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 1,
+                "degradation": 0.2092949914074302
+              },
+              {
+                "fraction": 0.8,
+                "target_budget_mass": 5138.49405125679,
+                "selected_mass": 2814.3650116218255,
+                "relative_mass_error": 0.4522976997641014,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 374,
+                "degradation": 0.5950139440636488
+              },
+              {
+                "fraction": 0.9,
+                "target_budget_mass": 5766.642335127752,
+                "selected_mass": 2814.3650116218255,
+                "relative_mass_error": 0.5119577653571474,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 374,
+                "degradation": 0.5950139440636488
+              },
+              {
+                "fraction": 1.0,
+                "target_budget_mass": 6128.98554426057,
+                "selected_mass": 2814.3650116218255,
+                "relative_mass_error": 0.5408106298672363,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 374,
+                "degradation": 0.5950139440636488
+              }
+            ]
+          },
+          {
+            "cluster": 2,
+            "size": 33,
+            "coverage_confirmatory": 0.0,
+            "confirmatory_eligible": false,
+            "fraction_rows": [
+              {
+                "fraction": 0.0,
+                "target_budget_mass": 0.0,
+                "selected_mass": 21.11148609139491,
+                "relative_mass_error": 2111148609.1394908,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 1,
+                "degradation": 0.23381032516033926
+              },
+              {
+                "fraction": 0.8,
+                "target_budget_mass": 5138.49405125679,
+                "selected_mass": 84.39317745061014,
+                "relative_mass_error": 0.9835762819595035,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 33,
+                "degradation": 0.23821677347443987
+              },
+              {
+                "fraction": 0.9,
+                "target_budget_mass": 5766.642335127752,
+                "selected_mass": 84.39317745061014,
+                "relative_mass_error": 0.9853652832018859,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 33,
+                "degradation": 0.23821677347443987
+              },
+              {
+                "fraction": 1.0,
+                "target_budget_mass": 6128.98554426057,
+                "selected_mass": 84.39317745061014,
+                "relative_mass_error": 0.9862304818895128,
+                "feasible_confirmatory": false,
+                "n_heads_selected": 33,
+                "degradation": 0.23821677347443987
+              }
+            ]
+          }
+        ]
+      },
+      "d_auc_within_minus_mixed": NaN,
+      "d_fc_mixed_minus_within": NaN,
+      "model_level_redundancy_preholm": false,
+      "model_level_redundancy_supported": false,
+      "model_level_group_structure_supported": false,
+      "model_level_verdict": "neither"
+    }
+  }
+}

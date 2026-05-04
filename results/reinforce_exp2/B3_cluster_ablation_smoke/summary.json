@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "experiment_id": "B3_cluster_ablation",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "final": "B3_inconclusive",
+    "reason": "insufficient_eligible_models"
+  },
+  "n_eligible_models": 0,
+  "n_missing_models": 1
+}

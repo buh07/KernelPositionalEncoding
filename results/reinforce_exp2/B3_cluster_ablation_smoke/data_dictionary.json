@@ -1,0 +1,31 @@
+{
+  "experiment_id": "B3_cluster_ablation",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation_smoke/cluster_ablation_curve.parquet",
+      "description": "Raw degradation curves by condition and ablation fraction.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "condition",
+          "dtype": "str",
+          "description": "within/mixed/random."
+        },
+        {
+          "name": "ablation_fraction",
+          "dtype": "int",
+          "description": "Ablation percentage."
+        },
+        {
+          "name": "degradation",
+          "dtype": "float",
+          "description": "Degradation metric."
+        }
+      ]
+    }
+  ]
+}

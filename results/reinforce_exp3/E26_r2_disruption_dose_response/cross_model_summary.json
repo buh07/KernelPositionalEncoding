@@ -1,0 +1,16 @@
+{
+  "start_ts": "2026-05-03 02:35:27",
+  "end_ts": "2026-05-03 02:35:27",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "interpretation": "dose_response_positive_si_specific",
+  "n_positive": 3,
+  "spearman_by_model": {
+    "llama-3.1-8b": 0.9999999999999999,
+    "mistral-7b-v0.1": 0.9999999999999999,
+    "olmo-2-7b": 0.8999999999999998
+  }
+}

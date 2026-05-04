@@ -1,0 +1,42 @@
+{
+  "experiment_id": "E2",
+  "question": "Is the 26/30 threshold-majority result from NEW-R12 sensitive to ablation fraction grid coarseness or removal batch size?",
+  "primary_hypothesis": "The threshold preference is not a discretization artefact: fine-grid re-fitting does not decrease threshold-majority counts, and batch-size-5 orderings maintain threshold-majority preference in OLMo.",
+  "primary_endpoints": [
+    "Llama fine-grid threshold-majority count >= original count (7/10)",
+    "OLMo batch-5 threshold majority in >= 4/5 orderings"
+  ],
+  "secondary_endpoints": [
+    "Mistral fine-grid count does not decrease from 9/10"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "dataset_sources": [
+    "reinforce_exp/exp_new_r12_ordering_control (existing R12 orderings)",
+    "Wikipedia held-out sequences"
+  ],
+  "inclusion_exclusion_rules": [
+    "Variation 1: use existing R12 ordering payloads; skip model if not found",
+    "Variation 2: OLMo only; 5 fresh orderings with batch_size=5"
+  ],
+  "sample_size_plan": {
+    "n_orderings_v1": 10,
+    "n_orderings_v2": 5,
+    "num_seeds": 3
+  },
+  "seed_plan": {
+    "v2_seed_base": 20260501
+  },
+  "stopping_rule": "Run all designated orderings; no early stopping.",
+  "multiplicity_family": [
+    "No multiplicity correction; exploratory sensitivity check"
+  ],
+  "acceptance_criteria": [
+    "Fine-grid Llama count >= 7/10",
+    "Batch-5 OLMo count >= 4/5"
+  ],
+  "fallback_interpretation_if_null": "If Llama fine-grid count decreases: grid coarseness partially explains partial-replication; report updated count. If OLMo batch-5 fails: note batch-size sensitivity as a limitation."
+}

@@ -1,0 +1,31 @@
+{
+  "experiment_id": "E21",
+  "mode": "proxy",
+  "question": "Under matched proxy training, does RoPE yield stronger SI structure than NoPE?",
+  "primary_hypothesis": "TinyLlama RoPE has higher post-FT SI mean R2 than TinyLlama-NoPE under matched recipe.",
+  "primary_endpoints": [
+    "delta_si_mean_r2",
+    "delta_c1_deg"
+  ],
+  "secondary_endpoints": [
+    "delta_boundary_d",
+    "si_high_mean_r2"
+  ],
+  "model_list": [
+    "tinyllama-1.1b",
+    "tinyllama-nope-1.1b"
+  ],
+  "seed_list": [
+    0,
+    1,
+    2
+  ],
+  "sample_size_plan": {
+    "paired_seeds": 3,
+    "models": 2
+  },
+  "acceptance_criteria": [
+    "bootstrap ci95(delta_si_mean_r2) > 0 indicates RoPE> NoPE under proxy conditions"
+  ],
+  "fallback_interpretation_if_null": "PE-family attribution remains open pending fullscale matched training."
+}

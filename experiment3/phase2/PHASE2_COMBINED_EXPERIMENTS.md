@@ -4,6 +4,11 @@ Evidence snapshots used while merging:
 - `TODO.md`: 2026-04-04 (core Phase 2 protocol and governance)
 - `IDEAS.md`: 2026-04-02 (Phase 2+ extension ideas)
 - Merge generated: 2026-04-07
+- Latest execution/results status snapshot: 2026-04-19 11:32 EDT in `experiment3/phase2/RESULTS.md`
+
+Reinforcement status note (post-merge):
+- Core reinforcement wave (`R1`--`R5` + `R2B`, `R5B`, `NEW-R12`, `NEW-R14`, `NEW-R15`) is complete in
+  `results/reinforce_exp/` and summarized in `experiment3/phase2/RESULTS.md` Section 7.
 
 This file combines the experiment definitions from:
 - `experiment3/phase2/TODO.md`

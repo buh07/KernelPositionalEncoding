@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-05-04 16:37:29",
+  "experiment_id": "E31D_Mistral",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "verdict": {
+    "interpretation": "mistral_naturalistic_si_vs_importance_supported",
+    "directional_support": true,
+    "n_trials": 60
+  },
+  "elapsed_sec": 713.1765401363373
+}

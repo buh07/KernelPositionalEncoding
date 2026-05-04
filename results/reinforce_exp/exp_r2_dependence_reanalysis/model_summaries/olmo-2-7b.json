@@ -1,0 +1,116 @@
+{
+  "T8_kernel_relevance": {
+    "status": "ok",
+    "mean_loss_increase": 0.05761317163705826,
+    "bootstrap_ci_95": [
+      0.04526846688240767,
+      0.07306753285229205
+    ],
+    "cohens_d": 0.8114651016998279,
+    "p_two_sided": 1.3627254706605196e-12,
+    "claim_direction_supported": true
+  },
+  "B_boundary_nontriviality": {
+    "status": "ok",
+    "n_sequences": 16,
+    "mean_fake_minus_real_with_prefix": -0.001982399463073524,
+    "bootstrap_cluster_mean": -0.001969629546417929,
+    "bootstrap_cluster_ci95": [
+      -0.005547554960850741,
+      0.0015330961260722157
+    ],
+    "t_stat": -1.0629781624142491,
+    "p_one_ttest": 0.8476968957967724,
+    "p_one_permutation": 0.8396320735852829,
+    "post_ablation_d": 0.5594242193697856,
+    "synthetic_d": -0.15196849053426234,
+    "prefix_flag": false,
+    "claim_direction_supported": false
+  },
+  "C1_threshold_preference": {
+    "status": "ok",
+    "n_rows": 108,
+    "n_seed_clusters": 3,
+    "obs_delta_sse_linear_minus_piecewise": 0.0013699509366479604,
+    "bootstrap_ci95": [
+      0.001129177139657008,
+      0.0016768543840937975
+    ],
+    "p_one_piecewise_better": 0.0001999600079984003,
+    "claim_direction_supported": true,
+    "reported_vote_support": null,
+    "reported_votes": null
+  },
+  "J_regime_interaction": {
+    "status": "ok",
+    "n_rows": 64,
+    "n_seed_clusters": 16,
+    "n_regimes": 4,
+    "overall_delta_mean": 1.0860768172816797,
+    "overall_delta_cluster_ci95": [
+      1.0224462236592378,
+      1.1528079377030447
+    ],
+    "regime_delta_variance": 0.9109301744709866,
+    "p_permutation_regime_variance": 0.0001999600079984003,
+    "claim_direction_supported": true,
+    "regime_means": {
+      "boundary_dense_contexts": 1.4198340919305348,
+      "high_uncertainty_tokens": -0.08742260515532124,
+      "long_span_retrieval": 0.8382232948090961,
+      "rare_token_contexts": 2.1736724875424094
+    },
+    "reported_interaction": {
+      "n_observations": 1280,
+      "regimes": [
+        "boundary_dense_contexts",
+        "high_uncertainty_tokens",
+        "long_span_retrieval",
+        "rare_token_contexts"
+      ],
+      "groups": [
+        "high_si",
+        "low_si"
+      ],
+      "f_interaction": 236.86843881516882,
+      "p_value": 1.1102230246251565e-16,
+      "partial_eta_squared": 0.3584199591068927,
+      "cell_means": {
+        "boundary_dense_contexts|high_si": {
+          "n": 160,
+          "mean": 0.6900262240910952
+        },
+        "boundary_dense_contexts|low_si": {
+          "n": 160,
+          "mean": -0.4182787706338697
+        },
+        "high_uncertainty_tokens|high_si": {
+          "n": 160,
+          "mean": -0.9633614051207184
+        },
+        "high_uncertainty_tokens|low_si": {
+          "n": 160,
+          "mean": -0.8951203968957578
+        },
+        "long_span_retrieval|high_si": {
+          "n": 160,
+          "mean": 0.04558958296745223
+        },
+        "long_span_retrieval|low_si": {
+          "n": 160,
+          "mean": -0.6087171910504725
+        },
+        "rare_token_contexts|high_si": {
+          "n": 160,
+          "mean": 1.9233019564978442
+        },
+        "rare_token_contexts|low_si": {
+          "n": 160,
+          "mean": 0.22656000014442834
+        }
+      },
+      "supports_conditional_specialization": true,
+      "p_value_holm": 1.1102230246251565e-16
+    }
+  }
+}

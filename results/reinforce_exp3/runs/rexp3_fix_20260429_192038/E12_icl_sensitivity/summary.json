@@ -1,0 +1,14 @@
+{
+  "experiment_id": "E12",
+  "status": "complete",
+  "models_run": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "interpretation": "icl_specific_degradation",
+  "n_icl_preferential": 3,
+  "mean_accuracy_ratio": 46.13636363636364,
+  "timestamp_start": "2026-04-30 19:08:42",
+  "timestamp_end": "2026-04-30 19:08:42"
+}

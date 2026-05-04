@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 02:35:27",
+  "experiment_id": "E26",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "notes": [
+    "Supports Weakness-2/5 response: if positive, R\u00b2 amplitude predicts head-level load-bearing.",
+    "Positive result partially rehabilitates SI-specificity at head level despite E24 caveat.",
+    "Negative result requires reframing Result I as head-count effect, not SI-amplitude effect."
+  ]
+}

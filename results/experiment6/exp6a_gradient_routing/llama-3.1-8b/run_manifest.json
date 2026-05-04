@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "experiment": "6A",
+  "status": "merged",
+  "model": "llama-3.1-8b",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_runs": 6,
+  "artifacts": {
+    "runs": "results/experiment6/exp6a_gradient_routing/llama-3.1-8b/exp6a_runs.parquet",
+    "comparison": "results/experiment6/exp6a_gradient_routing/llama-3.1-8b/exp6a_comparison.json"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "experiment_id": "E2",
+  "tables": [
+    {
+      "path": "<model>/finegrid/finegrid_bic_votes.json",
+      "description": "BIC vote tallies after re-fitting with fine-grid fractions.",
+      "columns": []
+    },
+    {
+      "path": "olmo-2-7b/batch5/batch5_curves.parquet",
+      "description": "Degradation curves for batch-size-5 orderings in OLMo.",
+      "columns": [
+        {
+          "name": "ordering_id",
+          "dtype": "int",
+          "description": "Local ordering index (0-4)"
+        },
+        {
+          "name": "ablation_fraction",
+          "dtype": "int",
+          "description": "Percentage of heads ablated (batch-5 rounded)"
+        },
+        {
+          "name": "task",
+          "dtype": "str",
+          "description": "Task name"
+        },
+        {
+          "name": "degradation",
+          "dtype": "float",
+          "description": "Performance change vs baseline"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "experiment_id": "E25",
+  "question": "Do baseline-normalized and control-normalized axes materially change cross-model interpretation of Result I?",
+  "decision_rule": "If nat, percent, and true-minus-permuted rankings align, interpret cross-model ordering as robust with caveat."
+}

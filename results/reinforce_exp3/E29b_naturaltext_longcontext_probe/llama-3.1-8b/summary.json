@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-05-04 01:39:42",
+  "experiment_id": "E29B",
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "n_families": 3,
+  "n_total_prompts": 185,
+  "mean_pooled_gap_true_lp": 3.8441300675675674,
+  "pooled_gap_true_ci": [
+    3.099317989864865,
+    4.575809755067566
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "mean_pooled_gap_true_minus_perm_lp": 3.7368032094594597,
+  "pooled_gap_true_minus_perm_ci": [
+    3.073957981418919,
+    4.429237225506756
+  ],
+  "model_directional_pass": true,
+  "n_family_directional_pass": 3,
+  "family_results": [
+    {
+      "family": "wiki_passkey_256",
+      "domain": "wiki",
+      "context_len": 256,
+      "n_prompts": 72,
+      "mean_gap_true_lp": 2.3409288194444446,
+      "mean_gap_perm_lp": -0.9846462673611112,
+      "mean_gap_true_minus_perm_lp": 3.3255750868055554,
+      "gap_true_ci": [
+        1.09365234375,
+        3.52802734375
+      ],
+      "gap_true_minus_perm_ci": [
+        2.1890516493055556,
+        4.551292588975694
+      ],
+      "intact_probe_acc": 0.013888888888888888,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    },
+    {
+      "family": "wiki_passkey_512",
+      "domain": "wiki",
+      "context_len": 512,
+      "n_prompts": 72,
+      "mean_gap_true_lp": 5.169921875,
+      "mean_gap_perm_lp": 0.7291666666666666,
+      "mean_gap_true_minus_perm_lp": 4.440755208333333,
+      "gap_true_ci": [
+        4.065679253472222,
+        6.256331380208334
+      ],
+      "gap_true_minus_perm_ci": [
+        3.4001708984375,
+        5.4220214843750005
+      ],
+      "intact_probe_acc": 0.0,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    },
+    {
+      "family": "code_passkey_512",
+      "domain": "code",
+      "context_len": 512,
+      "n_prompts": 41,
+      "mean_gap_true_lp": 4.155678353658536,
+      "mean_gap_perm_lp": 0.9329268292682927,
+      "mean_gap_true_minus_perm_lp": 3.222751524390244,
+      "gap_true_ci": [
+        2.7045207698170732,
+        5.700290586890244
+      ],
+      "gap_true_minus_perm_ci": [
+        1.964276867378049,
+        4.578725228658537
+      ],
+      "intact_probe_acc": 0.0,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    }
+  ],
+  "elapsed_sec": 1453.9576470851898
+}

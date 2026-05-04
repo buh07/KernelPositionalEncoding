@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-01 23:18:08",
+  "experiment_id": "E17",
+  "model": "mistral-7b-v0.1",
+  "runtime_sec": 262.8951632976532,
+  "n_sequences": 16,
+  "n_high_si_heads": 256,
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/estimated_kernels.json",
+  "headline": {
+    "true_mean_loss_delta": 3.4600149542093277,
+    "permuted_mean_loss_delta": 0.1759163849055767,
+    "normmatched_mean_loss_delta": 5.05503648519516,
+    "ratio_true_over_permuted": 19.668520110088064,
+    "ratio_true_over_normmatched": 0.6844688390168457,
+    "true_minus_permuted_ci95": [
+      3.153167504258454,
+      3.414581627771258
+    ],
+    "true_minus_normmatched_ci95": [
+      -1.7841452449560165,
+      -1.4096511371433735
+    ],
+    "supports_specificity": false
+  }
+}

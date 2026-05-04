@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-04 15:07:57",
+  "experiment_id": "E31B",
+  "n_models": 11,
+  "n_valid": 11,
+  "seq_len_eval": 512,
+  "correlation": {
+    "pearson_r": 0.5769620485325226,
+    "pearson_p": 0.06312143139829898,
+    "spearman_rho": 0.5001966396545247,
+    "spearman_p": 0.11713961379146616,
+    "perm_p_two_sided": 0.07009649517524123,
+    "perm_p_one_sided_negative": 0.9726513674316284
+  },
+  "interpretation": "extended_coherence_correlation_refresh",
+  "notes": [
+    "Coherence values are proxy computations from PE geometry metadata and should be interpreted as a theoretical lens.",
+    "This extends model count relative to Exp7A but remains observational/correlational."
+  ]
+}

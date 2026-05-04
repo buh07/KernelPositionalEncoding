@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-04-17 06:41:39",
+  "experiment": "EXP-R1",
+  "model": "llama-3.1-8b",
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "domain_summaries": [
+    {
+      "domain": "wiki",
+      "assessment": "ambiguous",
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_wiki/llama-3.1-8b/multiseed_gate_summary.json",
+      "pooled": {
+        "n_completed": 12,
+        "n_flagged": 2,
+        "meta_p_one": 2.5132391973760537e-70,
+        "pooled_diff_fake_minus_real_with_prefix": 0.006439589556890585,
+        "pooled_cohens_d": 0.16409202468969825
+      }
+    },
+    {
+      "domain": "code",
+      "assessment": "stable_clean",
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_code/llama-3.1-8b/multiseed_gate_summary.json",
+      "pooled": {
+        "n_completed": 12,
+        "n_flagged": 0,
+        "meta_p_one": 1.0,
+        "pooled_diff_fake_minus_real_with_prefix": -0.0030683203371121783,
+        "pooled_cohens_d": -0.08082198918266006
+      }
+    },
+    {
+      "domain": "dialogue",
+      "assessment": "ambiguous",
+      "summary_path": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_dialogue/llama-3.1-8b/multiseed_gate_summary.json",
+      "pooled": {
+        "n_completed": 12,
+        "n_flagged": 0,
+        "meta_p_one": 0.0002214159938110113,
+        "pooled_diff_fake_minus_real_with_prefix": 0.0016528289518616414,
+        "pooled_cohens_d": 0.04283906342996198
+      }
+    }
+  ],
+  "aggregate": {
+    "n_domains": 3,
+    "n_blocked": 0,
+    "n_clean": 1,
+    "n_ambiguous": 2,
+    "pooled_diff_mean": 0.0016746993905466826,
+    "meta_p_one_weighted_stouffer": 8.375282859602666e-10
+  },
+  "decision_rule": {
+    "blocked": ">=2 domains stable_blocked and global meta_p<0.01 and pooled_diff_mean>=min_abs_diff",
+    "clean": ">=2 domains stable_clean, none blocked, global meta_p>0.2, pooled_diff_mean<=0"
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "experiment_id": "E30B",
+  "generated_at": "2026-05-04 02:59:12",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "output_root": "results/reinforce_exp3/E30b_localbias_null_family",
+  "files": [
+    "cross_model_summary.json",
+    "summary.json",
+    "manifest.json",
+    "preregistration.json",
+    "claim_impact.json",
+    "data_dictionary.json"
+  ]
+}

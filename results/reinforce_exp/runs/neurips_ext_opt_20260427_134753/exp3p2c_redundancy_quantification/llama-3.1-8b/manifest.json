@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-04-28 03:07:10",
+  "experiment": "3P2-C.1",
+  "model": "llama-3.1-8b",
+  "device": "cuda:0",
+  "fractions": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    15,
+    20,
+    25,
+    50
+  ],
+  "sort_orders": [
+    "high_to_low",
+    "low_to_high"
+  ],
+  "num_seeds": 3,
+  "synthetic_count": 100,
+  "ntp_count_per_seed": 100,
+  "ntp_seq_len": 512,
+  "batch_size_synth": 8,
+  "batch_size_ntp_requested": 4,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 8,
+    "long_range_retrieval::span48": 8
+  },
+  "effective_batch_size_ntp": 4,
+  "ntp_coverage": {
+    "requested_total": 300,
+    "available_total": 300,
+    "effective_per_seed": 100,
+    "total_used": 300,
+    "reuse_mode": "strict_split"
+  },
+  "ntp_sequence_cache_enabled": true,
+  "runtime_seconds": 39198.10124397278
+}

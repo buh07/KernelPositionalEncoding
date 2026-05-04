@@ -1,0 +1,4 @@
+{
+  "mistral_naturalistic_importance_vs_si.json": "Top-line Mistral naturalistic SI vs importance-matched summary.",
+  "mistral_naturalistic_arm_trials.parquet": "Prompt-level trial table."
+}

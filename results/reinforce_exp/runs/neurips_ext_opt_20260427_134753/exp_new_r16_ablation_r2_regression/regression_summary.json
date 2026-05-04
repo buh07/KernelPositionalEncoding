@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-04-28 01:37:59",
+  "experiment": "NEW-R16",
+  "n_models": 3,
+  "model_points": [
+    {
+      "model": "olmo-2-7b",
+      "mean_r2": 0.057640241185075464,
+      "mean_ablation_cost_high_si": 0.05761317163705826,
+      "log_ablation_cost_high_si": -2.85400406316778,
+      "theory8_report_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/olmo-2-7b/report.json",
+      "r2_source_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/olmo-2-7b/head_r2_summary.parquet",
+      "n_sequences_ablation": null
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "mean_r2": 0.2657672483381823,
+      "mean_ablation_cost_high_si": 3.4294211864471436,
+      "log_ablation_cost_high_si": 1.2323914966309581,
+      "theory8_report_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/report.json",
+      "r2_source_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/mistral-7b-v0.1/head_r2_summary.parquet",
+      "n_sequences_ablation": null
+    },
+    {
+      "model": "llama-3.1-8b",
+      "mean_r2": 0.38032241997453253,
+      "mean_ablation_cost_high_si": 4.154580593109131,
+      "log_ablation_cost_high_si": 1.4242114829259869,
+      "theory8_report_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/report.json",
+      "r2_source_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/llama-3.1-8b/head_r2_summary.parquet",
+      "n_sequences_ablation": null
+    }
+  ],
+  "fit": {
+    "formula": "log(mean_ablation_cost_high_si) = intercept + slope * mean_r2",
+    "intercept": -3.357291705835979,
+    "slope": 14.031624776249627,
+    "r2": 0.9022287796829273
+  },
+  "bootstrap": {
+    "n_boot": 10000,
+    "seed": 20260427,
+    "slope_ci95_lo": -0.16396073980790132,
+    "slope_ci95_hi": 19.63414366878691,
+    "intercept_ci95_lo": -3.985720839699082,
+    "intercept_ci95_hi": 1.2442384362239514,
+    "r2_ci95_lo": 0.9022287796829271,
+    "r2_ci95_hi": 1.0
+  }
+}

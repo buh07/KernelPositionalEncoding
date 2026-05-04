@@ -1,0 +1,7 @@
+{
+  "baseline_loss": 19.118966150283814,
+  "ablated_loss": 21.664034795761108,
+  "delta_loss": 2.5450686454772935,
+  "n_high_si_heads": 168,
+  "interpretation": "functional"
+}

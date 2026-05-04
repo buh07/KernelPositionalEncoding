@@ -1,0 +1,107 @@
+{
+  "timestamp": "2026-04-15 15:23:03",
+  "experiment": "8B",
+  "status": "completed",
+  "model": "llama-3.1-8b",
+  "device": "cuda:0",
+  "cross_model": "olmo-2-7b",
+  "fractions": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    35,
+    50,
+    75
+  ],
+  "summary": {
+    "model": "llama-3.1-8b",
+    "cross_model": "olmo-2-7b",
+    "n_total_heads": 1024,
+    "fractions": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      35,
+      50,
+      75
+    ],
+    "mask_types": [
+      "si_matched",
+      "si_mismatched",
+      "entropy",
+      "activation",
+      "random"
+    ],
+    "audc": {
+      "si_matched": {
+        "math_accuracy_audc": 0.2609375,
+        "wiki_perplexity_audc": 61.37538476020484
+      },
+      "si_mismatched": {
+        "math_accuracy_audc": 0.19828125000000002,
+        "wiki_perplexity_audc": 292.7326575055535
+      },
+      "entropy": {
+        "math_accuracy_audc": 0.190625,
+        "wiki_perplexity_audc": 301.8873426625767
+      },
+      "activation": {
+        "math_accuracy_audc": 0.143125,
+        "wiki_perplexity_audc": 213.3889985611712
+      },
+      "random": {
+        "math_accuracy_audc": 0.225,
+        "wiki_perplexity_audc": 178.02097338737022
+      }
+    },
+    "comparisons": {
+      "si_matched_vs_random_math_accuracy": {
+        "t_statistic": 1.0213230513377234,
+        "p_two_sided": 0.33699024692227075,
+        "mean_diff": 0.06041666666666666
+      },
+      "si_matched_vs_entropy_math_accuracy": {
+        "t_statistic": 4.220199796739249,
+        "p_two_sided": 0.002915028780001251,
+        "mean_diff": 0.09722222222222221
+      },
+      "si_matched_vs_activation_math_accuracy": {
+        "t_statistic": 2.989395771457103,
+        "p_two_sided": 0.017349927613492317,
+        "mean_diff": 0.21041666666666664
+      },
+      "si_matched_vs_random_wiki_perplexity": {
+        "t_statistic": -1.5399684474814528,
+        "p_two_sided": 0.1621329653205676,
+        "mean_diff": -83.28211778044141
+      },
+      "si_matched_vs_entropy_wiki_perplexity": {
+        "t_statistic": -1.2675599187622517,
+        "p_two_sided": 0.24060351411237657,
+        "mean_diff": -198.24878425668624
+      },
+      "si_matched_vs_activation_wiki_perplexity": {
+        "t_statistic": -3.490217030260427,
+        "p_two_sided": 0.008195810374832115,
+        "mean_diff": -142.05254838438154
+      },
+      "matched_vs_mismatched_math_accuracy": {
+        "t_statistic": 2.555856402956403,
+        "p_two_sided": 0.03386461338812006,
+        "mean_diff": 0.1368055555555555
+      },
+      "matched_vs_mismatched_wiki_perplexity": {
+        "t_statistic": -1.3711189118786737,
+        "p_two_sided": 0.20756490167428163,
+        "mean_diff": -188.13843874644246
+      }
+    },
+    "timestamp": "2026-04-15 15:23:03"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-02 00:22:18",
+  "experiment_id": "E17",
+  "model": "olmo-2-7b",
+  "runtime_sec": 3216.510374546051,
+  "n_sequences": 100,
+  "n_high_si_heads": 256,
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/olmo-2-7b/estimated_kernels.json",
+  "headline": {
+    "true_mean_loss_delta": 0.054654313921928405,
+    "permuted_mean_loss_delta": 0.010092584490776064,
+    "normmatched_mean_loss_delta": 0.16405603730678556,
+    "ratio_true_over_permuted": 5.415294166908262,
+    "ratio_true_over_normmatched": 0.3331441793862458,
+    "true_minus_permuted_ci95": [
+      0.035191627097129814,
+      0.05622784973084926
+    ],
+    "true_minus_normmatched_ci95": [
+      -0.16554983878135682,
+      -0.0676616064339877
+    ],
+    "supports_specificity": false
+  }
+}

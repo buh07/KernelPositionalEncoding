@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-05-03 09:48:13",
+  "experiment_id": "E28A",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "dose_response_exact_supported",
+    "n_positive": 3,
+    "n_models": 3,
+    "spearman_by_model": {
+      "llama-3.1-8b": 0.9488721804511278,
+      "mistral-7b-v0.1": 0.8721804511278194,
+      "olmo-2-7b": 0.6721804511278194
+    },
+    "p_exact_by_model": {
+      "llama-3.1-8b": 4.9999750001249995e-06,
+      "mistral-7b-v0.1": 4.9999750001249995e-06,
+      "olmo-2-7b": 0.0008199959000204999
+    }
+  },
+  "limitations": [
+    "Grouped-bin design still aggregates heads; head-level regression is not tested here.",
+    "Exact test is one-tailed directional by preregistered hypothesis."
+  ]
+}

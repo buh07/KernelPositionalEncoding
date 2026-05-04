@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-05-04 00:58:34",
+  "experiment_id": "E29A",
+  "interpretation": "kernel_transplant_specificity_supported_all_models",
+  "claim_status": "supported",
+  "n_models": 3,
+  "n_pass": 3,
+  "per_model": [
+    {
+      "timestamp": "2026-05-04 00:57:51",
+      "experiment_id": "E29A",
+      "model": "llama-3.1-8b",
+      "n_eval_seqs": 16,
+      "n_matched_pairs": 144,
+      "low_self_mean_delta": 0.044144656509160995,
+      "low_transplant_normmatched_mean_delta": 1.092873640358448,
+      "low_random_normmatched_mean_delta": 4.484395854175091,
+      "high_self_mean_delta": 0.5415635481476784,
+      "delta_transplant_vs_lowself": 1.048728983849287,
+      "ci_delta_transplant_vs_lowself": [
+        0.8509302435442805,
+        1.2865642020478845
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 121.72387647628784
+    },
+    {
+      "timestamp": "2026-05-04 00:57:40",
+      "experiment_id": "E29A",
+      "model": "mistral-7b-v0.1",
+      "n_eval_seqs": 16,
+      "n_matched_pairs": 119,
+      "low_self_mean_delta": 0.0053886957466602325,
+      "low_transplant_normmatched_mean_delta": 0.37177031859755516,
+      "low_random_normmatched_mean_delta": 3.4149967283010483,
+      "high_self_mean_delta": 0.10105908662080765,
+      "delta_transplant_vs_lowself": 0.36638162285089493,
+      "ci_delta_transplant_vs_lowself": [
+        0.30903388783335684,
+        0.4309517903253436
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 110.46931552886963
+    },
+    {
+      "timestamp": "2026-05-04 00:58:14",
+      "experiment_id": "E29A",
+      "model": "olmo-2-7b",
+      "n_eval_seqs": 16,
+      "n_matched_pairs": 193,
+      "low_self_mean_delta": 0.003780379891395569,
+      "low_transplant_normmatched_mean_delta": 0.017546840012073517,
+      "low_random_normmatched_mean_delta": 0.0494014248251915,
+      "high_self_mean_delta": 0.03478625416755676,
+      "delta_transplant_vs_lowself": 0.013766460120677948,
+      "ci_delta_transplant_vs_lowself": [
+        0.011031492054462433,
+        0.01645949427038431
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 144.95434284210205
+    }
+  ]
+}

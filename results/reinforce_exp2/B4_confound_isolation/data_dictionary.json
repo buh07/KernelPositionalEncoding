@@ -1,0 +1,62 @@
+{
+  "experiment_id": "B4_confound_isolation",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation/within_layer_contrast.parquet",
+      "description": "Layer-stratified high-vs-low contrasts.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer."
+        },
+        {
+          "name": "hedges_g",
+          "dtype": "float",
+          "description": "Within-layer effect size."
+        },
+        {
+          "name": "p_two",
+          "dtype": "float",
+          "description": "Per-layer two-sided p-value."
+        }
+      ]
+    },
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation/entropy_matched_contrast.parquet",
+      "description": "Entropy-matched high-vs-low pairs.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer."
+        },
+        {
+          "name": "high_head_key",
+          "dtype": "str",
+          "description": "Matched high-SI head."
+        },
+        {
+          "name": "low_head_key",
+          "dtype": "str",
+          "description": "Matched low-SI head."
+        },
+        {
+          "name": "delta_boundary_score",
+          "dtype": "float",
+          "description": "High minus low boundary score."
+        }
+      ]
+    }
+  ]
+}

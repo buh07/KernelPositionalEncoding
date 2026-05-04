@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 18:01:20",
+  "experiment_id": "E20",
+  "claim_status": "supported_with_caveat",
+  "supports_main_text": true,
+  "notes": [
+    "Between-model SI variance exceeds within-model seed variance."
+  ],
+  "outcome_summary": "Between-model SI variance exceeds within-model seed variance."
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-09 14:53:06",
+  "timestamp": "2026-04-09 23:51:12",
   "gate_g1_path": "results/experiment3_phase2/phase2_governance/gate_g1_decision.json",
   "gate_g1_continue_to_stage2": true,
   "run_directories": {
@@ -99,6 +99,8 @@
     "3P2-E",
     "3P2-F",
     "3P2-B",
+    "3P2-B multiseed strict adjudication (Llama, 7 seeds)",
+    "3P2-B tokenizer audit extension",
     "3P2-G",
     "3P2-H",
     "3P2-D.1 (np60 canonical)",
@@ -109,6 +111,8 @@
     "3P2-I (OLMo strict complete; Llama strict blocked_by_gate)",
     "3P2-A",
     "3P2-J",
+    "3P2-J long-span repair",
+    "3P2-K non-RoPE anchor (gpt2-medium)",
     "Idea 4 (consensus quality-gated rerun)",
     "Idea 6",
     "3P2-A.2 rerun (NLTK POS backend)"
@@ -126,8 +130,69 @@
     "idea4_v2_output_root": "results/experiment3_phase2/idea4_structural_ambiguity_normed_stage4_v2",
     "a2_rerun_summary": "results/experiment3_phase2/exp3p2a_positional_broadcast/a2_only_rerun_summary.json"
   },
+  "post_window_additions": {
+    "3P2-B_multiseed": {
+      "status": "complete",
+      "path": "results/experiment3_phase2/exp3p2b_trivial_feature_control/llama-3.1-8b/multiseed_gate_summary.json",
+      "assessment": "ambiguous",
+      "seeds_completed": 7,
+      "n_flagged": 3,
+      "meta_p_one": 4.2126300329059756e-07,
+      "pooled_diff_fake_minus_real_with_prefix": 0.006043683326722225,
+      "pooled_cohens_d": 0.2445505281728383,
+      "strict_gate_passes": false,
+      "strict_gate_blocked": false
+    },
+    "3P2-B_tokenizer_audit_extension": {
+      "status": "complete",
+      "aggregate_path": "results/experiment3_phase2/exp3p2b_tokenizer_audit/tokenizer_audit_report.json",
+      "aggregate_verdict": {
+        "olmo_robust": true,
+        "llama_entangled": false
+      },
+      "per_model": {
+        "llama-3.1-8b": {
+          "path": "results/experiment3_phase2/exp3p2b_tokenizer_audit/llama-3.1-8b/tokenizer_audit_report.json",
+          "baseline_prefix_following_artifact_flag": true
+        },
+        "olmo-2-7b": {
+          "path": "results/experiment3_phase2/exp3p2b_tokenizer_audit/olmo-2-7b/tokenizer_audit_report.json",
+          "baseline_prefix_following_artifact_flag": false
+        }
+      }
+    },
+    "3P2-J_longspan_repair": {
+      "status": "complete",
+      "j_summary_path": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/j_summary.json",
+      "models": {
+        "llama-3.1-8b": {
+          "path": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/llama-3.1-8b/regime_summary.json",
+          "regime_coverage_complete": true,
+          "supports_conditional_specialization": true,
+          "p_value_holm": 1.1102230246251565e-16
+        },
+        "olmo-2-7b": {
+          "path": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/olmo-2-7b/regime_summary.json",
+          "regime_coverage_complete": true,
+          "supports_conditional_specialization": true,
+          "p_value_holm": 1.1102230246251565e-16
+        }
+      }
+    },
+    "3P2-K_non_rope_anchor": {
+      "status": "complete",
+      "path": "results/experiment3_phase2/exp3p2k_non_rope_control/non_rope_control_summary.json",
+      "selected_model": "gpt2-medium",
+      "verdict": {
+        "si_structure_detected": true,
+        "boundary_non_trivial_after_control": true,
+        "rope_confound_weakened_for_anchor": true
+      }
+    }
+  },
   "bookkeeping_notes": [
     "stage2_status refreshed after post-stage4 cleanup and reruns (B strict refresh, A.2 NLTK rerun, Idea4 consensus rerun).",
+    "post-window governance refresh now includes 3P2-B multiseed adjudication, tokenizer audit aggregate extension, 3P2-J long-span repair, and 3P2-K non-RoPE anchor.",
     "3P2-I strict status remains model-conditional: OLMo complete, Llama blocked_by_gate under statistical prefix-artifact gate.",
     "3P2-A.2 acceptance now passes strict all-feature criterion in both models using context-aware NLTK POS labels.",
     "Idea4 consensus rerun uses cross-model retained allowlist (28 variants) with balanced relation types and passing internal quality gates."

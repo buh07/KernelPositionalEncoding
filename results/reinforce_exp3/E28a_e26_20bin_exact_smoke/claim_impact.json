@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-03 09:48:13",
+  "experiment_id": "E28A",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "notes": [
+    "Replaces approximate Spearman p-values with exact one-tailed p-values for small-n bin correlations.",
+    "Uses 20-bin granularity to reduce 5-point statistical fragility concerns."
+  ]
+}

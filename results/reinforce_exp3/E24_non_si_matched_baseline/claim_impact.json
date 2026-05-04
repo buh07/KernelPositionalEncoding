@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E24",
+  "claims_tested": [
+    "Result II SI-specific collective organization under cumulative ablation"
+  ],
+  "status": "supported_with_caveat",
+  "interpretation": "supports_si_specific_nonlinearity",
+  "impact_on_main_text": "SI-specific wording may be retained with caveats."
+}

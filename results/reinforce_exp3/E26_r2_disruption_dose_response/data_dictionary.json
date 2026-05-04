@@ -1,0 +1,71 @@
+{
+  "experiment_id": "E26",
+  "tables": [
+    {
+      "path": "<model>/dose_response_bins.parquet",
+      "description": "Per-R\u00b2-quintile-bin disruption cost results.",
+      "columns": [
+        {
+          "name": "bin",
+          "dtype": "int",
+          "description": "quintile bin (1=lowest R\u00b2, 5=highest)"
+        },
+        {
+          "name": "n_heads",
+          "dtype": "int",
+          "description": "number of heads in bin"
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "mean R\u00b2 of heads in bin"
+        },
+        {
+          "name": "min_r2",
+          "dtype": "float",
+          "description": "min R\u00b2 in bin"
+        },
+        {
+          "name": "max_r2",
+          "dtype": "float",
+          "description": "max R\u00b2 in bin"
+        },
+        {
+          "name": "true_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase under true SI subtraction"
+        },
+        {
+          "name": "perm_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase under permuted control (avg over trials)"
+        },
+        {
+          "name": "norm_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase under norm-matched control (avg over trials)"
+        },
+        {
+          "name": "per_head_true_delta",
+          "dtype": "float",
+          "description": "true_mean_delta / n_heads (per-head proxy)"
+        },
+        {
+          "name": "per_head_perm_delta",
+          "dtype": "float",
+          "description": "perm_mean_delta / n_heads (per-head proxy)"
+        },
+        {
+          "name": "true_over_perm",
+          "dtype": "float",
+          "description": "ratio of true to permuted delta"
+        }
+      ]
+    },
+    {
+      "path": "<model>/model_summary.json",
+      "description": "Per-model Spearman correlation and monotone fraction.",
+      "columns": []
+    }
+  ]
+}

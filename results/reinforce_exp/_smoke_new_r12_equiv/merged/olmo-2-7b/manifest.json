@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-27 13:42:15",
+  "experiment_id": "NEW-R12",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "merge_shards",
+  "model": "olmo-2-7b",
+  "shard_roots": [
+    "results/reinforce_exp/_smoke_new_r12_equiv/shard_a",
+    "results/reinforce_exp/_smoke_new_r12_equiv/shard_b"
+  ],
+  "output_root": "results/reinforce_exp/_smoke_new_r12_equiv/merged",
+  "ordering_id_start": 0,
+  "ordering_id_stop": 10,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 4,
+    "long_range_retrieval::span32": 4
+  },
+  "effective_batch_size_ntp": 2,
+  "ntp_coverage": {
+    "requested_total": 2,
+    "available_total": 2,
+    "effective_per_seed": 2,
+    "total_used": 2,
+    "reuse_mode": "strict_split"
+  }
+}

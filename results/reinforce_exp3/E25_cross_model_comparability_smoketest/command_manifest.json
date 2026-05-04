@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-02 23:48:21",
+  "experiment_id": "E25",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_e25_cross_model_comparability.py",
+  "model": "multi-model",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false
+}

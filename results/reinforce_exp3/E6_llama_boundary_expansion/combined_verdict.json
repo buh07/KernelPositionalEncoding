@@ -1,0 +1,7 @@
+{
+  "llama_boundary_status": "ambiguous",
+  "phase1_verdict": "ambiguous",
+  "phase2_verdict": "not_run",
+  "note": "Phase 1: ambiguous, Phase 2: not_run. Outcome is inconclusive. Report with quantified uncertainty.",
+  "claim_status": "inconclusive"
+}

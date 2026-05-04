@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-01 16:56:10",
+  "experiment_id": "E17",
+  "model": "llama-3.1-8b",
+  "runtime_sec": 276.96960973739624,
+  "n_sequences": 16,
+  "n_high_si_heads": 256,
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/estimated_kernels.json",
+  "headline": {
+    "true_mean_loss_delta": 4.325299106538296,
+    "permuted_mean_loss_delta": 1.6763487681746483,
+    "normmatched_mean_loss_delta": 6.491142995655537,
+    "ratio_true_over_permuted": 2.5801904643316265,
+    "ratio_true_over_normmatched": 0.6663385954420014,
+    "true_minus_permuted_ci95": [
+      2.5347344134002925,
+      2.770044239424169
+    ],
+    "true_minus_normmatched_ci95": [
+      -2.4578087154775856,
+      -1.8727308124303819
+    ],
+    "supports_specificity": false
+  }
+}

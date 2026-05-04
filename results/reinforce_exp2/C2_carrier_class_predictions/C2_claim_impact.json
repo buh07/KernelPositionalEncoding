@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-24 15:16:54",
+  "experiment_id": "C2_carrier_class_predictions",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If C2.2 fails, report preregistered failure-mode assignment.",
+    "If n_models<5, C2.1 cross-model regression is exploratory-only by design."
+  ]
+}

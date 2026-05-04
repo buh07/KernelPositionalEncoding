@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-04-20 17:06:24",
+  "experiment_id": "B2a_head_alignment",
+  "reference_frame": "key_relative",
+  "sign_conventions": {
+    "positive_signed_alignment": "boundary-seeking",
+    "negative_signed_alignment": "boundary-suppressing",
+    "absolute_alignment": "magnitude-only boundary-offset coupling"
+  },
+  "models": {
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": -0.03959116039877229,
+        "t_stat": -6.202053057386269,
+        "p_one": 0.999999999596168,
+        "hedges_g_vs_null": -0.2767151814474389,
+        "se": 0.006383557191859496,
+        "p_one_holm_family": 1.0
+      },
+      "absolute": {
+        "delta_mean": 0.05100534356435776,
+        "t_stat": 8.13575956900746,
+        "p_one": 5.894598290943148e-16,
+        "hedges_g_vs_null": 0.3629242814672822,
+        "se": 0.006269278625029509,
+        "p_one_holm_family": 3.5367589745658888e-15
+      },
+      "supports_directional_subclaim": false,
+      "supports_nondirectional_practical": true,
+      "supports_nondirectional_practical_holm": true,
+      "supports_directional_subclaim_holm": false
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": 0.008610214887750323,
+        "t_stat": 0.5953802196751077,
+        "p_one": 0.27586051298277015,
+        "hedges_g_vs_null": 0.026522889215506294,
+        "se": 0.014461708003078807,
+        "p_one_holm_family": 0.8275815389483104
+      },
+      "absolute": {
+        "delta_mean": 0.013900192385260787,
+        "t_stat": 0.9658244048928438,
+        "p_one": 0.16718015751184218,
+        "hedges_g_vs_null": 0.042987227522377804,
+        "se": 0.014392049232596255,
+        "p_one_holm_family": 0.6687206300473687
+      },
+      "supports_directional_subclaim": false,
+      "supports_nondirectional_practical": false,
+      "supports_nondirectional_practical_holm": false,
+      "supports_directional_subclaim_holm": false
+    },
+    "mistral-7b-v0.1": {
+      "model": "mistral-7b-v0.1",
+      "n_heads": 1024,
+      "valid_variance_estimate": true,
+      "signed": {
+        "delta_mean": 0.05463216957668786,
+        "t_stat": 7.891796237078406,
+        "p_one": 3.814384900058415e-15,
+        "hedges_g_vs_null": 0.34919189949430723,
+        "se": 0.006922653339680377,
+        "p_one_holm_family": 1.9071924500292076e-14
+      },
+      "absolute": {
+        "delta_mean": -0.06298605581268218,
+        "t_stat": -8.635338645762218,
+        "p_one": 1.0,
+        "hedges_g_vs_null": -0.38192311575325,
+        "se": 0.007293987925255544,
+        "p_one_holm_family": 1.0
+      },
+      "supports_directional_subclaim": true,
+      "supports_nondirectional_practical": false,
+      "supports_nondirectional_practical_holm": false,
+      "supports_directional_subclaim_holm": true
+    }
+  }
+}

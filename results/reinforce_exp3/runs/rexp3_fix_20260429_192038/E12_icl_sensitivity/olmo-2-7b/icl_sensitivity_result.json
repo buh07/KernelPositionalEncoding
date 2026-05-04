@@ -1,0 +1,20 @@
+{
+  "model": "olmo-2-7b",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.77,
+  "intact_non_icl_accuracy": 0.01,
+  "ablated_icl_accuracy": 0.425,
+  "ablated_non_icl_accuracy": 0.065,
+  "icl_acc_loss": 0.34500000000000003,
+  "non_icl_acc_loss": -0.055,
+  "icl_lp_loss": 3.1740612792968745,
+  "non_icl_lp_loss": -1.4007421875000006,
+  "accuracy_sensitivity_ratio": 6.272727272727273,
+  "logprob_sensitivity_ratio": 2.2659853523522675,
+  "icl_preferentially_degraded": true,
+  "acc_denominator_valid": true,
+  "lp_denominator_valid": true,
+  "acc_vote": "preferential",
+  "lp_vote": "preferential",
+  "model_level_status": "supported"
+}

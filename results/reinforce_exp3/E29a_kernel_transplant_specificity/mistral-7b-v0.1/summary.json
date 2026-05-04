@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-04 01:07:06",
+  "experiment_id": "E29A",
+  "model": "mistral-7b-v0.1",
+  "n_eval_seqs": 96,
+  "n_matched_pairs": 119,
+  "low_self_mean_delta": 0.00635640633602937,
+  "low_transplant_normmatched_mean_delta": 0.38010828383266926,
+  "low_random_normmatched_mean_delta": 3.4543465599417686,
+  "high_self_mean_delta": 0.10918078695734341,
+  "delta_transplant_vs_lowself": 0.3737518774966399,
+  "ci_delta_transplant_vs_lowself": [
+    0.35008993685866396,
+    0.39784115062405667
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 539.3856203556061
+}

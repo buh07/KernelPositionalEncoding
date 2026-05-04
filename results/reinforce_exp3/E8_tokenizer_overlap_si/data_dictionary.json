@@ -1,0 +1,51 @@
+{
+  "experiment_id": "E8",
+  "tables": [
+    {
+      "path": "pairwise_overlap_table.parquet",
+      "description": "Pairwise tokenizer-overlap and SI-similarity metrics for all model pairs",
+      "columns": [
+        {
+          "name": "model_a",
+          "dtype": "str",
+          "description": "First model in pair"
+        },
+        {
+          "name": "model_b",
+          "dtype": "str",
+          "description": "Second model in pair"
+        },
+        {
+          "name": "jaccard_overlap",
+          "dtype": "float",
+          "description": "Jaccard vocabulary overlap"
+        },
+        {
+          "name": "merge_rank_rho",
+          "dtype": "float",
+          "description": "Spearman \u03c1 of token IDs for shared tokens"
+        },
+        {
+          "name": "boundary_frac_diff",
+          "dtype": "float",
+          "description": "|boundary_token_fraction_A - boundary_token_fraction_B|"
+        },
+        {
+          "name": "kl_divergence",
+          "dtype": "float",
+          "description": "KL divergence of per-head R\u00b2 distributions"
+        },
+        {
+          "name": "r2_rank_rho",
+          "dtype": "float",
+          "description": "Spearman \u03c1 of per-head R\u00b2 rank (by layer-head position)"
+        },
+        {
+          "name": "mean_r2_gap",
+          "dtype": "float",
+          "description": "|mean_R\u00b2_A - mean_R\u00b2_B|"
+        }
+      ]
+    }
+  ]
+}

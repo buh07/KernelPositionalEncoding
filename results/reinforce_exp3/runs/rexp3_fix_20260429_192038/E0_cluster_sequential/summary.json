@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-04-30 16:11:03",
+  "experiment_id": "E0",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "timestamp": "2026-04-30 16:11:03",
+    "experiment_id": "E0",
+    "per_model_verdicts": {
+      "llama-3.1-8b": "redundancy_consistent",
+      "olmo-2-7b": "redundancy_consistent",
+      "mistral-7b-v0.1": "redundancy_consistent"
+    },
+    "p_seq_lt_int_raw": {
+      "llama-3.1-8b": 0.5511,
+      "olmo-2-7b": 0.596,
+      "mistral-7b-v0.1": 0.3698
+    },
+    "p_seq_lt_int_holm": {
+      "llama-3.1-8b": 1.0,
+      "olmo-2-7b": 1.0,
+      "mistral-7b-v0.1": 1.0
+    },
+    "n_redundancy_consistent": 3,
+    "n_cluster_structure_consistent": 0,
+    "n_inconclusive": 0,
+    "overall_verdict": "redundancy_consistent"
+  },
+  "limitations": [
+    "Cluster imbalance (Llama cluster 1 = 77% of high-SI heads) reduces discriminative power for that model.",
+    "Only 3 cluster types per model; within-cluster variance uncharacterized.",
+    "Permutation test power depends on n_tau_fits; underpowered if few task \u00d7 metric combinations pass threshold-piecewise fit."
+  ]
+}

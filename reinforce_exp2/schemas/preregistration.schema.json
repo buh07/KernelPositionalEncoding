@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reinforce_exp2/preregistration.schema.json",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "question",
+    "primary_hypothesis",
+    "primary_endpoints",
+    "secondary_endpoints",
+    "model_list",
+    "dataset_sources",
+    "inclusion_exclusion_rules",
+    "sample_size_plan",
+    "seed_plan",
+    "stopping_rule",
+    "multiplicity_family",
+    "acceptance_criteria",
+    "fallback_interpretation_if_null"
+  ],
+  "properties": {
+    "experiment_id": { "type": "string" },
+    "question": { "type": "string" },
+    "primary_hypothesis": { "type": "string" },
+    "primary_endpoints": { "type": "array", "items": { "type": "string" } },
+    "secondary_endpoints": { "type": "array", "items": { "type": "string" } },
+    "model_list": { "type": "array", "items": { "type": "string" } },
+    "dataset_sources": { "type": "array", "items": { "type": "string" } },
+    "inclusion_exclusion_rules": { "type": "array", "items": { "type": "string" } },
+    "sample_size_plan": { "type": "object" },
+    "seed_plan": { "type": "object" },
+    "stopping_rule": { "type": "string" },
+    "multiplicity_family": { "type": "array", "items": { "type": "string" } },
+    "acceptance_criteria": { "type": "array", "items": { "type": "string" } },
+    "fallback_interpretation_if_null": { "type": "string" }
+  },
+  "additionalProperties": true
+}

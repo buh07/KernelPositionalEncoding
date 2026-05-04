@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-05-03 17:27:04",
+  "experiment_id": "E28B",
+  "n_models": 3,
+  "n_model_pass": 3,
+  "interpretation": "si_over_importance_supported",
+  "pooled_mean_delta_true_si_vs_importance": 2.2800196781754494,
+  "per_model": [
+    {
+      "timestamp": "2026-05-03 16:11:13",
+      "experiment_id": "E28B",
+      "model": "llama-3.1-8b",
+      "n_eval_seqs": 64,
+      "n_cal_eval_seqs": 8,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 4.037933272309601,
+      "importance_mean_delta": 0.43313204403966665,
+      "delta_true_si_vs_importance": 3.6048012282699347,
+      "ci_delta_true_si_vs_importance": [
+        3.5141541292890905,
+        3.700499447714537
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 4678.345845460892
+    },
+    {
+      "timestamp": "2026-05-03 15:43:49",
+      "experiment_id": "E28B",
+      "model": "mistral-7b-v0.1",
+      "n_eval_seqs": 64,
+      "n_cal_eval_seqs": 8,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 3.2785435244441032,
+      "importance_mean_delta": 0.06997541710734367,
+      "delta_true_si_vs_importance": 3.2085681073367596,
+      "ci_delta_true_si_vs_importance": [
+        3.139738362748176,
+        3.27775032077916
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 4360.36416220665
+    },
+    {
+      "timestamp": "2026-05-03 17:26:19",
+      "experiment_id": "E28B",
+      "model": "olmo-2-7b",
+      "n_eval_seqs": 64,
+      "n_cal_eval_seqs": 8,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 0.0394468754529953,
+      "importance_mean_delta": 0.012757176533341408,
+      "delta_true_si_vs_importance": 0.026689698919653893,
+      "ci_delta_true_si_vs_importance": [
+        0.016723124030977487,
+        0.03813306130468844
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 5360.670973777771
+    }
+  ]
+}

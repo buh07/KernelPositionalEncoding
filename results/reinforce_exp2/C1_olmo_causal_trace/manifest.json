@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-04-25 03:30:41",
+  "experiment_id": "C1_olmo_causal_trace",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_c1_olmo_causal_trace.py",
+  "model": "llama-3.1-8b+olmo-2-7b",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "device_map": {
+    "llama-3.1-8b": "cuda:0",
+    "olmo-2-7b": "cuda:0"
+  },
+  "n_examples": 1024,
+  "seq_len": 512,
+  "candidate_size": 12,
+  "seed": 20260417
+}

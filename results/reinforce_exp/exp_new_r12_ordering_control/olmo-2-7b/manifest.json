@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-04-18 19:55:19",
+  "experiment_id": "NEW-R12",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "single_model",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "fractions": [
+    0,
+    1,
+    2,
+    5,
+    10,
+    15,
+    20,
+    25,
+    50
+  ],
+  "num_orderings": 10,
+  "num_seeds": 3,
+  "output_root": "results/reinforce_exp/exp_new_r12_ordering_control"
+}

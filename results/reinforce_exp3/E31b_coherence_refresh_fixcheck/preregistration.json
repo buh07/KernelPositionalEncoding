@@ -1,0 +1,5 @@
+{
+  "experiment_id": "E31B",
+  "question": "Does the PE coherence-gap lens remain predictive of SI amplitude on an expanded existing-model panel?",
+  "primary_endpoint": "correlation between eta_welch_gap and mean_r2"
+}

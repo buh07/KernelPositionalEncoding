@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-04-18 04:03:43",
+  "experiment": "R5B",
+  "model": "llama-3.1-8b",
+  "rows": [
+    {
+      "regime": "boundary_dense",
+      "proxy_regime": "boundary_dense",
+      "task_sign_delta": -0.035818142361111104,
+      "proxy_sign_delta": NaN,
+      "sign_match": null
+    },
+    {
+      "regime": "high_uncertainty",
+      "proxy_regime": "high_uncertainty_tokens",
+      "task_sign_delta": -0.029687500000000002,
+      "proxy_sign_delta": 0.7879385672439793,
+      "sign_match": false
+    },
+    {
+      "regime": "long_span_retrieval",
+      "proxy_regime": "long_span_retrieval",
+      "task_sign_delta": 0.004926215277777775,
+      "proxy_sign_delta": 1.2606018625286923,
+      "sign_match": true
+    },
+    {
+      "regime": "rare_token_context",
+      "proxy_regime": "rare_token_context",
+      "task_sign_delta": -0.0012499999999999966,
+      "proxy_sign_delta": NaN,
+      "sign_match": null
+    }
+  ]
+}

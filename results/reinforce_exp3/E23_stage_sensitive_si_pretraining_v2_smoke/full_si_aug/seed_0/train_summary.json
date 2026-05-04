@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-05-02 18:37:10",
+  "experiment_id": "E23",
+  "arm": "full_si_aug",
+  "seed": 0,
+  "runtime_sec": 174.40518879890442,
+  "smoke": true,
+  "token_budget": 2000000,
+  "steps": 245,
+  "tokens_per_step": 8192,
+  "effective_tokens": 2007040,
+  "train_config": {
+    "seq_len": 128,
+    "micro_batch": 16,
+    "grad_accum": 4,
+    "lr": 0.0003,
+    "warmup_frac": 0.05,
+    "weight_decay": 0.01,
+    "grad_clip": 1.0,
+    "lambda_consistency": 0.2,
+    "seen_offsets": [
+      8,
+      16,
+      24,
+      32,
+      40
+    ],
+    "unseen_offsets": [
+      12,
+      20,
+      28,
+      36,
+      44
+    ]
+  },
+  "model_config": {
+    "hidden_size": 384,
+    "num_hidden_layers": 10,
+    "num_attention_heads": 6,
+    "num_key_value_heads": 6,
+    "intermediate_size": 1536,
+    "max_position_embeddings": 256,
+    "vocab_size": 192,
+    "rope_theta": 10000.0
+  },
+  "metrics": {
+    "arith_unseen_acc": 0.058333333333333334,
+    "copy_unseen_acc": 1.0,
+    "joint_unseen_score": 0.5291666666666667,
+    "arith_seen_acc": 0.1,
+    "copy_seen_acc": 1.0,
+    "arith_unseen_logprob": -2.326540243625641,
+    "copy_unseen_logprob": -0.01988246402858446,
+    "si_mean_r2": 0.3229781989980644,
+    "si_median_r2": 0.32432939604086064,
+    "si_q75_r2": 0.4298370016886139,
+    "kernel_specificity_support": false
+  }
+}

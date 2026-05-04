@@ -1,0 +1,34 @@
+{
+  "n_models": 3,
+  "n_valid_models": 3,
+  "n_icl_preferential": 3,
+  "mean_accuracy_sensitivity_ratio": 46.13636363636364,
+  "interpretation": "icl_specific_degradation",
+  "note": "ICL accuracy loss > non-ICL loss (ratio=46.14) in all 3 valid models. SI heads are preferentially serving ICL-relevant computation, linking them to the induction-head mechanism (Olsson et al. 2022).",
+  "per_model": [
+    {
+      "model": "llama-3.1-8b",
+      "ratio": 86.0,
+      "preferential": true,
+      "model_level_status": "supported",
+      "acc_denominator_valid": true,
+      "lp_denominator_valid": true
+    },
+    {
+      "model": "olmo-2-7b",
+      "ratio": 6.272727272727273,
+      "preferential": true,
+      "model_level_status": "supported",
+      "acc_denominator_valid": true,
+      "lp_denominator_valid": true
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "ratio": NaN,
+      "preferential": true,
+      "model_level_status": "supported",
+      "acc_denominator_valid": false,
+      "lp_denominator_valid": true
+    }
+  ]
+}

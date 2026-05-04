@@ -1,0 +1,447 @@
+{
+  "timestamp": "2026-04-18 18:46:14",
+  "experiment_id": "B1_kernel_taxonomy",
+  "rows": [
+    {
+      "cluster": 0,
+      "layer": 1,
+      "n_cluster": 11,
+      "n_noncluster": 21,
+      "hedges_g": -0.11779075158314883,
+      "variance": 0.13875938288078057,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 2,
+      "n_cluster": 5,
+      "n_noncluster": 27,
+      "hedges_g": -0.6390078565896756,
+      "variance": 0.2438425543834259,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 3,
+      "n_cluster": 14,
+      "n_noncluster": 18,
+      "hedges_g": -0.6989640564008113,
+      "variance": 0.13512663951979825,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 4,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": -0.7040427461925381,
+      "variance": 0.13375146588620354,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 5,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": -0.5428096963480694,
+      "variance": 0.13040090218592276,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 6,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": -1.3558866614339473,
+      "variance": 0.15613067338933964,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 7,
+      "n_cluster": 13,
+      "n_noncluster": 19,
+      "hedges_g": -0.6159586957856382,
+      "variance": 0.13587807445234443,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 12,
+      "n_cluster": 16,
+      "n_noncluster": 16,
+      "hedges_g": -0.8112899048316768,
+      "variance": 0.1359698551613632,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 16,
+      "n_cluster": 18,
+      "n_noncluster": 14,
+      "hedges_g": 0.01075630143755744,
+      "variance": 0.12698605528447057,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 17,
+      "n_cluster": 22,
+      "n_noncluster": 10,
+      "hedges_g": -1.5633389146377747,
+      "variance": 0.18618835482155904,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 18,
+      "n_cluster": 19,
+      "n_noncluster": 13,
+      "hedges_g": -0.35320086845438237,
+      "variance": 0.13163383676172752,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 19,
+      "n_cluster": 22,
+      "n_noncluster": 10,
+      "hedges_g": -0.294966405779035,
+      "variance": 0.14690463179684882,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 20,
+      "n_cluster": 22,
+      "n_noncluster": 10,
+      "hedges_g": -0.9813573207415556,
+      "variance": 0.16150558197076287,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 21,
+      "n_cluster": 19,
+      "n_noncluster": 13,
+      "hedges_g": -1.5496994630006828,
+      "variance": 0.1695807962975221,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 23,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": -0.8411802066325563,
+      "variance": 0.13728326507893787,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 24,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": 0.08761323498266575,
+      "variance": 0.12561813072750017,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 25,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": 0.5707968440110648,
+      "variance": 0.13092034669731456,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 28,
+      "n_cluster": 20,
+      "n_noncluster": 12,
+      "hedges_g": 0.027419650251591116,
+      "variance": 0.13334586395366532,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 0,
+      "layer": 31,
+      "n_cluster": 12,
+      "n_noncluster": 20,
+      "hedges_g": 0.289243116283374,
+      "variance": 0.1347276930052886,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 1,
+      "n_cluster": 21,
+      "n_noncluster": 11,
+      "hedges_g": 0.11779075158314883,
+      "variance": 0.13875938288078057,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 3,
+      "n_cluster": 18,
+      "n_noncluster": 14,
+      "hedges_g": 0.6989640564008113,
+      "variance": 0.13512663951979825,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 4,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": 0.7040427461925381,
+      "variance": 0.13375146588620354,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 5,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": 0.5428096963480694,
+      "variance": 0.13040090218592276,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 6,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": 1.3558866614339473,
+      "variance": 0.15613067338933964,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 7,
+      "n_cluster": 19,
+      "n_noncluster": 13,
+      "hedges_g": 0.6159586957856382,
+      "variance": 0.13587807445234443,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 8,
+      "n_cluster": 7,
+      "n_noncluster": 25,
+      "hedges_g": 1.733759844068971,
+      "variance": 0.23295586280557723,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 9,
+      "n_cluster": 7,
+      "n_noncluster": 25,
+      "hedges_g": 1.4377551615707191,
+      "variance": 0.2173094746008636,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 10,
+      "n_cluster": 7,
+      "n_noncluster": 25,
+      "hedges_g": 1.204000540267762,
+      "variance": 0.20701743120656058,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 11,
+      "n_cluster": 5,
+      "n_noncluster": 27,
+      "hedges_g": 1.4022534941458542,
+      "variance": 0.269808951401108,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 12,
+      "n_cluster": 16,
+      "n_noncluster": 16,
+      "hedges_g": 0.8112899048316768,
+      "variance": 0.1359698551613632,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 13,
+      "n_cluster": 3,
+      "n_noncluster": 29,
+      "hedges_g": 2.302685225643917,
+      "variance": 0.4561887460940026,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 14,
+      "n_cluster": 5,
+      "n_noncluster": 27,
+      "hedges_g": 1.6312142070993412,
+      "variance": 0.2813847001944159,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 15,
+      "n_cluster": 9,
+      "n_noncluster": 23,
+      "hedges_g": 1.7983595834071142,
+      "variance": 0.20849099183454647,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 16,
+      "n_cluster": 14,
+      "n_noncluster": 18,
+      "hedges_g": -0.01075630143755744,
+      "variance": 0.12698605528447057,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 17,
+      "n_cluster": 10,
+      "n_noncluster": 22,
+      "hedges_g": 1.5633389146377747,
+      "variance": 0.18618835482155904,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 18,
+      "n_cluster": 13,
+      "n_noncluster": 19,
+      "hedges_g": 0.35320086845438237,
+      "variance": 0.13163383676172752,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 19,
+      "n_cluster": 10,
+      "n_noncluster": 22,
+      "hedges_g": 0.294966405779035,
+      "variance": 0.14690463179684882,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 20,
+      "n_cluster": 10,
+      "n_noncluster": 22,
+      "hedges_g": 0.9813573207415556,
+      "variance": 0.16150558197076287,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 21,
+      "n_cluster": 13,
+      "n_noncluster": 19,
+      "hedges_g": 1.5496994630006828,
+      "variance": 0.1695807962975221,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 22,
+      "n_cluster": 8,
+      "n_noncluster": 24,
+      "hedges_g": 0.5709915444236677,
+      "variance": 0.17210052239672208,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 23,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": 0.8411802066325563,
+      "variance": 0.13728326507893787,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 24,
+      "n_cluster": 15,
+      "n_noncluster": 17,
+      "hedges_g": -0.08761323498266575,
+      "variance": 0.12561813072750017,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 25,
+      "n_cluster": 17,
+      "n_noncluster": 15,
+      "hedges_g": -0.5707968440110648,
+      "variance": 0.13092034669731456,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 26,
+      "n_cluster": 4,
+      "n_noncluster": 28,
+      "hedges_g": 0.6915684025277246,
+      "variance": 0.2936853999705315,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 27,
+      "n_cluster": 8,
+      "n_noncluster": 24,
+      "hedges_g": -0.3033317375331354,
+      "variance": 0.1682001690499145,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 28,
+      "n_cluster": 12,
+      "n_noncluster": 20,
+      "hedges_g": -0.027419650251591116,
+      "variance": 0.13334586395366532,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 29,
+      "n_cluster": 9,
+      "n_noncluster": 23,
+      "hedges_g": 0.6227439731244164,
+      "variance": 0.16105287291505604,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 30,
+      "n_cluster": 4,
+      "n_noncluster": 28,
+      "hedges_g": -1.6500252800849295,
+      "variance": 0.3310906761296082,
+      "model": "llama-3.1-8b"
+    },
+    {
+      "cluster": 1,
+      "layer": 31,
+      "n_cluster": 19,
+      "n_noncluster": 13,
+      "hedges_g": -0.22562824558201797,
+      "variance": 0.130403124290519,
+      "model": "llama-3.1-8b"
+    }
+  ]
+}

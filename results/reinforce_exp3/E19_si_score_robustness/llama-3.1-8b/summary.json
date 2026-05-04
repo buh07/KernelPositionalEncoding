@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-05-02 01:45:24",
+  "experiment_id": "E19",
+  "model": "llama-3.1-8b",
+  "runtime_sec": 4844.600465536118,
+  "num_domains": 3,
+  "num_sequences_per_domain_requested": 50,
+  "num_sequences_per_domain_actual": 41,
+  "domain_raw_counts": {
+    "wiki": 50,
+    "code": 41,
+    "dialogue": 50
+  },
+  "seq_len": 512,
+  "mean_abs_delta_offset_reweight": 0.02576372571311225,
+  "mean_abs_delta_equalcount_proxy": 0.06344282300701738,
+  "mean_abs_transfer_minus_indomain": 0.04087383117152564,
+  "robustness_pass": true,
+  "per_domain": [
+    {
+      "domain": "wiki",
+      "n_sequences_used": 41,
+      "n_sequences_loaded_raw": 50,
+      "mean_r2_baseline": 0.29079328482203726,
+      "mean_r2_offset_reweighted": 0.26581849087702525,
+      "mean_r2_equalcount_proxy": 0.22694060656965181,
+      "delta_offset_reweighted": -0.024974793945012008,
+      "delta_equalcount_proxy": -0.06385267825238544
+    },
+    {
+      "domain": "code",
+      "n_sequences_used": 41,
+      "n_sequences_loaded_raw": 41,
+      "mean_r2_baseline": 0.29837150558104664,
+      "mean_r2_offset_reweighted": 0.2690870050041024,
+      "mean_r2_equalcount_proxy": 0.232541216498884,
+      "delta_offset_reweighted": -0.02928450057694426,
+      "delta_equalcount_proxy": -0.06583028908216262
+    },
+    {
+      "domain": "dialogue",
+      "n_sequences_used": 41,
+      "n_sequences_loaded_raw": 50,
+      "mean_r2_baseline": 0.29835746753414266,
+      "mean_r2_offset_reweighted": 0.2753255849167622,
+      "mean_r2_equalcount_proxy": 0.2377119658476386,
+      "delta_offset_reweighted": -0.023031882617380484,
+      "delta_equalcount_proxy": -0.060645501686504066
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A1_evidence_consolidation",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "strict_only": true,
+  "notes": [
+    "A1 is a governance/traceability gate for claim promotion."
+  ]
+}

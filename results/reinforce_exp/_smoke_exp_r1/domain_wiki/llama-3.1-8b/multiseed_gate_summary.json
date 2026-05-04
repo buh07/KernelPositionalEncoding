@@ -1,0 +1,63 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-16 16:54:17",
+  "input_root": "results/reinforce_exp/_smoke_exp_r1/domain_wiki",
+  "canonical_output_root": "results/reinforce_exp/_smoke_exp_r1/canonical/domain_wiki",
+  "decision_rule": {
+    "per_seed_flag": {
+      "diff_fake_minus_real_with_prefix_ge": 0.005,
+      "cohens_d_ge": 0.2,
+      "p_one_sided_lt": 0.05
+    },
+    "meta_test": "weighted_stouffer_one_sided",
+    "weight": "sqrt(n_fake_with_prefix)",
+    "stable_blocked_rule": {
+      "min_flagged_seeds": 9,
+      "meta_p_one_lt": 0.01,
+      "pooled_diff_ge": 0.005
+    },
+    "stable_clean_rule": {
+      "max_flagged_seeds": 2,
+      "meta_p_one_gt": 0.2,
+      "pooled_diff_le": 0.0
+    }
+  },
+  "seeds_requested": [
+    99
+  ],
+  "seeds_completed": [
+    99
+  ],
+  "missing_seeds": [],
+  "seed_rows": [
+    {
+      "seed": 99,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/_smoke_exp_r1/domain_wiki/seed99/llama-3.1-8b",
+        "post": "results/reinforce_exp/_smoke_exp_r1/domain_wiki/seed99/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/_smoke_exp_r1/domain_wiki/seed99/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/_smoke_exp_r1/domain_wiki/seed99/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0038937253478104755,
+      "cohens_d_fake_minus_real": 0.10792959951080003,
+      "p_one_sided_fake_gt_real": 0.11500752402639267,
+      "n_fake_with_prefix": 64,
+      "n_real_with_prefix": 3291,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    }
+  ],
+  "pooled": {
+    "n_completed": 1,
+    "n_flagged": 0,
+    "meta_p_one": 0.11500752402639275,
+    "pooled_diff_fake_minus_real_with_prefix": 0.0038937253478104755,
+    "pooled_cohens_d": 0.10792959951080003
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

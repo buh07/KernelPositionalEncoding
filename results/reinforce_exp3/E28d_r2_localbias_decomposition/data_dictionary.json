@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E28D",
+  "tables": [
+    {
+      "path": "<model>/head_r2_decomposition.parquet",
+      "description": "Per-head decomposition into full/local/excess R\u00b2.",
+      "columns": []
+    },
+    {
+      "path": "<model>/bin_level_decomposition_vs_disruption.parquet",
+      "description": "Bin-level means and disruption linkage used for correlations.",
+      "columns": []
+    }
+  ]
+}

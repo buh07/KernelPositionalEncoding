@@ -1,0 +1,49 @@
+{
+  "position_rows": [
+    {
+      "position_slot": 0,
+      "accuracy": 0.709375,
+      "n_total": 320,
+      "correct": 227
+    },
+    {
+      "position_slot": 64,
+      "accuracy": 0.68125,
+      "n_total": 320,
+      "correct": 218
+    },
+    {
+      "position_slot": 128,
+      "accuracy": 0.6875,
+      "n_total": 320,
+      "correct": 220
+    },
+    {
+      "position_slot": 192,
+      "accuracy": 0.68125,
+      "n_total": 320,
+      "correct": 218
+    },
+    {
+      "position_slot": 256,
+      "accuracy": 0.671875,
+      "n_total": 320,
+      "correct": 215
+    },
+    {
+      "position_slot": 384,
+      "accuracy": 0.66875,
+      "n_total": 320,
+      "correct": 214
+    },
+    {
+      "position_slot": 512,
+      "accuracy": 0.66875,
+      "n_total": 320,
+      "correct": 214
+    }
+  ],
+  "mean_accuracy": 0.68125,
+  "std_accuracy": 0.013258252147247771,
+  "max_minus_min": 0.04062500000000002
+}

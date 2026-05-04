@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-03 16:11:32",
+  "experiment_id": "E28D",
+  "model": "llama-3.1-8b",
+  "n_bins": 20,
+  "rho_full_vs_disruption": 0.9488721804511278,
+  "p_full_vs_disruption": 1.8821698161170128e-10,
+  "rho_excess_vs_disruption": 0.8887218045112781,
+  "p_excess_vs_disruption": 1.648527413023587e-07,
+  "supports_nontrivial_excess_tracking": true
+}

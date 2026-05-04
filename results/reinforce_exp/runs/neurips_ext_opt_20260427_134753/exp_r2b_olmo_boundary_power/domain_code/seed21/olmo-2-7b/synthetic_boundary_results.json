@@ -1,0 +1,77 @@
+{
+  "method": "full_adversarial_forward_pass",
+  "note": "Synthetic 2x2 boundary control computed from fresh attention forward passes on adversarially perturbed token sequences.",
+  "replacement_meta": {
+    "boundary_candidates_available": 8948,
+    "nonboundary_candidates_available": 5521,
+    "boundary_replacements_applied": 1200,
+    "nonboundary_replacements_applied": 1200
+  },
+  "cells": {
+    "fake_boundary_with_prefix": {
+      "cell": "fake_boundary_with_prefix",
+      "mean_high_prev_attn": 0.02397753127143441,
+      "std_high_prev_attn": 0.026011729967342783,
+      "mean_low_prev_attn": 0.011417378095382255,
+      "std_low_prev_attn": 0.023679303225699097,
+      "n": 1200
+    },
+    "fake_boundary_without_prefix": {
+      "cell": "fake_boundary_without_prefix",
+      "mean_high_prev_attn": 0.02503292829044561,
+      "std_high_prev_attn": 0.032796799796766925,
+      "mean_low_prev_attn": 0.01282644142126408,
+      "std_low_prev_attn": 0.03063422368299429,
+      "n": 9706
+    },
+    "real_boundary_with_prefix": {
+      "cell": "real_boundary_with_prefix",
+      "mean_high_prev_attn": 0.02983910950241301,
+      "std_high_prev_attn": 0.03600651469471857,
+      "mean_low_prev_attn": 0.012748081272170024,
+      "std_low_prev_attn": 0.03444184755928597,
+      "n": 9012
+    },
+    "real_boundary_without_prefix": {
+      "cell": "real_boundary_without_prefix",
+      "mean_high_prev_attn": 0.029250058496483843,
+      "std_high_prev_attn": 0.031643105681426136,
+      "mean_low_prev_attn": 0.011360941196618393,
+      "std_low_prev_attn": 0.02956858644152295,
+      "n": 1033
+    }
+  },
+  "prefix_following_artifact_flag": false,
+  "prefix_following_artifact_flag_legacy_binary": false,
+  "prefix_following_assessment": {
+    "n_fake_with_prefix": 1200,
+    "n_real_with_prefix": 9012,
+    "mean_fake_with_prefix": 0.02397753127143441,
+    "mean_real_with_prefix": 0.029839109502413017,
+    "fake_minus_real_diff": -0.005861578230978607,
+    "t_statistic": -6.967698295342464,
+    "p_two_sided": 4.445572007224479e-12,
+    "p_one_sided_fake_gt_real": 0.9999999999977772,
+    "cohens_d_fake_minus_real": -0.16756419698612748,
+    "rule": {
+      "alpha_one_sided": 0.05,
+      "min_cohens_d": 0.2,
+      "min_abs_diff": 0.005,
+      "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+    },
+    "artifact_flag_statistical": false
+  },
+  "comparisons": {
+    "fake_minus_real_with_prefix": -0.0058615782309786,
+    "real_minus_fake_without_prefix": 0.004217130206038231
+  },
+  "acceptance_rule_inputs": {
+    "fake_boundary_with_prefix": 0.02397753127143441,
+    "real_boundary_with_prefix": 0.02983910950241301,
+    "alpha_one_sided": 0.05,
+    "min_cohens_d": 0.2,
+    "min_abs_diff": 0.005
+  },
+  "domain": "code",
+  "seed": 21
+}

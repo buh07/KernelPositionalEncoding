@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-15 10:37:56",
+  "model": "llama-3.1-8b",
+  "condition": "h_si_distillation_student",
+  "seed": 0,
+  "elapsed_sec": 228.92224097251892,
+  "temperature": 2.0,
+  "alpha_distill": 0.7,
+  "lora": {
+    "trainable_params": 6815744,
+    "total_params": 8037076992
+  }
+}

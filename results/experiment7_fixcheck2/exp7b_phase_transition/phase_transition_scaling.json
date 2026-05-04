@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-05-04 14:48:59",
+  "experiment": "7B",
+  "status": "completed",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "seq_lens": [
+    256
+  ],
+  "epsilon": 0.01,
+  "calibration": {
+    "requested_mode": "single_condition",
+    "mode_used": "single_condition",
+    "model": "llama-3.1-8b",
+    "seq_len": 256,
+    "c_hat": 7.057219330782029,
+    "c_hat_single": 7.057219330782029,
+    "c_hat_global": 7.057219330782029,
+    "single_condition_available": true
+  },
+  "prediction_vs_observed": {
+    "pearson_r": NaN,
+    "pearson_p": NaN,
+    "spearman_rho": NaN,
+    "spearman_p": NaN
+  },
+  "prediction_vs_observed_out_of_sample": {
+    "excluded_condition": {
+      "model": "llama-3.1-8b",
+      "seq_len": 256
+    },
+    "pearson_r": NaN,
+    "pearson_p": NaN,
+    "spearman_rho": NaN,
+    "spearman_p": NaN,
+    "n_conditions": 0
+  },
+  "artifacts": {
+    "effective_sparsity": "results/experiment7_fixcheck2/exp7b_phase_transition/effective_sparsity.parquet",
+    "mstar_predictions": "results/experiment7_fixcheck2/exp7b_phase_transition/mstar_predictions.parquet",
+    "c1_root": "results/experiment7_fixcheck2/exp7b_phase_transition/c1_runs"
+  }
+}

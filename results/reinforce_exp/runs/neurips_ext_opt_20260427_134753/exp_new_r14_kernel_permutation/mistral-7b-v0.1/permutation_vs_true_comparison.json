@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-04-27 22:05:46",
+  "experiment": "NEW-R14",
+  "model": "mistral-7b-v0.1",
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/estimated_kernels.json",
+  "n_sequences": 100,
+  "n_high_si_heads": 256,
+  "true_mean_loss_delta": 3.4873225855827332,
+  "permuted_mean_loss_delta": 0.294745818734169,
+  "specificity_ratio_true_over_permuted": 11.831626994946268,
+  "permutations": [
+    {
+      "perm_id": 0,
+      "perm_seed": 20260417,
+      "mean_loss_delta": 0.3254755890369415,
+      "std_loss_delta": 0.09468221384109032
+    },
+    {
+      "perm_id": 1,
+      "perm_seed": 20268336,
+      "mean_loss_delta": 0.3098015284538269,
+      "std_loss_delta": 0.10121336232023484
+    },
+    {
+      "perm_id": 2,
+      "perm_seed": 20276255,
+      "mean_loss_delta": 0.5196708190441132,
+      "std_loss_delta": 0.24044091781464852
+    },
+    {
+      "perm_id": 3,
+      "perm_seed": 20284174,
+      "mean_loss_delta": 0.14822334051132202,
+      "std_loss_delta": 0.05231152716915624
+    },
+    {
+      "perm_id": 4,
+      "perm_seed": 20292093,
+      "mean_loss_delta": 0.17055781662464142,
+      "std_loss_delta": 0.07717823500059082
+    }
+  ]
+}

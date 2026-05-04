@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-04-14 17:03:21",
+  "experiment": "7A",
+  "status": "completed",
+  "input_source": "experiment1/experiment1results.md",
+  "n_track_a_rows": 36,
+  "n_models": 6,
+  "seq_lens": [
+    256,
+    1024
+  ],
+  "fit_alpha": 0.6656305946476992,
+  "prediction_vs_observed": {
+    "pearson_r": -0.7928353514594716,
+    "pearson_p": 8.213071442725619e-09,
+    "pearson_ci95_bootstrap": [
+      -0.8909978935140042,
+      -0.5917967573671473
+    ],
+    "spearman_rho": -0.509455846512001,
+    "spearman_p": 0.0015059531415558456
+  },
+  "mu1_vs_observed": {
+    "pearson_r": 0.7929135828946312,
+    "pearson_p": 8.165821123538195e-09,
+    "spearman_rho": 0.509455846512001,
+    "spearman_p": 0.0015059531415558456
+  },
+  "artifacts": {
+    "coherence_profiles": "results/experiment7_smoke/exp7a_welch_r2/coherence_profiles.parquet",
+    "welch_gap_summary": "results/experiment7_smoke/exp7a_welch_r2/welch_gap_summary.parquet",
+    "prediction_table": "results/experiment7_smoke/exp7a_welch_r2/r2_prediction_table.parquet"
+  }
+}

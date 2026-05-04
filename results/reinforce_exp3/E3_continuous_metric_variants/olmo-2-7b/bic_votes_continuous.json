@@ -1,0 +1,14 @@
+{
+  "local_keymatch_logprob": {
+    "preferred_model": "threshold_piecewise",
+    "linear_bic": -0.1307270565061991,
+    "threshold_piecewise_bic": -1.6974010787152096,
+    "logistic_sigmoid_bic": 22.47762650863516
+  },
+  "longrange_retrieval_logprob": {
+    "preferred_model": "threshold_piecewise",
+    "linear_bic": 3.5124402908014063,
+    "threshold_piecewise_bic": -7.0558092582974385,
+    "logistic_sigmoid_bic": 18.618160821633413
+  }
+}

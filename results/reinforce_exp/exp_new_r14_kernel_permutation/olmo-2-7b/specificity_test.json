@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-18 03:56:23",
+  "experiment": "NEW-R14",
+  "model": "olmo-2-7b",
+  "mean_diff_true_minus_permuted": 0.042692993164062505,
+  "bootstrap_ci95": [
+    0.032944764813780794,
+    0.05414053820967676
+  ],
+  "p_one_bootstrap_true_gt_permuted": 0.0001999600079984003,
+  "t_stat": 7.835493776074344,
+  "p_one_ttest_true_gt_permuted": 2.6967715599351744e-12,
+  "supports_specificity": true
+}

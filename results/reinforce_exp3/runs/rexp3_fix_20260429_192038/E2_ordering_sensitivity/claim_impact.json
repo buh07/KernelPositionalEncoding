@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-01 10:33:33",
+  "experiment_id": "E2",
+  "claim_status": "pending",
+  "supports_main_text": false,
+  "strict_only": false,
+  "notes": [
+    "Update R12 table in paper if Llama fine-grid count changes.",
+    "Report batch-size insensitivity as robustness note if OLMo batch-5 passes."
+  ]
+}

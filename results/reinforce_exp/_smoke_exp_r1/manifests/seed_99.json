@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-04-16 16:35:45",
+  "experiment_id": "EXP-R1",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "llama-3.1-8b",
+  "seed_set": [
+    99
+  ],
+  "domains": [
+    "wiki"
+  ],
+  "num_sequences": 8,
+  "synthetic_target_per_cell": 64,
+  "output_root": "results/reinforce_exp/_smoke_exp_r1",
+  "elapsed_sec": 282.9362781047821,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 99,
+      "n_sequences": 8,
+      "fake_minus_real_with_prefix": 0.0038937253478104755,
+      "cohens_d_fake_minus_real": 0.10792959951080003,
+      "p_one_sided_fake_gt_real": 0.11500752402639267,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/_smoke_exp_r1/domain_wiki/seed99/llama-3.1-8b",
+      "elapsed_sec": 282.93621826171875
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 01:52:11",
+  "experiment_id": "E18",
+  "claim_status": "mixed",
+  "supports_main_text": true,
+  "notes": [
+    "ICL-selective SI-degradation is model-conditional after confound controls."
+  ],
+  "outcome_summary": "ICL-selective SI-degradation is model-conditional after confound controls."
+}

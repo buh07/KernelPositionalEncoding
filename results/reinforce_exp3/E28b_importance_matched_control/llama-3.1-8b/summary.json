@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-03 16:11:13",
+  "experiment_id": "E28B",
+  "model": "llama-3.1-8b",
+  "n_eval_seqs": 64,
+  "n_cal_eval_seqs": 8,
+  "n_high_si_heads": 256,
+  "n_importance_non_si_heads": 256,
+  "si_mean_delta": 4.037933272309601,
+  "importance_mean_delta": 0.43313204403966665,
+  "delta_true_si_vs_importance": 3.6048012282699347,
+  "ci_delta_true_si_vs_importance": [
+    3.5141541292890905,
+    3.700499447714537
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 4678.345845460892
+}

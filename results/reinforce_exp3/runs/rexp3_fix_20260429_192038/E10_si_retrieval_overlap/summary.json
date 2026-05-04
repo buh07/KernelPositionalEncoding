@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E10",
+  "status": "complete",
+  "models_run": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "interpretation": "disjoint_populations",
+  "mean_jaccard": 0.04677209130650426,
+  "timestamp_start": "2026-04-30 19:08:35",
+  "timestamp_end": "2026-04-30 19:08:35"
+}

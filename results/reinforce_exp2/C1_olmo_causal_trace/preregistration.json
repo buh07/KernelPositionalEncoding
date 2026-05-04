@@ -1,0 +1,40 @@
+{
+  "experiment_id": "C1_olmo_causal_trace",
+  "question": "Which head sets carry position-sensitive restoration under explicit positional corruption?",
+  "primary_hypothesis": "Llama restoration is SI-concentrated while OLMo uses non-SI content-conditional carriers.",
+  "primary_endpoints": [
+    "restoration ratio by head set",
+    "cross-model interaction",
+    "OLMo ContentCond > LowSI"
+  ],
+  "secondary_endpoints": [
+    "set-size diagnostics"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "synthetic position-diagnostic tasks generated via experiment2/tasks.py",
+    "fastText cc.en.300 static embeddings"
+  ],
+  "inclusion_exclusion_rules": [
+    "Confirmatory phenomena: copy_offset/indexed_retrieval/controlled_permutation.",
+    "Require (A_clean - A_corrupt) >= 0.05 for confirmatory RR rows.",
+    "Calibration/evaluation sequence overlap forces exploratory tier."
+  ],
+  "sample_size_plan": {
+    "n_examples_per_phenomenon": 1024
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after all model/head-set RR metrics and interaction fit are computed.",
+  "multiplicity_family": [
+    "{interaction, olmo_content_gt_low}"
+  ],
+  "acceptance_criteria": [
+    "C1.6 criteria per TODO (operationalized in script)."
+  ],
+  "fallback_interpretation_if_null": "Downgrade C-path and retain B/A narrative."
+}

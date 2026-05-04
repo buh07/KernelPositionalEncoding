@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-04-28 07:48:16",
+  "experiment": "NEW-R12",
+  "model": "llama-3.1-8b",
+  "n_orderings": 5,
+  "ordering_id_start": 5,
+  "ordering_id_stop": 10,
+  "n_threshold_majority": 3,
+  "fraction_threshold_majority": 0.6,
+  "robustness_assessment": "partial_replication",
+  "acceptance_thresholds": {
+    "strong_replication_ge": 0.8,
+    "partial_replication_ge": 0.5
+  },
+  "mean_random_bic_delta_linear_minus_threshold": 25.02025739573903,
+  "std_random_bic_delta_linear_minus_threshold": 2.943812929963141,
+  "mean_random_bic_delta_logistic_minus_threshold": 4.875425969998835,
+  "std_random_bic_delta_logistic_minus_threshold": 2.1478515121519886,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 1,
+    "long_range_retrieval::span48": 1
+  },
+  "effective_batch_size_ntp": 1,
+  "ntp_coverage": {
+    "requested_total": 300,
+    "available_total": 300,
+    "effective_per_seed": 100,
+    "total_used": 300,
+    "reuse_mode": "strict_split"
+  }
+}

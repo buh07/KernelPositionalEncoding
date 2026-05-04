@@ -1,0 +1,169 @@
+{
+  "timestamp": "2026-04-23 00:01:15",
+  "phase": "B",
+  "mode": "full",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "device_map": "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:2,mistral-7b-v0.1:cuda:3",
+  "resume_policy": "strict_artifact_check",
+  "strict_todo": true,
+  "b1_execution_mode": "split_parallel",
+  "b1_partial_root": "",
+  "b1_resume_partials": true,
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2",
+  "output_root_map": {
+    "preflight": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/preflight",
+    "calibration_v1": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+    "A0_claim_hygiene": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A0_claim_hygiene",
+    "A1_evidence_consolidation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A1_evidence_consolidation",
+    "A2_prediction_layer": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A2_prediction_layer",
+    "B1_kernel_taxonomy": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+    "B2a_head_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment",
+    "B2b_cluster_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment",
+    "B3_cluster_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation",
+    "B4_confound_isolation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation",
+    "C1_olmo_causal_trace": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C1_olmo_causal_trace",
+    "C2_carrier_class_predictions": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions"
+  },
+  "n_tasks": 5,
+  "n_failures": 0,
+  "rows": [
+    {
+      "experiment_id": "B2a_head_alignment",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-23 00:01:15",
+      "started_at": "2026-04-23 00:01:15",
+      "ended_at": "2026-04-23 00:01:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2a_head_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment"
+      ]
+    },
+    {
+      "experiment_id": "B1_kernel_taxonomy",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-23 00:01:15",
+      "started_at": "2026-04-23 00:01:15",
+      "ended_at": "2026-04-23 00:01:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b1_kernel_taxonomy.py",
+        "--execution-mode",
+        "aggregate",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+        "--partial-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/partials",
+        "--resume-partials",
+        "true",
+        "--calibration-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits"
+      ]
+    },
+    {
+      "experiment_id": "B2b_cluster_alignment",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-23 00:01:15",
+      "started_at": "2026-04-23 00:01:15",
+      "ended_at": "2026-04-23 00:01:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [
+        "B1_kernel_taxonomy",
+        "B2a_head_alignment"
+      ],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2b_cluster_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+        "--b2a-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment"
+      ]
+    },
+    {
+      "experiment_id": "B4_confound_isolation",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-23 00:01:15",
+      "started_at": "2026-04-23 00:01:15",
+      "ended_at": "2026-04-23 00:01:15",
+      "elapsed_seconds": 0.0,
+      "depends_on": [
+        "B1_kernel_taxonomy"
+      ],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b4_confound_isolation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+        "--calibration-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:2,mistral-7b-v0.1:cuda:3"
+      ]
+    },
+    {
+      "experiment_id": "B3_cluster_ablation",
+      "status": "dry_run",
+      "return_code": 0,
+      "timestamp": "2026-04-23 00:01:15",
+      "started_at": "2026-04-23 00:01:15",
+      "ended_at": "2026-04-23 00:01:15",
+      "elapsed_seconds": 0.00018715858459472656,
+      "depends_on": [
+        "B1_kernel_taxonomy",
+        "B2a_head_alignment"
+      ],
+      "resume_decision": "rerun_missing_or_invalid",
+      "schema_validation_passed": false,
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B3_cluster_ablation/2026-04-23_00-01-15.log",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b3_cluster_ablation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+        "--b2a-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:2,mistral-7b-v0.1:cuda:3"
+      ],
+      "substeps": []
+    }
+  ]
+}

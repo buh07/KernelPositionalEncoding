@@ -1,0 +1,8 @@
+{
+  "experiment_id": "E31B",
+  "timestamp": "2026-05-04 14:43:55",
+  "inputs": {
+    "e31a_table": "results/reinforce_exp3/E31a_breadth_consolidation/model_breadth_r2_table.csv"
+  },
+  "seq_len_eval": 512
+}

@@ -1,0 +1,21 @@
+{
+  "experiment_id": "E5",
+  "claim_addressed": "SI structure and cumulative-ablation redundancy signatures extend to a fourth RoPE model family (Gemma-2-9B), conditional on executed components.",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "Model: gemma-2-9b. component_gates={'components_run': ['kernel', 'ablation'], 'kernel_functional_cost_positive': True, 'kernel_delta_loss': 2.5450686454772935, 'ablation_threshold_majority': True, 'ablation_linear_votes': 0, 'ablation_total_cells': 3}.",
+  "component_gates": {
+    "components_run": [
+      "kernel",
+      "ablation"
+    ],
+    "kernel_functional_cost_positive": true,
+    "kernel_delta_loss": 2.5450686454772935,
+    "ablation_threshold_majority": true,
+    "ablation_linear_votes": 0,
+    "ablation_total_cells": 3
+  },
+  "notes": [
+    "Claims are restricted to executed components; no unrun components are implied."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "experiment_id": "E3",
+  "status": "complete",
+  "models_run": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "n_new_bic_cells": 6,
+  "linear_votes_new": 0,
+  "outcome": "metric_artifact_refuted",
+  "timestamp_start": "2026-04-30 19:08:21",
+  "timestamp_end": "2026-04-30 19:08:21"
+}

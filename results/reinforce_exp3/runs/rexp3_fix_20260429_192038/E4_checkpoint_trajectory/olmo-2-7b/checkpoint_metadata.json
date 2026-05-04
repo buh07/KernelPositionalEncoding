@@ -1,0 +1,18 @@
+{
+  "model": "olmo-2-7b",
+  "checkpoints": [
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step1000-tokens5B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step3000-tokens13B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step7000-tokens30B",
+    "hf:allenai/OLMo-2-1124-7B@stage2-ingredient3-step11000-tokens47B",
+    "olmo-2-7b"
+  ],
+  "training_steps": [
+    1000,
+    3000,
+    7000,
+    11000,
+    2
+  ],
+  "n_eval_seqs": 500
+}

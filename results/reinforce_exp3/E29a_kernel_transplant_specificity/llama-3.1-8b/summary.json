@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-04 01:07:48",
+  "experiment_id": "E29A",
+  "model": "llama-3.1-8b",
+  "n_eval_seqs": 96,
+  "n_matched_pairs": 144,
+  "low_self_mean_delta": 0.030286107833186787,
+  "low_transplant_normmatched_mean_delta": 0.9775096296022335,
+  "low_random_normmatched_mean_delta": 4.316467570140958,
+  "high_self_mean_delta": 0.41882512097557384,
+  "delta_transplant_vs_lowself": 0.9472235217690468,
+  "ci_delta_transplant_vs_lowself": [
+    0.9022875352762639,
+    0.998912914050743
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 581.7695212364197
+}

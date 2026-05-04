@@ -1,0 +1,42 @@
+{
+  "experiment_id": "E26",
+  "question": "Does per-head disruption cost scale with R\u00b2 amplitude within each model?",
+  "primary_hypothesis": "Spearman r(mean-bin-R\u00b2, per-head disruption cost) > 0 in Llama and Mistral, indicating R\u00b2 amplitude predicts load-bearing beyond head count.",
+  "primary_endpoints": [
+    "Spearman r(mean_r2, per_head_true_delta) per model",
+    "Fraction of monotone bin-to-bin increase steps"
+  ],
+  "secondary_endpoints": [
+    "Per-bin true vs permuted and norm-matched delta comparison",
+    "Cross-model gradient: Llama > Mistral > OLMo in dose-response slope"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "wikitext-103 (wiki sequences, seq_len=512)"
+  ],
+  "inclusion_exclusion_rules": [
+    "Only heads with available kernel data included",
+    "Bins with fewer than 10 heads excluded from Spearman calculation"
+  ],
+  "sample_size_plan": {
+    "eval_seqs": "100 (smoke: 16)",
+    "n_bins": 5
+  },
+  "seed_plan": {
+    "base_seed": 20260503,
+    "stream_derivation": "rng_for_stream(seed, stream_id)"
+  },
+  "stopping_rule": "Fixed eval_seqs; no adaptive stopping",
+  "multiplicity_family": [
+    "per-model Spearman correlations (3 tests)"
+  ],
+  "acceptance_criteria": [
+    "Spearman r > 0 and p < 0.10 in Llama and Mistral => supported",
+    "r > 0 in at least one of {Llama, Mistral} => supported_with_caveat"
+  ],
+  "fallback_interpretation_if_null": "Disruption cost is independent of R\u00b2 within models; the grouped ablation result reflects head count, not SI amplitude \u2192 weakens SI-specificity claim."
+}

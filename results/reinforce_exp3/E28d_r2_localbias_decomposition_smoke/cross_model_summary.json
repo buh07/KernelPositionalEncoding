@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-05-03 17:27:09",
+  "experiment_id": "E28D",
+  "n_models": 3,
+  "n_model_pass": 2,
+  "interpretation": "r2_excess_tracks_disruption_supported_with_caveat",
+  "per_model": [
+    {
+      "timestamp": "2026-05-03 16:11:32",
+      "experiment_id": "E28D",
+      "model": "llama-3.1-8b",
+      "n_bins": 20,
+      "rho_full_vs_disruption": 0.9488721804511278,
+      "p_full_vs_disruption": 1.8821698161170128e-10,
+      "rho_excess_vs_disruption": 0.8887218045112781,
+      "p_excess_vs_disruption": 1.648527413023587e-07,
+      "supports_nontrivial_excess_tracking": true
+    },
+    {
+      "timestamp": "2026-05-03 15:44:08",
+      "experiment_id": "E28D",
+      "model": "mistral-7b-v0.1",
+      "n_bins": 20,
+      "rho_full_vs_disruption": 0.8721804511278194,
+      "p_full_vs_disruption": 5.389740442330201e-07,
+      "rho_excess_vs_disruption": 0.7714285714285714,
+      "p_excess_vs_disruption": 6.81246939141708e-05,
+      "supports_nontrivial_excess_tracking": true
+    },
+    {
+      "timestamp": "2026-05-03 17:26:40",
+      "experiment_id": "E28D",
+      "model": "olmo-2-7b",
+      "n_bins": 20,
+      "rho_full_vs_disruption": 0.6721804511278194,
+      "p_full_vs_disruption": 0.0011684302903722896,
+      "rho_excess_vs_disruption": 0.1958567712446661,
+      "p_excess_vs_disruption": 0.40791997585443485,
+      "supports_nontrivial_excess_tracking": false
+    }
+  ]
+}

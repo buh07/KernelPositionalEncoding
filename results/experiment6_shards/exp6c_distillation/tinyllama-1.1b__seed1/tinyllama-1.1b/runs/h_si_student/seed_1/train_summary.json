@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-14 17:25:31",
+  "model": "tinyllama-1.1b",
+  "condition": "h_si_distillation_student",
+  "seed": 1,
+  "elapsed_sec": 42.37099480628967,
+  "temperature": 2.0,
+  "alpha_distill": 0.7,
+  "lora": {
+    "trainable_params": 2252800,
+    "total_params": 1102301184
+  }
+}

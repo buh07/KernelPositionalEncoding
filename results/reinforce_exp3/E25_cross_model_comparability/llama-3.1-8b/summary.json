@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-02 23:49:46",
+  "experiment_id": "E25",
+  "model": "llama-3.1-8b",
+  "t8_report": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/report.json",
+  "e17_summary": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp3/E17_normmatched_specificity/llama-3.1-8b/summary.json",
+  "baseline_loss": 2.0126638412475586,
+  "true_nat_delta": 4.154580593109131,
+  "true_pct_delta": 206.42198181152344,
+  "true_cohens_d": 11.625187933652551,
+  "true_minus_permuted": 3.1420212929248814,
+  "true_minus_normmatched": -2.447758937835692,
+  "ratio_true_over_permuted": 3.9820067618384885,
+  "ratio_true_over_normmatched": 0.6315525018888719,
+  "nat_over_baseline": 2.0642198205011204
+}

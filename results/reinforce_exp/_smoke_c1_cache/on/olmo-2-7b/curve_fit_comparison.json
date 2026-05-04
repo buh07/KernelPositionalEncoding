@@ -1,0 +1,45 @@
+{
+  "experiment": "3P2-C.1_cumulative_ablation_curve",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-27 13:43:31",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.1",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "curve_fits": {
+    "high_to_low::local_key_match::accuracy": {
+      "n_points": 2,
+      "preferred_model": "insufficient_points"
+    },
+    "high_to_low::long_range_retrieval::accuracy": {
+      "n_points": 2,
+      "preferred_model": "insufficient_points"
+    },
+    "high_to_low::wiki_ntp::loss": {
+      "n_points": 2,
+      "preferred_model": "insufficient_points"
+    }
+  },
+  "summary": {
+    "threshold_votes": 0,
+    "linear_votes": 0,
+    "logistic_votes": 0,
+    "supports_redundancy_threshold_pattern": false,
+    "note": "Threshold preference supports E2 redundancy; linear preference supports E1-style gradual non-specific degradation.",
+    "runtime_seconds": 19.993646383285522,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 4,
+      "long_range_retrieval::span32": 4
+    },
+    "effective_batch_size_ntp": 2,
+    "ntp_coverage": {
+      "requested_total": 2,
+      "available_total": 2,
+      "effective_per_seed": 2,
+      "total_used": 2,
+      "reuse_mode": "strict_split"
+    },
+    "ntp_sequence_cache_enabled": true
+  }
+}

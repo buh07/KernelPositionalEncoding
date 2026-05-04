@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-28 01:37:59",
+  "experiment_id": "NEW-R16",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "ablation_r2_regression",
+  "model": "llama-3.1-8b+mistral-7b-v0.1+olmo-2-7b",
+  "output_root": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r16_ablation_r2_regression",
+  "nonrope_theory8_root": null,
+  "n_boot": 10000,
+  "seed": 20260427
+}

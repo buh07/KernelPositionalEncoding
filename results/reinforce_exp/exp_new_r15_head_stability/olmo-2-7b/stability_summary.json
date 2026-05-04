@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-04-19 10:10:44",
+  "experiment": "NEW-R15",
+  "model": "olmo-2-7b",
+  "settings": {
+    "seq_len": 512,
+    "num_sequences_per_domain": 500,
+    "quantile": 0.25,
+    "n_boot": 5000,
+    "seed": 17
+  },
+  "domain_meta": {
+    "wiki": {
+      "n_sequences": 500,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 26040.453818321228
+    },
+    "code": {
+      "n_sequences": 41,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 1904.8755085468292
+    },
+    "dialogue": {
+      "n_sequences": 500,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 23347.096186876297
+    }
+  },
+  "universe_size": 1024,
+  "top_set_size": 256,
+  "hypergeometric_expected_jaccard": 0.14285714285714285,
+  "pairwise_jaccard": [
+    {
+      "pair": "wiki__code",
+      "jaccard": 0.5103244837758112,
+      "ci95": [
+        0.45821303343117925,
+        0.5633813203706012
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "wiki__dialogue",
+      "jaccard": 0.6305732484076433,
+      "ci95": [
+        0.5754716981132075,
+        0.6861554252199413
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "code__dialogue",
+      "jaccard": 0.5657492354740061,
+      "ci95": [
+        0.5121878629500581,
+        0.6193393851298713
+      ],
+      "ci_excludes_random_expected": true
+    }
+  ],
+  "pairwise_spearman": [
+    {
+      "pair": "wiki__code",
+      "rho": 0.8030185609040841
+    },
+    {
+      "pair": "wiki__dialogue",
+      "rho": 0.8933309044417421
+    },
+    {
+      "pair": "code__dialogue",
+      "rho": 0.8414494224304413
+    }
+  ],
+  "three_way": {
+    "intersection_size": 158,
+    "union_size": 370,
+    "jaccard": 0.42702702702702705
+  },
+  "verdict": {
+    "status": "partially_stable",
+    "stable_high_confidence": false,
+    "partially_stable": true,
+    "unstable": false
+  },
+  "runtime_sec": 51308.91176867485
+}

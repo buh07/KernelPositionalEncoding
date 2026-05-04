@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-04 14:43:54",
+  "experiment": "7A",
+  "status": "completed",
+  "track_a_source": "experiment1/experiment1results.md",
+  "bootstrap_seed": 42,
+  "bootstrap_samples": 2000,
+  "primary_scope": "model_level",
+  "artifacts": {
+    "coherence_profiles": "results/experiment7_fixcheck/exp7a_welch_r2/coherence_profiles.parquet",
+    "welch_gap_summary": "results/experiment7_fixcheck/exp7a_welch_r2/welch_gap_summary.parquet",
+    "r2_prediction_results": "results/experiment7_fixcheck/exp7a_welch_r2/r2_prediction_results.json",
+    "prediction_table": "results/experiment7_fixcheck/exp7a_welch_r2/r2_prediction_table.parquet",
+    "model_level_prediction_table": "results/experiment7_fixcheck/exp7a_welch_r2/model_level_prediction_table.parquet",
+    "run_manifest": "results/experiment7_fixcheck/exp7a_welch_r2/run_manifest.json"
+  }
+}

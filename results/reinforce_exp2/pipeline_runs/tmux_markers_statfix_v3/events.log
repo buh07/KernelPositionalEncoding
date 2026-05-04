@@ -1,0 +1,20 @@
+2026-04-21 18:08:22	launcher	session	running		creating tmux session 
+2026-04-21 18:08:23	preflight	preflight	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/preflight/2026-04-21_18-08-22.log	strict artifact check passed 
+2026-04-21 18:08:24	preflight	calibration_v1	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/calibration_v1/2026-04-21_18-08-23.log	strict artifact check passed 
+2026-04-21 18:08:24	preflight	preflight	done		stage complete 
+2026-04-21 18:08:27	phase_b_core	b1_per_model_start	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_llama-3.1-8b.log	model=llama-3.1-8b device=cuda:0 
+2026-04-21 18:08:27	phase_b_core	b1_per_model_start	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_olmo-2-7b.log	model=olmo-2-7b device=cuda:1 
+2026-04-21 18:08:28	phase_b_core	b1_per_model_start	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-28__per_model_mistral-7b-v0.1.log	model=mistral-7b-v0.1 device=cuda:2 
+2026-04-21 18:08:29	phase_b_core	B2a_head_alignment	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_18-08-27.log	strict artifact check passed 
+2026-04-21 18:08:29	phase_a	A0_claim_hygiene	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A0_claim_hygiene/2026-04-21_18-08-27.log	strict artifact check passed 
+2026-04-21 18:08:30	phase_a	A1_evidence_consolidation	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A1_evidence_consolidation/2026-04-21_18-08-29.log	strict artifact check passed 
+2026-04-21 18:08:31	phase_a	A2_prediction_layer	skipped_existing	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A2_prediction_layer/2026-04-21_18-08-30.log	strict artifact check passed 
+2026-04-21 18:08:31	phase_a	phase_a	done		stage complete 
+2026-04-21 19:26:10	phase_b_core	b1_per_model_end	ok	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_llama-3.1-8b.log	model=llama-3.1-8b rc=0 
+2026-04-21 19:37:05	phase_b_core	b1_per_model_end	ok	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_olmo-2-7b.log	model=olmo-2-7b rc=0 
+2026-04-21 19:37:05	phase_b_core	b1_per_model_end	ok	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-28__per_model_mistral-7b-v0.1.log	model=mistral-7b-v0.1 rc=0 
+2026-04-21 19:37:05	phase_b_core	b1_aggregate_start	running	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_19-37-05__aggregate.log	aggregate finalize 
+2026-04-21 19:37:16	phase_b_core	b1_aggregate_end	failed	/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_19-37-05__aggregate.log	aggregate finalize failed rc=1 
+2026-04-21 19:37:16	phase_b_core	phase_b_core	failed		B core failed (B2a rc=0, B1 rc=1) 
+2026-04-21 19:37:20	phase_b_adv	phase_b_adv	failed		dependency_failed: phase_b_core 
+2026-04-21 19:37:20	phase_c	phase_c	failed		dependency_failed: phase_b_adv 

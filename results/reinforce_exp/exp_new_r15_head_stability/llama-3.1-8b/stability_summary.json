@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-04-19 11:32:23",
+  "experiment": "NEW-R15",
+  "model": "llama-3.1-8b",
+  "settings": {
+    "seq_len": 512,
+    "num_sequences_per_domain": 500,
+    "quantile": 0.25,
+    "n_boot": 5000,
+    "seed": 17
+  },
+  "domain_meta": {
+    "wiki": {
+      "n_sequences": 500,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 27428.242012500763
+    },
+    "code": {
+      "n_sequences": 41,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 1808.6799054145813
+    },
+    "dialogue": {
+      "n_sequences": 500,
+      "n_heads": 1024,
+      "n_top_quartile": 256,
+      "elapsed_sec": 22683.551874876022
+    }
+  },
+  "universe_size": 1024,
+  "top_set_size": 256,
+  "hypergeometric_expected_jaccard": 0.14285714285714285,
+  "pairwise_jaccard": [
+    {
+      "pair": "wiki__code",
+      "jaccard": 0.6786885245901639,
+      "ci95": [
+        0.6246151419558359,
+        0.7298139370164541
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "wiki__dialogue",
+      "jaccard": 0.8285714285714286,
+      "ci95": [
+        0.7839698918967212,
+        0.8701754385964913
+      ],
+      "ci_excludes_random_expected": true
+    },
+    {
+      "pair": "code__dialogue",
+      "jaccard": 0.6357827476038339,
+      "ci95": [
+        0.5816302982731554,
+        0.6886792452830188
+      ],
+      "ci_excludes_random_expected": true
+    }
+  ],
+  "pairwise_spearman": [
+    {
+      "pair": "wiki__code",
+      "rho": 0.9271519383448965
+    },
+    {
+      "pair": "wiki__dialogue",
+      "rho": 0.9663003473463985
+    },
+    {
+      "pair": "code__dialogue",
+      "rho": 0.911490080287533
+    }
+  ],
+  "three_way": {
+    "intersection_size": 190,
+    "union_size": 320,
+    "jaccard": 0.59375
+  },
+  "verdict": {
+    "status": "partially_stable",
+    "stable_high_confidence": false,
+    "partially_stable": true,
+    "unstable": false
+  },
+  "runtime_sec": 51938.470579624176
+}

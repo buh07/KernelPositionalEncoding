@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-19 19:39:19",
+  "experiment_id": "B3_cluster_ablation",
+  "models": {
+    "llama-3.1-8b": {
+      "informative": false,
+      "non_informative_reason": "insufficient_clusters",
+      "n_confirmatory_eligible_clusters": 0,
+      "max_cluster_share": NaN,
+      "cluster_share": {},
+      "sum_positive_auc": NaN
+    }
+  }
+}

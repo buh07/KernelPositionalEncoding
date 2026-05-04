@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-04-27 21:29:36",
+  "experiment": "NEW-R14",
+  "model": "olmo-2-7b",
+  "n_heads_evaluated": 12,
+  "rows": [
+    {
+      "layer": 20,
+      "head": 15,
+      "true_mean_delta": 0.0009087137877941132,
+      "permuted_mean_delta": 0.0007728990167379379,
+      "specificity_ratio": 1.175721236688059
+    },
+    {
+      "layer": 7,
+      "head": 8,
+      "true_mean_delta": -0.0002550799399614334,
+      "permuted_mean_delta": -0.00020367528001467386,
+      "specificity_ratio": -1.2523853652885912
+    },
+    {
+      "layer": 0,
+      "head": 1,
+      "true_mean_delta": -0.00013900548219680786,
+      "permuted_mean_delta": -0.00022950954735279083,
+      "specificity_ratio": -0.6056631795937248
+    },
+    {
+      "layer": 0,
+      "head": 15,
+      "true_mean_delta": -0.00014425255358219147,
+      "permuted_mean_delta": -7.681113978226979e-05,
+      "specificity_ratio": -1.8780160532846186
+    },
+    {
+      "layer": 1,
+      "head": 8,
+      "true_mean_delta": -0.00032661668956279755,
+      "permuted_mean_delta": -0.00010995504756768544,
+      "specificity_ratio": -2.970456534628307
+    },
+    {
+      "layer": 0,
+      "head": 13,
+      "true_mean_delta": 0.00011593103408813477,
+      "permuted_mean_delta": -0.00020267566045125326,
+      "specificity_ratio": 0.5720027448289383
+    },
+    {
+      "layer": 5,
+      "head": 23,
+      "true_mean_delta": -0.00015639327466487885,
+      "permuted_mean_delta": -8.547989030679067e-05,
+      "specificity_ratio": -1.8295914290902489
+    },
+    {
+      "layer": 3,
+      "head": 0,
+      "true_mean_delta": -0.0001280698925256729,
+      "permuted_mean_delta": 1.928769052028656e-05,
+      "specificity_ratio": -6.6399806856591015
+    },
+    {
+      "layer": 25,
+      "head": 4,
+      "true_mean_delta": 0.007999377325177193,
+      "permuted_mean_delta": 0.0007401419182618459,
+      "specificity_ratio": 10.807896604428219
+    },
+    {
+      "layer": 0,
+      "head": 9,
+      "true_mean_delta": -0.0002002175897359848,
+      "permuted_mean_delta": -0.00021288606027762094,
+      "specificity_ratio": -0.9404917798510837
+    },
+    {
+      "layer": 11,
+      "head": 12,
+      "true_mean_delta": 0.0001321360468864441,
+      "permuted_mean_delta": -3.775395452976227e-05,
+      "specificity_ratio": 3.4999259953623763
+    },
+    {
+      "layer": 4,
+      "head": 28,
+      "true_mean_delta": -3.4458935260772705e-05,
+      "permuted_mean_delta": -0.00011126076181729634,
+      "specificity_ratio": -0.3097132780499782
+    }
+  ]
+}

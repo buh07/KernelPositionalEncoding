@@ -1,0 +1,87 @@
+{
+  "experiment_id": "E22",
+  "tables": [
+    {
+      "path": "<model>/task_arm_trials.parquet",
+      "description": "Task/arm/trial mean damage summaries and validity flags.",
+      "columns": [
+        {
+          "name": "task",
+          "dtype": "str",
+          "description": "task id"
+        },
+        {
+          "name": "metric",
+          "dtype": "str",
+          "description": "primary metric used"
+        },
+        {
+          "name": "arm",
+          "dtype": "str",
+          "description": "true/permuted/normmatched/distortion_matched"
+        },
+        {
+          "name": "trial",
+          "dtype": "int",
+          "description": "trial index"
+        },
+        {
+          "name": "mean_damage",
+          "dtype": "float",
+          "description": "mean degradation relative to baseline"
+        },
+        {
+          "name": "valid",
+          "dtype": "bool",
+          "description": "whether the trial is admissible"
+        }
+      ]
+    },
+    {
+      "path": "<model>/task_control_deltas.parquet",
+      "description": "Per-unit true and control degradations across trials.",
+      "columns": [
+        {
+          "name": "task",
+          "dtype": "str",
+          "description": "task id"
+        },
+        {
+          "name": "unit_index",
+          "dtype": "int",
+          "description": "sequence/prompt index"
+        },
+        {
+          "name": "trial",
+          "dtype": "int",
+          "description": "trial index"
+        },
+        {
+          "name": "true_delta",
+          "dtype": "float",
+          "description": "true SI subtraction damage"
+        },
+        {
+          "name": "permuted_delta",
+          "dtype": "float",
+          "description": "permuted control damage"
+        },
+        {
+          "name": "normmatched_delta",
+          "dtype": "float",
+          "description": "norm-matched control damage"
+        },
+        {
+          "name": "distortion_delta",
+          "dtype": "float",
+          "description": "distortion-matched control damage"
+        }
+      ]
+    },
+    {
+      "path": "<model>/distortion_calibration.json",
+      "description": "Per-task, per-trial KL calibration diagnostics for distortion-matched controls.",
+      "columns": []
+    }
+  ]
+}

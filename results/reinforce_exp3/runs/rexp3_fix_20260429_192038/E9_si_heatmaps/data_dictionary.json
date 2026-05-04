@@ -1,0 +1,46 @@
+{
+  "experiment_id": "E9",
+  "tables": [
+    {
+      "path": "data/r2_heatmap_data.parquet",
+      "description": "All-model heatmap data: R\u00b2, cluster, boundary per (layer, head)",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Transformer layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Attention head index"
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "Shift-invariant R\u00b2"
+        },
+        {
+          "name": "cluster_code",
+          "dtype": "float",
+          "description": "K-means cluster code (int, -1=unassigned)"
+        },
+        {
+          "name": "boundary_attn_score",
+          "dtype": "float",
+          "description": "Boundary attention score"
+        },
+        {
+          "name": "is_high_si",
+          "dtype": "bool",
+          "description": "True if R\u00b2 >= 75th percentile"
+        }
+      ]
+    }
+  ]
+}

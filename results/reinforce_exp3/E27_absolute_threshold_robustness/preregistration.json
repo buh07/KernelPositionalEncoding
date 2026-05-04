@@ -1,0 +1,42 @@
+{
+  "experiment_id": "E27",
+  "question": "Does the Result I disruption finding replicate under absolute R\u00b2 threshold head selection, and does per-head disruption cost follow model mean-R\u00b2 order at a fixed cross-model threshold?",
+  "primary_hypothesis": "At T=0.20, per-head disruption cost follows Llama > Mistral > OLMo, validating that R\u00b2 amplitude tracks disruption cost across models. Rank-based top-256 true-delta > perm-delta replicates in all 3 models.",
+  "primary_endpoints": [
+    "Per-head disruption cost at T=0.20 by model",
+    "Direction: true_mean_delta > perm_mean_delta across thresholds"
+  ],
+  "secondary_endpoints": [
+    "Disruption scaling with threshold T within each model",
+    "Agreement between rank-based and absolute-threshold results"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "wikitext-103 (wiki sequences, seq_len=512)"
+  ],
+  "inclusion_exclusion_rules": [
+    "Thresholds with zero selected heads produce NaN rows, excluded from direction checks.",
+    "OLMo expected near-zero heads at T>=0.25; included in tables as NaN."
+  ],
+  "sample_size_plan": {
+    "eval_seqs": "100 (smoke: 16)",
+    "thresholds": "[0.15, 0.2, 0.25, 0.3, 0.4]"
+  },
+  "seed_plan": {
+    "base_seed": 20260503,
+    "stream_derivation": "rng_for_stream(seed, stream_id)"
+  },
+  "stopping_rule": "Fixed eval_seqs; no adaptive stopping",
+  "multiplicity_family": [
+    "5 threshold conditions + 1 rank-based per model \u00d7 3 models"
+  ],
+  "acceptance_criteria": [
+    "Per-head disruption at T=0.20: Llama > OLMo and Mistral > OLMo => supported",
+    "Rank-based replicates (true > perm) in >= 2 models => supported"
+  ],
+  "fallback_interpretation_if_null": "Disruption cost does not track model-level R\u00b2 at fixed threshold; cross-model comparability of disruption metric remains limited."
+}

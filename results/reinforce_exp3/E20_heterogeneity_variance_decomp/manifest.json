@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E20",
+  "timestamp": "2026-05-02 18:01:20",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "mode": "proxy"
+}

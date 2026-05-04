@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E25",
+  "claims_tested": [
+    "Cross-model comparability framing for Result I"
+  ],
+  "status": "supported_with_caveat",
+  "interpretation": "baseline_normalized_axis_aligns_control_axis_mixed",
+  "impact_on_main_text": "Report raw nats together with baseline-normalized and control-normalized contrasts."
+}

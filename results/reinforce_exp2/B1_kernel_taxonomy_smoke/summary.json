@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-18 18:46:14",
+  "experiment_id": "B1_kernel_taxonomy",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "B1_supported": false,
+    "claim_status": "mixed"
+  }
+}

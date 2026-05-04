@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-27 22:05:46",
+  "experiment": "NEW-R14",
+  "model": "mistral-7b-v0.1",
+  "runtime_sec": 2926.7625229358673,
+  "headline": {
+    "true_mean_delta": 3.4873225855827332,
+    "permuted_mean_delta": 0.294745818734169,
+    "specificity_ratio": 11.831626994946268,
+    "supports_specificity": true
+  }
+}

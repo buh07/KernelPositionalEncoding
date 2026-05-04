@@ -1,0 +1,8 @@
+{
+  "jaccard_si_retrieval_top_quartile": 0.007874015748031496,
+  "r2_threshold": 0.36878084903532166,
+  "ret_threshold": 0.01049427832243964,
+  "n_top_si": 256,
+  "n_top_ret": 256,
+  "n_overlap": 4
+}

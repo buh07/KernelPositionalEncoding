@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-03 17:27:04",
+  "experiment_id": "E28B",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "si_over_importance_supported",
+    "n_model_pass": 3,
+    "n_models": 3,
+    "pooled_mean_delta": 2.2800196781754494
+  },
+  "limitations": [
+    "Importance proxy is calibration-slice dependent and based on single-head zeroing.",
+    "Kernel subtraction remains an intervention-time assay, not a training-time counterfactual."
+  ]
+}

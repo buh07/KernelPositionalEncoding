@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-05-04 01:56:59",
+  "experiment_id": "E29C",
+  "claim_status": "not_supported",
+  "supports_main_text": true,
+  "notes": [
+    "Directional extra-model anchor only; does not alter primary-model coverage contract."
+  ]
+}

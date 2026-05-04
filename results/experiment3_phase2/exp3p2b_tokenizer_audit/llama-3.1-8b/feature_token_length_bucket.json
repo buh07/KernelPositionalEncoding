@@ -1,0 +1,86 @@
+{
+  "feature_name": "token_length_bucket",
+  "classifier": {
+    "feature_name": "token_length_bucket",
+    "method": "embedding_logistic_regression",
+    "classifier_accuracy": 0.9770240700218819,
+    "precision": 0.9840954274353877,
+    "recall": 0.9744094488188977,
+    "specificity": 0.9802955665024631,
+    "n_samples": 2742,
+    "n_positive": 1524,
+    "n_negative": 1218,
+    "confusion_matrix": {
+      "tp": 1485,
+      "tn": 1194,
+      "fp": 24,
+      "fn": 39
+    },
+    "top_k_dims": [
+      3008,
+      2570,
+      1800,
+      1884,
+      87,
+      1105,
+      630,
+      2871,
+      866,
+      3745,
+      805,
+      894,
+      1932,
+      559,
+      3837,
+      2418
+    ],
+    "top_k_abs_weights": [
+      2.7964246634112326,
+      2.7602588906202827,
+      2.742676556394444,
+      1.823016577003705,
+      1.747743268329449,
+      1.5849202783076952,
+      1.560945688843306,
+      1.554645279282218,
+      1.4644704158107935,
+      1.4644631410666473,
+      1.4520201543815399,
+      1.3959201446222838,
+      1.3631302149919837,
+      1.348098153202483,
+      1.3333833685495682,
+      1.3264632779633267
+    ]
+  },
+  "boundary_metric": {
+    "baseline_d": 1.0666295894631435,
+    "post_ablation_d": 1.1168550432667539,
+    "dependence_index_delta_d": -0.05022545380361043,
+    "t_statistic": 12.635772395141066,
+    "p_two_sided": 3.7064186046879013e-29,
+    "p_one_sided_high_gt_low": 1.8532093023439507e-29
+  },
+  "synthetic_control": {
+    "fake_minus_real_with_prefix": 0.014735201724931646,
+    "prefix_following_artifact_flag": true,
+    "prefix_following_assessment": {
+      "n_fake_with_prefix": 300,
+      "n_real_with_prefix": 5273,
+      "mean_fake_with_prefix": 0.07927424997679644,
+      "mean_real_with_prefix": 0.06453904825186478,
+      "fake_minus_real_diff": 0.01473520172493166,
+      "t_statistic": 2.273993909461536,
+      "p_two_sided": 0.02367331475595577,
+      "p_one_sided_fake_gt_real": 0.011836657377977886,
+      "cohens_d_fake_minus_real": 0.48639054516926006,
+      "rule": {
+        "alpha_one_sided": 0.05,
+        "min_cohens_d": 0.2,
+        "min_abs_diff": 0.005,
+        "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+      },
+      "artifact_flag_statistical": true
+    }
+  }
+}

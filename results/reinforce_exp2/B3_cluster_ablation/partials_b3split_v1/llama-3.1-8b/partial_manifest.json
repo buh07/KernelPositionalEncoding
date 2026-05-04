@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-24 01:28:32",
+  "schema_version": 1,
+  "status": "ok",
+  "model": "llama-3.1-8b",
+  "config_hash": "18f7f27934586ee102195c8fbd9f32a9dae5cc80f61460f4e4d63e7695ba9fcb",
+  "curve_rows": 297,
+  "diag_rows": 90,
+  "paths": {
+    "root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b",
+    "manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b/partial_manifest.json",
+    "curve": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b/curve.parquet",
+    "diag": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b/matching_diag_df.parquet",
+    "report": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b/model_report.json",
+    "matching": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/llama-3.1-8b/matching_diag_model.json"
+  }
+}

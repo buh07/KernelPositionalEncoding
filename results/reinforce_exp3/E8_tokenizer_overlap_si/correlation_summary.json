@@ -1,0 +1,9 @@
+{
+  "n_pairs": 3,
+  "correlation_jaccard_vs_kl_divergence": 1.0,
+  "correlation_jaccard_vs_r2_gap": 1.0,
+  "correlation_merge_rank_vs_kl": 1.0,
+  "interpretation": "tokenizer_similarity_correlates_with_si",
+  "note": "At least one tokenizer\u2013SI correlation has |\u03c1| \u2265 0.8 (n=3 pairs). Tokenizer is a plausible driver of SI distribution variation. Note: n=3 is insufficient for inference; treat as directional signal only.",
+  "caveat": "n=3 model pairs; no valid statistical inference possible in isolation."
+}

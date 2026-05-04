@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-05-04 02:59:12",
+  "experiment_id": "E30B",
+  "claim_status": "supported_with_caveat",
+  "impacts": [
+    "Directly strengthens or bounds the local-attention-bias alternative for the SI R\u00b2 metric.",
+    "Supports main-text interpretation of Result I as non-trivial SI-linked head-level structure."
+  ]
+}

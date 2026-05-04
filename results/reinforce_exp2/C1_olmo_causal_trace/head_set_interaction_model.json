@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-04-25 03:30:41",
+  "interaction": {
+    "f_interaction": 0.6548073289082496,
+    "p_value": 0.5195815000226951,
+    "partial_eta_squared": 0.0002312863031061295,
+    "supports_interaction": false,
+    "interaction_eta_threshold": 0.06
+  },
+  "p_holm": {
+    "interaction": 1.0,
+    "olmo_content_gt_low": 1.0
+  },
+  "delta_delta_rr": -0.1875,
+  "criteria": {
+    "criterion1_llama_si_concentration": false,
+    "criterion2_olmo_non_si_recovery": false,
+    "criterion3_cross_model_interaction": false,
+    "criterion4_coverage_min_rows_per_phenomenon": false,
+    "criterion4_min_confirmatory_rows_threshold": 2000,
+    "criterion5_calibration_eval_disjoint": true
+  },
+  "phenomenon_confirmatory_counts": {
+    "llama-3.1-8b": {
+      "copy_offset": 2658,
+      "indexed_retrieval": 210,
+      "controlled_permutation": 507
+    },
+    "olmo-2-7b": {
+      "copy_offset": 1353,
+      "indexed_retrieval": 348,
+      "controlled_permutation": 591
+    }
+  },
+  "overlap_flags": {
+    "llama-3.1-8b": false,
+    "olmo-2-7b": false
+  },
+  "verdict": {
+    "C1_two_carrier_class_supported": false
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "experiment_id": "B3_cluster_ablation",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "Primary verdict uses exact layer/magnitude matched triplets only.",
+    "If inconclusive, keep threshold-capacity wording and avoid over-disambiguation."
+  ]
+}

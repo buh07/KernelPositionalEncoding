@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-05-04 13:47:38",
+  "experiment_id": "E31D",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "llama_naturalistic_si_vs_importance_supported",
+    "directional_support": true,
+    "n_trials": 24
+  },
+  "elapsed_sec": 339.8867485523224
+}

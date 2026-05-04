@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E12",
+  "timestamp": "2026-04-29 18:05:51",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "n_eval_prompts": 200,
+  "n_icl_demos": 4,
+  "seed_base": 20260429,
+  "reference": "Olsson et al. 2022"
+}

@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-04-16 16:37:11",
+  "model": "mistral-7b-v0.1",
+  "n_rows": 128,
+  "regime_tests": {
+    "boundary_dense_contexts": {
+      "n_pairs": 64,
+      "mean_high": 3.716462683428258,
+      "mean_low": 0.43875682944625005,
+      "mean_delta_high_minus_low": 3.2777058539820074,
+      "p_one_sided": 1.1547296615681232e-67,
+      "cohens_d": 10.880972204590442,
+      "p_one_sided_holm": 4.618918646272493e-67,
+      "supports_high_gt_low": true
+    },
+    "high_uncertainty_tokens": {
+      "n_pairs": 64,
+      "mean_high": 1.3009261591273966,
+      "mean_low": -0.16736836215363077,
+      "mean_delta_high_minus_low": 1.4682945212810272,
+      "p_one_sided": 3.1639085061953485e-39,
+      "cohens_d": 3.736619042421046,
+      "p_one_sided_holm": 3.1639085061953485e-39,
+      "supports_high_gt_low": true
+    },
+    "long_span_retrieval": {
+      "n_pairs": 64,
+      "mean_high": 3.1591279494722984,
+      "mean_low": 0.7920817800850283,
+      "mean_delta_high_minus_low": 2.36704616938727,
+      "p_one_sided": 3.268506972900438e-54,
+      "cohens_d": 6.609241281829308,
+      "p_one_sided_holm": 6.537013945800877e-54,
+      "supports_high_gt_low": true
+    },
+    "rare_token_contexts": {
+      "n_pairs": 64,
+      "mean_high": 4.844090228490824,
+      "mean_low": 0.1777979431063655,
+      "mean_delta_high_minus_low": 4.666292285384459,
+      "p_one_sided": 2.4133790776428577e-63,
+      "cohens_d": 9.277542103935355,
+      "p_one_sided_holm": 7.240137232928573e-63,
+      "supports_high_gt_low": true
+    }
+  },
+  "interaction_model": {
+    "n_observations": 128,
+    "f_interaction": 170.17121222308114,
+    "p_value": 1.1102230246251565e-16,
+    "partial_eta_squared": 0.8096789775492994,
+    "supports_conditional_specialization": true,
+    "p_value_holm": 1.1102230246251565e-16
+  },
+  "regime_coverage_complete": true,
+  "regime_coverage_manifest": "results/reinforce_exp/_smoke_exp_r3j/mistral-7b-v0.1/regime_coverage_manifest.json",
+  "regime_definition": {
+    "long_span_min_distance": 64,
+    "surprisal_p90": 4.970799207687378,
+    "rare_frequency_cutoff": 1
+  },
+  "verdict": {
+    "supports_conditional_specialization": true
+  }
+}

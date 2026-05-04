@@ -1,0 +1,23 @@
+{
+  "wiki": {
+    "verdict": "ambiguous",
+    "n_seeds": 8,
+    "n_clean": 0,
+    "n_blocked": 0,
+    "frac_clean": 0.0
+  },
+  "code": {
+    "verdict": "ambiguous",
+    "n_seeds": 8,
+    "n_clean": 0,
+    "n_blocked": 0,
+    "frac_clean": 0.0
+  },
+  "dialogue": {
+    "verdict": "ambiguous",
+    "n_seeds": 8,
+    "n_clean": 0,
+    "n_blocked": 0,
+    "frac_clean": 0.0
+  }
+}

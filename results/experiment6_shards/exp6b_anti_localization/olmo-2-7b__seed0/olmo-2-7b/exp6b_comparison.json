@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-17 07:29:21",
+  "conditions": [
+    "g_anti_localization",
+    "d_full_qlora_baseline"
+  ],
+  "seeds": [
+    0
+  ],
+  "n_runs": 2,
+  "experiment": "6B",
+  "model": "olmo-2-7b"
+}

@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-04-24 16:37:24",
+  "experiment": "E3_olmo_permutation_test",
+  "model": "olmo-2-7b",
+  "n_compared": 4,
+  "regime_map": {
+    "long_span_64": "long_span_retrieval",
+    "long_span_128": "long_span_retrieval",
+    "uncertainty_low": "high_uncertainty_tokens",
+    "uncertainty_high": "high_uncertainty_tokens"
+  },
+  "proxy_deltas": {
+    "boundary_dense_contexts": 1.419834091930535,
+    "high_uncertainty_tokens": -0.0874226051553212,
+    "long_span_retrieval": 0.8382232948090959,
+    "rare_token_contexts": 2.1736724875424094
+  },
+  "observed_task_means": {
+    "long_span_64": 0.0034895833333333307,
+    "long_span_128": 0.009531250000000002,
+    "uncertainty_low": 0.01992187499999999,
+    "uncertainty_high": 0.00997395833333333
+  },
+  "observed_concordance": 2,
+  "n_permutations": 10000,
+  "null_mean": 2.0,
+  "null_std": 0.0,
+  "null_count_distribution": {
+    "0": 0,
+    "1": 0,
+    "2": 10000,
+    "3": 0,
+    "4": 0
+  },
+  "p_concordance_ge_observed": 1.0,
+  "p_concordance_eq_observed": 1.0,
+  "observed_percentile": 0.0,
+  "interpretation": "Observed 2/4 sits at percentile 0.0 of the permutation null (null mean=2.000, std=0.000). Concordance failure is at-chance, not a near-miss."
+}

@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-05-02 18:01:20",
+  "experiment_id": "E20",
+  "mode": "proxy",
+  "n_models": 3,
+  "seeds_per_model": 3,
+  "between_model_var_si": 0.04073816680421037,
+  "within_model_seed_var_si": 0.0002229402672551742,
+  "between_over_within_ratio": 182.7313087302531,
+  "interpretation": "model_family_dominant",
+  "note": "Between-model SI variance exceeds within-model seed variance.",
+  "per_model": [
+    {
+      "model": "llama-3.1-8b",
+      "n_seeds": 3,
+      "mean_si_r2": 0.5172965668081636,
+      "std_si_r2": 0.02055720456447195,
+      "mean_c1_deg": 0.14637586805555555,
+      "within_seed_var_si": 0.0004225986595055464
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "n_seeds": 3,
+      "mean_si_r2": 0.4659488453173153,
+      "std_si_r2": 0.012529090084880045,
+      "mean_c1_deg": 0.03417968749999999,
+      "within_seed_var_si": 0.00015697809835503945
+    },
+    {
+      "model": "olmo-2-7b",
+      "n_seeds": 3,
+      "mean_si_r2": 0.14487054812294403,
+      "std_si_r2": 0.009446906578607457,
+      "mean_c1_deg": 0.080078125,
+      "within_seed_var_si": 8.924404390493684e-05
+    }
+  ]
+}

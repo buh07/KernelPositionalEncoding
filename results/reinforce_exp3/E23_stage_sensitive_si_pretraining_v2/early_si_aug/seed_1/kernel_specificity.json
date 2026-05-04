@@ -1,0 +1,18 @@
+{
+  "n_sequences": 40,
+  "n_high_si_heads": 15,
+  "mean_delta_true": 0.0,
+  "mean_delta_permuted": 0.0,
+  "mean_delta_normmatched": 0.0,
+  "ratio_true_over_permuted": 0.0,
+  "ratio_true_over_normmatched": 0.0,
+  "true_minus_permuted_ci95": [
+    0.0,
+    0.0
+  ],
+  "true_minus_normmatched_ci95": [
+    0.0,
+    0.0
+  ],
+  "supports_specificity": false
+}

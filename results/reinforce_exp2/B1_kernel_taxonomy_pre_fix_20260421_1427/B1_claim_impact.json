@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-20 15:24:48",
+  "experiment_id": "B1_kernel_taxonomy",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "If B1_supported is false, taxonomy can remain exploratory but not main mechanistic unit."
+  ]
+}

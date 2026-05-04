@@ -1,0 +1,107 @@
+{
+  "model": "llama-3.1-8b",
+  "variation": "finegrid",
+  "n_orderings_global_expected": 10,
+  "ordering_id_range": {
+    "start_inclusive": 0,
+    "stop_exclusive": 10
+  },
+  "n_orderings_expected": 10,
+  "n_orderings_refit": 10,
+  "n_threshold_majority": 8,
+  "fraction_threshold_majority": 0.8,
+  "robustness_assessment": "strong_replication",
+  "ordering_votes": [
+    {
+      "ordering_id": 0,
+      "grid": "fine",
+      "threshold_votes": 2,
+      "linear_votes": 1,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 1,
+      "grid": "fine",
+      "threshold_votes": 2,
+      "linear_votes": 0,
+      "logistic_votes": 1,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 2,
+      "grid": "fine",
+      "threshold_votes": 2,
+      "linear_votes": 0,
+      "logistic_votes": 1,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 3,
+      "grid": "fine",
+      "threshold_votes": 1,
+      "linear_votes": 0,
+      "logistic_votes": 2,
+      "n_fits": 3,
+      "threshold_majority": false
+    },
+    {
+      "ordering_id": 4,
+      "grid": "fine",
+      "threshold_votes": 2,
+      "linear_votes": 0,
+      "logistic_votes": 1,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 5,
+      "grid": "fine",
+      "threshold_votes": 2,
+      "linear_votes": 0,
+      "logistic_votes": 1,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 6,
+      "grid": "fine",
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 7,
+      "grid": "fine",
+      "threshold_votes": 1,
+      "linear_votes": 0,
+      "logistic_votes": 2,
+      "n_fits": 3,
+      "threshold_majority": false
+    },
+    {
+      "ordering_id": 8,
+      "grid": "fine",
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    {
+      "ordering_id": 9,
+      "grid": "fine",
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    }
+  ],
+  "ordering_seed_provenance": "from reinforce_exp/exp_new_r12_ordering_control ordering_payloads.json"
+}

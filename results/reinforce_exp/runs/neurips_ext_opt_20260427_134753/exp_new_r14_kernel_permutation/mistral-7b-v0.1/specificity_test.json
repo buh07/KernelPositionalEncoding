@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-27 22:05:46",
+  "experiment": "NEW-R14",
+  "model": "mistral-7b-v0.1",
+  "mean_diff_true_minus_permuted": 3.192576766848564,
+  "bootstrap_ci95": [
+    3.141552618694305,
+    3.248559719601273
+  ],
+  "p_one_bootstrap_true_gt_permuted": 0.0001999600079984003,
+  "t_stat": 114.85631467826124,
+  "p_one_ttest_true_gt_permuted": 1.8683951424253466e-107,
+  "supports_specificity": true
+}

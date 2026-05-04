@@ -1,0 +1,15 @@
+{
+  "model": "mistral-7b-v0.1",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.84,
+  "intact_non_icl_accuracy": 0.0,
+  "ablated_icl_accuracy": 0.205,
+  "ablated_non_icl_accuracy": 0.005,
+  "icl_acc_loss": 0.635,
+  "non_icl_acc_loss": -0.005,
+  "icl_lp_loss": 5.94231948852539,
+  "non_icl_lp_loss": 0.169921875,
+  "accuracy_sensitivity_ratio": 127.0,
+  "logprob_sensitivity_ratio": 34.97089170258621,
+  "icl_preferentially_degraded": true
+}

@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E9",
+  "hypothesis": "Visualization only \u2014 no hypothesis tested",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "data_sources": [
+    "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy/cluster_membership.parquet"
+  ],
+  "timestamp": "2026-04-29 16:50:57"
+}

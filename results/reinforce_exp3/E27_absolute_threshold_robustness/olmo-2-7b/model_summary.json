@@ -1,0 +1,9 @@
+{
+  "model": "olmo-2-7b",
+  "n_thresholds_tested": 5,
+  "n_thresholds_with_heads": 6,
+  "frac_true_gt_perm": 1.0,
+  "per_head_at_thresh_020": 0.0003142230819772791,
+  "rank_top256_true_delta": 0.054654313921928405,
+  "elapsed_sec": 5698.148406267166
+}

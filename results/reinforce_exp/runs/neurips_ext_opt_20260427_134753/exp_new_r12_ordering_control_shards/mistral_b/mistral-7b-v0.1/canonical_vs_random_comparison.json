@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-04-28 22:48:33",
+  "experiment": "NEW-R12",
+  "model": "mistral-7b-v0.1",
+  "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/mistral-7b-v0.1/curve_fit_comparison.json",
+  "canonical_mean_bic_delta_linear_minus_threshold": 14.000118648133366,
+  "canonical_mean_bic_delta_logistic_minus_threshold": NaN,
+  "random_mean_bic_delta_linear_minus_threshold": 29.16102409882608,
+  "random_mean_bic_delta_logistic_minus_threshold": 9.299572899640292,
+  "random_distribution": [
+    36.495149614077775,
+    33.406203536799616,
+    22.066725203371387,
+    35.54700451680116,
+    18.290037623080455
+  ],
+  "random_distribution_logistic_minus_threshold": [
+    4.804767546799657,
+    19.540821279791064,
+    -8.36181589244066,
+    17.1751135825379,
+    13.3389779815135
+  ],
+  "ranked_ordering_outlier": {
+    "z_score": -1.8085286608486904,
+    "abs_z_gt_2": false
+  }
+}

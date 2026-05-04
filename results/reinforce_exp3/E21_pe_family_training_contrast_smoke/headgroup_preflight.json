@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-05-02 07:28:19",
+  "rows": [
+    {
+      "model": "tinyllama-1.1b",
+      "profile_cache": {
+        "status": "existing",
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp3/_synthetic_profile_cache/experiment1/wiki40b_en_pre2019/tinyllama-1.1b/auto_profile_sequences.synthetic.jsonl",
+        "created": false,
+        "source": "reinforce_exp3_synthetic"
+      },
+      "status": "existing",
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/tinyllama-1.1b/head_groups.json",
+      "r2_summary_present": true
+    },
+    {
+      "model": "tinyllama-nope-1.1b",
+      "profile_cache": {
+        "status": "existing",
+        "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp3/_synthetic_profile_cache/experiment1/wiki40b_en_pre2019/tinyllama-nope-1.1b/auto_profile_sequences.synthetic.jsonl",
+        "created": false,
+        "source": "reinforce_exp3_synthetic"
+      },
+      "status": "generated",
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory1_si_circuits/tinyllama-nope-1.1b/head_groups.json",
+      "num_sequences": 16
+    }
+  ]
+}

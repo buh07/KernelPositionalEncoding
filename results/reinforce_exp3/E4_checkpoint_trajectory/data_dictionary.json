@@ -1,0 +1,62 @@
+{
+  "experiment_id": "E4",
+  "tables": [
+    {
+      "path": "olmo-2-7b/r2_per_checkpoint.parquet",
+      "description": "Per-head R\u00b2 at each training checkpoint",
+      "columns": [
+        {
+          "name": "checkpoint",
+          "dtype": "str",
+          "description": "HuggingFace checkpoint path"
+        },
+        {
+          "name": "training_step",
+          "dtype": "int",
+          "description": "Training step number"
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Head index"
+        },
+        {
+          "name": "r2",
+          "dtype": "float",
+          "description": "Shift-invariant R\u00b2"
+        }
+      ]
+    },
+    {
+      "path": "olmo-2-7b/trajectory_clustering.parquet",
+      "description": "Mean R\u00b2 over training steps for top/bottom-quartile head groups",
+      "columns": [
+        {
+          "name": "checkpoint",
+          "dtype": "str",
+          "description": "Checkpoint path"
+        },
+        {
+          "name": "training_step",
+          "dtype": "int",
+          "description": "Training step"
+        },
+        {
+          "name": "mean_r2_top_quartile_heads",
+          "dtype": "float",
+          "description": "Mean R\u00b2 for heads in final-checkpoint top quartile"
+        },
+        {
+          "name": "mean_r2_bottom_quartile_heads",
+          "dtype": "float",
+          "description": "Mean R\u00b2 for heads in final-checkpoint bottom quartile"
+        }
+      ]
+    }
+  ]
+}

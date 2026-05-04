@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-18 16:59:42",
+  "experiment_id": "R5B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "single_model",
+  "model": "olmo-2-7b",
+  "num_seeds": 12,
+  "seq_len": 512,
+  "batch_size": 4,
+  "count_scale": 1.0,
+  "output_root": "results/reinforce_exp/exp_r5b_regime_alignment"
+}

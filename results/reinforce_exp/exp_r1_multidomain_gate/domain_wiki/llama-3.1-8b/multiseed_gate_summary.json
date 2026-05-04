@@ -1,0 +1,272 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-17 06:41:30",
+  "input_root": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki",
+  "canonical_output_root": "results/reinforce_exp/exp_r1_multidomain_gate/canonical/domain_wiki",
+  "decision_rule": {
+    "per_seed_flag": {
+      "diff_fake_minus_real_with_prefix_ge": 0.005,
+      "cohens_d_ge": 0.2,
+      "p_one_sided_lt": 0.05
+    },
+    "meta_test": "weighted_stouffer_one_sided",
+    "weight": "sqrt(n_fake_with_prefix)",
+    "stable_blocked_rule": {
+      "min_flagged_seeds": 9,
+      "meta_p_one_lt": 0.01,
+      "pooled_diff_ge": 0.005
+    },
+    "stable_clean_rule": {
+      "max_flagged_seeds": 2,
+      "meta_p_one_gt": 0.2,
+      "pooled_diff_le": 0.0
+    }
+  },
+  "seeds_requested": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "seeds_completed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "missing_seeds": [],
+  "seed_rows": [
+    {
+      "seed": 0,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed0/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed0/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed0/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed0/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.005933938376983777,
+      "cohens_d_fake_minus_real": 0.1609851714928979,
+      "p_one_sided_fake_gt_real": 1.5807904715888637e-07,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19389,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 1,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed1/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed1/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed1/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed1/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0037932889137162057,
+      "cohens_d_fake_minus_real": 0.09547033380513384,
+      "p_one_sided_fake_gt_real": 1.8729436389136053e-06,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19340,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 2,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed2/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed2/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed2/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed2/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.006452283761836458,
+      "cohens_d_fake_minus_real": 0.16193212140743335,
+      "p_one_sided_fake_gt_real": 1.7122433556495166e-06,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19506,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 3,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed3/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed3/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed3/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed3/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.00622274974743893,
+      "cohens_d_fake_minus_real": 0.1601473839761746,
+      "p_one_sided_fake_gt_real": 1.257914758722476e-14,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19533,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 4,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed4/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed4/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed4/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed4/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.008608477719559596,
+      "cohens_d_fake_minus_real": 0.21074858965706778,
+      "p_one_sided_fake_gt_real": 5.563249865334274e-07,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19588,
+      "seed_gate_flag": true,
+      "prefix_following_artifact_flag": true
+    },
+    {
+      "seed": 5,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed5/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed5/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed5/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed5/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.008703487673963797,
+      "cohens_d_fake_minus_real": 0.22500561864235583,
+      "p_one_sided_fake_gt_real": 4.0765348927292575e-08,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19228,
+      "seed_gate_flag": true,
+      "prefix_following_artifact_flag": true
+    },
+    {
+      "seed": 6,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed6/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed6/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed6/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed6/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.004436033790329308,
+      "cohens_d_fake_minus_real": 0.1136331480138654,
+      "p_one_sided_fake_gt_real": 7.023143231100652e-05,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19570,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 7,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed7/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed7/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed7/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed7/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0062367237627345,
+      "cohens_d_fake_minus_real": 0.1571306916101216,
+      "p_one_sided_fake_gt_real": 4.538504251739816e-06,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19568,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 8,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed8/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed8/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed8/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed8/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.00787888563071415,
+      "cohens_d_fake_minus_real": 0.19428889343832043,
+      "p_one_sided_fake_gt_real": 5.03190639781854e-07,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19642,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 9,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed9/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed9/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed9/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed9/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.0071899914451523245,
+      "cohens_d_fake_minus_real": 0.1864199874701504,
+      "p_one_sided_fake_gt_real": 8.669457286861997e-08,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19356,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 10,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed10/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed10/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed10/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed10/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.005897760455713039,
+      "cohens_d_fake_minus_real": 0.15154546610537378,
+      "p_one_sided_fake_gt_real": 5.053513540459398e-13,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19193,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    },
+    {
+      "seed": 11,
+      "status": "complete",
+      "paths": {
+        "base": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed11/llama-3.1-8b",
+        "post": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed11/llama-3.1-8b/post_ablation_t5b_a.json",
+        "synthetic": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed11/llama-3.1-8b/synthetic_boundary_results.json",
+        "adversarial": "results/reinforce_exp/exp_r1_multidomain_gate/domain_wiki/seed11/llama-3.1-8b/adversarial_sequences.parquet"
+      },
+      "diff_fake_minus_real_with_prefix": 0.005921453404544932,
+      "cohens_d_fake_minus_real": 0.15179689065748375,
+      "p_one_sided_fake_gt_real": 1.1570232175793966e-05,
+      "n_fake_with_prefix": 1000,
+      "n_real_with_prefix": 19271,
+      "seed_gate_flag": false,
+      "prefix_following_artifact_flag": false
+    }
+  ],
+  "pooled": {
+    "n_completed": 12,
+    "n_flagged": 2,
+    "meta_p_one": 2.5132391973760537e-70,
+    "pooled_diff_fake_minus_real_with_prefix": 0.006439589556890585,
+    "pooled_cohens_d": 0.16409202468969825
+  },
+  "assessment": "ambiguous",
+  "canonical_gate_recommendation": {
+    "strict_gate_passes": false,
+    "strict_gate_blocked": false
+  }
+}

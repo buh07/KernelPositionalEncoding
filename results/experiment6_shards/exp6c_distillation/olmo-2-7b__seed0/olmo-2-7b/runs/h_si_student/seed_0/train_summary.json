@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-17 18:48:49",
+  "model": "olmo-2-7b",
+  "condition": "h_si_distillation_student",
+  "seed": 0,
+  "elapsed_sec": 216.39716458320618,
+  "temperature": 2.0,
+  "alpha_distill": 0.7,
+  "lora": {
+    "trainable_params": 8388608,
+    "total_params": 7307005952
+  }
+}

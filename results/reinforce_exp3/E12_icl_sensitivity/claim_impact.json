@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E12",
+  "claim_addressed": "SI-kernel ablation causes preferential ICL degradation (vs matched non-ICL task), linking SI infrastructure to the induction-head mechanism of in-context learning",
+  "claim_status": "mixed",
+  "supports_main_text": true,
+  "outcome_summary": "ICL preferentially degraded in 1/1 models. SI heads partially serve ICL computation; effect not uniform across models.",
+  "mean_accuracy_sensitivity_ratio": NaN,
+  "notes": [
+    "ICL preferentially degraded in 1/1 models. SI heads partially serve ICL computation; effect not uniform across models."
+  ]
+}

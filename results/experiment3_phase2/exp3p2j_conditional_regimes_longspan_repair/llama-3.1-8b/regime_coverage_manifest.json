@@ -1,0 +1,60 @@
+{
+  "model": "llama-3.1-8b",
+  "timestamp": "2026-04-09 21:07:44",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-J",
+  "expected_regimes": [
+    "long_span_retrieval",
+    "high_uncertainty_tokens",
+    "boundary_dense_contexts",
+    "rare_token_contexts"
+  ],
+  "coverage": [
+    {
+      "regime": "long_span_retrieval",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 31160,
+      "low_group_sample_count": 31160,
+      "n_seed_pairs": 1600,
+      "min_regime_sample_count": 256,
+      "meets_sample_threshold": true,
+      "confirmatory_eligible": true,
+      "insufficient_power": false
+    },
+    {
+      "regime": "high_uncertainty_tokens",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 8176,
+      "low_group_sample_count": 8176,
+      "n_seed_pairs": 1600,
+      "min_regime_sample_count": 256,
+      "meets_sample_threshold": true,
+      "confirmatory_eligible": true,
+      "insufficient_power": false
+    },
+    {
+      "regime": "boundary_dense_contexts",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 76738,
+      "low_group_sample_count": 76738,
+      "n_seed_pairs": 1600,
+      "min_regime_sample_count": 256,
+      "meets_sample_threshold": true,
+      "confirmatory_eligible": true,
+      "insufficient_power": false
+    },
+    {
+      "regime": "rare_token_contexts",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 6100,
+      "low_group_sample_count": 6100,
+      "n_seed_pairs": 1600,
+      "min_regime_sample_count": 256,
+      "meets_sample_threshold": true,
+      "confirmatory_eligible": true,
+      "insufficient_power": false
+    }
+  ],
+  "min_regime_sample_count": 256,
+  "regime_coverage_complete": true
+}

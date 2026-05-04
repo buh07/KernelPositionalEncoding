@@ -1,0 +1,5 @@
+{
+  "experiment_id": "E31D",
+  "question": "On semi-naturalistic prompts, is SI-targeted ablation more disruptive than importance-matched non-SI ablation?",
+  "primary_endpoint": "mean_delta_si_minus_imp"
+}

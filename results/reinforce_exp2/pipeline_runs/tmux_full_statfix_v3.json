@@ -1,0 +1,174 @@
+{
+  "timestamp": "2026-04-21 19:37:20",
+  "run_id": "statfix_v3",
+  "session": "reinforce_exp2_statfix_v3",
+  "mode": "full",
+  "strict_todo": true,
+  "resume_policy": "strict_artifact_check",
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2",
+  "marker_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/pipeline_runs/tmux_markers_statfix_v3",
+  "n_events": 20,
+  "n_failures": 4,
+  "rows": [
+    {
+      "timestamp": "2026-04-21 18:08:22",
+      "stage": "launcher",
+      "item": "session",
+      "status": "running",
+      "log_path": "",
+      "message": "creating tmux session "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:23",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/preflight/2026-04-21_18-08-22.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:24",
+      "stage": "preflight",
+      "item": "calibration_v1",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/calibration_v1/2026-04-21_18-08-23.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:24",
+      "stage": "preflight",
+      "item": "preflight",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:27",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_llama-3.1-8b.log",
+      "message": "model=llama-3.1-8b device=cuda:0 "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:27",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_olmo-2-7b.log",
+      "message": "model=olmo-2-7b device=cuda:1 "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:28",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-28__per_model_mistral-7b-v0.1.log",
+      "message": "model=mistral-7b-v0.1 device=cuda:2 "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:29",
+      "stage": "phase_b_core",
+      "item": "B2a_head_alignment",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_18-08-27.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:29",
+      "stage": "phase_a",
+      "item": "A0_claim_hygiene",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A0_claim_hygiene/2026-04-21_18-08-27.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:30",
+      "stage": "phase_a",
+      "item": "A1_evidence_consolidation",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A1_evidence_consolidation/2026-04-21_18-08-29.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:31",
+      "stage": "phase_a",
+      "item": "A2_prediction_layer",
+      "status": "skipped_existing",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/A2_prediction_layer/2026-04-21_18-08-30.log",
+      "message": "strict artifact check passed "
+    },
+    {
+      "timestamp": "2026-04-21 18:08:31",
+      "stage": "phase_a",
+      "item": "phase_a",
+      "status": "done",
+      "log_path": "",
+      "message": "stage complete "
+    },
+    {
+      "timestamp": "2026-04-21 19:26:10",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_llama-3.1-8b.log",
+      "message": "model=llama-3.1-8b rc=0 "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:05",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-27__per_model_olmo-2-7b.log",
+      "message": "model=olmo-2-7b rc=0 "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:05",
+      "stage": "phase_b_core",
+      "item": "b1_per_model_end",
+      "status": "ok",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_18-08-28__per_model_mistral-7b-v0.1.log",
+      "message": "model=mistral-7b-v0.1 rc=0 "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:05",
+      "stage": "phase_b_core",
+      "item": "b1_aggregate_start",
+      "status": "running",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_19-37-05__aggregate.log",
+      "message": "aggregate finalize "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:16",
+      "stage": "phase_b_core",
+      "item": "b1_aggregate_end",
+      "status": "failed",
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B1_kernel_taxonomy/2026-04-21_19-37-05__aggregate.log",
+      "message": "aggregate finalize failed rc=1 "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:16",
+      "stage": "phase_b_core",
+      "item": "phase_b_core",
+      "status": "failed",
+      "log_path": "",
+      "message": "B core failed (B2a rc=0, B1 rc=1) "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:20",
+      "stage": "phase_b_adv",
+      "item": "phase_b_adv",
+      "status": "failed",
+      "log_path": "",
+      "message": "dependency_failed: phase_b_core "
+    },
+    {
+      "timestamp": "2026-04-21 19:37:20",
+      "stage": "phase_c",
+      "item": "phase_c",
+      "status": "failed",
+      "log_path": "",
+      "message": "dependency_failed: phase_b_adv "
+    }
+  ]
+}

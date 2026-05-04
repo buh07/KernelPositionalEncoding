@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A0_claim_hygiene",
+  "claims": [
+    {
+      "claim_id": "E2_threshold_capacity",
+      "headline": "Threshold-capacity organization is cross-model invariant",
+      "status": "pending",
+      "strict_only": true,
+      "source": [
+        "results/experiment3_phase2/exp3p2c_redundancy_quantification/llama-3.1-8b/curve_fit_comparison.json",
+        "results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json"
+      ],
+      "caveat": "B3 mechanism disambiguation still required for stronger mechanism language."
+    },
+    {
+      "claim_id": "Llama_strict_gate",
+      "headline": "Llama strict trivial-feature gate adjudication",
+      "status": "pending",
+      "strict_only": true,
+      "source": [
+        "results/experiment3_phase2/exp3p2b_trivial_feature_control_multiseed/llama-3.1-8b/multiseed_gate_summary.json"
+      ],
+      "caveat": "No multiseed adjudication artifact found."
+    },
+    {
+      "claim_id": "J_proxy_transfer",
+      "headline": "Conditional specialization regime semantics transfer",
+      "status": "proxy_specific",
+      "strict_only": true,
+      "source": [
+        "results/reinforce_exp/exp_r5b_regime_alignment/interaction_transfer_report.json"
+      ],
+      "caveat": "Interaction significant but proxy-to-task sign transfer did not fully validate."
+    },
+    {
+      "claim_id": "RoPE_confound_control",
+      "headline": "Non-RoPE anchors preserve SI structure and non-triviality",
+      "status": "supported_with_caveat",
+      "strict_only": true,
+      "source": [
+        "results/reinforce_exp/exp_r4_pe_scheme_contrast/gpt2-medium/non_rope_control_summary.json",
+        "results/reinforce_exp/exp_r4_pe_scheme_contrast/gpt2-small/non_rope_control_summary.json"
+      ],
+      "caveat": "Anchors are smaller than primary models; scale-transfer remains limited."
+    },
+    {
+      "claim_id": "Mistral_core_replication",
+      "headline": "Mistral core battery replication",
+      "status": "mixed",
+      "strict_only": true,
+      "source": [
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/core_replication_report.json"
+      ],
+      "caveat": "Interpretation must include partial-R2 mediation caveat when applicable."
+    }
+  ]
+}

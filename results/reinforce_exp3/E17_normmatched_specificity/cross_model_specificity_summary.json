@@ -1,0 +1,87 @@
+{
+  "timestamp": "2026-05-02 01:52:02",
+  "experiment_id": "E17",
+  "n_models": 3,
+  "n_supported": 0,
+  "mean_ratio_true_over_permuted": 8.600174522657463,
+  "mean_ratio_true_over_normmatched": 0.546840357821876,
+  "interpretation": "not_specific",
+  "note": "True subtraction does not consistently exceed norm-matched controls.",
+  "per_model": [
+    {
+      "timestamp": "2026-05-02 00:14:51",
+      "experiment_id": "E17",
+      "model": "llama-3.1-8b",
+      "runtime_sec": 2791.732074737549,
+      "n_sequences": 100,
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/estimated_kernels.json",
+      "headline": {
+        "true_mean_loss_delta": 4.195681309103966,
+        "permuted_mean_loss_delta": 1.0536600161790846,
+        "normmatched_mean_loss_delta": 6.643440246939658,
+        "ratio_true_over_permuted": 3.9820067618384885,
+        "ratio_true_over_normmatched": 0.6315525018888719,
+        "true_minus_permuted_ci95": [
+          2.923685997396708,
+          3.3717274295032023
+        ],
+        "true_minus_normmatched_ci95": [
+          -2.61231112127304,
+          -2.265969080209732
+        ],
+        "supports_specificity": false
+      }
+    },
+    {
+      "timestamp": "2026-05-02 00:11:46",
+      "experiment_id": "E17",
+      "model": "mistral-7b-v0.1",
+      "runtime_sec": 2606.8502049446106,
+      "n_sequences": 100,
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/estimated_kernels.json",
+      "headline": {
+        "true_mean_loss_delta": 3.4873225855827332,
+        "permuted_mean_loss_delta": 0.21259984469413762,
+        "normmatched_mean_loss_delta": 5.160101686000823,
+        "ratio_true_over_permuted": 16.40322263922564,
+        "ratio_true_over_normmatched": 0.6758243921905102,
+        "true_minus_permuted_ci95": [
+          3.2045538333564996,
+          3.350007753059268
+        ],
+        "true_minus_normmatched_ci95": [
+          -1.8231040489196781,
+          -1.5080205747604372
+        ],
+        "supports_specificity": false
+      }
+    },
+    {
+      "timestamp": "2026-05-02 00:22:18",
+      "experiment_id": "E17",
+      "model": "olmo-2-7b",
+      "runtime_sec": 3216.510374546051,
+      "n_sequences": 100,
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/olmo-2-7b/estimated_kernels.json",
+      "headline": {
+        "true_mean_loss_delta": 0.054654313921928405,
+        "permuted_mean_loss_delta": 0.010092584490776064,
+        "normmatched_mean_loss_delta": 0.16405603730678556,
+        "ratio_true_over_permuted": 5.415294166908262,
+        "ratio_true_over_normmatched": 0.3331441793862458,
+        "true_minus_permuted_ci95": [
+          0.035191627097129814,
+          0.05622784973084926
+        ],
+        "true_minus_normmatched_ci95": [
+          -0.16554983878135682,
+          -0.0676616064339877
+        ],
+        "supports_specificity": false
+      }
+    }
+  ]
+}

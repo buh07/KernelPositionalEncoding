@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-04-28 06:32:10",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control_shards/olmo_b/olmo-2-7b",
+  "runtime_sec": 51497.5817527771,
+  "aggregate": {
+    "timestamp": "2026-04-28 06:32:10",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "n_orderings": 5,
+    "ordering_id_start": 5,
+    "ordering_id_stop": 10,
+    "n_threshold_majority": 5,
+    "fraction_threshold_majority": 1.0,
+    "robustness_assessment": "strong_replication",
+    "acceptance_thresholds": {
+      "strong_replication_ge": 0.8,
+      "partial_replication_ge": 0.5
+    },
+    "mean_random_bic_delta_linear_minus_threshold": 12.541137517925808,
+    "std_random_bic_delta_linear_minus_threshold": 3.616119391091149,
+    "mean_random_bic_delta_logistic_minus_threshold": 4.074006500761757,
+    "std_random_bic_delta_logistic_minus_threshold": 2.8765659005200908,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 4,
+      "long_range_retrieval::span32": 4
+    },
+    "effective_batch_size_ntp": 4,
+    "ntp_coverage": {
+      "requested_total": 300,
+      "available_total": 300,
+      "effective_per_seed": 100,
+      "total_used": 300,
+      "reuse_mode": "strict_split"
+    }
+  },
+  "canonical_vs_random": {
+    "timestamp": "2026-04-28 06:32:10",
+    "experiment": "NEW-R12",
+    "model": "olmo-2-7b",
+    "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+    "canonical_mean_bic_delta_linear_minus_threshold": 9.545128203736827,
+    "canonical_mean_bic_delta_logistic_minus_threshold": NaN,
+    "random_mean_bic_delta_linear_minus_threshold": 12.541137517925808,
+    "random_mean_bic_delta_logistic_minus_threshold": 4.074006500761757,
+    "random_distribution": [
+      6.80507119409559,
+      13.036475900575523,
+      11.755974619004071,
+      15.115163906981847,
+      15.99300196897201
+    ],
+    "random_distribution_logistic_minus_threshold": [
+      7.8985296646281595,
+      3.5849012507142626,
+      4.09051968691369,
+      -0.11336606609412551,
+      4.909447967646798
+    ],
+    "ranked_ordering_outlier": {
+      "z_score": -0.8285150433832739,
+      "abs_z_gt_2": false
+    }
+  },
+  "runtime_metadata": {
+    "ordering_id_start": 5,
+    "ordering_id_stop": 10,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 4,
+      "long_range_retrieval::span32": 4
+    },
+    "effective_batch_size_ntp": 4,
+    "ntp_coverage": {
+      "requested_total": 300,
+      "available_total": 300,
+      "effective_per_seed": 100,
+      "total_used": 300,
+      "reuse_mode": "strict_split"
+    }
+  }
+}

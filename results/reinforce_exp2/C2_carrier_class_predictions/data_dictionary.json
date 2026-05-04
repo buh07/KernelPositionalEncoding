@@ -1,0 +1,57 @@
+{
+  "experiment_id": "C2_carrier_class_predictions",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions/position_shuffle_results.parquet",
+      "description": "Per-example C2.1 shuffle degradation rows.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name."
+        },
+        {
+          "name": "shuffle_strength",
+          "dtype": "float",
+          "description": "Fraction of pre-query tokens shuffled."
+        },
+        {
+          "name": "degradation_norm",
+          "dtype": "float",
+          "description": "Normalized performance degradation."
+        },
+        {
+          "name": "difficulty_proxy",
+          "dtype": "float",
+          "description": "Difficulty proxy (1 - clean accuracy)."
+        }
+      ]
+    },
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions/long_context_results.parquet",
+      "description": "Per-example C2.2 carrier-class long-context rows.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name."
+        },
+        {
+          "name": "carrier_class",
+          "dtype": "str",
+          "description": "SI or ContentCond carrier class."
+        },
+        {
+          "name": "context_multiplier",
+          "dtype": "float",
+          "description": "Multiplier of train-like context."
+        },
+        {
+          "name": "accuracy",
+          "dtype": "float",
+          "description": "Accuracy under carrier-class isolation."
+        }
+      ]
+    }
+  ]
+}

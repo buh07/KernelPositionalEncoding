@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E29C",
+  "tables": [
+    {
+      "path": "<model>/head_r2_summary.parquet",
+      "description": "Per-head SI R\u00b2 profile for the Qwen anchor model.",
+      "columns": []
+    },
+    {
+      "path": "<model>/estimated_kernels.json",
+      "description": "Quick estimated kernels used for grouped subtraction checks.",
+      "columns": []
+    }
+  ]
+}

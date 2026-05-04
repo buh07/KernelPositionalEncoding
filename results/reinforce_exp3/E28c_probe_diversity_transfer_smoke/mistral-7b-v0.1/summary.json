@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-05-03 15:46:29",
+  "experiment_id": "E28C",
+  "model": "mistral-7b-v0.1",
+  "n_high_si_heads": 256,
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/estimated_kernels.json",
+  "n_families": 7,
+  "n_family_pass_lp": 4,
+  "n_family_pass_acc": 2,
+  "n_required_family_pass_lp": 6,
+  "model_primary_pass": false,
+  "model_level_status": "mixed",
+  "mean_delta_gap_lp": 0.6074160621279765,
+  "mean_delta_gap_acc": -0.11309523809523807
+}

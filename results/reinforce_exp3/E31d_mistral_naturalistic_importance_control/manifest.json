@@ -1,0 +1,7 @@
+{
+  "experiment_id": "E31D_Mistral",
+  "timestamp": "2026-05-04 16:37:29",
+  "model": "mistral-7b-v0.1",
+  "smoke": false,
+  "total_prompts": 60
+}

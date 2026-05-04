@@ -1,0 +1,43 @@
+{
+  "timestamp": "2026-05-04 13:41:44",
+  "experiment_id": "E31C",
+  "n_rows": 9,
+  "n_sources": 3,
+  "n_models": 3,
+  "cell_level_correlation": {
+    "pearson_r": 0.9557989730818809,
+    "pearson_p": 5.724505211353764e-05,
+    "spearman_rho": 0.9486832980505139,
+    "spearman_p": 9.584590571929132e-05,
+    "exact_grouped_perm_p_one_sided_positive": 0.004608294930875576
+  },
+  "model_aggregate": {
+    "rows": [
+      {
+        "model": "llama-3.1-8b",
+        "mean_r2": 0.3803224199745325,
+        "functional_gap_z_mean": 1.0395673742172402,
+        "n_cells": 3
+      },
+      {
+        "model": "mistral-7b-v0.1",
+        "mean_r2": 0.2657672483381823,
+        "functional_gap_z_mean": 0.2284297742316582,
+        "n_cells": 3
+      },
+      {
+        "model": "olmo-2-7b",
+        "mean_r2": 0.0576402411850754,
+        "functional_gap_z_mean": -1.2679971484488988,
+        "n_cells": 3
+      }
+    ],
+    "pearson_r": 0.9999922966507142,
+    "pearson_p": 0.0024988212737085055
+  },
+  "interpretation": "directional_functional_coupling_from_existing_probes",
+  "limitations": [
+    "Coupling is reanalysis of existing probe-style outcomes, not new benchmark execution.",
+    "Cell-level statistics reuse models across sources; treat p-values as directional evidence."
+  ]
+}

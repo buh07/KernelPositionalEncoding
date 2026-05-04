@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-05-03 02:35:27",
+  "experiment_id": "E26",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "dose_response_positive_si_specific",
+    "n_positive": 3,
+    "n_models": 3,
+    "high_si_positive": true,
+    "olmo_lower": true,
+    "spearman_by_model": {
+      "llama-3.1-8b": 0.9999999999999999,
+      "mistral-7b-v0.1": 0.9999999999999999,
+      "olmo-2-7b": 0.8999999999999998
+    }
+  },
+  "limitations": [
+    "Per-head disruption cost is a proxy (group delta / n_heads); interaction effects not separated.",
+    "5 quintile bins may not have equal head counts due to tied R\u00b2 values.",
+    "OLMo has low mean R\u00b2 (0.058); dose-response may be underpowered for that model."
+  ]
+}

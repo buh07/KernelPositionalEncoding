@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-29 05:01:38",
+  "experiment": "EXP-R2B",
+  "model": "olmo-2-7b",
+  "inputs": {
+    "domain_summary_path": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/olmo-2-7b/domain_summary.json"
+  },
+  "headline": {
+    "impact": "does_not_reinforce_boundary_nontriviality",
+    "boundary_claim_status": "descriptive_caveated",
+    "n_domains_supported": 0,
+    "n_domains_artifact_positive": 0,
+    "pooled_diff_mean": -0.007135759591680664
+  },
+  "note": "Claim status is derived from domain-level practical-positive direction under sequence-block inference and strict artifact checks."
+}

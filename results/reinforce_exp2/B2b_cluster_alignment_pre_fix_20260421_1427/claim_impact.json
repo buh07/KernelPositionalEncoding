@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-19 19:57:13",
+  "experiment_id": "B2b_cluster_alignment",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "strict_only": true,
+  "notes": [
+    "If mixed, B2b should not be used as required support for B_full narrative."
+  ],
+  "run_mode": "full",
+  "dependency_inputs": {
+    "stage": "phase_b_adv",
+    "run_id": "full_20260419_194925",
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment"
+  },
+  "resume_decision": "rerun_missing_or_invalid",
+  "schema_validation_passed": false,
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2b_cluster_alignment/2026-04-19_19-57-11.log"
+}

@@ -1,0 +1,8 @@
+{
+  "lang_verdicts": {
+    "zh": "consistent_positive",
+    "tr": "consistent_negative"
+  },
+  "interpretation": "boundary_not_english_specific",
+  "note": "High-SI heads show boundary-linked attention in at least one non-English language. Result II is not specific to English whitespace-based tokenization."
+}

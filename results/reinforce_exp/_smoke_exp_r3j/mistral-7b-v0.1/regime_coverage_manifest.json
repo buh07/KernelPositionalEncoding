@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-04-16 16:37:11",
+  "model": "mistral-7b-v0.1",
+  "coverage": [
+    {
+      "regime": "long_span_retrieval",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 3353,
+      "low_group_sample_count": 3353,
+      "n_seed_pairs": 64,
+      "min_regime_sample_count": 64,
+      "confirmatory_eligible": true
+    },
+    {
+      "regime": "high_uncertainty_tokens",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 818,
+      "low_group_sample_count": 818,
+      "n_seed_pairs": 64,
+      "min_regime_sample_count": 64,
+      "confirmatory_eligible": true
+    },
+    {
+      "regime": "boundary_dense_contexts",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 6986,
+      "low_group_sample_count": 6986,
+      "n_seed_pairs": 64,
+      "min_regime_sample_count": 64,
+      "confirmatory_eligible": true
+    },
+    {
+      "regime": "rare_token_contexts",
+      "present_in_effect_rows": true,
+      "high_group_sample_count": 1357,
+      "low_group_sample_count": 1357,
+      "n_seed_pairs": 64,
+      "min_regime_sample_count": 64,
+      "confirmatory_eligible": true
+    }
+  ],
+  "regime_coverage_complete": true,
+  "min_regime_sample_count": 64
+}

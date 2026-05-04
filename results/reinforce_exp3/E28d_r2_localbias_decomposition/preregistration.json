@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E28D",
+  "question": "Does disruption track SI structure beyond simple local distance-decay bias?",
+  "primary_hypothesis": "Bin-level disruption tracks R\u00b2_excess positively.",
+  "primary_endpoints": [
+    "rho_excess_vs_disruption",
+    "p_excess_vs_disruption"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E24",
+  "artifacts": [
+    "source_curves_all_rows.parquet",
+    "cell_fits_bic_votes.parquet",
+    "auc_by_seed.parquet",
+    "auc_delta_high_minus_low.parquet",
+    "auc_delta_means_by_model_task.parquet",
+    "summary.json"
+  ],
+  "source_roots": [
+    "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification",
+    "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification"
+  ]
+}

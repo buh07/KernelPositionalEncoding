@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-05-04 01:18:33",
+  "experiment_id": "E29B",
+  "claim_status": "supported_with_caveat",
+  "supports_main_text": true,
+  "notes": [
+    "Provides bounded natural-text long-context utility evidence for SI interventions."
+  ]
+}

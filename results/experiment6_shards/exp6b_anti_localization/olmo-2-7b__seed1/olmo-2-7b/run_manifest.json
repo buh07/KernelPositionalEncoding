@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-04-17 11:56:23",
+  "experiment": "6B",
+  "status": "completed",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "seeds": [
+    1
+  ],
+  "train_config": {
+    "max_steps": 250,
+    "batch_size": 1,
+    "lr": 0.0002,
+    "weight_decay": 0.0,
+    "warmup_steps": 20,
+    "grad_clip": 1.0,
+    "max_length": 256,
+    "log_every": 10,
+    "aux_interval": 20,
+    "math_per_task": 120,
+    "control_fraction": 0.2
+  },
+  "lora": {
+    "rank": 8,
+    "alpha": 16.0,
+    "dropout": 0.0,
+    "si_rank": 1,
+    "si_amplified_rank": 16,
+    "non_si_reduced_rank": 4
+  },
+  "lambda_anti_loc": 0.1,
+  "summary": {
+    "timestamp": "2026-04-17 11:56:23",
+    "conditions": [
+      "g_anti_localization",
+      "d_full_qlora_baseline"
+    ],
+    "seeds": [
+      1
+    ],
+    "n_runs": 2,
+    "experiment": "6B",
+    "model": "olmo-2-7b"
+  }
+}

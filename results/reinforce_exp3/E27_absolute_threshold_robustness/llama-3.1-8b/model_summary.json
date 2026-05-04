@@ -1,0 +1,9 @@
+{
+  "model": "llama-3.1-8b",
+  "n_thresholds_tested": 5,
+  "n_thresholds_with_heads": 6,
+  "frac_true_gt_perm": 1.0,
+  "per_head_at_thresh_020": 0.005683355094785657,
+  "rank_top256_true_delta": 4.195681309103966,
+  "elapsed_sec": 6394.271871328354
+}

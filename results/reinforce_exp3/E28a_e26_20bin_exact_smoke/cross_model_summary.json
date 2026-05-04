@@ -1,0 +1,21 @@
+{
+  "start_ts": "2026-05-03 09:48:13",
+  "end_ts": "2026-05-03 09:48:13",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "interpretation": "dose_response_exact_supported",
+  "n_positive": 3,
+  "spearman_by_model": {
+    "llama-3.1-8b": 0.9488721804511278,
+    "mistral-7b-v0.1": 0.8721804511278194,
+    "olmo-2-7b": 0.6721804511278194
+  },
+  "p_exact_one_tailed_by_model": {
+    "llama-3.1-8b": 4.9999750001249995e-06,
+    "mistral-7b-v0.1": 4.9999750001249995e-06,
+    "olmo-2-7b": 0.0008199959000204999
+  }
+}

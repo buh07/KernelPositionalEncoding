@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-16 16:52:13",
+  "experiment_id": "EXP-R5",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "task_grounded_specialization_single",
+  "model": "llama-3.1-8b",
+  "num_seeds": 2,
+  "seq_len": 512,
+  "batch_size": 2,
+  "count_scale": 0.1,
+  "output_root": "results/reinforce_exp/_smoke_exp_r5"
+}

@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-04-18 18:40:21",
+  "conditions": [
+    "h_si_student",
+    "h_teacher_baseline"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_runs": 6,
+  "comparison_math_overall_accuracy": {
+    "n_pairs": 3,
+    "mean_diff": -0.018750000000000006,
+    "ci95": [
+      -0.037462184087736355,
+      -3.781591226365358e-05
+    ],
+    "t_statistic": -1.9639610121239317,
+    "p_two_sided": 0.18849732879931086,
+    "h_values": [
+      0.71875,
+      0.70625,
+      0.709375
+    ]
+  },
+  "comparison_wiki_perplexity": {
+    "n_pairs": 3,
+    "mean_diff": 2.435361911753217,
+    "ci95": [
+      2.2699689949359585,
+      2.600754828570475
+    ],
+    "t_statistic": 28.860421829976595,
+    "p_two_sided": 0.001198431997819877,
+    "h_values": [
+      6.727441683749253,
+      6.4902855719434855,
+      6.766423742299862
+    ]
+  },
+  "comparison_position_std": {
+    "n_pairs": 3,
+    "mean_diff": -0.0023414285141461835,
+    "ci95": [
+      -0.004181760411098835,
+      -0.0005010966171935317
+    ],
+    "t_statistic": -2.4936805667095334,
+    "p_two_sided": 0.13014662421933693,
+    "h_values": [
+      0.01812302065195039,
+      0.013875241310642916,
+      0.01333320046702507
+    ]
+  },
+  "comparison_position_range": {
+    "n_pairs": 3,
+    "mean_diff": -0.01354166666666671,
+    "ci95": [
+      -0.017624999999999957,
+      -0.009458333333333464
+    ],
+    "t_statistic": -6.500000000000159,
+    "p_two_sided": 0.02286016359632141,
+    "h_values": [
+      0.0625,
+      0.050000000000000044,
+      0.046875
+    ]
+  },
+  "comparison_tokenizer_delta": {
+    "n_pairs": 3,
+    "mean_diff": 0.0,
+    "ci95": [
+      0.0,
+      0.0
+    ],
+    "t_statistic": NaN,
+    "p_two_sided": NaN,
+    "h_values": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "experiment": "6C",
+  "model": "tinyllama-1.1b",
+  "merged_timestamp": "2026-04-18 18:40:21",
+  "source_count": 3
+}

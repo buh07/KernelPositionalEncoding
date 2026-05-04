@@ -1,0 +1,22 @@
+{
+  "zh": {
+    "lang": "zh",
+    "n_seqs_evaluated": 16,
+    "n_high_si_heads": 30,
+    "n_low_si_heads": 30,
+    "mean_d_high_si": 0.850595876881541,
+    "mean_d_low_si": 3.699438649984694,
+    "d_differential": -2.848842773103153,
+    "boundary_effect_present": true
+  },
+  "tr": {
+    "lang": "tr",
+    "n_seqs_evaluated": 16,
+    "n_high_si_heads": 30,
+    "n_low_si_heads": 30,
+    "mean_d_high_si": -0.5878943288263007,
+    "mean_d_low_si": -2.2903512381063345,
+    "d_differential": 1.7024569092800337,
+    "boundary_effect_present": false
+  }
+}

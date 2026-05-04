@@ -1,0 +1,15 @@
+{
+  "model": "llama-3.1-8b",
+  "status": "ok",
+  "freq_boundary_spearman_rho": 0.0926454939403429,
+  "freq_boundary_spearman_pval": 0.0030031157462041044,
+  "high_si_freq_band_distribution": {
+    "very_low": 234,
+    "low": 22
+  },
+  "cluster_mean_peak_freq": {
+    "0": 0.006077795786061589,
+    "1": 0.03542780748663102,
+    "2": 0.041666666666666664
+  }
+}

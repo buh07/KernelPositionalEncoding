@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-04-16 17:23:51",
+  "experiment": "6E",
+  "model": "llama-3.1-8b",
+  "seed": 0,
+  "tokenizer_formatting": {
+    "standard": {
+      "accuracy": 0.853125,
+      "n_total": 320,
+      "correct": 273
+    },
+    "si_optimized": {
+      "accuracy": 0.575,
+      "n_total": 320,
+      "correct": 184
+    },
+    "delta_accuracy": -0.27812500000000007
+  },
+  "position_invariance_standard": {
+    "position_rows": [
+      {
+        "position_slot": 0,
+        "accuracy": 0.853125,
+        "n_total": 320,
+        "correct": 273
+      },
+      {
+        "position_slot": 64,
+        "accuracy": 0.81875,
+        "n_total": 320,
+        "correct": 262
+      },
+      {
+        "position_slot": 128,
+        "accuracy": 0.85625,
+        "n_total": 320,
+        "correct": 274
+      },
+      {
+        "position_slot": 192,
+        "accuracy": 0.828125,
+        "n_total": 320,
+        "correct": 265
+      },
+      {
+        "position_slot": 256,
+        "accuracy": 0.846875,
+        "n_total": 320,
+        "correct": 271
+      },
+      {
+        "position_slot": 384,
+        "accuracy": 0.834375,
+        "n_total": 320,
+        "correct": 267
+      },
+      {
+        "position_slot": 512,
+        "accuracy": 0.81875,
+        "n_total": 320,
+        "correct": 262
+      }
+    ],
+    "mean_accuracy": 0.8366071428571428,
+    "std_accuracy": 0.014534661246517602,
+    "max_minus_min": 0.03749999999999998
+  },
+  "position_invariance_si_optimized": {
+    "position_rows": [
+      {
+        "position_slot": 0,
+        "accuracy": 0.575,
+        "n_total": 320,
+        "correct": 184
+      },
+      {
+        "position_slot": 64,
+        "accuracy": 0.659375,
+        "n_total": 320,
+        "correct": 211
+      },
+      {
+        "position_slot": 128,
+        "accuracy": 0.5375,
+        "n_total": 320,
+        "correct": 172
+      },
+      {
+        "position_slot": 192,
+        "accuracy": 0.553125,
+        "n_total": 320,
+        "correct": 177
+      },
+      {
+        "position_slot": 256,
+        "accuracy": 0.590625,
+        "n_total": 320,
+        "correct": 189
+      },
+      {
+        "position_slot": 384,
+        "accuracy": 0.584375,
+        "n_total": 320,
+        "correct": 187
+      },
+      {
+        "position_slot": 512,
+        "accuracy": 0.584375,
+        "n_total": 320,
+        "correct": 187
+      }
+    ],
+    "mean_accuracy": 0.583482142857143,
+    "std_accuracy": 0.035697540717328245,
+    "max_minus_min": 0.12187500000000007
+  },
+  "delta_position_std": 0.021162879470810643
+}

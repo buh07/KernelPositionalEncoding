@@ -1,0 +1,146 @@
+{
+  "timestamp": "2026-04-10 00:05:51",
+  "experiment": "4A",
+  "title": "SI-aware LoRA fine-tuning",
+  "status": "scaffold_only",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "conditions": {
+    "a_si_protecting_lora": {
+      "description": "LoRA on non-SI heads + MLPs, SI heads frozen or rank-1",
+      "si_head_policy": "freeze_or_rank1"
+    },
+    "b_uniform_lora": {
+      "description": "Uniform LoRA with matched parameter budget",
+      "si_head_policy": "uniform_all_heads"
+    },
+    "c_si_only_lora": {
+      "description": "LoRA only on SI heads",
+      "si_head_policy": "si_only"
+    },
+    "d_full_qlora_baseline": {
+      "description": "Standard QLoRA baseline",
+      "si_head_policy": "qlora_everything"
+    }
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "run_grid": [
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_si_protecting_lora",
+      "seed": 0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_si_protecting_lora",
+      "seed": 1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_si_protecting_lora",
+      "seed": 2,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_uniform_lora",
+      "seed": 0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_uniform_lora",
+      "seed": 1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_uniform_lora",
+      "seed": 2,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_only_lora",
+      "seed": 0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_only_lora",
+      "seed": 1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_only_lora",
+      "seed": 2,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_full_qlora_baseline",
+      "seed": 0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_full_qlora_baseline",
+      "seed": 1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_full_qlora_baseline",
+      "seed": 2,
+      "status": "planned"
+    }
+  ],
+  "training_mix": {
+    "math_tasks": [
+      "digit_arithmetic",
+      "counting_chain",
+      "modular_arithmetic",
+      "sequence_continuation"
+    ],
+    "control_mix": [
+      "wiki_instruction_control"
+    ],
+    "control_fraction": 0.2
+  },
+  "post_training_checks": {
+    "required": [
+      "math_accuracy_eval",
+      "wiki_forgetting_eval",
+      "post_ft_si_audit",
+      "post_ft_boundary_detection",
+      "post_ft_c1_mini_run"
+    ]
+  },
+  "acceptance_criteria": {
+    "min_seeds_per_condition": 3,
+    "primary_comparison": "a_si_protecting_lora vs b_uniform_lora",
+    "required_reports": [
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/si_lora_comparison.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/post_ft_si_audit.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/post_ft_ablation_curve.parquet"
+    ]
+  },
+  "artifacts_contract": {
+    "run_manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/run_manifest.json",
+    "si_lora_comparison": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/si_lora_comparison.json",
+    "post_ft_si_audit": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/post_ft_si_audit.json",
+    "post_ft_ablation_curve": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4a_si_aware_lora/olmo-2-7b/post_ft_ablation_curve.parquet"
+  },
+  "notes": [
+    "This stage should run only after 4C trajectories are reviewed.",
+    "SI head IDs are inherited from Experiment 3 T1 quartile profiling.",
+    "Ensure LoRA parameter budget is matched between conditions a/b/c for fair comparison."
+  ]
+}

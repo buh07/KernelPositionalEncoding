@@ -1,0 +1,53 @@
+{
+  "experiment_id": "B3_cluster_ablation",
+  "question": "Is threshold behavior due to distributed redundancy or cluster-structured removal artifacts?",
+  "primary_hypothesis": "Exact triplet-matched within/mixed/random curves with AICc model selection disambiguate mechanism.",
+  "primary_endpoints": [
+    "DeltaAICc threshold-vs-linear in mixed/random controls",
+    "AUC_drop(within)-AUC_drop(mixed)",
+    "collapse fraction shift",
+    "isolated-cluster contribution share"
+  ],
+  "secondary_endpoints": [
+    "per-model mechanism heterogeneity"
+  ],
+  "model_list": [
+    "llama-3.1-8b"
+  ],
+  "dataset_sources": [
+    "results/reinforce_exp2/B1_kernel_taxonomy_smoke/cluster_membership.parquet",
+    "results/reinforce_exp2/B2a_head_alignment/head_alignment_scores.parquet",
+    "results/reinforce_exp2/calibration_splits/calibration_v1_manifest.json"
+  ],
+  "inclusion_exclusion_rules": [
+    "Primary inference uses only exact layer-matched and magnitude-matched triplets.",
+    "Model-selection confirmatory eligibility requires >=11 confirmatory ablation fractions."
+  ],
+  "sample_size_plan": {
+    "fractions": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      1.0
+    ],
+    "n_triplets_per_cluster": 1
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after all model-level and cross-model preregistered criteria are evaluated.",
+  "multiplicity_family": [
+    "Holm across reliability-eligible per-model within>mixed tests"
+  ],
+  "acceptance_criteria": [
+    "B3.4/B3.5 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Use threshold-capacity language and route to B_partial."
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-21 15:03:51",
+  "experiment_id": "B2a_head_alignment",
+  "claim_status": "mixed",
+  "supports_main_text": false,
+  "strict_only": true,
+  "notes": [
+    "Directional language should only be used if directional criterion passes."
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "experiment_id": "E24",
+  "timestamp": "2026-05-02 22:37:31",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "source_map": {
+    "llama-3.1-8b": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification/llama-3.1-8b/cumulative_ablation_curve.parquet",
+    "mistral-7b-v0.1": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification/mistral-7b-v0.1/cumulative_ablation_curve.parquet",
+    "olmo-2-7b": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp3p2c_redundancy_quantification/olmo-2-7b/cumulative_ablation_curve.parquet"
+  },
+  "n_rows_source": 486,
+  "n_fit_cells": 18,
+  "n_high_cells": 9,
+  "n_low_cells": 9,
+  "vote_counts": {
+    "high_linear": 0,
+    "high_threshold": 3,
+    "high_logistic": 6,
+    "low_linear": 1,
+    "low_threshold": 4,
+    "low_logistic": 4
+  },
+  "interpretation": "supports_si_specific_nonlinearity",
+  "claim_status": "supported_with_caveat",
+  "note": "SI-ranked cells reject linear while at least one matched non-SI cell prefers linear; supports SI-specific nonlinearity with caveats.",
+  "per_model_votes": [
+    {
+      "model": "llama-3.1-8b",
+      "high_to_low_votes": {
+        "threshold_piecewise": 2,
+        "logistic_sigmoid": 1
+      },
+      "low_to_high_votes": {
+        "logistic_sigmoid": 2,
+        "threshold_piecewise": 1
+      },
+      "high_linear_votes": 0,
+      "low_linear_votes": 0
+    },
+    {
+      "model": "mistral-7b-v0.1",
+      "high_to_low_votes": {
+        "logistic_sigmoid": 3
+      },
+      "low_to_high_votes": {
+        "logistic_sigmoid": 1,
+        "threshold_piecewise": 1,
+        "linear": 1
+      },
+      "high_linear_votes": 0,
+      "low_linear_votes": 1
+    },
+    {
+      "model": "olmo-2-7b",
+      "high_to_low_votes": {
+        "logistic_sigmoid": 2,
+        "threshold_piecewise": 1
+      },
+      "low_to_high_votes": {
+        "threshold_piecewise": 2,
+        "logistic_sigmoid": 1
+      },
+      "high_linear_votes": 0,
+      "low_linear_votes": 0
+    }
+  ]
+}

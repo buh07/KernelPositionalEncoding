@@ -1,0 +1,36 @@
+{
+  "experiment_id": "B3_cluster_ablation",
+  "question": "Is threshold behavior due to distributed redundancy or cluster-structured removal artifacts?",
+  "primary_hypothesis": "Matched within/mixed/random curves plus threshold-vs-linear model selection can disambiguate mechanism.",
+  "primary_endpoints": [
+    "DeltaAICc threshold-vs-linear in mixed/random controls",
+    "AUC_drop(within)-AUC_drop(mixed)",
+    "collapse fraction shift"
+  ],
+  "secondary_endpoints": [
+    "per-model mechanism heterogeneity"
+  ],
+  "model_list": [
+    "llama-3.1-8b"
+  ],
+  "dataset_sources": [
+    "fallback NEW-R12 random curves"
+  ],
+  "inclusion_exclusion_rules": [
+    "Model requires usable within/mixed/random curves for full confirmatory criteria."
+  ],
+  "sample_size_plan": {
+    "ablation_fractions_required": ">=11 for confirmatory model-selection"
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after model-level verdicts and cross-model rule evaluation.",
+  "multiplicity_family": [
+    "Holm across per-model within-vs-mixed tests"
+  ],
+  "acceptance_criteria": [
+    "B3.4/B3.5 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Use threshold-capacity language; route to B_partial."
+}

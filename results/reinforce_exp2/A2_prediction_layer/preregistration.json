@@ -1,0 +1,34 @@
+{
+  "experiment_id": "A2_prediction_layer",
+  "question": "Can we pre-register falsifiable predictions before C-path testing?",
+  "primary_hypothesis": "At least one falsifiable SI-linked prediction can be frozen before evaluation.",
+  "primary_endpoints": [
+    "predictions_preregistered.json"
+  ],
+  "secondary_endpoints": [
+    "None"
+  ],
+  "model_list": [
+    "paper-level"
+  ],
+  "dataset_sources": [
+    "none (design-time artifact)"
+  ],
+  "inclusion_exclusion_rules": [
+    "Prediction statements must include direction and failure interpretation."
+  ],
+  "sample_size_plan": {
+    "n_predictions": 1
+  },
+  "seed_plan": {
+    "deterministic": true
+  },
+  "stopping_rule": "Stop once prediction artifact is frozen.",
+  "multiplicity_family": [
+    "Not applicable"
+  ],
+  "acceptance_criteria": [
+    "Prediction contains explicit endpoint, direction, and failure interpretation."
+  ],
+  "fallback_interpretation_if_null": "A narrative only paper with no predictive layer."
+}

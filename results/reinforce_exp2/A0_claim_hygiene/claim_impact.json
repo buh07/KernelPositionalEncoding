@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A0_claim_hygiene",
+  "claim_status": "supported_with_caveat",
+  "supports_main_text": true,
+  "strict_only": true,
+  "notes": [
+    "Claim matrix generated from latest artifacts.",
+    "Any pending/mixed rows should be reflected explicitly in paper narrative."
+  ]
+}

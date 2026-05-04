@@ -1,0 +1,46 @@
+{
+  "experiment_id": "E18",
+  "tables": [
+    {
+      "path": "<model>/format_confound_controls.parquet",
+      "description": "Condition-level ICL vs non-ICL degradation gaps for primary and control arms.",
+      "columns": [
+        {
+          "name": "condition",
+          "dtype": "str",
+          "description": "primary_high_si/control_non_si/control_label_shuffle/control_positional_perturb"
+        },
+        {
+          "name": "icl_acc_loss",
+          "dtype": "float",
+          "description": "ICL accuracy degradation"
+        },
+        {
+          "name": "nonicl_acc_loss",
+          "dtype": "float",
+          "description": "Non-ICL accuracy degradation"
+        },
+        {
+          "name": "gap_acc",
+          "dtype": "float",
+          "description": "ICL - non-ICL accuracy-degradation gap"
+        },
+        {
+          "name": "icl_lp_loss",
+          "dtype": "float",
+          "description": "ICL log-probability degradation"
+        },
+        {
+          "name": "nonicl_lp_loss",
+          "dtype": "float",
+          "description": "Non-ICL log-probability degradation"
+        },
+        {
+          "name": "gap_lp",
+          "dtype": "float",
+          "description": "ICL - non-ICL log-probability-degradation gap"
+        }
+      ]
+    }
+  ]
+}

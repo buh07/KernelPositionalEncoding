@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-04 01:46:56",
+  "experiment_id": "E29B",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "naturaltext_longcontext_preferential_gap_supported_with_caveat",
+    "n_model_pass": 2,
+    "n_models": 3
+  },
+  "limitations": [
+    "Prompts are semi-naturalistic constructions, not benchmark-grade downstream tasks.",
+    "Kernel subtraction is evaluation-time disruption and not a training counterfactual."
+  ]
+}

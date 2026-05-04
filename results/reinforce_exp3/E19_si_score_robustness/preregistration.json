@@ -1,0 +1,47 @@
+{
+  "experiment_id": "E19",
+  "question": "Are SI-score contrasts robust to offset-support imbalance and corpus-composition shifts?",
+  "primary_hypothesis": "Model-level SI contrasts remain stable under offset reweighting and cross-corpus transfer.",
+  "primary_endpoints": [
+    "mean_abs_delta_offset_reweight",
+    "mean_abs_delta_equalcount_proxy",
+    "mean_abs_transfer_minus_indomain"
+  ],
+  "secondary_endpoints": [
+    "per_domain_delta_profiles",
+    "per_model_pass_flag"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "dataset_sources": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "inclusion_exclusion_rules": [
+    "Use matched sequence count per domain (truncate to min loaded count)",
+    "Require >=4 matched sequences per domain"
+  ],
+  "sample_size_plan": {
+    "domains": [
+      "wiki",
+      "code",
+      "dialogue"
+    ],
+    "sequences_per_domain": "configured by --num-sequences"
+  },
+  "seed_plan": {
+    "base_seed": 20260501
+  },
+  "stopping_rule": "fixed sample size",
+  "multiplicity_family": [
+    "cross-domain robustness deltas"
+  ],
+  "acceptance_criteria": [
+    "mean absolute deltas below preregistered practical thresholds across models"
+  ],
+  "fallback_interpretation_if_null": "Cross-model SI contrasts may partly reflect support/corpus artifacts and should be treated cautiously."
+}

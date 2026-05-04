@@ -1,0 +1,114 @@
+{
+  "timestamp": "2026-05-04 02:53:09",
+  "experiment_id": "E30A",
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "n_families": 4,
+  "n_total_prompts": 144,
+  "mean_pooled_gap_true_lp": 5.085957845052083,
+  "pooled_gap_true_ci": [
+    4.244698079427083,
+    5.938628133138021
+  ],
+  "p_one_gt_zero": 0.00024993751562109475,
+  "regularity_effect_high_minus_low": -3.0681830512152777,
+  "length_effect_long_minus_short": 2.7324354383680554,
+  "all_high_reg_positive": true,
+  "model_directional_pass": true,
+  "n_family_directional_pass": 4,
+  "family_results": [
+    {
+      "family": "short_high",
+      "context_band": "short",
+      "regularity_band": "high",
+      "context_len": 128,
+      "n_prompts": 36,
+      "mean_gap_true_lp": 2.771267361111111,
+      "mean_gap_perm_lp": -0.9535590277777778,
+      "mean_gap_true_minus_perm_lp": 3.724826388888889,
+      "gap_true_ci": [
+        1.1875542534722223,
+        4.397222222222222
+      ],
+      "gap_true_minus_perm_ci": [
+        2.191384548611111,
+        5.326345486111112
+      ],
+      "intact_probe_acc": 0.0,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    },
+    {
+      "family": "short_low",
+      "context_band": "short",
+      "regularity_band": "low",
+      "context_len": 128,
+      "n_prompts": 36,
+      "mean_gap_true_lp": 4.668212890625,
+      "mean_gap_perm_lp": 2.9332953559027777,
+      "mean_gap_true_minus_perm_lp": 1.7349175347222223,
+      "gap_true_ci": [
+        3.422308349609375,
+        5.947018771701389
+      ],
+      "gap_true_minus_perm_ci": [
+        0.4177435980902778,
+        2.965009223090278
+      ],
+      "intact_probe_acc": 0.3055555555555556,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    },
+    {
+      "family": "long_high",
+      "context_band": "long",
+      "regularity_band": "high",
+      "context_len": 512,
+      "n_prompts": 36,
+      "mean_gap_true_lp": 4.332465277777778,
+      "mean_gap_perm_lp": -1.0271267361111112,
+      "mean_gap_true_minus_perm_lp": 5.359592013888889,
+      "gap_true_ci": [
+        2.8180772569444446,
+        5.809483506944444
+      ],
+      "gap_true_minus_perm_ci": [
+        4.215535481770834,
+        6.582237413194445
+      ],
+      "intact_probe_acc": 0.0,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    },
+    {
+      "family": "long_low",
+      "context_band": "long",
+      "regularity_band": "low",
+      "context_len": 512,
+      "n_prompts": 36,
+      "mean_gap_true_lp": 8.571885850694445,
+      "mean_gap_perm_lp": 0.796875,
+      "mean_gap_true_minus_perm_lp": 7.775010850694445,
+      "gap_true_ci": [
+        6.876559787326388,
+        10.218202039930556
+      ],
+      "gap_true_minus_perm_ci": [
+        6.4944702148437505,
+        9.039407009548611
+      ],
+      "intact_probe_acc": 0.16666666666666666,
+      "intact_ctrl_acc": 0.0,
+      "true_probe_acc": 0.0,
+      "true_ctrl_acc": 0.0,
+      "family_directional_pass": true
+    }
+  ],
+  "elapsed_sec": 973.4958753585815
+}

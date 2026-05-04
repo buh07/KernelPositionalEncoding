@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-04-24 13:17:52",
+  "experiment_id": "B3_cluster_ablation",
+  "models": {
+    "llama-3.1-8b": {
+      "informative": false,
+      "non_informative_reason": "insufficient_clusters",
+      "n_confirmatory_eligible_clusters": 0,
+      "max_cluster_share": NaN,
+      "cluster_share": {},
+      "sum_positive_auc": NaN
+    },
+    "olmo-2-7b": {
+      "informative": false,
+      "non_informative_reason": "insufficient_clusters",
+      "n_confirmatory_eligible_clusters": 0,
+      "max_cluster_share": NaN,
+      "cluster_share": {},
+      "sum_positive_auc": NaN
+    },
+    "mistral-7b-v0.1": {
+      "informative": false,
+      "non_informative_reason": "insufficient_clusters",
+      "n_confirmatory_eligible_clusters": 0,
+      "max_cluster_share": NaN,
+      "cluster_share": {},
+      "sum_positive_auc": NaN
+    }
+  }
+}

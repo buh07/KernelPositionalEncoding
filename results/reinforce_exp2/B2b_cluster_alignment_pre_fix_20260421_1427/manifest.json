@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-04-19 19:57:13",
+  "experiment_id": "B2b_cluster_alignment",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b2b_cluster_alignment.py",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "b1_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy",
+  "b2a_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment",
+  "run_mode": "full",
+  "dependency_inputs": {
+    "stage": "phase_b_adv",
+    "run_id": "full_20260419_194925",
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment"
+  },
+  "resume_decision": "rerun_missing_or_invalid",
+  "schema_validation_passed": false,
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2b_cluster_alignment/2026-04-19_19-57-11.log"
+}

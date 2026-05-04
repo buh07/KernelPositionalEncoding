@@ -1,0 +1,616 @@
+{
+  "timestamp": "2026-04-17 12:13:54",
+  "experiment": "EXP-R3",
+  "model": "mistral-7b-v0.1",
+  "device": "cuda:0",
+  "stages": [
+    {
+      "stage": "theory8",
+      "elapsed_sec": 15383.40108013153,
+      "cmd": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "-u",
+        "experiment3/theory8_position_ablation.py",
+        "--model",
+        "mistral-7b-v0.1",
+        "--device",
+        "cuda:0",
+        "--output-dir",
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation",
+        "--estimation-seqs",
+        "50",
+        "--eval-seqs",
+        "100",
+        "--seq-len",
+        "512"
+      ]
+    },
+    {
+      "stage": "exp3p2b",
+      "elapsed_sec": 4182.475661754608,
+      "cmd": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "-u",
+        "reinforce_exp/exp_r3_b_strict_generic.py",
+        "--model",
+        "mistral-7b-v0.1",
+        "--device",
+        "cuda:0",
+        "--num-sequences",
+        "32",
+        "--seq-len",
+        "512",
+        "--top-k-dims",
+        "16",
+        "--synthetic-target-per-cell",
+        "600",
+        "--seed",
+        "0",
+        "--output-root",
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2b_strict_generic"
+      ]
+    },
+    {
+      "stage": "exp3p2c1",
+      "elapsed_sec": 18339.749473810196,
+      "cmd": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "-u",
+        "experiment3/phase2/exp3p2c_redundancy_quantification.py",
+        "--model",
+        "mistral-7b-v0.1",
+        "--device",
+        "cuda:0",
+        "--output-root",
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2c_redundancy_quantification",
+        "--num-seeds",
+        "3",
+        "--synthetic-count",
+        "100",
+        "--batch-size-synth",
+        "8",
+        "--ntp-count-per-seed",
+        "100",
+        "--ntp-seq-len",
+        "512",
+        "--batch-size-ntp",
+        "4"
+      ]
+    },
+    {
+      "stage": "exp3p2c2",
+      "elapsed_sec": 7181.616107463837,
+      "cmd": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "-u",
+        "reinforce_exp/exp_r3_c2_extended.py",
+        "--model",
+        "mistral-7b-v0.1",
+        "--device",
+        "cuda:0",
+        "--fractions",
+        "0,25,50,75",
+        "--output-root",
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2c2_extended",
+        "--num-seeds",
+        "3",
+        "--synthetic-count",
+        "100",
+        "--batch-size-synth",
+        "8",
+        "--ntp-count-per-seed",
+        "100",
+        "--ntp-seq-len",
+        "512",
+        "--batch-size-ntp",
+        "4"
+      ]
+    },
+    {
+      "stage": "exp3p2j_generic",
+      "elapsed_sec": 634.0114314556122,
+      "cmd": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "-u",
+        "reinforce_exp/exp_r3_conditional_regimes_generic.py",
+        "--model",
+        "mistral-7b-v0.1",
+        "--device",
+        "cuda:0",
+        "--num-sequences",
+        "160",
+        "--seq-len",
+        "512",
+        "--batch-size",
+        "4",
+        "--num-seed-shards",
+        "16",
+        "--long-span-min-distance",
+        "64",
+        "--min-regime-sample-count",
+        "256",
+        "--output-root",
+        "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/conditional_regimes_generic"
+      ]
+    }
+  ],
+  "artifacts": {
+    "theory8": {
+      "status": "ok",
+      "path": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/report.json",
+      "data": {
+        "experiment": "3_theory8_position_ablation",
+        "model": "mistral-7b-v0.1",
+        "timestamp": "2026-04-17 03:48:14",
+        "config": {
+          "estimation_sequences": 50,
+          "eval_sequences": 100,
+          "seq_len": 512,
+          "n_high_si_heads": 256,
+          "n_low_si_heads": 256,
+          "total_heads": 1024,
+          "bootstrap_n": 10000
+        },
+        "analysis": {
+          "baseline": {
+            "mean_loss": 1.8523800373077393,
+            "median_loss": 0.87109375,
+            "std_loss": 2.493173360824585,
+            "n_tokens": 51100
+          },
+          "subtract_kernel_high_si": {
+            "mean_loss": 5.281800270080566,
+            "median_loss": 4.75,
+            "std_loss": 3.2097420692443848,
+            "n_tokens": 51100,
+            "mean_loss_increase": 3.4294211864471436,
+            "median_loss_increase": 2.9825782775878906,
+            "relative_increase_pct": 185.13593956839904
+          },
+          "subtract_kernel_low_si": {
+            "mean_loss": 1.869560956954956,
+            "median_loss": 0.888671875,
+            "std_loss": 2.5018398761749268,
+            "n_tokens": 51100,
+            "mean_loss_increase": 0.017180997878313065,
+            "median_loss_increase": 0.000518798828125,
+            "relative_increase_pct": 0.9275093410790604
+          },
+          "subtract_kernel_all": {
+            "mean_loss": 5.188567638397217,
+            "median_loss": 4.65625,
+            "std_loss": 2.9872283935546875,
+            "n_tokens": 51100,
+            "mean_loss_increase": 3.3361873626708984,
+            "median_loss_increase": 2.9375,
+            "relative_increase_pct": 180.10274865193074
+          },
+          "comparisons": {
+            "subtract_kernel_high_si": {
+              "mean_loss_increase": 3.4294211864471436,
+              "std_loss_increase": 0.2353365421295166,
+              "bootstrap_ci_95": [
+                3.3841057658195495,
+                3.475316673517227
+              ],
+              "paired_t_stat": 145.72411220456655,
+              "paired_t_pval": 2.5024109357650378e-117,
+              "wilcoxon_stat": 0.0,
+              "wilcoxon_pval": 3.896559845095909e-18,
+              "cohens_d": 14.572412577387894,
+              "fraction_sequences_increased": 1.0,
+              "n_sequences": 100
+            },
+            "subtract_kernel_low_si": {
+              "mean_loss_increase": 0.01718100532889366,
+              "std_loss_increase": 0.009622855111956596,
+              "bootstrap_ci_95": [
+                0.015322266053408385,
+                0.019043871108442544
+              ],
+              "paired_t_stat": 17.854373113021555,
+              "paired_t_pval": 1.017495451667982e-32,
+              "wilcoxon_stat": 23.0,
+              "wilcoxon_pval": 7.78699366986276e-18,
+              "cohens_d": 1.7854373913981005,
+              "fraction_sequences_increased": 0.96,
+              "n_sequences": 100
+            },
+            "subtract_kernel_all": {
+              "mean_loss_increase": 3.3361873626708984,
+              "std_loss_increase": 0.24383445084095,
+              "bootstrap_ci_95": [
+                3.289372944831848,
+                3.3827151536941527
+              ],
+              "paired_t_stat": 136.82183142276585,
+              "paired_t_pval": 1.245425406504082e-114,
+              "wilcoxon_stat": 0.0,
+              "wilcoxon_pval": 3.896559845095909e-18,
+              "cohens_d": 13.682182116451827,
+              "fraction_sequences_increased": 1.0,
+              "n_sequences": 100
+            }
+          },
+          "high_vs_low_si": {
+            "description": "Direct comparison: does removing high-SI kernels cause more damage than low-SI?",
+            "mean_diff": 3.4122400283813477,
+            "paired_t_stat": 145.1711231565894,
+            "paired_t_pval": 3.6397511187237e-117,
+            "high_si_worse": true
+          }
+        },
+        "verdict": "VERDICT: The positional kernel IS functionally relevant. Removing it significantly increases loss.\n  all heads: mean loss increase = 3.3362 (d=13.682, p=1.25e-114, significant)\n  high-SI: mean loss increase = 3.4294 (d=14.572, p=2.50e-117, significant)\n  low-SI: mean loss increase = 0.0172 (d=1.785, p=1.02e-32, significant)\n  High-SI heads contribute more positional kernel effect (diff=3.4122, p=3.64e-117)",
+        "runtime": {
+          "kernel_estimation_s": 2764.9,
+          "evaluation_s": 12600.5,
+          "total_s": 15365.4
+        }
+      }
+    },
+    "exp3p2b": {
+      "status": "ok",
+      "path": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2b_strict_generic/mistral-7b-v0.1/synthetic_boundary_results.json",
+      "data": {
+        "method": "full_adversarial_forward_pass",
+        "note": "Synthetic 2x2 boundary control computed from fresh attention forward passes on adversarially perturbed token sequences.",
+        "replacement_meta": {
+          "boundary_candidates_available": 6035,
+          "nonboundary_candidates_available": 4343,
+          "boundary_replacements_applied": 600,
+          "nonboundary_replacements_applied": 600
+        },
+        "cells": {
+          "fake_boundary_with_prefix": {
+            "cell": "fake_boundary_with_prefix",
+            "mean_high_prev_attn": 0.0847291054798634,
+            "std_high_prev_attn": 0.0300299547028846,
+            "mean_low_prev_attn": 0.016938428098592553,
+            "std_low_prev_attn": 0.02425826787590806,
+            "n": 600
+          },
+          "fake_boundary_without_prefix": {
+            "cell": "fake_boundary_without_prefix",
+            "mean_high_prev_attn": 0.05976691939845257,
+            "std_high_prev_attn": 0.02643022959018398,
+            "mean_low_prev_attn": 0.013268664236555901,
+            "std_low_prev_attn": 0.016017932100335877,
+            "n": 6779
+          },
+          "real_boundary_with_prefix": {
+            "cell": "real_boundary_with_prefix",
+            "mean_high_prev_attn": 0.07770499470229618,
+            "std_high_prev_attn": 0.05643156289121334,
+            "mean_low_prev_attn": 0.013693446508838927,
+            "std_low_prev_attn": 0.05687218430053585,
+            "n": 8373
+          },
+          "real_boundary_without_prefix": {
+            "cell": "real_boundary_without_prefix",
+            "mean_high_prev_attn": 0.08370906462720065,
+            "std_high_prev_attn": 0.01885593223824846,
+            "mean_low_prev_attn": 0.01083236179488942,
+            "std_low_prev_attn": 0.007093825173556942,
+            "n": 600
+          }
+        },
+        "prefix_following_artifact_flag": false,
+        "prefix_following_artifact_flag_legacy_binary": true,
+        "prefix_following_assessment": {
+          "n_fake_with_prefix": 600,
+          "n_real_with_prefix": 8373,
+          "mean_fake_with_prefix": 0.0847291054798634,
+          "mean_real_with_prefix": 0.07770499470229618,
+          "fake_minus_real_diff": 0.007024110777567219,
+          "t_statistic": 5.118329481544226,
+          "p_two_sided": 3.740662102558615e-07,
+          "p_one_sided_fake_gt_real": 1.8703310512793076e-07,
+          "cohens_d_fake_minus_real": 0.12756144503302763,
+          "rule": {
+            "alpha_one_sided": 0.05,
+            "min_cohens_d": 0.2,
+            "min_abs_diff": 0.005,
+            "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+          },
+          "artifact_flag_statistical": false
+        },
+        "comparisons": {
+          "fake_minus_real_with_prefix": 0.007024110777567219,
+          "real_minus_fake_without_prefix": 0.02394214522874808
+        },
+        "acceptance_rule_inputs": {
+          "fake_boundary_with_prefix": 0.0847291054798634,
+          "real_boundary_with_prefix": 0.07770499470229618,
+          "alpha_one_sided": 0.05,
+          "min_cohens_d": 0.2,
+          "min_abs_diff": 0.005
+        }
+      }
+    },
+    "exp3p2c1": {
+      "status": "ok",
+      "path": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2c_redundancy_quantification/mistral-7b-v0.1/curve_fit_comparison.json",
+      "data": {
+        "experiment": "3P2-C.1_cumulative_ablation_curve",
+        "model": "mistral-7b-v0.1",
+        "timestamp": "2026-04-17 10:03:37",
+        "tier": "tier2_conditional_mechanistic",
+        "primary_test_id": "3P2-C.1",
+        "mde_target": 0.35,
+        "achieved_power": 0.8,
+        "multiplicity_family": "tier2_holm_primary_tests",
+        "curve_fits": {
+          "high_to_low::local_key_match::accuracy": {
+            "n_points": 9,
+            "linear": {
+              "slope": 0.19202610235937276,
+              "intercept": 0.014830824701481796,
+              "rss": 0.008158239884829969,
+              "bic": -58.659113534376445
+            },
+            "threshold_piecewise": {
+              "rss": 0.004094929881182499,
+              "bic": -60.4681740306051,
+              "best_threshold_fraction": 0.1
+            },
+            "preferred_model": "threshold_piecewise"
+          },
+          "high_to_low::long_range_retrieval::accuracy": {
+            "n_points": 9,
+            "linear": {
+              "slope": 0.12051997913969215,
+              "intercept": 0.015521417781614146,
+              "rss": 0.007521657246184601,
+              "bic": -59.390291111948116
+            },
+            "threshold_piecewise": {
+              "rss": 0.0009384840097525803,
+              "bic": -73.727325461927,
+              "best_threshold_fraction": 0.05
+            },
+            "preferred_model": "threshold_piecewise"
+          },
+          "high_to_low::wiki_ntp::loss": {
+            "n_points": 9,
+            "linear": {
+              "slope": 9.815794145834865,
+              "intercept": 0.29647346557649384,
+              "rss": 3.7737886940418592,
+              "bic": -3.427856942202439
+            },
+            "threshold_piecewise": {
+              "rss": 0.36174523600628483,
+              "bic": -20.137458632158594,
+              "best_threshold_fraction": 0.15
+            },
+            "preferred_model": "threshold_piecewise"
+          },
+          "low_to_high::local_key_match::accuracy": {
+            "n_points": 9,
+            "linear": {
+              "slope": 0.5528431160984032,
+              "intercept": 0.03779703459933823,
+              "rss": 0.06967719110035128,
+              "bic": -39.35551236821227
+            },
+            "threshold_piecewise": {
+              "rss": 0.0039101773786687135,
+              "bic": -60.883675731594735,
+              "best_threshold_fraction": 0.15
+            },
+            "preferred_model": "threshold_piecewise"
+          },
+          "low_to_high::long_range_retrieval::accuracy": {
+            "n_points": 9,
+            "linear": {
+              "slope": 0.09027365666810533,
+              "intercept": 0.044938857718313886,
+              "rss": 0.0032837523541839,
+              "bic": -66.84948851709555
+            },
+            "threshold_piecewise": {
+              "rss": 0.0002746315507361868,
+              "bic": -84.78684415916051,
+              "best_threshold_fraction": 0.05
+            },
+            "preferred_model": "threshold_piecewise"
+          },
+          "low_to_high::wiki_ntp::loss": {
+            "n_points": 9,
+            "linear": {
+              "slope": 2.4293153739472277,
+              "intercept": 0.08273368742912787,
+              "rss": 0.44426970861884246,
+              "bic": -22.682483083339974
+            },
+            "threshold_piecewise": {
+              "rss": 0.07447309245909568,
+              "bic": -34.36197943052906,
+              "best_threshold_fraction": 0.1
+            },
+            "preferred_model": "threshold_piecewise"
+          }
+        },
+        "summary": {
+          "threshold_votes": 6,
+          "linear_votes": 0,
+          "supports_redundancy_threshold_pattern": true,
+          "note": "Threshold preference supports E2 redundancy; linear preference supports E1-style gradual non-specific degradation.",
+          "runtime_seconds": 18327.06480908394
+        }
+      }
+    },
+    "exp3p2c2": {
+      "status": "ok",
+      "path": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/exp3p2c2_extended/mistral-7b-v0.1_nonlinearity_summary.json",
+      "data": {
+        "experiment": "3P2-C.2_all_high_si_simultaneous_ablation",
+        "model": "mistral-7b-v0.1",
+        "timestamp": "2026-04-17 12:03:19",
+        "tier": "tier2_conditional_mechanistic",
+        "primary_test_id": "3P2-C.2",
+        "mde_target": 0.35,
+        "achieved_power": 0.8,
+        "multiplicity_family": "tier2_holm_primary_tests",
+        "fractions": [
+          0,
+          25,
+          50,
+          75
+        ],
+        "nonlinearity_rule": "75% degradation > 3x 25% degradation (paired bootstrap)",
+        "per_task_metric": {
+          "local_key_match::accuracy": {
+            "n": 3,
+            "mean_25": 0.055104166666666655,
+            "mean_75": 0.19864583333333333,
+            "ratio_75_over_25": 3.6049149338374296,
+            "mean_excess_over_3x": 0.033333333333333354,
+            "ci_95_excess": [
+              -0.013749999999999984,
+              0.08249999999999996
+            ],
+            "p_one_sided_excess": 0.035992801439712056,
+            "supports_superlinear": true
+          },
+          "long_range_retrieval::accuracy": {
+            "n": 3,
+            "mean_25": 0.04993055555555556,
+            "mean_75": 0.058888888888888886,
+            "ratio_75_over_25": 1.179415855354659,
+            "mean_excess_over_3x": -0.09090277777777778,
+            "ci_95_excess": [
+              -0.13104166666666667,
+              -0.05895833333333333
+            ],
+            "p_one_sided_excess": 1.0,
+            "supports_superlinear": false
+          },
+          "wiki_ntp::loss": {
+            "n": 3,
+            "mean_25": 3.6595164194251555,
+            "mean_75": 4.670718342968912,
+            "ratio_75_over_25": 1.2763211877329403,
+            "mean_excess_over_3x": -6.307830915306554,
+            "ci_95_excess": [
+              -6.337333151788424,
+              -6.281506545615918
+            ],
+            "p_one_sided_excess": 1.0,
+            "supports_superlinear": false
+          }
+        },
+        "pooled_by_metric": {
+          "accuracy": {
+            "n": 6,
+            "mean_25": 0.052517361111111105,
+            "mean_75": 0.12876736111111112,
+            "ratio_75_over_25": 2.4519008264462814,
+            "mean_excess_over_3x": -0.02878472222222221,
+            "ci_95_excess": [
+              -0.08392361111111109,
+              0.0298263888888889
+            ],
+            "p_one_sided_excess": 0.8394321135772845,
+            "supports_superlinear": false
+          },
+          "loss": {
+            "n": 3,
+            "mean_25": 3.6595164194251555,
+            "mean_75": 4.670718342968912,
+            "ratio_75_over_25": 1.2763211877329403,
+            "mean_excess_over_3x": -6.307830915306554,
+            "ci_95_excess": [
+              -6.337333151788424,
+              -6.281506545615918
+            ],
+            "p_one_sided_excess": 1.0,
+            "supports_superlinear": false
+          }
+        },
+        "summary": {
+          "superlinear_votes": 1,
+          "total_votes": 3,
+          "supports_nonlinearity": false,
+          "runtime_seconds": 7170.512816905975
+        }
+      }
+    },
+    "exp3p2j_generic": {
+      "status": "ok",
+      "path": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/conditional_regimes_generic/mistral-7b-v0.1/regime_summary.json",
+      "data": {
+        "timestamp": "2026-04-17 12:13:53",
+        "model": "mistral-7b-v0.1",
+        "n_rows": 1280,
+        "regime_tests": {
+          "boundary_dense_contexts": {
+            "n_pairs": 1600,
+            "mean_high": 3.7375737738773593,
+            "mean_low": 0.4202345361064726,
+            "mean_delta_high_minus_low": 3.3173392377708866,
+            "p_one_sided": 0.0,
+            "cohens_d": 10.808552241055025,
+            "p_one_sided_holm": 0.0,
+            "supports_high_gt_low": true
+          },
+          "high_uncertainty_tokens": {
+            "n_pairs": 1600,
+            "mean_high": 1.3212959007730627,
+            "mean_low": -0.17781121725446225,
+            "mean_delta_high_minus_low": 1.4991071180275248,
+            "p_one_sided": 0.0,
+            "cohens_d": 4.051373488130243,
+            "p_one_sided_holm": 0.0,
+            "supports_high_gt_low": true
+          },
+          "long_span_retrieval": {
+            "n_pairs": 1600,
+            "mean_high": 3.105696461074264,
+            "mean_low": 0.7285154093866172,
+            "mean_delta_high_minus_low": 2.3771810516876473,
+            "p_one_sided": 0.0,
+            "cohens_d": 6.730838098841008,
+            "p_one_sided_holm": 0.0,
+            "supports_high_gt_low": true
+          },
+          "rare_token_contexts": {
+            "n_pairs": 1600,
+            "mean_high": 5.2466535508207155,
+            "mean_low": 0.20385777468093277,
+            "mean_delta_high_minus_low": 5.042795776139783,
+            "p_one_sided": 0.0,
+            "cohens_d": 5.581943818758366,
+            "p_one_sided_holm": 0.0,
+            "supports_high_gt_low": true
+          }
+        },
+        "interaction_model": {
+          "n_observations": 1280,
+          "f_interaction": 1229.3600344486629,
+          "p_value": 1.1102230246251565e-16,
+          "partial_eta_squared": 0.7435525286896214,
+          "supports_conditional_specialization": true,
+          "p_value_holm": 1.1102230246251565e-16
+        },
+        "regime_coverage_complete": true,
+        "regime_coverage_manifest": "results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/conditional_regimes_generic/mistral-7b-v0.1/regime_coverage_manifest.json",
+        "regime_definition": {
+          "long_span_min_distance": 64,
+          "surprisal_p90": 5.142394781112678,
+          "rare_frequency_cutoff": 1
+        },
+        "verdict": {
+          "supports_conditional_specialization": true
+        }
+      }
+    }
+  },
+  "headline_verdict": {
+    "kernel_load_bearing": true,
+    "boundary_strict_prefix_flag": false,
+    "c1_threshold_supported": true,
+    "claim_impact": "strengthens_main_claim"
+  },
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/20260416_233152"
+}

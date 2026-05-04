@@ -1,0 +1,7 @@
+{
+  "lang_verdicts": {
+    "tr": "consistent_negative"
+  },
+  "interpretation": "boundary_english_specific",
+  "note": "No boundary effect in non-English languages. Result II should be scoped to whitespace-tokenized (English) text."
+}

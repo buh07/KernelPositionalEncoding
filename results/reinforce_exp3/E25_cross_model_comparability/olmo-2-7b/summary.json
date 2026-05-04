@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-02 23:49:45",
+  "experiment_id": "E25",
+  "model": "olmo-2-7b",
+  "t8_report": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/olmo-2-7b/report.json",
+  "e17_summary": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp3/E17_normmatched_specificity/olmo-2-7b/summary.json",
+  "baseline_loss": 2.0352251529693604,
+  "true_nat_delta": 0.05761314928531647,
+  "true_pct_delta": 2.8307998180389404,
+  "true_cohens_d": 0.8114651016998279,
+  "true_minus_permuted": 0.044561729431152344,
+  "true_minus_normmatched": -0.10940172338485715,
+  "ratio_true_over_permuted": 5.415294166908262,
+  "ratio_true_over_normmatched": 0.3331441793862458,
+  "nat_over_baseline": 0.02830799786513046
+}

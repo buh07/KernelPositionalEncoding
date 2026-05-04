@@ -1,0 +1,239 @@
+{
+  "timestamp": "2026-04-10 00:05:52",
+  "experiment": "4B",
+  "title": "SI-loss augmented fine-tuning",
+  "status": "scaffold_only",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "conditions": {
+    "a_standard_ft": {
+      "description": "Standard fine-tuning baseline (no SI auxiliary loss)",
+      "lambda": null
+    },
+    "b_si_preserve": {
+      "description": "SI-preserving auxiliary loss",
+      "lambda_grid": [
+        0.01,
+        0.1,
+        1.0
+      ]
+    },
+    "c_si_routing": {
+      "description": "SI-routing auxiliary loss",
+      "lambda_grid": [
+        0.01,
+        0.1,
+        1.0
+      ]
+    },
+    "d_combined": {
+      "description": "Combined preserve + routing loss",
+      "lambda_source": "best_from_b_and_c"
+    }
+  },
+  "lambda_grid": [
+    0.01,
+    0.1,
+    1.0
+  ],
+  "run_grid": [
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_standard_ft",
+      "seed": 0,
+      "lambda": null,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 0,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 0,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 0,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 0,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 0,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 0,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_combined",
+      "seed": 0,
+      "lambda": "best_from_b_and_c",
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_standard_ft",
+      "seed": 1,
+      "lambda": null,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 1,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 1,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 1,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 1,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 1,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 1,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_combined",
+      "seed": 1,
+      "lambda": "best_from_b_and_c",
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "a_standard_ft",
+      "seed": 2,
+      "lambda": null,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 2,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 2,
+      "lambda": 0.01,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 2,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 2,
+      "lambda": 0.1,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "b_si_preserve",
+      "seed": 2,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "c_si_routing",
+      "seed": 2,
+      "lambda": 1.0,
+      "status": "planned"
+    },
+    {
+      "model": "olmo-2-7b",
+      "condition": "d_combined",
+      "seed": 2,
+      "lambda": "best_from_b_and_c",
+      "status": "planned"
+    }
+  ],
+  "dependency": {
+    "requires_4a_infra": true,
+    "requires_4a_signal_gate": true,
+    "gate_rule": "launch 4B only if 4A shows directional SI-aware benefit or clear SI-preservation leverage"
+  },
+  "acceptance_criteria": {
+    "lambda_sweep_completed": true,
+    "best_lambda_vs_standard_required": true,
+    "required_reports": [
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/si_loss_sweep.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/si_routing_results.json",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/post_ft_si_audit.json"
+    ]
+  },
+  "artifacts_contract": {
+    "run_manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/run_manifest.json",
+    "si_loss_sweep": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/si_loss_sweep.json",
+    "si_routing_results": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/si_routing_results.json",
+    "post_ft_si_audit": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4b_si_loss_augmented/olmo-2-7b/post_ft_si_audit.json"
+  },
+  "notes": [
+    "Keep checkpoint/eval harness identical to 4A for fair comparisons.",
+    "Math-critical positions for routing loss must be generated deterministically from task templates.",
+    "Do not tune lambda on final test split."
+  ]
+}

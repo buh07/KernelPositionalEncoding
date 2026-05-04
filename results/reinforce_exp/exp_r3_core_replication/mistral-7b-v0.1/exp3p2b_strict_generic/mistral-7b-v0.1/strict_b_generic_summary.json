@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-17 04:57:56",
+  "model": "mistral-7b-v0.1",
+  "settings": {
+    "num_sequences": 32,
+    "seq_len": 512,
+    "top_k_dims": 16,
+    "synthetic_target_per_cell": 600,
+    "seed": 0
+  },
+  "verdict": {
+    "boundary_non_trivial_after_control": true,
+    "prefix_following_artifact_flag": false
+  }
+}

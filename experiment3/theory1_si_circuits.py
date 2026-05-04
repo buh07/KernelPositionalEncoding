@@ -85,6 +85,27 @@ QUARTILE = 0.25  # top/bottom 25% for head classification
 RANDOM_DRAWS = 3
 
 MODELS: dict[str, ModelSpec] = {
+    "gpt2-small": ModelSpec(
+        name="gpt2-small",
+        hf_id="openai-community/gpt2",
+        norm="LayerNorm",
+        pe_scheme="learned-absolute",
+        notes="GPT-2 small (117M) from Experiment 1 profile.",
+    ),
+    "tinyllama-1.1b": ModelSpec(
+        name="tinyllama-1.1b",
+        hf_id="TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+        norm="RMSNorm",
+        pe_scheme="RoPE",
+        notes="TinyLlama 1.1B (RoPE+RMSNorm) from Experiment 1 profile.",
+    ),
+    "tinyllama-nope-1.1b": ModelSpec(
+        name="tinyllama-nope-1.1b",
+        hf_id="AntNLP/TinyLlama-NoPE-1.1B",
+        norm="RMSNorm",
+        pe_scheme="none",
+        notes="TinyLlama 1.1B NoPE control model.",
+    ),
     "llama-3.1-8b": ModelSpec(
         name="llama-3.1-8b",
         hf_id="meta-llama/Meta-Llama-3.1-8B",
@@ -110,6 +131,9 @@ MODELS: dict[str, ModelSpec] = {
 }
 
 RETRIEVAL_SPANS: dict[str, tuple[int, ...]] = {
+    "gpt2-small": (16, 32),
+    "tinyllama-1.1b": (16, 32),
+    "tinyllama-nope-1.1b": (16, 32),
     "llama-3.1-8b": (32, 48, 64),
     "olmo-2-7b": (24, 32),
     "mistral-7b-v0.1": (32, 48, 64),
@@ -146,10 +170,31 @@ def _format_eta(seconds: float | int) -> str:
 def load_profile_sequences(tokenizer, model_name: str, num_sequences: int, seq_len: int) -> list[list[int]]:
     """Load tokenized wiki sequences for R² profiling."""
     data_dir = Path("data/experiment1/wiki40b_en_pre2019") / model_name
-    # Find any available tokenized JSONL
-    candidates = sorted(data_dir.rglob("*.jsonl"))
+    # Prefer canonical natural corpora. Synthetic fallback is only used when natural data is absent.
+    candidates = []
+    if data_dir.exists():
+        for p in sorted(data_dir.rglob("*.jsonl")):
+            name = p.name.lower()
+            if "synthetic" in name or "auto_profile_sequences" in name:
+                continue
+            candidates.append(p)
+
     if not candidates:
-        raise FileNotFoundError(f"No tokenized JSONL found in {data_dir}")
+        fallback_dir = (
+            Path("results")
+            / "reinforce_exp3"
+            / "_synthetic_profile_cache"
+            / "experiment1"
+            / "wiki40b_en_pre2019"
+            / model_name
+        )
+        candidates = sorted(fallback_dir.rglob("*.jsonl")) if fallback_dir.exists() else []
+
+    if not candidates:
+        raise FileNotFoundError(
+            f"No tokenized JSONL found in canonical '{data_dir}' or reinforce_exp3 synthetic fallback "
+            f"'{Path('results/reinforce_exp3/_synthetic_profile_cache/experiment1/wiki40b_en_pre2019') / model_name}'"
+        )
 
     sequences: list[list[int]] = []
     for jsonl_path in candidates:
@@ -294,12 +339,19 @@ def head_output_ablation(model, heads_to_zero: list[HeadID]):
         heads_by_layer.setdefault(h.layer, set()).add(h.head)
 
     handles: list[torch.utils.hooks.RemovableHandle] = []
-    config = model.config
-    num_query_heads = int(getattr(config, "num_attention_heads"))
-    hidden_size = int(getattr(config, "hidden_size"))
-    head_dim = hidden_size // num_query_heads
+    config = getattr(model, "config", None)
+    if config is None:
+        raise RuntimeError("head_output_ablation requires model.config for attention metadata")
+    if not hasattr(config, "num_attention_heads"):
+        raise RuntimeError("head_output_ablation requires config.num_attention_heads")
+    fallback_num_heads = int(getattr(config, "num_attention_heads"))
 
-    layers = getattr(getattr(model, "model"), "layers")
+    model_core = getattr(model, "model", None)
+    layers = getattr(model_core, "layers", None)
+    if layers is None:
+        raise RuntimeError(
+            "head_output_ablation incompatible model structure: expected model.model.layers"
+        )
 
     for layer_idx, layer in enumerate(layers):
         if layer_idx not in heads_by_layer:
@@ -307,23 +359,32 @@ def head_output_ablation(model, heads_to_zero: list[HeadID]):
         target_heads = heads_by_layer[layer_idx]
         o_proj = layer.self_attn.o_proj
 
-        def make_hook(target_set: set[int], n_heads: int, h_dim: int):
-            target_idx = torch.tensor(
-                sorted(h for h in target_set if h < n_heads), dtype=torch.long
-            )
+        # Prefer module-local head count if available; fallback to model config.
+        n_heads_for_layer = int(
+            getattr(layer.self_attn, "num_heads", getattr(layer.self_attn, "n_heads", fallback_num_heads))
+        )
+
+        def make_hook(target_set: set[int], n_heads: int, layer_id: int):
+            target_idx = torch.tensor(sorted(h for h in target_set if h < n_heads), dtype=torch.long)
 
             def hook(module, args):
                 x = args[0]  # [batch, seq, hidden]
                 batch, seq, hidden = x.shape
                 if target_idx.numel() == 0:
                     return args
+                if hidden % n_heads != 0:
+                    raise RuntimeError(
+                        f"head_output_ablation incompatible attention layout at layer {layer_id}: "
+                        f"hidden={hidden}, n_heads={n_heads}. Cannot infer head_dim."
+                    )
+                h_dim = hidden // n_heads
                 view = x.view(batch, seq, n_heads, h_dim).clone()
                 view.index_fill_(2, target_idx.to(view.device), 0.0)
                 return (view.reshape(batch, seq, hidden),) + args[1:]
             return hook
 
         handle = o_proj.register_forward_pre_hook(
-            make_hook(target_heads, num_query_heads, head_dim),
+            make_hook(target_heads, n_heads_for_layer, layer_idx),
             with_kwargs=False,
         )
         handles.append(handle)
@@ -353,6 +414,7 @@ def evaluate_task_battery(
     batch_size: int,
     task_configs: list[tuple[str, int | None, tuple[int, ...] | None]] | None = None,
     prebuilt_examples: dict[tuple[int, str, int], list[TaskExample]] | None = None,
+    batch_ceiling_cache: dict[tuple[str, int], int] | None = None,
 ) -> list[dict[str, Any]]:
     """Run the full task battery under a head-ablation condition."""
     if _evaluate_example_from_token_logits is None:
@@ -402,8 +464,16 @@ def evaluate_task_battery(
                     flush=True,
                 )
 
-                # True batched evaluation with OOM backoff.
-                effective_batch_size = max(1, int(batch_size))
+                # True batched evaluation with OOM backoff and optional learned ceiling reuse.
+                requested_batch_size = max(1, int(batch_size))
+                cache_key_bs = (str(task_name), int(span_val))
+                if batch_ceiling_cache is None:
+                    effective_batch_size = requested_batch_size
+                else:
+                    effective_batch_size = max(
+                        1,
+                        int(batch_ceiling_cache.get(cache_key_bs, requested_batch_size)),
+                    )
                 batch_start = 0
                 batch_idx = 0
                 batches_total = max(1, math.ceil(total_examples / max(1, effective_batch_size)))
@@ -423,6 +493,8 @@ def evaluate_task_battery(
                         if "out of memory" in str(exc).lower() and effective_batch_size > 1:
                             torch.cuda.empty_cache()
                             effective_batch_size = max(1, effective_batch_size // 2)
+                            if batch_ceiling_cache is not None:
+                                batch_ceiling_cache[cache_key_bs] = int(effective_batch_size)
                             print(
                                 f"    OOM in {condition_name} | {task_name} span={span_val} seed={seed}; "
                                 f"reducing batch_size to {effective_batch_size}",
@@ -463,6 +535,10 @@ def evaluate_task_battery(
                         )
                         next_progress_mark = min(100, progress_pct + 10)
 
+                if batch_ceiling_cache is not None:
+                    prev_bs = int(batch_ceiling_cache.get(cache_key_bs, effective_batch_size))
+                    batch_ceiling_cache[cache_key_bs] = min(prev_bs, int(effective_batch_size))
+
                 accuracy = correct_total / max(count_total, 1)
                 results.append({
                     "condition": condition_name,
@@ -472,7 +548,9 @@ def evaluate_task_battery(
                     "accuracy": accuracy,
                     "n_examples": len(examples),
                     "n_targets": count_total,
-                        "n_correct": correct_total,
+                    "n_correct": correct_total,
+                    "requested_batch_size_synth": int(requested_batch_size),
+                    "effective_batch_size_synth": int(effective_batch_size),
                 })
 
                 completed_cells += 1

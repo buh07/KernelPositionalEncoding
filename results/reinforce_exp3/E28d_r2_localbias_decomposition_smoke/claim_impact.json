@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-05-03 17:27:09",
+  "experiment_id": "E28D",
+  "claim_status": "supported_with_caveat",
+  "supports_main_text": true,
+  "notes": [
+    "Provides decomposition-based evidence on whether SI effects exceed simple local-distance decay."
+  ]
+}

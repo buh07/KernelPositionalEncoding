@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E29A",
+  "question": "Does transplanted SI kernel structure increase low-head disruption beyond low-self kernels?",
+  "primary_hypothesis": "delta_transplant_vs_lowself > 0 (one-sided) under norm-matched transplant.",
+  "primary_endpoints": [
+    "delta_transplant_vs_lowself",
+    "bootstrap_CI_delta_transplant_vs_lowself",
+    "p_one_gt_zero"
+  ],
+  "acceptance_criteria": [
+    "model pass if CI lower bound > 0 and p_one_gt_zero < 0.05"
+  ]
+}

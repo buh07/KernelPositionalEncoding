@@ -1,0 +1,207 @@
+{
+  "experiment": "3P2-C.1_cumulative_ablation_curve",
+  "model": "olmo-2-7b",
+  "timestamp": "2026-04-27 20:49:33",
+  "tier": "tier2_conditional_mechanistic",
+  "primary_test_id": "3P2-C.1",
+  "mde_target": 0.35,
+  "achieved_power": 0.8,
+  "multiplicity_family": "tier2_holm_primary_tests",
+  "curve_fits": {
+    "high_to_low::local_key_match::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.21089928607394617,
+        "intercept": -0.0007468799453316024,
+        "rss": 0.009529698652753051,
+        "bic": -57.26065167736365
+      },
+      "threshold_piecewise": {
+        "rss": 0.0036317209432047263,
+        "bic": -61.5485607504943,
+        "best_threshold_fraction": 0.2
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 0.10020354653313959,
+        "k": 99.99999999994792,
+        "x0": 0.1967981698598802,
+        "c": 0.00048081501208497993,
+        "rss": 0.0027828978061795835,
+        "bic": -63.944485518251426
+      },
+      "bic_candidates": {
+        "linear": -57.26065167736365,
+        "threshold_piecewise": -61.5485607504943,
+        "logistic_sigmoid": -63.944485518251426
+      },
+      "preferred_model": "logistic_sigmoid"
+    },
+    "high_to_low::long_range_retrieval::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.09463566393324706,
+        "intercept": 0.019712001870234492,
+        "rss": 0.002714489297103534,
+        "bic": -68.56293503890247
+      },
+      "threshold_piecewise": {
+        "rss": 0.00045904967198999295,
+        "bic": -80.16329193347123,
+        "best_threshold_fraction": 0.25
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 0.043300771771330515,
+        "k": 99.99999999635435,
+        "x0": 0.07667002233947251,
+        "c": 0.009206488320635585,
+        "rss": 0.0006644945360537826,
+        "bic": -76.8344778871732
+      },
+      "bic_candidates": {
+        "linear": -68.56293503890247,
+        "threshold_piecewise": -80.16329193347123,
+        "logistic_sigmoid": -76.8344778871732
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "high_to_low::wiki_ntp::loss": {
+      "n_points": 9,
+      "linear": {
+        "slope": 10.572249307156623,
+        "intercept": 0.11629026359773319,
+        "rss": 0.9543375773819237,
+        "bic": -15.801212380117294
+      },
+      "threshold_piecewise": {
+        "rss": 0.08824472540074585,
+        "bic": -32.834895069828505,
+        "best_threshold_fraction": 0.25
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 5.334527344582476,
+        "k": 13.632714586415425,
+        "x0": 0.18801688182668871,
+        "c": -0.2814513361425919,
+        "rss": 0.03937364276707059,
+        "bic": -40.09805075116728
+      },
+      "bic_candidates": {
+        "linear": -15.801212380117294,
+        "threshold_piecewise": -32.834895069828505,
+        "logistic_sigmoid": -40.09805075116728
+      },
+      "preferred_model": "logistic_sigmoid"
+    },
+    "low_to_high::local_key_match::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.31855409743202423,
+        "intercept": 0.0489306394763343,
+        "rss": 0.011362177859764445,
+        "bic": -55.67775857373122
+      },
+      "threshold_piecewise": {
+        "rss": 0.004173852248111469,
+        "bic": -60.29636568922997,
+        "best_threshold_fraction": 0.15
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 0.14604469099063758,
+        "k": 48.5038843332808,
+        "x0": 0.04073790717093326,
+        "c": -0.005153883791693951,
+        "rss": 0.006457615770843124,
+        "bic": -56.36857881944117
+      },
+      "bic_candidates": {
+        "linear": -55.67775857373122,
+        "threshold_piecewise": -60.29636568922997,
+        "logistic_sigmoid": -56.36857881944117
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "low_to_high::long_range_retrieval::accuracy": {
+      "n_points": 9,
+      "linear": {
+        "slope": 0.2106126816285427,
+        "intercept": 0.009120270464681344,
+        "rss": 0.0013660306670503042,
+        "bic": -74.7431865925195
+      },
+      "threshold_piecewise": {
+        "rss": 0.0002270212266929186,
+        "bic": -86.50032584663401,
+        "best_threshold_fraction": 0.25
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 0.10226275376711627,
+        "k": 15.91011735979854,
+        "x0": 0.16405062365069756,
+        "c": -0.0009304503410427456,
+        "rss": 0.00042251485084690555,
+        "bic": -80.90969635163343
+      },
+      "bic_candidates": {
+        "linear": -74.7431865925195,
+        "threshold_piecewise": -86.50032584663401,
+        "logistic_sigmoid": -80.90969635163343
+      },
+      "preferred_model": "threshold_piecewise"
+    },
+    "low_to_high::wiki_ntp::loss": {
+      "n_points": 9,
+      "linear": {
+        "slope": 7.061342219389476,
+        "intercept": 0.30822307694371615,
+        "rss": 0.1950477982639234,
+        "bic": -30.091167721315678
+      },
+      "threshold_piecewise": {
+        "rss": 0.04226993852808458,
+        "bic": -39.459234952818804,
+        "best_threshold_fraction": 0.05
+      },
+      "logistic_sigmoid": {
+        "valid": true,
+        "L": 9.563972490932285,
+        "k": 3.654766224261995,
+        "x0": 6.3361385568625194e-18,
+        "c": -4.582374231415018,
+        "rss": 0.06952289086126465,
+        "bic": -34.98101582708442
+      },
+      "bic_candidates": {
+        "linear": -30.091167721315678,
+        "threshold_piecewise": -39.459234952818804,
+        "logistic_sigmoid": -34.98101582708442
+      },
+      "preferred_model": "threshold_piecewise"
+    }
+  },
+  "summary": {
+    "threshold_votes": 4,
+    "linear_votes": 0,
+    "logistic_votes": 2,
+    "supports_redundancy_threshold_pattern": true,
+    "note": "Threshold preference supports E2 redundancy; linear preference supports E1-style gradual non-specific degradation.",
+    "runtime_seconds": 16541.24184179306,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 8,
+      "long_range_retrieval::span32": 8
+    },
+    "effective_batch_size_ntp": 4,
+    "ntp_coverage": {
+      "requested_total": 300,
+      "available_total": 300,
+      "effective_per_seed": 100,
+      "total_used": 300,
+      "reuse_mode": "strict_split"
+    },
+    "ntp_sequence_cache_enabled": true
+  }
+}

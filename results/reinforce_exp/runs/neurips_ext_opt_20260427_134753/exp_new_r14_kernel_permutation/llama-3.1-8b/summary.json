@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-28 05:36:02",
+  "experiment": "NEW-R14",
+  "model": "llama-3.1-8b",
+  "runtime_sec": 8919.827486753464,
+  "headline": {
+    "true_mean_delta": 4.195681309103966,
+    "permuted_mean_delta": 0.9183002642393112,
+    "specificity_ratio": 4.568964501583288,
+    "supports_specificity": true
+  }
+}

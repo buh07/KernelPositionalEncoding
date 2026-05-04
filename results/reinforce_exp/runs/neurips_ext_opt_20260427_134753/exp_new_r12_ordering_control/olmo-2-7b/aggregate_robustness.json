@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-04-28 22:49:24",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "n_orderings": 10,
+  "ordering_id_start": 0,
+  "ordering_id_stop": 10,
+  "n_threshold_majority": 10,
+  "fraction_threshold_majority": 1.0,
+  "robustness_assessment": "strong_replication",
+  "acceptance_thresholds": {
+    "strong_replication_ge": 0.8,
+    "partial_replication_ge": 0.5
+  },
+  "mean_random_bic_delta_linear_minus_threshold": 14.477630147677548,
+  "std_random_bic_delta_linear_minus_threshold": 4.1249631111642255,
+  "mean_random_bic_delta_logistic_minus_threshold": 3.553386490799901,
+  "std_random_bic_delta_logistic_minus_threshold": 2.821111830981595,
+  "effective_batch_size_synth": {
+    "local_key_match::span0": 4,
+    "long_range_retrieval::span32": 4
+  },
+  "effective_batch_size_ntp": 4,
+  "ntp_coverage": {
+    "requested_total": 300,
+    "available_total": 300,
+    "effective_per_seed": 100,
+    "total_used": 300,
+    "reuse_mode": "strict_split"
+  }
+}

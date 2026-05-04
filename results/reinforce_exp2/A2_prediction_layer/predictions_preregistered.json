@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A2_prediction_layer",
+  "predictions": [
+    {
+      "id": "P1_shuffle_sensitivity",
+      "statement": "Higher mean SI-R2 predicts greater degradation under position-shuffle perturbation.",
+      "direction": "positive",
+      "primary_endpoint": "beta_shuffle",
+      "failure_interpretation": "Either SI is not the dominant carrier for position-sensitive robustness, or nuisance factors dominate under current model set.",
+      "analysis_link": "C2.1"
+    }
+  ]
+}

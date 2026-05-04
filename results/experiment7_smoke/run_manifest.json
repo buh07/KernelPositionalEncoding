@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-04-14 17:07:04",
+  "requested": "7b",
+  "queue": [
+    "7b"
+  ],
+  "device": "cuda:0",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "seq_lens": [
+    256
+  ],
+  "status_rows": [
+    {
+      "experiment": "7B",
+      "status": "completed"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-14 15:43:04",
+  "model": "tinyllama-1.1b",
+  "condition": "g_anti_localization",
+  "seed": 0,
+  "elapsed_sec": 23.28251051902771,
+  "lambda_anti_loc": 0.03,
+  "probe_interval": 5,
+  "lora": {
+    "trainable_params": 6580224,
+    "total_params": 1106628608
+  }
+}

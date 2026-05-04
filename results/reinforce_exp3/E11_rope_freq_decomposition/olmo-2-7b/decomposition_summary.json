@@ -1,0 +1,14 @@
+{
+  "model": "olmo-2-7b",
+  "status": "ok",
+  "freq_boundary_spearman_rho": NaN,
+  "freq_boundary_spearman_pval": NaN,
+  "high_si_freq_band_distribution": {
+    "very_low": 256
+  },
+  "cluster_mean_peak_freq": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0
+  }
+}

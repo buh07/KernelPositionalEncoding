@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-05-02 18:01:30",
+  "experiment_id": "E21",
+  "mode": "proxy",
+  "n_paired_seeds": 3,
+  "n_positive_delta_si": 3,
+  "si_delta_summary": {
+    "mean": 0.4665029201495751,
+    "ci_lo": 0.45526664203871364,
+    "ci_hi": 0.48721525624359935
+  },
+  "c1_delta_summary": {
+    "mean": -0.012044270833333336,
+    "ci_lo": -0.03483072916666667,
+    "ci_hi": 0.0035807291666666644
+  },
+  "boundary_delta_summary": {
+    "mean": -1.0198168332945539,
+    "ci_lo": -1.0366225873951653,
+    "ci_hi": -1.0083198458408278
+  },
+  "interpretation": "rope_gt_nope_proxy",
+  "note": "Proxy matched training shows higher SI mean R2 for RoPE than NoPE across paired seeds.",
+  "per_model": [
+    {
+      "model": "tinyllama-1.1b",
+      "n_seeds": 3,
+      "mean_si_r2": 0.5511430535511962,
+      "mean_c1_deg": -0.010199652777777778,
+      "mean_boundary_d": 0.5971444578374617
+    },
+    {
+      "model": "tinyllama-nope-1.1b",
+      "n_seeds": 3,
+      "mean_si_r2": 0.08464013340162117,
+      "mean_c1_deg": 0.001844618055555557,
+      "mean_boundary_d": 1.6169612911320155
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-02 01:52:11",
+  "experiment_id": "E18",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "model_conditional",
+    "n_survives_controls": 1,
+    "n_models": 3
+  },
+  "limitations": [
+    "Synthetic prompt controls may not cover all naturalistic ICL formats.",
+    "Head-output ablation remains an intervention-level load-bearing test rather than circuit-identity proof."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "experiment_id": "E28",
+  "timestamp": "2026-05-03 08:24:04",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "n_prompts": 120,
+  "families": [
+    "short_fixed_offset",
+    "medium_spaced_offset",
+    "long_fixed_offset",
+    "irregular_mixed_offset"
+  ]
+}

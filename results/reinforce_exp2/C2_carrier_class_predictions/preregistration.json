@@ -1,0 +1,52 @@
+{
+  "experiment_id": "C2_carrier_class_predictions",
+  "question": "Do carrier-class predictions hold for shuffle robustness and long-context behavior?",
+  "primary_hypothesis": "SI-linked carrier structure predicts stronger shuffle sensitivity and context-conditional interaction effects.",
+  "primary_endpoints": [
+    "C2.1 beta_shuffle",
+    "C2.2 pooled interaction beta_int"
+  ],
+  "secondary_endpoints": [
+    "R2-slope association",
+    "endpoint long-context contrast",
+    "failure-mode diagnostics"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "dataset_sources": [
+    "synthetic position-diagnostic tasks (experiment2/tasks.py)",
+    "theory1 SI head artifacts",
+    "theory8 kernels"
+  ],
+  "inclusion_exclusion_rules": [
+    "C2.1 confirmatory requires n_models>=3",
+    "C2.2 confirmatory requires >=2 confirmatory-eligible models with >1.0x context point",
+    "Calibration/evaluation sequence overlap forces C2.2 exploratory interpretation"
+  ],
+  "sample_size_plan": {
+    "n_examples_c21": 96,
+    "n_examples_c22": 96,
+    "shuffle_strengths": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after both C2.1 and C2.2 summaries and criteria are computed.",
+  "multiplicity_family": [
+    "C2.1 within-model Holm families for unadjusted/adjusted slopes",
+    "C2.2 Holm family over pooled interaction + endpoint contrast"
+  ],
+  "acceptance_criteria": [
+    "C2.1 and C2.2 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Carrier-class predictions remain unsupported; keep C narrative downgraded."
+}

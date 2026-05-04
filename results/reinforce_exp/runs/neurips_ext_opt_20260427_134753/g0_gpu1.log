@@ -1,0 +1,2596 @@
+[g0-gpu1] starting R12 mistral_b on GPU 1 (CUDA_VISIBLE_DEVICES=1)
+
+[NEW-R12] model=mistral-7b-v0.1 device=cuda:0
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 5896.40it/s]
+[NEW-R12] loaded ranked heads: 1024
+  WARNING: Only found 200 sequences (wanted 300)
+  [NTP] requested=300 available=200; using per_seed=66 (total=198)
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction= 0% heads=0
+    [random_o05_f00] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 1.01 ex/s | eta 01:30
+      batch 3/13 | examples 24/100 ( 24%) | 1.03 ex/s | eta 01:13
+      batch 5/13 | examples 40/100 ( 40%) | 1.03 ex/s | eta 00:58
+      batch 7/13 | examples 56/100 ( 56%) | 1.02 ex/s | eta 00:43
+      batch 9/13 | examples 72/100 ( 72%) | 1.01 ex/s | eta 00:27
+      batch 11/13 | examples 88/100 ( 88%) | 1.01 ex/s | eta 00:11
+      batch 13/13 | examples 100/100 (100%) | 1.00 ex/s | eta 00:00
+    random_o05_f00 | long_range_retrieval span=48 seed=0 | acc=0.1619 (259/1600) | cell=01:39 | cond_eta=08:17
+    [random_o05_f00] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f00 | local_key_match span=0 seed=0 | acc=0.4088 (1308/3200) | cell=01:43 | cond_eta=06:45
+    [random_o05_f00] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f00 | long_range_retrieval span=48 seed=1 | acc=0.1487 (238/1600) | cell=01:43 | cond_eta=05:06
+    [random_o05_f00] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f00 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:42 | cond_eta=03:24
+    [random_o05_f00] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f00 | long_range_retrieval span=48 seed=2 | acc=0.1350 (216/1600) | cell=01:42 | cond_eta=01:42
+    [random_o05_f00] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f00 | local_key_match span=0 seed=2 | acc=0.4213 (1348/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction= 1% heads=10
+    [random_o05_f01] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f01 | long_range_retrieval span=48 seed=0 | acc=0.1613 (258/1600) | cell=01:42 | cond_eta=08:31
+    [random_o05_f01] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f01 | local_key_match span=0 seed=0 | acc=0.4075 (1304/3200) | cell=01:42 | cond_eta=06:49
+    [random_o05_f01] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f01 | long_range_retrieval span=48 seed=1 | acc=0.1500 (240/1600) | cell=01:43 | cond_eta=05:07
+    [random_o05_f01] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:19
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o05_f01 | local_key_match span=0 seed=1 | acc=0.4191 (1341/3200) | cell=01:44 | cond_eta=03:25
+    [random_o05_f01] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o05_f01 | long_range_retrieval span=48 seed=2 | acc=0.1369 (219/1600) | cell=01:43 | cond_eta=01:43
+    [random_o05_f01] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:19
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o05_f01 | local_key_match span=0 seed=2 | acc=0.4241 (1357/3200) | cell=01:44 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction= 2% heads=20
+    [random_o05_f02] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.95 ex/s | eta 01:36
+      batch 3/13 | examples 24/100 ( 24%) | 0.95 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f02 | long_range_retrieval span=48 seed=0 | acc=0.1638 (262/1600) | cell=01:45 | cond_eta=08:47
+    [random_o05_f02] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.95 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f02 | local_key_match span=0 seed=0 | acc=0.3941 (1261/3200) | cell=01:45 | cond_eta=07:02
+    [random_o05_f02] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.95 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.95 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f02 | long_range_retrieval span=48 seed=1 | acc=0.1519 (243/1600) | cell=01:45 | cond_eta=05:17
+    [random_o05_f02] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.94 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.94 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.94 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.94 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f02 | local_key_match span=0 seed=1 | acc=0.4091 (1309/3200) | cell=01:46 | cond_eta=03:31
+    [random_o05_f02] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.94 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.94 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.94 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.94 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f02 | long_range_retrieval span=48 seed=2 | acc=0.1431 (229/1600) | cell=01:45 | cond_eta=01:45
+    [random_o05_f02] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f02 | local_key_match span=0 seed=2 | acc=0.4209 (1347/3200) | cell=01:45 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction= 5% heads=51
+    [random_o05_f05] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.95 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.95 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f05 | long_range_retrieval span=48 seed=0 | acc=0.1425 (228/1600) | cell=01:45 | cond_eta=08:48
+    [random_o05_f05] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.94 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.94 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.94 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.94 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f05 | local_key_match span=0 seed=0 | acc=0.3928 (1257/3200) | cell=01:46 | cond_eta=07:03
+    [random_o05_f05] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.95 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.94 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.94 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.94 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f05 | long_range_retrieval span=48 seed=1 | acc=0.1244 (199/1600) | cell=01:45 | cond_eta=05:17
+    [random_o05_f05] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.94 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.94 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.94 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.94 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.94 ex/s | eta 00:00
+    random_o05_f05 | local_key_match span=0 seed=1 | acc=0.4072 (1303/3200) | cell=01:46 | cond_eta=03:31
+    [random_o05_f05] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.94 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.94 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f05 | long_range_retrieval span=48 seed=2 | acc=0.1225 (196/1600) | cell=01:45 | cond_eta=01:45
+    [random_o05_f05] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.95 ex/s | eta 01:37
+      batch 3/13 | examples 24/100 ( 24%) | 0.95 ex/s | eta 01:20
+      batch 5/13 | examples 40/100 ( 40%) | 0.95 ex/s | eta 01:03
+      batch 7/13 | examples 56/100 ( 56%) | 0.95 ex/s | eta 00:46
+      batch 9/13 | examples 72/100 ( 72%) | 0.95 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.95 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.95 ex/s | eta 00:00
+    random_o05_f05 | local_key_match span=0 seed=2 | acc=0.4153 (1329/3200) | cell=01:45 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction=10% heads=102
+    [random_o05_f10] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | long_range_retrieval span=48 seed=0 | acc=0.0994 (159/1600) | cell=01:43 | cond_eta=08:38
+    [random_o05_f10] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | local_key_match span=0 seed=0 | acc=0.4309 (1379/3200) | cell=01:43 | cond_eta=06:54
+    [random_o05_f10] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | long_range_retrieval span=48 seed=1 | acc=0.0925 (148/1600) | cell=01:43 | cond_eta=05:10
+    [random_o05_f10] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | local_key_match span=0 seed=1 | acc=0.4512 (1444/3200) | cell=01:43 | cond_eta=03:26
+    [random_o05_f10] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | long_range_retrieval span=48 seed=2 | acc=0.0906 (145/1600) | cell=01:42 | cond_eta=01:43
+    [random_o05_f10] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f10 | local_key_match span=0 seed=2 | acc=0.4544 (1454/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction=15% heads=154
+    [random_o05_f15] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f15 | long_range_retrieval span=48 seed=0 | acc=0.1031 (165/1600) | cell=01:42 | cond_eta=08:32
+    [random_o05_f15] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f15 | local_key_match span=0 seed=0 | acc=0.4403 (1409/3200) | cell=01:42 | cond_eta=06:50
+    [random_o05_f15] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f15 | long_range_retrieval span=48 seed=1 | acc=0.1006 (161/1600) | cell=01:42 | cond_eta=05:07
+    [random_o05_f15] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f15 | local_key_match span=0 seed=1 | acc=0.4600 (1472/3200) | cell=01:42 | cond_eta=03:25
+    [random_o05_f15] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f15 | long_range_retrieval span=48 seed=2 | acc=0.0963 (154/1600) | cell=01:42 | cond_eta=01:42
+    [random_o05_f15] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f15 | local_key_match span=0 seed=2 | acc=0.4609 (1475/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction=20% heads=205
+    [random_o05_f20] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f20 | long_range_retrieval span=48 seed=0 | acc=0.0869 (139/1600) | cell=01:41 | cond_eta=08:29
+    [random_o05_f20] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f20 | local_key_match span=0 seed=0 | acc=0.4306 (1378/3200) | cell=01:42 | cond_eta=06:48
+    [random_o05_f20] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f20 | long_range_retrieval span=48 seed=1 | acc=0.0975 (156/1600) | cell=01:42 | cond_eta=05:06
+    [random_o05_f20] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f20 | local_key_match span=0 seed=1 | acc=0.4247 (1359/3200) | cell=01:42 | cond_eta=03:24
+    [random_o05_f20] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f20 | long_range_retrieval span=48 seed=2 | acc=0.0975 (156/1600) | cell=01:42 | cond_eta=01:42
+    [random_o05_f20] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o05_f20 | local_key_match span=0 seed=2 | acc=0.4259 (1363/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction=25% heads=256
+    [random_o05_f25] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | long_range_retrieval span=48 seed=0 | acc=0.0769 (123/1600) | cell=01:42 | cond_eta=08:31
+    [random_o05_f25] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | local_key_match span=0 seed=0 | acc=0.4197 (1343/3200) | cell=01:42 | cond_eta=06:49
+    [random_o05_f25] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | long_range_retrieval span=48 seed=1 | acc=0.0862 (138/1600) | cell=01:41 | cond_eta=05:06
+    [random_o05_f25] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | local_key_match span=0 seed=1 | acc=0.4284 (1371/3200) | cell=01:42 | cond_eta=03:24
+    [random_o05_f25] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | long_range_retrieval span=48 seed=2 | acc=0.0825 (132/1600) | cell=01:41 | cond_eta=01:42
+    [random_o05_f25] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f25 | local_key_match span=0 seed=2 | acc=0.4266 (1365/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=1/5 (global_id=5) fraction=50% heads=512
+    [random_o05_f50] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.99 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.99 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.99 ex/s | eta 01:00
+      batch 7/13 | examples 56/100 ( 56%) | 0.99 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.99 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.99 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.99 ex/s | eta 00:00
+    random_o05_f50 | long_range_retrieval span=48 seed=0 | acc=0.0800 (128/1600) | cell=01:41 | cond_eta=08:26
+    [random_o05_f50] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:00
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f50 | local_key_match span=0 seed=0 | acc=0.1087 (348/3200) | cell=01:41 | cond_eta=06:45
+    [random_o05_f50] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.99 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.99 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.99 ex/s | eta 01:00
+      batch 7/13 | examples 56/100 ( 56%) | 0.99 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.99 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.99 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.99 ex/s | eta 00:00
+    random_o05_f50 | long_range_retrieval span=48 seed=1 | acc=0.0769 (123/1600) | cell=01:41 | cond_eta=05:04
+    [random_o05_f50] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f50 | local_key_match span=0 seed=1 | acc=0.1184 (379/3200) | cell=01:41 | cond_eta=03:23
+    [random_o05_f50] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.99 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.99 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:00
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f50 | long_range_retrieval span=48 seed=2 | acc=0.0794 (127/1600) | cell=01:41 | cond_eta=01:41
+    [random_o05_f50] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o05_f50 | local_key_match span=0 seed=2 | acc=0.0966 (309/3200) | cell=01:41 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction= 0% heads=0
+    [random_o06_f00] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | long_range_retrieval span=48 seed=0 | acc=0.1619 (259/1600) | cell=01:41 | cond_eta=08:29
+    [random_o06_f00] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | local_key_match span=0 seed=0 | acc=0.4088 (1308/3200) | cell=01:42 | cond_eta=06:48
+    [random_o06_f00] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | long_range_retrieval span=48 seed=1 | acc=0.1487 (238/1600) | cell=01:41 | cond_eta=05:06
+    [random_o06_f00] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:42 | cond_eta=03:24
+    [random_o06_f00] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | long_range_retrieval span=48 seed=2 | acc=0.1350 (216/1600) | cell=01:41 | cond_eta=01:42
+    [random_o06_f00] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f00 | local_key_match span=0 seed=2 | acc=0.4213 (1348/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction= 1% heads=10
+    [random_o06_f01] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | long_range_retrieval span=48 seed=0 | acc=0.1731 (277/1600) | cell=01:42 | cond_eta=08:30
+    [random_o06_f01] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | local_key_match span=0 seed=0 | acc=0.4078 (1305/3200) | cell=01:42 | cond_eta=06:49
+    [random_o06_f01] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | long_range_retrieval span=48 seed=1 | acc=0.1425 (228/1600) | cell=01:42 | cond_eta=05:06
+    [random_o06_f01] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | local_key_match span=0 seed=1 | acc=0.4231 (1354/3200) | cell=01:42 | cond_eta=03:24
+    [random_o06_f01] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | long_range_retrieval span=48 seed=2 | acc=0.1425 (228/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f01] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f01 | local_key_match span=0 seed=2 | acc=0.4269 (1366/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction= 2% heads=20
+    [random_o06_f02] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | long_range_retrieval span=48 seed=0 | acc=0.1681 (269/1600) | cell=01:41 | cond_eta=08:29
+    [random_o06_f02] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | local_key_match span=0 seed=0 | acc=0.4116 (1317/3200) | cell=01:42 | cond_eta=06:48
+    [random_o06_f02] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | long_range_retrieval span=48 seed=1 | acc=0.1381 (221/1600) | cell=01:41 | cond_eta=05:06
+    [random_o06_f02] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | local_key_match span=0 seed=1 | acc=0.4275 (1368/3200) | cell=01:42 | cond_eta=03:24
+    [random_o06_f02] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | long_range_retrieval span=48 seed=2 | acc=0.1400 (224/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f02] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f02 | local_key_match span=0 seed=2 | acc=0.4281 (1370/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction= 5% heads=51
+    [random_o06_f05] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f05 | long_range_retrieval span=48 seed=0 | acc=0.2288 (366/1600) | cell=01:42 | cond_eta=08:33
+    [random_o06_f05] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f05 | local_key_match span=0 seed=0 | acc=0.2888 (924/3200) | cell=01:42 | cond_eta=06:51
+    [random_o06_f05] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f05 | long_range_retrieval span=48 seed=1 | acc=0.2194 (351/1600) | cell=01:42 | cond_eta=05:08
+    [random_o06_f05] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f05 | local_key_match span=0 seed=1 | acc=0.3250 (1040/3200) | cell=01:42 | cond_eta=03:25
+    [random_o06_f05] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f05 | long_range_retrieval span=48 seed=2 | acc=0.1963 (314/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f05] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f05 | local_key_match span=0 seed=2 | acc=0.3041 (973/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction=10% heads=102
+    [random_o06_f10] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f10 | long_range_retrieval span=48 seed=0 | acc=0.2056 (329/1600) | cell=01:42 | cond_eta=08:31
+    [random_o06_f10] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f10 | local_key_match span=0 seed=0 | acc=0.3144 (1006/3200) | cell=01:42 | cond_eta=06:50
+    [random_o06_f10] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f10 | long_range_retrieval span=48 seed=1 | acc=0.1981 (317/1600) | cell=01:42 | cond_eta=05:07
+    [random_o06_f10] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f10 | local_key_match span=0 seed=1 | acc=0.3422 (1095/3200) | cell=01:42 | cond_eta=03:25
+    [random_o06_f10] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f10 | long_range_retrieval span=48 seed=2 | acc=0.1756 (281/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f10] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f10 | local_key_match span=0 seed=2 | acc=0.3469 (1110/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction=15% heads=154
+    [random_o06_f15] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f15 | long_range_retrieval span=48 seed=0 | acc=0.1606 (257/1600) | cell=01:42 | cond_eta=08:31
+    [random_o06_f15] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f15 | local_key_match span=0 seed=0 | acc=0.3219 (1030/3200) | cell=01:42 | cond_eta=06:49
+    [random_o06_f15] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f15 | long_range_retrieval span=48 seed=1 | acc=0.1494 (239/1600) | cell=01:42 | cond_eta=05:07
+    [random_o06_f15] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f15 | local_key_match span=0 seed=1 | acc=0.3206 (1026/3200) | cell=01:42 | cond_eta=03:24
+    [random_o06_f15] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f15 | long_range_retrieval span=48 seed=2 | acc=0.1406 (225/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f15] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f15 | local_key_match span=0 seed=2 | acc=0.3331 (1066/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction=20% heads=205
+    [random_o06_f20] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f20 | long_range_retrieval span=48 seed=0 | acc=0.1031 (165/1600) | cell=01:42 | cond_eta=08:31
+    [random_o06_f20] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f20 | local_key_match span=0 seed=0 | acc=0.2709 (867/3200) | cell=01:42 | cond_eta=06:49
+    [random_o06_f20] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f20 | long_range_retrieval span=48 seed=1 | acc=0.1037 (166/1600) | cell=01:42 | cond_eta=05:06
+    [random_o06_f20] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f20 | local_key_match span=0 seed=1 | acc=0.2838 (908/3200) | cell=01:42 | cond_eta=03:24
+    [random_o06_f20] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f20 | long_range_retrieval span=48 seed=2 | acc=0.0850 (136/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f20] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f20 | local_key_match span=0 seed=2 | acc=0.3256 (1042/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction=25% heads=256
+    [random_o06_f25] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o06_f25 | long_range_retrieval span=48 seed=0 | acc=0.1000 (160/1600) | cell=01:42 | cond_eta=08:32
+    [random_o06_f25] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f25 | local_key_match span=0 seed=0 | acc=0.3538 (1132/3200) | cell=01:42 | cond_eta=06:50
+    [random_o06_f25] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f25 | long_range_retrieval span=48 seed=1 | acc=0.0975 (156/1600) | cell=01:42 | cond_eta=05:07
+    [random_o06_f25] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f25 | local_key_match span=0 seed=1 | acc=0.3603 (1153/3200) | cell=01:43 | cond_eta=03:25
+    [random_o06_f25] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f25 | long_range_retrieval span=48 seed=2 | acc=0.1000 (160/1600) | cell=01:42 | cond_eta=01:42
+    [random_o06_f25] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f25 | local_key_match span=0 seed=2 | acc=0.3716 (1189/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=2/5 (global_id=6) fraction=50% heads=512
+    [random_o06_f50] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | long_range_retrieval span=48 seed=0 | acc=0.0800 (128/1600) | cell=01:43 | cond_eta=08:35
+    [random_o06_f50] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | local_key_match span=0 seed=0 | acc=0.3375 (1080/3200) | cell=01:43 | cond_eta=06:53
+    [random_o06_f50] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | long_range_retrieval span=48 seed=1 | acc=0.0794 (127/1600) | cell=01:43 | cond_eta=05:09
+    [random_o06_f50] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | local_key_match span=0 seed=1 | acc=0.3538 (1132/3200) | cell=01:43 | cond_eta=03:26
+    [random_o06_f50] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | long_range_retrieval span=48 seed=2 | acc=0.0756 (121/1600) | cell=01:43 | cond_eta=01:43
+    [random_o06_f50] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o06_f50 | local_key_match span=0 seed=2 | acc=0.3412 (1092/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction= 0% heads=0
+    [random_o07_f00] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f00 | long_range_retrieval span=48 seed=0 | acc=0.1619 (259/1600) | cell=01:43 | cond_eta=08:37
+    [random_o07_f00] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f00 | local_key_match span=0 seed=0 | acc=0.4088 (1308/3200) | cell=01:43 | cond_eta=06:54
+    [random_o07_f00] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f00 | long_range_retrieval span=48 seed=1 | acc=0.1487 (238/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f00] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f00 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:43 | cond_eta=03:27
+    [random_o07_f00] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f00 | long_range_retrieval span=48 seed=2 | acc=0.1350 (216/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f00] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f00 | local_key_match span=0 seed=2 | acc=0.4213 (1348/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction= 1% heads=10
+    [random_o07_f01] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f01 | long_range_retrieval span=48 seed=0 | acc=0.1713 (274/1600) | cell=01:43 | cond_eta=08:37
+    [random_o07_f01] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f01 | local_key_match span=0 seed=0 | acc=0.3994 (1278/3200) | cell=01:43 | cond_eta=06:54
+    [random_o07_f01] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f01 | long_range_retrieval span=48 seed=1 | acc=0.1575 (252/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f01] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f01 | local_key_match span=0 seed=1 | acc=0.4131 (1322/3200) | cell=01:43 | cond_eta=03:27
+    [random_o07_f01] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f01 | long_range_retrieval span=48 seed=2 | acc=0.1456 (233/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f01] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f01 | local_key_match span=0 seed=2 | acc=0.4216 (1349/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction= 2% heads=20
+    [random_o07_f02] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f02 | long_range_retrieval span=48 seed=0 | acc=0.1656 (265/1600) | cell=01:43 | cond_eta=08:36
+    [random_o07_f02] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f02 | local_key_match span=0 seed=0 | acc=0.4025 (1288/3200) | cell=01:43 | cond_eta=06:54
+    [random_o07_f02] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f02 | long_range_retrieval span=48 seed=1 | acc=0.1456 (233/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f02] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f02 | local_key_match span=0 seed=1 | acc=0.4097 (1311/3200) | cell=01:43 | cond_eta=03:27
+    [random_o07_f02] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f02 | long_range_retrieval span=48 seed=2 | acc=0.1363 (218/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f02] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f02 | local_key_match span=0 seed=2 | acc=0.4197 (1343/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction= 5% heads=51
+    [random_o07_f05] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f05 | long_range_retrieval span=48 seed=0 | acc=0.1437 (230/1600) | cell=01:43 | cond_eta=08:36
+    [random_o07_f05] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f05 | local_key_match span=0 seed=0 | acc=0.4016 (1285/3200) | cell=01:43 | cond_eta=06:54
+    [random_o07_f05] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f05 | long_range_retrieval span=48 seed=1 | acc=0.1200 (192/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f05] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f05 | local_key_match span=0 seed=1 | acc=0.4072 (1303/3200) | cell=01:43 | cond_eta=03:27
+    [random_o07_f05] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f05 | long_range_retrieval span=48 seed=2 | acc=0.1219 (195/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f05] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f05 | local_key_match span=0 seed=2 | acc=0.4216 (1349/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction=10% heads=102
+    [random_o07_f10] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | long_range_retrieval span=48 seed=0 | acc=0.1331 (213/1600) | cell=01:43 | cond_eta=08:36
+    [random_o07_f10] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | local_key_match span=0 seed=0 | acc=0.3906 (1250/3200) | cell=01:43 | cond_eta=06:53
+    [random_o07_f10] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | long_range_retrieval span=48 seed=1 | acc=0.1175 (188/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f10] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | local_key_match span=0 seed=1 | acc=0.4028 (1289/3200) | cell=01:43 | cond_eta=03:26
+    [random_o07_f10] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | long_range_retrieval span=48 seed=2 | acc=0.1200 (192/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f10] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f10 | local_key_match span=0 seed=2 | acc=0.4106 (1314/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction=15% heads=154
+    [random_o07_f15] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | long_range_retrieval span=48 seed=0 | acc=0.2025 (324/1600) | cell=01:43 | cond_eta=08:35
+    [random_o07_f15] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | local_key_match span=0 seed=0 | acc=0.4028 (1289/3200) | cell=01:43 | cond_eta=06:53
+    [random_o07_f15] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | long_range_retrieval span=48 seed=1 | acc=0.1888 (302/1600) | cell=01:43 | cond_eta=05:09
+    [random_o07_f15] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | local_key_match span=0 seed=1 | acc=0.4084 (1307/3200) | cell=01:43 | cond_eta=03:26
+    [random_o07_f15] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | long_range_retrieval span=48 seed=2 | acc=0.1825 (292/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f15] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f15 | local_key_match span=0 seed=2 | acc=0.4172 (1335/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction=20% heads=205
+    [random_o07_f20] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f20 | long_range_retrieval span=48 seed=0 | acc=0.0900 (144/1600) | cell=01:43 | cond_eta=08:37
+    [random_o07_f20] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f20 | local_key_match span=0 seed=0 | acc=0.2734 (875/3200) | cell=01:43 | cond_eta=06:54
+    [random_o07_f20] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f20 | long_range_retrieval span=48 seed=1 | acc=0.0944 (151/1600) | cell=01:43 | cond_eta=05:11
+    [random_o07_f20] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:19
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f20 | local_key_match span=0 seed=1 | acc=0.2841 (909/3200) | cell=01:43 | cond_eta=03:27
+    [random_o07_f20] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f20 | long_range_retrieval span=48 seed=2 | acc=0.0912 (146/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f20] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f20 | local_key_match span=0 seed=2 | acc=0.2684 (859/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction=25% heads=256
+    [random_o07_f25] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f25 | long_range_retrieval span=48 seed=0 | acc=0.0744 (119/1600) | cell=01:43 | cond_eta=08:36
+    [random_o07_f25] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f25 | local_key_match span=0 seed=0 | acc=0.2047 (655/3200) | cell=01:43 | cond_eta=06:53
+    [random_o07_f25] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f25 | long_range_retrieval span=48 seed=1 | acc=0.0938 (150/1600) | cell=01:43 | cond_eta=05:10
+    [random_o07_f25] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o07_f25 | local_key_match span=0 seed=1 | acc=0.2066 (661/3200) | cell=01:43 | cond_eta=03:26
+    [random_o07_f25] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f25 | long_range_retrieval span=48 seed=2 | acc=0.0894 (143/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f25] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f25 | local_key_match span=0 seed=2 | acc=0.2072 (663/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=3/5 (global_id=7) fraction=50% heads=512
+    [random_o07_f50] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | long_range_retrieval span=48 seed=0 | acc=0.1037 (166/1600) | cell=01:43 | cond_eta=08:35
+    [random_o07_f50] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | local_key_match span=0 seed=0 | acc=0.2375 (760/3200) | cell=01:43 | cond_eta=06:52
+    [random_o07_f50] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | long_range_retrieval span=48 seed=1 | acc=0.1187 (190/1600) | cell=01:42 | cond_eta=05:08
+    [random_o07_f50] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | local_key_match span=0 seed=1 | acc=0.2447 (783/3200) | cell=01:43 | cond_eta=03:25
+    [random_o07_f50] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | long_range_retrieval span=48 seed=2 | acc=0.1125 (180/1600) | cell=01:43 | cond_eta=01:43
+    [random_o07_f50] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o07_f50 | local_key_match span=0 seed=2 | acc=0.2694 (862/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction= 0% heads=0
+    [random_o08_f00] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | long_range_retrieval span=48 seed=0 | acc=0.1619 (259/1600) | cell=01:43 | cond_eta=08:35
+    [random_o08_f00] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | local_key_match span=0 seed=0 | acc=0.4088 (1308/3200) | cell=01:43 | cond_eta=06:53
+    [random_o08_f00] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | long_range_retrieval span=48 seed=1 | acc=0.1487 (238/1600) | cell=01:43 | cond_eta=05:09
+    [random_o08_f00] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:43 | cond_eta=03:26
+    [random_o08_f00] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | long_range_retrieval span=48 seed=2 | acc=0.1350 (216/1600) | cell=01:43 | cond_eta=01:43
+    [random_o08_f00] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f00 | local_key_match span=0 seed=2 | acc=0.4213 (1348/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction= 1% heads=10
+    [random_o08_f01] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | long_range_retrieval span=48 seed=0 | acc=0.1737 (278/1600) | cell=01:43 | cond_eta=08:35
+    [random_o08_f01] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | local_key_match span=0 seed=0 | acc=0.4138 (1324/3200) | cell=01:43 | cond_eta=06:52
+    [random_o08_f01] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | long_range_retrieval span=48 seed=1 | acc=0.1537 (246/1600) | cell=01:43 | cond_eta=05:09
+    [random_o08_f01] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:43 | cond_eta=03:26
+    [random_o08_f01] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | long_range_retrieval span=48 seed=2 | acc=0.1550 (248/1600) | cell=01:42 | cond_eta=01:43
+    [random_o08_f01] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f01 | local_key_match span=0 seed=2 | acc=0.4291 (1373/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction= 2% heads=20
+    [random_o08_f02] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | long_range_retrieval span=48 seed=0 | acc=0.1869 (299/1600) | cell=01:42 | cond_eta=08:34
+    [random_o08_f02] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | local_key_match span=0 seed=0 | acc=0.4081 (1306/3200) | cell=01:43 | cond_eta=06:51
+    [random_o08_f02] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | long_range_retrieval span=48 seed=1 | acc=0.1619 (259/1600) | cell=01:42 | cond_eta=05:08
+    [random_o08_f02] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | local_key_match span=0 seed=1 | acc=0.4231 (1354/3200) | cell=01:43 | cond_eta=03:25
+    [random_o08_f02] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | long_range_retrieval span=48 seed=2 | acc=0.1550 (248/1600) | cell=01:43 | cond_eta=01:42
+    [random_o08_f02] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f02 | local_key_match span=0 seed=2 | acc=0.4225 (1352/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction= 5% heads=51
+    [random_o08_f05] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | long_range_retrieval span=48 seed=0 | acc=0.1356 (217/1600) | cell=01:43 | cond_eta=08:35
+    [random_o08_f05] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | local_key_match span=0 seed=0 | acc=0.3028 (969/3200) | cell=01:43 | cond_eta=06:52
+    [random_o08_f05] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | long_range_retrieval span=48 seed=1 | acc=0.1212 (194/1600) | cell=01:42 | cond_eta=05:08
+    [random_o08_f05] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | local_key_match span=0 seed=1 | acc=0.3206 (1026/3200) | cell=01:43 | cond_eta=03:25
+    [random_o08_f05] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | long_range_retrieval span=48 seed=2 | acc=0.1250 (200/1600) | cell=01:42 | cond_eta=01:42
+    [random_o08_f05] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f05 | local_key_match span=0 seed=2 | acc=0.3356 (1074/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction=10% heads=102
+    [random_o08_f10] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f10 | long_range_retrieval span=48 seed=0 | acc=0.1300 (208/1600) | cell=01:42 | cond_eta=08:34
+    [random_o08_f10] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f10 | local_key_match span=0 seed=0 | acc=0.2747 (879/3200) | cell=01:43 | cond_eta=06:52
+    [random_o08_f10] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f10 | long_range_retrieval span=48 seed=1 | acc=0.1138 (182/1600) | cell=01:43 | cond_eta=05:09
+    [random_o08_f10] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f10 | local_key_match span=0 seed=1 | acc=0.3113 (996/3200) | cell=01:43 | cond_eta=03:26
+    [random_o08_f10] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f10 | long_range_retrieval span=48 seed=2 | acc=0.1062 (170/1600) | cell=01:42 | cond_eta=01:42
+    [random_o08_f10] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f10 | local_key_match span=0 seed=2 | acc=0.2931 (938/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction=15% heads=154
+    [random_o08_f15] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | long_range_retrieval span=48 seed=0 | acc=0.1288 (206/1600) | cell=01:42 | cond_eta=08:34
+    [random_o08_f15] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | local_key_match span=0 seed=0 | acc=0.3034 (971/3200) | cell=01:43 | cond_eta=06:52
+    [random_o08_f15] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | long_range_retrieval span=48 seed=1 | acc=0.1169 (187/1600) | cell=01:42 | cond_eta=05:08
+    [random_o08_f15] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | local_key_match span=0 seed=1 | acc=0.3216 (1029/3200) | cell=01:43 | cond_eta=03:26
+    [random_o08_f15] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | long_range_retrieval span=48 seed=2 | acc=0.1037 (166/1600) | cell=01:42 | cond_eta=01:42
+    [random_o08_f15] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f15 | local_key_match span=0 seed=2 | acc=0.3141 (1005/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction=20% heads=205
+    [random_o08_f20] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | long_range_retrieval span=48 seed=0 | acc=0.1113 (178/1600) | cell=01:42 | cond_eta=08:33
+    [random_o08_f20] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | local_key_match span=0 seed=0 | acc=0.1719 (550/3200) | cell=01:43 | cond_eta=06:51
+    [random_o08_f20] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | long_range_retrieval span=48 seed=1 | acc=0.1131 (181/1600) | cell=01:42 | cond_eta=05:08
+    [random_o08_f20] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | local_key_match span=0 seed=1 | acc=0.1787 (572/3200) | cell=01:42 | cond_eta=03:25
+    [random_o08_f20] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | long_range_retrieval span=48 seed=2 | acc=0.1056 (169/1600) | cell=01:42 | cond_eta=01:42
+    [random_o08_f20] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f20 | local_key_match span=0 seed=2 | acc=0.1997 (639/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction=25% heads=256
+    [random_o08_f25] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f25 | long_range_retrieval span=48 seed=0 | acc=0.1094 (175/1600) | cell=01:42 | cond_eta=08:33
+    [random_o08_f25] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f25 | local_key_match span=0 seed=0 | acc=0.1938 (620/3200) | cell=01:43 | cond_eta=06:51
+    [random_o08_f25] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f25 | long_range_retrieval span=48 seed=1 | acc=0.1006 (161/1600) | cell=01:42 | cond_eta=05:08
+    [random_o08_f25] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f25 | local_key_match span=0 seed=1 | acc=0.1759 (563/3200) | cell=01:42 | cond_eta=03:25
+    [random_o08_f25] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f25 | long_range_retrieval span=48 seed=2 | acc=0.1087 (174/1600) | cell=01:42 | cond_eta=01:42
+    [random_o08_f25] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o08_f25 | local_key_match span=0 seed=2 | acc=0.2003 (641/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=4/5 (global_id=8) fraction=50% heads=512
+    [random_o08_f50] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | long_range_retrieval span=48 seed=0 | acc=0.0762 (122/1600) | cell=01:41 | cond_eta=08:28
+    [random_o08_f50] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | local_key_match span=0 seed=0 | acc=0.2112 (676/3200) | cell=01:42 | cond_eta=06:47
+    [random_o08_f50] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | long_range_retrieval span=48 seed=1 | acc=0.0881 (141/1600) | cell=01:41 | cond_eta=05:05
+    [random_o08_f50] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | local_key_match span=0 seed=1 | acc=0.2084 (667/3200) | cell=01:41 | cond_eta=03:23
+    [random_o08_f50] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | long_range_retrieval span=48 seed=2 | acc=0.0806 (129/1600) | cell=01:41 | cond_eta=01:41
+    [random_o08_f50] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o08_f50 | local_key_match span=0 seed=2 | acc=0.1944 (622/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction= 0% heads=0
+    [random_o09_f00] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f00 | long_range_retrieval span=48 seed=0 | acc=0.1619 (259/1600) | cell=01:42 | cond_eta=08:33
+    [random_o09_f00] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f00 | local_key_match span=0 seed=0 | acc=0.4088 (1308/3200) | cell=01:43 | cond_eta=06:51
+    [random_o09_f00] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f00 | long_range_retrieval span=48 seed=1 | acc=0.1487 (238/1600) | cell=01:42 | cond_eta=05:08
+    [random_o09_f00] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f00 | local_key_match span=0 seed=1 | acc=0.4203 (1345/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f00] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f00 | long_range_retrieval span=48 seed=2 | acc=0.1350 (216/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f00] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f00 | local_key_match span=0 seed=2 | acc=0.4213 (1348/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction= 1% heads=10
+    [random_o09_f01] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f01 | long_range_retrieval span=48 seed=0 | acc=0.1338 (214/1600) | cell=01:42 | cond_eta=08:32
+    [random_o09_f01] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f01 | local_key_match span=0 seed=0 | acc=0.4050 (1296/3200) | cell=01:42 | cond_eta=06:50
+    [random_o09_f01] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f01 | long_range_retrieval span=48 seed=1 | acc=0.1269 (203/1600) | cell=01:42 | cond_eta=05:07
+    [random_o09_f01] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f01 | local_key_match span=0 seed=1 | acc=0.4181 (1338/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f01] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f01 | long_range_retrieval span=48 seed=2 | acc=0.1194 (191/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f01] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f01 | local_key_match span=0 seed=2 | acc=0.4206 (1346/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction= 2% heads=20
+    [random_o09_f02] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f02 | long_range_retrieval span=48 seed=0 | acc=0.1319 (211/1600) | cell=01:42 | cond_eta=08:32
+    [random_o09_f02] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f02 | local_key_match span=0 seed=0 | acc=0.4034 (1291/3200) | cell=01:42 | cond_eta=06:50
+    [random_o09_f02] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f02 | long_range_retrieval span=48 seed=1 | acc=0.1175 (188/1600) | cell=01:42 | cond_eta=05:07
+    [random_o09_f02] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f02 | local_key_match span=0 seed=1 | acc=0.4163 (1332/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f02] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f02 | long_range_retrieval span=48 seed=2 | acc=0.1187 (190/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f02] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f02 | local_key_match span=0 seed=2 | acc=0.4200 (1344/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction= 5% heads=51
+    [random_o09_f05] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | long_range_retrieval span=48 seed=0 | acc=0.1325 (212/1600) | cell=01:42 | cond_eta=08:34
+    [random_o09_f05] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | local_key_match span=0 seed=0 | acc=0.3894 (1246/3200) | cell=01:43 | cond_eta=06:52
+    [random_o09_f05] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | long_range_retrieval span=48 seed=1 | acc=0.1206 (193/1600) | cell=01:42 | cond_eta=05:09
+    [random_o09_f05] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | local_key_match span=0 seed=1 | acc=0.4047 (1295/3200) | cell=01:43 | cond_eta=03:26
+    [random_o09_f05] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | long_range_retrieval span=48 seed=2 | acc=0.1156 (185/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f05] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f05 | local_key_match span=0 seed=2 | acc=0.4119 (1318/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction=10% heads=102
+    [random_o09_f10] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | long_range_retrieval span=48 seed=0 | acc=0.1319 (211/1600) | cell=01:42 | cond_eta=08:34
+    [random_o09_f10] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | local_key_match span=0 seed=0 | acc=0.3978 (1273/3200) | cell=01:43 | cond_eta=06:52
+    [random_o09_f10] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | long_range_retrieval span=48 seed=1 | acc=0.1150 (184/1600) | cell=01:42 | cond_eta=05:08
+    [random_o09_f10] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | local_key_match span=0 seed=1 | acc=0.4022 (1287/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f10] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | long_range_retrieval span=48 seed=2 | acc=0.1163 (186/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f10] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f10 | local_key_match span=0 seed=2 | acc=0.4075 (1304/3200) | cell=01:43 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction=15% heads=154
+    [random_o09_f15] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | long_range_retrieval span=48 seed=0 | acc=0.1013 (162/1600) | cell=01:42 | cond_eta=08:34
+    [random_o09_f15] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | local_key_match span=0 seed=0 | acc=0.3922 (1255/3200) | cell=01:43 | cond_eta=06:52
+    [random_o09_f15] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | long_range_retrieval span=48 seed=1 | acc=0.0994 (159/1600) | cell=01:42 | cond_eta=05:08
+    [random_o09_f15] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | local_key_match span=0 seed=1 | acc=0.4019 (1286/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f15] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | long_range_retrieval span=48 seed=2 | acc=0.0963 (154/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f15] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f15 | local_key_match span=0 seed=2 | acc=0.3941 (1261/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction=20% heads=205
+    [random_o09_f20] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f20 | long_range_retrieval span=48 seed=0 | acc=0.0925 (148/1600) | cell=01:42 | cond_eta=08:33
+    [random_o09_f20] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f20 | local_key_match span=0 seed=0 | acc=0.2387 (764/3200) | cell=01:42 | cond_eta=06:51
+    [random_o09_f20] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f20 | long_range_retrieval span=48 seed=1 | acc=0.0931 (149/1600) | cell=01:42 | cond_eta=05:08
+    [random_o09_f20] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f20 | local_key_match span=0 seed=1 | acc=0.2403 (769/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f20] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f20 | long_range_retrieval span=48 seed=2 | acc=0.0881 (141/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f20] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f20 | local_key_match span=0 seed=2 | acc=0.2253 (721/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction=25% heads=256
+    [random_o09_f25] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:33
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:44
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f25 | long_range_retrieval span=48 seed=0 | acc=0.0775 (124/1600) | cell=01:42 | cond_eta=08:31
+    [random_o09_f25] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f25 | local_key_match span=0 seed=0 | acc=0.3113 (996/3200) | cell=01:42 | cond_eta=06:50
+    [random_o09_f25] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f25 | long_range_retrieval span=48 seed=1 | acc=0.0731 (117/1600) | cell=01:42 | cond_eta=05:07
+    [random_o09_f25] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f25 | local_key_match span=0 seed=1 | acc=0.3203 (1025/3200) | cell=01:42 | cond_eta=03:25
+    [random_o09_f25] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f25 | long_range_retrieval span=48 seed=2 | acc=0.0856 (137/1600) | cell=01:42 | cond_eta=01:42
+    [random_o09_f25] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f25 | local_key_match span=0 seed=2 | acc=0.3100 (992/3200) | cell=01:42 | cond_eta=00:00
+[NEW-R12][mistral-7b-v0.1] ordering=5/5 (global_id=9) fraction=50% heads=512
+    [random_o09_f50] cell 1/6 seed=0 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f50 | long_range_retrieval span=48 seed=0 | acc=0.0850 (136/1600) | cell=01:42 | cond_eta=08:32
+    [random_o09_f50] cell 2/6 seed=0 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f50 | local_key_match span=0 seed=0 | acc=0.3787 (1212/3200) | cell=01:42 | cond_eta=06:50
+    [random_o09_f50] cell 3/6 seed=1 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.98 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.98 ex/s | eta 01:17
+      batch 5/13 | examples 40/100 ( 40%) | 0.98 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.98 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.98 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.98 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.98 ex/s | eta 00:00
+    random_o09_f50 | long_range_retrieval span=48 seed=1 | acc=0.0781 (125/1600) | cell=01:42 | cond_eta=05:07
+    [random_o09_f50] cell 4/6 seed=1 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:34
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:01
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:28
+      batch 11/13 | examples 88/100 ( 88%) | 0.97 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.97 ex/s | eta 00:00
+    random_o09_f50 | local_key_match span=0 seed=1 | acc=0.3819 (1222/3200) | cell=01:43 | cond_eta=03:25
+    [random_o09_f50] cell 5/6 seed=2 task=long_range_retrieval span=48 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.97 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.97 ex/s | eta 01:18
+      batch 5/13 | examples 40/100 ( 40%) | 0.97 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.97 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.97 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o09_f50 | long_range_retrieval span=48 seed=2 | acc=0.0731 (117/1600) | cell=01:43 | cond_eta=01:43
+    [random_o09_f50] cell 6/6 seed=2 task=local_key_match span=0 examples=100
+      batch 1/13 | examples 8/100 (  8%) | 0.96 ex/s | eta 01:35
+      batch 3/13 | examples 24/100 ( 24%) | 0.96 ex/s | eta 01:19
+      batch 5/13 | examples 40/100 ( 40%) | 0.96 ex/s | eta 01:02
+      batch 7/13 | examples 56/100 ( 56%) | 0.96 ex/s | eta 00:45
+      batch 9/13 | examples 72/100 ( 72%) | 0.96 ex/s | eta 00:29
+      batch 11/13 | examples 88/100 ( 88%) | 0.96 ex/s | eta 00:12
+      batch 13/13 | examples 100/100 (100%) | 0.96 ex/s | eta 00:00
+    random_o09_f50 | local_key_match span=0 seed=2 | acc=0.3787 (1212/3200) | cell=01:44 | cond_eta=00:00
+[NEW-R12-Mistral] done. Summary written to /jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control_shards/mistral_b/mistral-7b-v0.1/summary.json
+[g0-gpu1] R12 mistral_b done; starting R2B seeds 0 8 16 on GPU 1
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   7%|▋         | 25/355 [00:00<00:02, 134.02it/s]Loading weights:  12%|█▏        | 42/355 [00:00<00:02, 121.50it/s]Loading weights:  16%|█▋        | 58/355 [00:00<00:02, 131.19it/s]Loading weights:  20%|██        | 72/355 [00:00<00:02, 123.98it/s]Loading weights:  24%|██▍       | 86/355 [00:00<00:02, 120.22it/s]Loading weights:  28%|██▊       | 101/355 [00:00<00:01, 128.61it/s]Loading weights:  34%|███▍      | 120/355 [00:00<00:01, 143.58it/s]Loading weights:  38%|███▊      | 135/355 [00:01<00:01, 132.12it/s]Loading weights:  42%|████▏     | 149/355 [00:01<00:01, 109.04it/s]Loading weights:  46%|████▌     | 163/355 [00:01<00:01, 116.35it/s]Loading weights:  50%|████▉     | 176/355 [00:01<00:01, 109.69it/s]Loading weights:  53%|█████▎    | 188/355 [00:01<00:01, 93.00it/s] Loading weights:  56%|█████▌    | 199/355 [00:01<00:01, 93.26it/s]Loading weights:  59%|█████▉    | 209/355 [00:01<00:01, 86.63it/s]Loading weights:  62%|██████▏   | 219/355 [00:02<00:01, 77.71it/s]Loading weights:  67%|██████▋   | 237/355 [00:02<00:01, 100.93it/s]Loading weights:  70%|███████   | 249/355 [00:02<00:01, 92.38it/s] Loading weights:  74%|███████▍  | 262/355 [00:02<00:00, 100.48it/s]Loading weights:  78%|███████▊  | 276/355 [00:02<00:00, 101.77it/s]Loading weights:  81%|████████  | 287/355 [00:02<00:00, 78.52it/s] Loading weights:  83%|████████▎ | 296/355 [00:02<00:00, 79.69it/s]Loading weights:  88%|████████▊ | 311/355 [00:03<00:00, 90.36it/s]Loading weights:  90%|█████████ | 321/355 [00:03<00:00, 86.79it/s]Loading weights:  93%|█████████▎| 331/355 [00:03<00:00, 88.29it/s]Loading weights:  97%|█████████▋| 344/355 [00:03<00:00, 94.52it/s]Loading weights: 100%|██████████| 355/355 [00:03<00:00, 104.16it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  Attention analysis: 1/50 sequences (403 boundaries, 32.1s)
+  Attention analysis: 5/50 sequences (423 boundaries, 28.8s)
+  Attention analysis: 10/50 sequences (419 boundaries, 27.1s)
+  Attention analysis: 15/50 sequences (452 boundaries, 34.6s)
+  Attention analysis: 20/50 sequences (430 boundaries, 27.7s)
+  Attention analysis: 25/50 sequences (447 boundaries, 23.3s)
+  Attention analysis: 30/50 sequences (447 boundaries, 21.4s)
+  Attention analysis: 35/50 sequences (428 boundaries, 23.7s)
+  Attention analysis: 40/50 sequences (442 boundaries, 23.5s)
+  Attention analysis: 45/50 sequences (450 boundaries, 24.4s)
+  Attention analysis: 50/50 sequences (399 boundaries, 20.0s)
+[EXP-R2B][seed=0] domain=wiki complete in 3185.2s
+  Attention analysis: 1/41 sequences (241 boundaries, 22.9s)
+  Attention analysis: 5/41 sequences (259 boundaries, 22.1s)
+  Attention analysis: 10/41 sequences (233 boundaries, 31.5s)
+  Attention analysis: 15/41 sequences (225 boundaries, 22.7s)
+  Attention analysis: 20/41 sequences (239 boundaries, 33.3s)
+  Attention analysis: 25/41 sequences (267 boundaries, 25.3s)
+  Attention analysis: 30/41 sequences (262 boundaries, 28.8s)
+  Attention analysis: 35/41 sequences (277 boundaries, 26.2s)
+  Attention analysis: 40/41 sequences (252 boundaries, 30.8s)
+[EXP-R2B][seed=0] domain=code complete in 2471.3s
+  Attention analysis: 1/50 sequences (258 boundaries, 29.9s)
+  Attention analysis: 5/50 sequences (357 boundaries, 30.4s)
+  Attention analysis: 10/50 sequences (283 boundaries, 33.8s)
+  Attention analysis: 15/50 sequences (239 boundaries, 27.3s)
+  Attention analysis: 20/50 sequences (290 boundaries, 33.3s)
+  Attention analysis: 25/50 sequences (420 boundaries, 24.4s)
+  Attention analysis: 30/50 sequences (293 boundaries, 32.5s)
+  Attention analysis: 35/50 sequences (366 boundaries, 22.6s)
+  Attention analysis: 40/50 sequences (358 boundaries, 27.7s)
+  Attention analysis: 45/50 sequences (232 boundaries, 19.3s)
+  Attention analysis: 50/50 sequences (267 boundaries, 24.9s)
+[EXP-R2B][seed=0] domain=dialogue complete in 2824.6s
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   4%|▍         | 15/355 [00:00<00:02, 129.80it/s]Loading weights:   8%|▊         | 28/355 [00:00<00:02, 117.22it/s]Loading weights:  13%|█▎        | 46/355 [00:00<00:02, 139.93it/s]Loading weights:  17%|█▋        | 61/355 [00:00<00:02, 139.20it/s]Loading weights:  21%|██▏       | 76/355 [00:00<00:02, 137.31it/s]Loading weights:  26%|██▌       | 92/355 [00:00<00:01, 138.55it/s]Loading weights:  31%|███       | 109/355 [00:00<00:01, 129.80it/s]Loading weights:  35%|███▍      | 123/355 [00:00<00:01, 121.51it/s]Loading weights:  40%|███▉      | 141/355 [00:01<00:01, 119.46it/s]Loading weights:  46%|████▌     | 164/355 [00:01<00:01, 144.33it/s]Loading weights:  50%|█████     | 179/355 [00:01<00:01, 129.08it/s]Loading weights:  54%|█████▍    | 193/355 [00:01<00:01, 119.67it/s]Loading weights:  59%|█████▉    | 210/355 [00:01<00:01, 131.43it/s]Loading weights:  63%|██████▎   | 224/355 [00:01<00:01, 124.18it/s]Loading weights:  67%|██████▋   | 237/355 [00:01<00:00, 118.28it/s]Loading weights:  72%|███████▏  | 255/355 [00:02<00:00, 121.98it/s]Loading weights:  77%|███████▋  | 273/355 [00:02<00:00, 125.64it/s]Loading weights:  81%|████████  | 287/355 [00:02<00:00, 128.79it/s]Loading weights:  85%|████████▍ | 301/355 [00:02<00:00, 127.58it/s]Loading weights:  90%|████████▉ | 318/355 [00:02<00:00, 128.50it/s]Loading weights:  94%|█████████▍| 333/355 [00:02<00:00, 117.18it/s]Loading weights:  97%|█████████▋| 345/355 [00:02<00:00, 115.91it/s]Loading weights: 100%|██████████| 355/355 [00:02<00:00, 128.68it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  Attention analysis: 1/50 sequences (432 boundaries, 28.3s)
+  Attention analysis: 5/50 sequences (414 boundaries, 24.7s)
+  Attention analysis: 10/50 sequences (417 boundaries, 21.9s)
+  Attention analysis: 15/50 sequences (415 boundaries, 24.1s)
+  Attention analysis: 20/50 sequences (432 boundaries, 28.0s)
+  Attention analysis: 25/50 sequences (424 boundaries, 26.6s)
+  Attention analysis: 30/50 sequences (448 boundaries, 21.0s)
+  Attention analysis: 35/50 sequences (429 boundaries, 20.8s)
+  Attention analysis: 40/50 sequences (425 boundaries, 18.8s)
+  Attention analysis: 45/50 sequences (410 boundaries, 19.9s)
+  Attention analysis: 50/50 sequences (423 boundaries, 19.2s)
+[EXP-R2B][seed=8] domain=wiki complete in 2578.4s
+  Attention analysis: 1/41 sequences (242 boundaries, 24.0s)
+  Attention analysis: 5/41 sequences (262 boundaries, 22.4s)
+  Attention analysis: 10/41 sequences (273 boundaries, 22.5s)
+  Attention analysis: 15/41 sequences (292 boundaries, 22.5s)
+  Attention analysis: 20/41 sequences (275 boundaries, 23.4s)
+  Attention analysis: 25/41 sequences (273 boundaries, 23.5s)
+  Attention analysis: 30/41 sequences (230 boundaries, 24.3s)
+  Attention analysis: 35/41 sequences (233 boundaries, 19.8s)
+  Attention analysis: 40/41 sequences (272 boundaries, 19.0s)
+[EXP-R2B][seed=8] domain=code complete in 1855.2s
+  Attention analysis: 1/50 sequences (328 boundaries, 21.3s)
+  Attention analysis: 5/50 sequences (218 boundaries, 20.9s)
+  Attention analysis: 10/50 sequences (281 boundaries, 20.2s)
+  Attention analysis: 15/50 sequences (166 boundaries, 19.5s)
+  Attention analysis: 20/50 sequences (332 boundaries, 20.3s)
+  Attention analysis: 25/50 sequences (245 boundaries, 21.0s)
+  Attention analysis: 30/50 sequences (304 boundaries, 20.5s)
+  Attention analysis: 35/50 sequences (173 boundaries, 19.1s)
+  Attention analysis: 40/50 sequences (393 boundaries, 21.5s)
+  Attention analysis: 45/50 sequences (411 boundaries, 21.7s)
+  Attention analysis: 50/50 sequences (366 boundaries, 21.3s)
+[EXP-R2B][seed=8] domain=dialogue complete in 2512.7s
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:  12%|█▏        | 41/355 [00:00<00:00, 347.73it/s]Loading weights:  21%|██▏       | 76/355 [00:00<00:02, 136.43it/s]Loading weights:  29%|██▉       | 104/355 [00:00<00:01, 166.04it/s]Loading weights:  36%|███▌      | 127/355 [00:00<00:01, 139.38it/s]Loading weights:  41%|████      | 146/355 [00:00<00:01, 145.39it/s]Loading weights:  46%|████▌     | 164/355 [00:01<00:01, 145.32it/s]Loading weights:  51%|█████     | 181/355 [00:01<00:01, 143.12it/s]Loading weights:  55%|█████▌    | 197/355 [00:01<00:01, 137.07it/s]Loading weights:  62%|██████▏   | 221/355 [00:01<00:00, 141.49it/s]Loading weights:  66%|██████▋   | 236/355 [00:01<00:00, 131.50it/s]Loading weights:  70%|███████   | 250/355 [00:01<00:00, 133.13it/s]Loading weights:  75%|███████▌  | 268/355 [00:01<00:00, 142.23it/s]Loading weights:  80%|████████  | 285/355 [00:01<00:00, 146.70it/s]Loading weights:  85%|████████▍ | 300/355 [00:02<00:00, 146.47it/s]Loading weights:  89%|████████▊ | 315/355 [00:02<00:00, 146.98it/s]Loading weights:  93%|█████████▎| 330/355 [00:02<00:00, 133.37it/s]Loading weights:  97%|█████████▋| 344/355 [00:02<00:00, 132.92it/s]Loading weights: 100%|██████████| 355/355 [00:02<00:00, 146.10it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+  Attention analysis: 1/50 sequences (433 boundaries, 27.5s)
+  Attention analysis: 5/50 sequences (453 boundaries, 22.3s)
+  Attention analysis: 10/50 sequences (433 boundaries, 17.4s)
+  Attention analysis: 15/50 sequences (416 boundaries, 20.4s)
+  Attention analysis: 20/50 sequences (453 boundaries, 19.5s)
+  Attention analysis: 25/50 sequences (421 boundaries, 18.1s)
+  Attention analysis: 30/50 sequences (417 boundaries, 14.7s)
+  Attention analysis: 35/50 sequences (400 boundaries, 19.4s)
+  Attention analysis: 40/50 sequences (435 boundaries, 14.1s)
+  Attention analysis: 45/50 sequences (405 boundaries, 16.8s)
+  Attention analysis: 50/50 sequences (416 boundaries, 19.3s)
+[EXP-R2B][seed=16] domain=wiki complete in 1803.3s
+  Attention analysis: 1/41 sequences (274 boundaries, 15.3s)
+  Attention analysis: 5/41 sequences (238 boundaries, 15.7s)
+  Attention analysis: 10/41 sequences (248 boundaries, 21.3s)
+  Attention analysis: 15/41 sequences (248 boundaries, 16.9s)
+  Attention analysis: 20/41 sequences (290 boundaries, 20.3s)
+  Attention analysis: 25/41 sequences (257 boundaries, 15.1s)
+  Attention analysis: 30/41 sequences (280 boundaries, 23.5s)
+  Attention analysis: 35/41 sequences (244 boundaries, 14.8s)
+  Attention analysis: 40/41 sequences (217 boundaries, 21.4s)
+[EXP-R2B][seed=16] domain=code complete in 1511.8s
+  Attention analysis: 1/50 sequences (314 boundaries, 21.3s)
+  Attention analysis: 5/50 sequences (374 boundaries, 22.9s)
+  Attention analysis: 10/50 sequences (140 boundaries, 26.9s)
+  Attention analysis: 15/50 sequences (174 boundaries, 21.2s)
+  Attention analysis: 20/50 sequences (184 boundaries, 23.0s)
+  Attention analysis: 25/50 sequences (306 boundaries, 17.7s)
+  Attention analysis: 30/50 sequences (360 boundaries, 24.4s)
+  Attention analysis: 35/50 sequences (289 boundaries, 17.2s)
+  Attention analysis: 40/50 sequences (191 boundaries, 22.0s)
+  Attention analysis: 45/50 sequences (320 boundaries, 15.3s)
+  Attention analysis: 50/50 sequences (304 boundaries, 23.0s)
+[EXP-R2B][seed=16] domain=dialogue complete in 2261.0s
+[g0-gpu1] all done

@@ -1,0 +1,5 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "note": "Analysis consumed existing curves. Exact layer-matched set diagnostics require full B3 set-generator execution.",
+  "input_curve_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation_smoke/raw_curve_rows.parquet"
+}

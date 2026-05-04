@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-17 16:35:31",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    8
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "results/reinforce_exp/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 9730.091868638992,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 8,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.009924355944800643,
+      "cohens_d_fake_minus_real": -0.2832182477527077,
+      "p_one_sided_fake_gt_real": 1.0,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_wiki/seed8/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 25898,
+      "elapsed_sec": 3289.019070625305
+    },
+    {
+      "domain": "code",
+      "seed": 8,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.004316008452074815,
+      "cohens_d_fake_minus_real": -0.12264058912320894,
+      "p_one_sided_fake_gt_real": 0.9999681072198603,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_code/seed8/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9005,
+      "elapsed_sec": 2650.727730035782
+    },
+    {
+      "domain": "dialogue",
+      "seed": 8,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.007363356946902665,
+      "cohens_d_fake_minus_real": -0.21688118067147708,
+      "p_one_sided_fake_gt_real": 0.9999999999999992,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_dialogue/seed8/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 18011,
+      "elapsed_sec": 3790.344950437546
+    }
+  ]
+}

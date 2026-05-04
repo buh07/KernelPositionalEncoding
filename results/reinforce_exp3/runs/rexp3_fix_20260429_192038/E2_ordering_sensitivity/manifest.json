@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-05-01 10:33:33",
+  "experiment_id": "E2",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "ordering_sensitivity",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "exploratory",
+  "canonical_eligible": false,
+  "override_used": false,
+  "fine_fractions": [
+    0,
+    1,
+    2,
+    5,
+    8,
+    10,
+    12,
+    15,
+    18,
+    20,
+    22,
+    25,
+    30,
+    40,
+    50
+  ],
+  "batch5_models": [
+    "olmo-2-7b"
+  ],
+  "seed_provenance": {
+    "v1": "ordering payload IDs from R12",
+    "v2": "BATCH5_SEED_BASE=20260501, seed=base+ordering_id*1013"
+  }
+}

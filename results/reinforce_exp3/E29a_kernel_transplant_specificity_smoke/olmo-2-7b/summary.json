@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-04 00:58:14",
+  "experiment_id": "E29A",
+  "model": "olmo-2-7b",
+  "n_eval_seqs": 16,
+  "n_matched_pairs": 193,
+  "low_self_mean_delta": 0.003780379891395569,
+  "low_transplant_normmatched_mean_delta": 0.017546840012073517,
+  "low_random_normmatched_mean_delta": 0.0494014248251915,
+  "high_self_mean_delta": 0.03478625416755676,
+  "delta_transplant_vs_lowself": 0.013766460120677948,
+  "ci_delta_transplant_vs_lowself": [
+    0.011031492054462433,
+    0.01645949427038431
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 144.95434284210205
+}

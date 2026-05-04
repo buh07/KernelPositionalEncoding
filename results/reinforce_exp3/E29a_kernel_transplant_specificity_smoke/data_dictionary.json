@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E29A",
+  "tables": [
+    {
+      "path": "<model>/kernel_transplant_trials.parquet",
+      "description": "Sequence-level deltas for low-self, low-transplant, low-random, and high-self arms.",
+      "columns": []
+    }
+  ]
+}

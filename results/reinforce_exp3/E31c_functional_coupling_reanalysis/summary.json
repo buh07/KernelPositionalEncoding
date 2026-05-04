@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-05-04 13:41:44",
+  "experiment_id": "E31C",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "directional_functional_coupling_supported_with_caveat",
+    "n_rows": 9,
+    "pearson_r": 0.9557989730818809,
+    "exact_p_one_sided": 0.004608294930875576
+  },
+  "elapsed_sec": 0.06617903709411621
+}

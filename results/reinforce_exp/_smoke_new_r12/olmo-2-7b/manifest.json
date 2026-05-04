@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-17 13:44:25",
+  "experiment_id": "NEW-R12",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "single_model",
+  "model": "olmo-2-7b",
+  "device": "cuda:0",
+  "fractions": [
+    0,
+    10
+  ],
+  "num_orderings": 1,
+  "num_seeds": 1,
+  "output_root": "results/reinforce_exp/_smoke_new_r12"
+}

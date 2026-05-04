@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E7",
+  "hypothesis": "High-SI heads show boundary-linked attention preference in Chinese and Turkish text despite absence of English whitespace tokens.",
+  "primary_criterion": "Mean boundary attention d > threshold in high-SI heads for at least one non-English language in at least one model.",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "languages": [
+    "tr"
+  ],
+  "n_seqs_per_lang": 80,
+  "boundary_d_threshold": 0.1,
+  "timestamp": "2026-04-30 19:08:28"
+}

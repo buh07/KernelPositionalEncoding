@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-30 16:11:03",
+  "experiment_id": "E0",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "strict_only": true,
+  "notes": [
+    "Overall verdict: redundancy_consistent",
+    "redundancy_consistent \u2192 add ordering-invariance sentence to Result III.",
+    "cluster_structure_consistent \u2192 demote Result III claim; report mechanism ambiguity.",
+    "inconclusive \u2192 retain current language; note B3 and E0 both inconclusive."
+  ]
+}

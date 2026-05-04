@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-29 04:40:07",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    16
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 5576.021759986877,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 16,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.009998431533657714,
+      "cohens_d_fake_minus_real": -0.2951799984017084,
+      "p_one_sided_fake_gt_real": 1.0,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_wiki/seed16/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 26036,
+      "elapsed_sec": 1803.2677173614502
+    },
+    {
+      "domain": "code",
+      "seed": 16,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.005622494430907132,
+      "cohens_d_fake_minus_real": -0.15052913602059306,
+      "p_one_sided_fake_gt_real": 0.9999999171930718,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_code/seed16/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9026,
+      "elapsed_sec": 1511.7796785831451
+    },
+    {
+      "domain": "dialogue",
+      "seed": 16,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.006576190955354194,
+      "cohens_d_fake_minus_real": -0.19728895253188855,
+      "p_one_sided_fake_gt_real": 0.9999999999904287,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/domain_dialogue/seed16/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17273,
+      "elapsed_sec": 2260.9740958213806
+    }
+  ]
+}

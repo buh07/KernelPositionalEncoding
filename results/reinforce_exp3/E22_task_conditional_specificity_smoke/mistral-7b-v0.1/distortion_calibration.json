@@ -1,0 +1,112 @@
+{
+  "rows": [
+    {
+      "task": "lm_wiki",
+      "trial": 0,
+      "target_kl": 0.7409892199890831,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.7823575768354384,
+      "rel_err": 0.05582855422237423
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 1,
+      "target_kl": 0.7409892199890831,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.7090400063653114,
+      "rel_err": 0.04311697493283692
+    },
+    {
+      "task": "lm_code",
+      "trial": 0,
+      "target_kl": 0.7687332372427944,
+      "matched": true,
+      "alpha": 0.225,
+      "matched_kl": 0.800539668157002,
+      "rel_err": 0.04137512126870858
+    },
+    {
+      "task": "lm_code",
+      "trial": 1,
+      "target_kl": 0.7687332372427944,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.8027976081695095,
+      "rel_err": 0.0443123430553014
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 0,
+      "target_kl": 0.7758669395079864,
+      "matched": true,
+      "alpha": 0.25,
+      "matched_kl": 0.8588783600530124,
+      "rel_err": 0.1069918259407567
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 1,
+      "target_kl": 0.7758669395079864,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7467680438934144,
+      "rel_err": 0.0375050077955698
+    },
+    {
+      "task": "icl",
+      "trial": 0,
+      "target_kl": 0.2817157060911848,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.27250590392649465,
+      "rel_err": 0.0326918306844743
+    },
+    {
+      "task": "icl",
+      "trial": 1,
+      "target_kl": 0.2817157060911848,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.32919902811353147,
+      "rel_err": 0.1685504961053802
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 0,
+      "target_kl": 0.30379542501377754,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.25760066640544266,
+      "rel_err": 0.15205876983249464
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 1,
+      "target_kl": 0.30379542501377754,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.2883010750288308,
+      "rel_err": 0.05100257841027087
+    },
+    {
+      "task": "induction",
+      "trial": 0,
+      "target_kl": 0.8170085194173174,
+      "matched": true,
+      "alpha": 0.1125,
+      "matched_kl": 0.8134431033863092,
+      "rel_err": 0.004363988803386114
+    },
+    {
+      "task": "induction",
+      "trial": 1,
+      "target_kl": 0.8170085194173174,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.7716225521471687,
+      "rel_err": 0.05555140025041305
+    }
+  ]
+}

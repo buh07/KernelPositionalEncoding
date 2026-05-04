@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-04-11 05:18:52",
+  "status": "completed",
+  "matched_heads": 1024,
+  "top_quartile_jaccard": 0.17701149425287357,
+  "spearman_rank_correlation": 0.047686357824905226,
+  "spearman_p_value": 0.12726726870743502
+}

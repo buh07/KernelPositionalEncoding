@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-05-01 17:01:53",
+  "experiment_id": "E19",
+  "model": "llama-3.1-8b",
+  "runtime_sec": 150.33186221122742,
+  "num_domains": 3,
+  "num_sequences_per_domain": 12,
+  "seq_len": 256,
+  "mean_abs_delta_offset_reweight": 0.5834642164767647,
+  "mean_abs_delta_equalcount_proxy": 0.03351193260100933,
+  "mean_abs_transfer_minus_indomain": 0.03135826628303382,
+  "robustness_pass": false,
+  "per_domain": [
+    {
+      "domain": "wiki",
+      "mean_r2_baseline": 0.2184877055788899,
+      "mean_r2_offset_reweighted": 0.7940101195139235,
+      "mean_r2_equalcount_proxy": 0.18546756235203804,
+      "delta_offset_reweighted": 0.5755224139350337,
+      "delta_equalcount_proxy": -0.03302014322685187
+    },
+    {
+      "domain": "code",
+      "mean_r2_baseline": 0.21028436875761086,
+      "mean_r2_offset_reweighted": 0.8286455743375214,
+      "mean_r2_equalcount_proxy": 0.18643964996968243,
+      "delta_offset_reweighted": 0.6183612055799106,
+      "delta_equalcount_proxy": -0.02384471878792843
+    },
+    {
+      "domain": "dialogue",
+      "mean_r2_baseline": 0.24712677476475495,
+      "mean_r2_offset_reweighted": 0.8036358046801049,
+      "mean_r2_equalcount_proxy": 0.20345583897650726,
+      "delta_offset_reweighted": 0.5565090299153499,
+      "delta_equalcount_proxy": -0.04367093578824768
+    }
+  ]
+}

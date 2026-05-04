@@ -1,0 +1,36 @@
+{
+  "experiment_id": "E28A",
+  "tables": [
+    {
+      "path": "<model>/head_bin_assignments.parquet",
+      "description": "Head-to-bin assignment at 20-bin granularity.",
+      "columns": [
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "head index"
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "head mean R\u00b2"
+        },
+        {
+          "name": "bin",
+          "dtype": "int",
+          "description": "R\u00b2 quantile bin"
+        }
+      ]
+    },
+    {
+      "path": "<model>/dose_response_bins.parquet",
+      "description": "Per-bin disruption metrics under true/permuted/norm controls.",
+      "columns": []
+    }
+  ]
+}

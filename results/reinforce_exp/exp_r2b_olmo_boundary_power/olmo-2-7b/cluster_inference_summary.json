@@ -1,0 +1,84 @@
+{
+  "timestamp": "2026-04-18 03:50:31",
+  "experiment": "EXP-R2B",
+  "model": "olmo-2-7b",
+  "domains": [
+    {
+      "domain": "wiki",
+      "adjudication_path": "results/reinforce_exp/exp_r2b_olmo_boundary_power/canonical/domain_wiki/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 12,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.009566582411875149,
+      "cluster_n": 768,
+      "cluster_mean_delta": -0.009401683464543141,
+      "cluster_ci95": [
+        -0.010065548767200946,
+        -0.008723927179653444
+      ],
+      "cluster_cohens_d": -0.9899590016872147,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    },
+    {
+      "domain": "code",
+      "adjudication_path": "results/reinforce_exp/exp_r2b_olmo_boundary_power/canonical/domain_code/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 12,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.004491289554373463,
+      "cluster_n": 492,
+      "cluster_mean_delta": -0.004531384977084777,
+      "cluster_ci95": [
+        -0.005177884367697533,
+        -0.003858349612761806
+      ],
+      "cluster_cohens_d": -0.6087852125676898,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    },
+    {
+      "domain": "dialogue",
+      "adjudication_path": "results/reinforce_exp/exp_r2b_olmo_boundary_power/canonical/domain_dialogue/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 12,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.006811770651258846,
+      "cluster_n": 767,
+      "cluster_mean_delta": -0.006644046956049545,
+      "cluster_ci95": [
+        -0.007339695508309512,
+        -0.005970183399180874
+      ],
+      "cluster_cohens_d": -0.6851312274745265,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    }
+  ],
+  "multiplicity": {
+    "family": "domain_level_sequence_block_permutation",
+    "method": "holm",
+    "raw_p_one": {
+      "wiki": 1.0,
+      "code": 1.0,
+      "dialogue": 1.0
+    },
+    "holm_adjusted_p_one": {
+      "wiki": 1.0,
+      "code": 1.0,
+      "dialogue": 1.0
+    }
+  }
+}

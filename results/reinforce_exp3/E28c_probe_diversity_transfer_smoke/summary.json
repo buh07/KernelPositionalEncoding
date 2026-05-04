@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-03 17:29:34",
+  "experiment_id": "E28C",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "no_generalization_beyond_short_probe",
+    "n_model_pass": 0,
+    "n_models": 3
+  },
+  "limitations": [
+    "Probe families remain synthetic and are not naturalistic long-context ICL benchmarks.",
+    "Kernel-subtraction intervention measures disruption cost, not training-time counterfactual necessity."
+  ]
+}

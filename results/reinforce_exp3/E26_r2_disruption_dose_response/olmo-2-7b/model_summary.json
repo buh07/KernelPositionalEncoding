@@ -1,0 +1,76 @@
+{
+  "model": "olmo-2-7b",
+  "n_bins": 5,
+  "spearman_r": 0.8999999999999998,
+  "spearman_p": 0.03738607346849874,
+  "monotone_fraction": 0.75,
+  "dose_response_positive": true,
+  "elapsed_sec": 5224.673159599304,
+  "bins": [
+    {
+      "bin": 1,
+      "n_heads": 205,
+      "mean_r2": 0.0038542099261541242,
+      "min_r2": 0.0,
+      "max_r2": 0.010986001645806322,
+      "true_mean_delta": 0.0038314366340637205,
+      "perm_mean_delta": 0.002025075554847717,
+      "norm_mean_delta": 0.06344256162643433,
+      "per_head_true_delta": 1.8689934800310832e-05,
+      "per_head_perm_delta": 9.878417340720572e-06,
+      "true_over_perm": 1.8919968812481365
+    },
+    {
+      "bin": 2,
+      "n_heads": 205,
+      "mean_r2": 0.02109540281758849,
+      "min_r2": 0.011060368689826896,
+      "max_r2": 0.03258999447950384,
+      "true_mean_delta": 0.003634040355682373,
+      "perm_mean_delta": 0.0009192107121149699,
+      "norm_mean_delta": 0.024907999833424888,
+      "per_head_true_delta": 1.772702612527987e-05,
+      "per_head_perm_delta": 4.483954693243755e-06,
+      "true_over_perm": 3.9534356027259254
+    },
+    {
+      "bin": 3,
+      "n_heads": 204,
+      "mean_r2": 0.0458124079483269,
+      "min_r2": 0.032625018755457626,
+      "max_r2": 0.05898121636480541,
+      "true_mean_delta": 0.0038334619998931885,
+      "perm_mean_delta": -3.8051605224609374e-05,
+      "norm_mean_delta": 0.016367600758870445,
+      "per_head_true_delta": 1.8791480391633276e-05,
+      "per_head_perm_delta": -1.8652747659122243e-07,
+      "true_over_perm": -100.7437656641604
+    },
+    {
+      "bin": 4,
+      "n_heads": 205,
+      "mean_r2": 0.07444339846363097,
+      "min_r2": 0.05902659248389127,
+      "max_r2": 0.09331150804585481,
+      "true_mean_delta": 0.0063848704099655155,
+      "perm_mean_delta": 0.0004968500137329102,
+      "norm_mean_delta": 0.02099037965138753,
+      "per_head_true_delta": 3.1145709316904957e-05,
+      "per_head_perm_delta": 2.4236586035751714e-06,
+      "true_over_perm": 12.850699876196051
+    },
+    {
+      "bin": 5,
+      "n_heads": 205,
+      "mean_r2": 0.1429380900221805,
+      "min_r2": 0.09361278040824207,
+      "max_r2": 0.568987955296311,
+      "true_mean_delta": 0.05124016046524048,
+      "perm_mean_delta": 0.017005002697308858,
+      "norm_mean_delta": 0.20180774827798206,
+      "per_head_true_delta": 0.00024995200226946577,
+      "per_head_perm_delta": 8.29512326697993e-05,
+      "true_over_perm": 3.0132403609291716
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "model": "olmo-2-7b",
+  "n_high_si_heads": 256,
+  "intact_icl_accuracy": 0.82,
+  "intact_non_icl_accuracy": 0.01,
+  "ablated_icl_accuracy": 0.425,
+  "ablated_non_icl_accuracy": 0.035,
+  "icl_acc_loss": 0.39499999999999996,
+  "non_icl_acc_loss": -0.025,
+  "icl_lp_loss": 3.338177337646484,
+  "non_icl_lp_loss": -1.3315234374999996,
+  "accuracy_sensitivity_ratio": 15.799999999999997,
+  "logprob_sensitivity_ratio": 2.5070361088904867,
+  "icl_preferentially_degraded": true
+}

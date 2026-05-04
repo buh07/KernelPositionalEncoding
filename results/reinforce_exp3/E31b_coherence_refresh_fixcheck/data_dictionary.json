@@ -1,0 +1,5 @@
+{
+  "coherence_vs_r2_extended.csv": "Per-model breadth stats joined with coherence proxy features.",
+  "coherence_vs_r2_extended.json": "Correlation summary (Pearson/Spearman + permutation p-values).",
+  "coherence_appendix_patch.md": "Paper-ready wording block for CS-lens integration."
+}

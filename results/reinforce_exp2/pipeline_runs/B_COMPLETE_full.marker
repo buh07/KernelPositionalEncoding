@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-04-24 13:17:53",
+  "phase": "B",
+  "mode": "full",
+  "n_tasks": 5,
+  "n_failures": 0,
+  "source_pipeline_run": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/pipeline_runs/pipeline_b_full_2026-04-24_13-17-53.json"
+}

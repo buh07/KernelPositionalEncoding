@@ -1,0 +1,23 @@
+{
+  "experiment_id": "E5",
+  "hypothesis": "For Gemma-2-9B, SI structure is measurable and ablation patterns are consistent with threshold-style redundancy for executed components.",
+  "primary_criterion": "kernel: delta_loss > 0; ablation: threshold majority over linear/logistic where run.",
+  "model": "google/gemma-2-9b",
+  "fractions": [
+    0.0,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.5
+  ],
+  "n_seeds": 5,
+  "components_run": [
+    "kernel",
+    "ablation"
+  ],
+  "timestamp": "2026-05-01 14:14:30"
+}

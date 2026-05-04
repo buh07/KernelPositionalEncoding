@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import time
@@ -12,6 +13,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn.functional as F
+from scipy import optimize
 
 import sys
 
@@ -143,18 +145,14 @@ def _build_synthetic_cells(
     return task_configs, prebuilt
 
 
-def _evaluate_ntp_losses(
+def _prepare_ntp_seed_chunks(
     *,
-    model,
-    model_name: str,
     tokenizer,
-    device: str,
-    heads_to_zero: list[HeadID],
+    model_name: str,
     num_seeds: int,
     ntp_count_per_seed: int,
     seq_len: int,
-    batch_size: int,
-) -> list[dict[str, Any]]:
+) -> tuple[dict[int, list[list[int]]], dict[str, Any]]:
     total_needed = max(1, int(num_seeds)) * max(1, int(ntp_count_per_seed))
     sequences = load_profile_sequences(
         tokenizer=tokenizer,
@@ -166,38 +164,94 @@ def _evaluate_ntp_losses(
     if n_available <= 0:
         raise RuntimeError(f"NTP requested {total_needed} sequences for {model_name}, found 0.")
 
-    # Graceful degradation when the tokenized corpus has fewer sequences than requested.
-    # Keep seed-stratified evaluation by assigning an equal per-seed quota when possible.
     seq_chunks: dict[int, list[list[int]]] = {}
-    if n_available >= int(num_seeds):
-        per_seed = min(int(ntp_count_per_seed), n_available // int(num_seeds))
-        per_seed = max(1, int(per_seed))
-        usable = int(per_seed) * int(num_seeds)
-        if usable < total_needed:
-            print(
-                f"  [NTP] requested={total_needed} available={n_available}; "
-                f"using per_seed={per_seed} (total={usable})",
-                flush=True,
-            )
-        trimmed = sequences[:usable]
+    coverage: dict[str, Any] = {
+        "requested_total": int(total_needed),
+        "available_total": int(n_available),
+        "effective_per_seed": 0,
+        "total_used": 0,
+        "reuse_mode": "strict_split",
+        "unique_sequences_used": 0,
+        "duplication_factor": 1.0,
+    }
+
+    if n_available >= total_needed:
+        coverage["effective_per_seed"] = int(ntp_count_per_seed)
+        coverage["total_used"] = int(total_needed)
+        coverage["unique_sequences_used"] = int(total_needed)
+        trimmed = sequences[:total_needed]
         idx = 0
         for seed in range(num_seeds):
-            seq_chunks[seed] = trimmed[idx : idx + per_seed]
-            idx += per_seed
-    else:
-        print(
-            f"  [NTP] requested={total_needed} available={n_available} (< num_seeds={num_seeds}); "
-            "reusing sequences across seeds",
-            flush=True,
+            seq_chunks[seed] = trimmed[idx : idx + int(ntp_count_per_seed)]
+            idx += int(ntp_count_per_seed)
+        return seq_chunks, coverage
+
+    # Deterministic bootstrap-resample fallback: keep per-seed counts fixed to
+    # preserve design parity across models/conditions while recording effective
+    # corpus coverage explicitly in metadata.
+    seed_material = (
+        f"{model_name}|{num_seeds}|{ntp_count_per_seed}|{seq_len}|{n_available}|{total_needed}"
+    )
+    seed = int(hashlib.sha256(seed_material.encode("utf-8")).hexdigest()[:8], 16)
+    rng = np.random.default_rng(seed)
+    sampled_idx = rng.integers(0, n_available, size=int(total_needed), endpoint=False)
+    sampled = [sequences[int(i)] for i in sampled_idx.tolist()]
+    unique_used = int(len(set(int(i) for i in sampled_idx.tolist())))
+
+    coverage["effective_per_seed"] = int(ntp_count_per_seed)
+    coverage["total_used"] = int(total_needed)
+    coverage["reuse_mode"] = "bootstrap_reuse"
+    coverage["unique_sequences_used"] = int(unique_used)
+    coverage["duplication_factor"] = float(total_needed / max(1, unique_used))
+
+    print(
+        "  [NTP] requested="
+        f"{total_needed} available={n_available}; using bootstrap_reuse "
+        f"(per_seed={ntp_count_per_seed}, unique={unique_used}, "
+        f"dup_factor={coverage['duplication_factor']:.3f})",
+        flush=True,
+    )
+
+    idx = 0
+    for seed_i in range(num_seeds):
+        seq_chunks[seed_i] = sampled[idx : idx + int(ntp_count_per_seed)]
+        idx += int(ntp_count_per_seed)
+    return seq_chunks, coverage
+
+
+def _evaluate_ntp_losses(
+    *,
+    model,
+    model_name: str,
+    tokenizer,
+    device: str,
+    heads_to_zero: list[HeadID],
+    num_seeds: int,
+    ntp_count_per_seed: int,
+    seq_len: int,
+    batch_size: int,
+    seed_chunks: dict[int, list[list[int]]] | None = None,
+    coverage_metadata: dict[str, Any] | None = None,
+    batch_state: dict[str, int] | None = None,
+) -> list[dict[str, Any]]:
+    if seed_chunks is None or coverage_metadata is None:
+        seed_chunks, coverage_metadata = _prepare_ntp_seed_chunks(
+            tokenizer=tokenizer,
+            model_name=model_name,
+            num_seeds=int(num_seeds),
+            ntp_count_per_seed=int(ntp_count_per_seed),
+            seq_len=int(seq_len),
         )
-        for seed in range(num_seeds):
-            seq_chunks[seed] = [sequences[seed % n_available]]
 
     rows: list[dict[str, Any]] = []
-    eff_bs = max(1, int(batch_size))
+    requested_bs = max(1, int(batch_size))
+    if batch_state is None:
+        eff_bs = int(requested_bs)
+    else:
+        eff_bs = max(1, int(batch_state.get("wiki_ntp", requested_bs)))
     with head_output_ablation(model, heads_to_zero):
         for seed in range(num_seeds):
-            seed_seqs = seq_chunks[seed]
+            seed_seqs = seed_chunks[seed]
             losses: list[float] = []
             pos = 0
             while pos < len(seed_seqs):
@@ -216,12 +270,14 @@ def _evaluate_ntp_losses(
                         token_losses = token_losses.view(labels.shape[0], labels.shape[1])
                         # Ensure NumPy conversion is supported across mixed-precision model dtypes.
                         token_losses = token_losses.float()
-                        seq_losses = token_losses.mean(dim=1).detach().cpu().numpy().tolist()
+                        seq_losses = token_losses.mean(dim=1).detach().cpu().tolist()
                         losses.extend(float(x) for x in seq_losses)
                 except RuntimeError as exc:
                     if "out of memory" in str(exc).lower() and eff_bs > 1:
                         torch.cuda.empty_cache()
                         eff_bs = max(1, eff_bs // 2)
+                        if batch_state is not None:
+                            batch_state["wiki_ntp"] = int(eff_bs)
                         continue
                     raise
                 finally:
@@ -250,8 +306,17 @@ def _evaluate_ntp_losses(
                     "aux_metric_name": "ppl",
                     "aux_metric_value": ppl,
                     "n_examples": int(len(losses)),
+                    "requested_batch_size_ntp": int(requested_bs),
+                    "effective_batch_size_ntp": int(eff_bs),
+                    "ntp_requested_total": int(coverage_metadata.get("requested_total", 0)),
+                    "ntp_available_total": int(coverage_metadata.get("available_total", 0)),
+                    "ntp_effective_per_seed": int(coverage_metadata.get("effective_per_seed", 0)),
+                    "ntp_reuse_mode": str(coverage_metadata.get("reuse_mode", "unknown")),
                 }
             )
+    if batch_state is not None:
+        prev_bs = int(batch_state.get("wiki_ntp", eff_bs))
+        batch_state["wiki_ntp"] = min(prev_bs, int(eff_bs))
     return rows
 
 
@@ -270,6 +335,52 @@ def _piecewise_rss(x: np.ndarray, y: np.ndarray) -> tuple[float, float]:
             best_rss = rss
             best_threshold = float(x[split])
     return best_rss, best_threshold
+
+
+def _bic_from_rss(*, rss: float, n: int, k: int, eps: float = 1e-12) -> float:
+    return float(n * np.log((float(rss) / max(1, n)) + eps) + int(k) * np.log(max(1, n)))
+
+
+def _logistic_fn(x: np.ndarray, L: float, k: float, x0: float, c: float) -> np.ndarray:
+    return c + (L / (1.0 + np.exp(-k * (x - x0))))
+
+
+def _fit_logistic_sigmoid(x: np.ndarray, y: np.ndarray) -> dict[str, Any]:
+    n = int(len(x))
+    y_min = float(np.min(y))
+    y_max = float(np.max(y))
+    y_range = float(max(y_max - y_min, 1e-8))
+    p0 = np.asarray([y_range, 8.0, 0.2, y_min], dtype=float)
+    lower = np.asarray([0.0, 1e-3, 0.0, y_min - 2.0 * y_range], dtype=float)
+    upper = np.asarray([10.0 * y_range, 100.0, 1.0, y_max + 2.0 * y_range], dtype=float)
+    try:
+        popt, _ = optimize.curve_fit(
+            _logistic_fn,
+            x,
+            y,
+            p0=p0,
+            bounds=(lower, upper),
+            maxfev=20000,
+        )
+        y_hat = _logistic_fn(x, *popt)
+        rss = float(np.sum((y - y_hat) ** 2))
+        bic = _bic_from_rss(rss=rss, n=n, k=4)
+        return {
+            "valid": True,
+            "L": float(popt[0]),
+            "k": float(popt[1]),
+            "x0": float(popt[2]),
+            "c": float(popt[3]),
+            "rss": float(rss),
+            "bic": float(bic),
+        }
+    except Exception as exc:
+        return {
+            "valid": False,
+            "rss": float("nan"),
+            "bic": float("nan"),
+            "error": f"{type(exc).__name__}: {exc}",
+        }
 
 
 def _fit_curve_models(curve_df: pd.DataFrame) -> dict[str, Any]:
@@ -294,12 +405,17 @@ def _fit_curve_models(curve_df: pd.DataFrame) -> dict[str, Any]:
     rss_pw, threshold = _piecewise_rss(x, y)
 
     n = len(x)
-    eps = 1e-12
-    k_lin = 2
-    k_pw = 4
-    bic_lin = float(n * np.log((rss_lin / max(1, n)) + eps) + k_lin * np.log(max(1, n)))
-    bic_pw = float(n * np.log((rss_pw / max(1, n)) + eps) + k_pw * np.log(max(1, n)))
-    preferred = "threshold_piecewise" if bic_pw < bic_lin else "linear"
+    bic_lin = _bic_from_rss(rss=rss_lin, n=n, k=2)
+    bic_pw = _bic_from_rss(rss=rss_pw, n=n, k=4)
+    logistic = _fit_logistic_sigmoid(x, y)
+
+    bic_candidates = {
+        "linear": bic_lin,
+        "threshold_piecewise": bic_pw,
+        "logistic_sigmoid": float(logistic.get("bic", float("nan"))),
+    }
+    valid_items = [(name, bic) for name, bic in bic_candidates.items() if np.isfinite(float(bic))]
+    preferred = min(valid_items, key=lambda item: item[1])[0] if valid_items else "insufficient_points"
 
     return {
         "n_points": int(n),
@@ -314,6 +430,8 @@ def _fit_curve_models(curve_df: pd.DataFrame) -> dict[str, Any]:
             "bic": bic_pw,
             "best_threshold_fraction": float(threshold),
         },
+        "logistic_sigmoid": logistic,
+        "bic_candidates": {k: _safe_float(v) for k, v in bic_candidates.items()},
         "preferred_model": preferred,
     }
 
@@ -332,6 +450,7 @@ def run_model(
     ntp_seq_len: int,
     batch_size_ntp: int,
     skip_ntp: bool,
+    use_ntp_sequence_cache: bool = True,
 ) -> None:
     print(f"\n[3P2-C.1] model={model_name} device={device}")
     t_model = time.time()
@@ -366,6 +485,18 @@ def run_model(
 
     all_rows: list[dict[str, Any]] = []
     condition_rows_cache: dict[tuple[str, int], pd.DataFrame] = {}
+    synth_batch_ceiling_cache: dict[tuple[str, int], int] = {}
+    ntp_batch_state: dict[str, int] = {"wiki_ntp": max(1, int(batch_size_ntp))}
+    ntp_seed_chunks: dict[int, list[list[int]]] | None = None
+    ntp_coverage: dict[str, Any] | None = None
+    if not skip_ntp and bool(use_ntp_sequence_cache):
+        ntp_seed_chunks, ntp_coverage = _prepare_ntp_seed_chunks(
+            tokenizer=tokenizer,
+            model_name=model_name,
+            num_seeds=max(1, int(num_seeds)),
+            ntp_count_per_seed=max(1, int(ntp_count_per_seed)),
+            seq_len=max(64, int(ntp_seq_len)),
+        )
 
     total_conditions = len(sort_orders) * len(fractions)
     completed = 0
@@ -399,6 +530,7 @@ def run_model(
                 batch_size=max(1, int(batch_size_synth)),
                 task_configs=task_configs,
                 prebuilt_examples=prebuilt_examples,
+                batch_ceiling_cache=synth_batch_ceiling_cache,
             )
             synth_df = pd.DataFrame(synth_rows)
             synth_df["sort_order"] = sort_order
@@ -421,6 +553,9 @@ def run_model(
                     ntp_count_per_seed=max(1, int(ntp_count_per_seed)),
                     seq_len=max(64, int(ntp_seq_len)),
                     batch_size=max(1, int(batch_size_ntp)),
+                    seed_chunks=ntp_seed_chunks if bool(use_ntp_sequence_cache) else None,
+                    coverage_metadata=ntp_coverage if bool(use_ntp_sequence_cache) else None,
+                    batch_state=ntp_batch_state,
                 )
                 ntp_df = pd.DataFrame(ntp_rows)
                 ntp_df["condition"] = cond_name
@@ -496,20 +631,52 @@ def run_model(
     preferred = [x.get("preferred_model") for x in fit_payload["curve_fits"].values()]
     threshold_votes = sum(1 for x in preferred if x == "threshold_piecewise")
     linear_votes = sum(1 for x in preferred if x == "linear")
+    logistic_votes = sum(1 for x in preferred if x == "logistic_sigmoid")
     fit_payload["summary"] = {
         "threshold_votes": int(threshold_votes),
         "linear_votes": int(linear_votes),
-        "supports_redundancy_threshold_pattern": bool(threshold_votes > linear_votes),
+        "logistic_votes": int(logistic_votes),
+        "supports_redundancy_threshold_pattern": bool(threshold_votes > max(linear_votes, logistic_votes)),
         "note": (
             "Threshold preference supports E2 redundancy; "
             "linear preference supports E1-style gradual non-specific degradation."
         ),
         "runtime_seconds": float(time.time() - t_model),
+        "effective_batch_size_synth": {
+            f"{task}::span{span}": int(bs)
+            for (task, span), bs in sorted(synth_batch_ceiling_cache.items())
+        },
+        "effective_batch_size_ntp": int(ntp_batch_state.get("wiki_ntp", max(1, int(batch_size_ntp)))),
+        "ntp_coverage": ntp_coverage if not skip_ntp else None,
+        "ntp_sequence_cache_enabled": bool(use_ntp_sequence_cache and (not skip_ntp)),
     }
 
     out_fit = out_dir / "curve_fit_comparison.json"
     _write_json(out_fit, fit_payload)
     print(f"  wrote {out_fit}")
+
+    _write_json(
+        out_dir / "manifest.json",
+        {
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "experiment": "3P2-C.1",
+            "model": model_name,
+            "device": device,
+            "fractions": [int(x) for x in fractions],
+            "sort_orders": [str(x) for x in sort_orders],
+            "num_seeds": int(num_seeds),
+            "synthetic_count": int(synthetic_count),
+            "ntp_count_per_seed": int(ntp_count_per_seed),
+            "ntp_seq_len": int(ntp_seq_len),
+            "batch_size_synth": int(batch_size_synth),
+            "batch_size_ntp_requested": int(batch_size_ntp),
+            "effective_batch_size_synth": fit_payload["summary"].get("effective_batch_size_synth"),
+            "effective_batch_size_ntp": fit_payload["summary"].get("effective_batch_size_ntp"),
+            "ntp_coverage": fit_payload["summary"].get("ntp_coverage"),
+            "ntp_sequence_cache_enabled": bool(fit_payload["summary"].get("ntp_sequence_cache_enabled", False)),
+            "runtime_seconds": float(fit_payload["summary"].get("runtime_seconds", float("nan"))),
+        },
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -526,6 +693,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ntp-seq-len", type=int, default=512)
     parser.add_argument("--batch-size-ntp", type=int, default=4)
     parser.add_argument("--skip-ntp", action="store_true")
+    parser.add_argument("--disable-ntp-seq-cache", action="store_true")
     parser.add_argument(
         "--device-map",
         default="llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1",
@@ -574,6 +742,7 @@ def main() -> None:
             ntp_seq_len=max(64, int(args.ntp_seq_len)),
             batch_size_ntp=max(1, int(args.batch_size_ntp)),
             skip_ntp=bool(args.skip_ntp),
+            use_ntp_sequence_cache=not bool(args.disable_ntp_seq_cache),
         )
 
 

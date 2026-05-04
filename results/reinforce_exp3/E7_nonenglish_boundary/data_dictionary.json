@@ -1,0 +1,41 @@
+{
+  "experiment_id": "E7",
+  "tables": [
+    {
+      "path": "<model>/boundary_attention_nonenglish.parquet",
+      "description": "Boundary attention Cohen d for high-SI vs low-SI heads by language",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "lang",
+          "dtype": "str",
+          "description": "Language code (zh/tr)"
+        },
+        {
+          "name": "mean_d_high_si",
+          "dtype": "float",
+          "description": "Mean boundary d for high-SI heads"
+        },
+        {
+          "name": "mean_d_low_si",
+          "dtype": "float",
+          "description": "Mean boundary d for low-SI heads"
+        },
+        {
+          "name": "d_differential",
+          "dtype": "float",
+          "description": "mean_d_high_si - mean_d_low_si"
+        },
+        {
+          "name": "boundary_effect_present",
+          "dtype": "bool",
+          "description": "d_high_si > 0.1"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-04-21 17:31:19",
+  "experiment_id": "B2b_cluster_alignment",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "strict_only": true,
+  "notes": [
+    "If mixed, B2b should not be used as required support for B_full narrative."
+  ],
+  "run_mode": "full",
+  "dependency_inputs": {
+    "depends_on": [
+      "B1_kernel_taxonomy",
+      "B2a_head_alignment"
+    ],
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_20260421_statfix_v2"
+  },
+  "resume_decision": "run",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/logs_20260421_statfix_v2/B2b_cluster_alignment/2026-04-21_17-31-17.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-04-17 13:44:24",
+  "experiment": "NEW-R12",
+  "model": "olmo-2-7b",
+  "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/olmo-2-7b/curve_fit_comparison.json",
+  "canonical_mean_bic_delta_linear_minus_threshold": 9.545128203736827,
+  "random_mean_bic_delta_linear_minus_threshold": NaN,
+  "random_distribution": [
+    NaN
+  ],
+  "ranked_ordering_outlier": null
+}

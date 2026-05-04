@@ -1,0 +1,56 @@
+{
+  "experiment_id": "E27",
+  "tables": [
+    {
+      "path": "<model>/threshold_robustness.parquet",
+      "description": "Disruption cost at each absolute R\u00b2 threshold plus rank-based top-256.",
+      "columns": [
+        {
+          "name": "selection",
+          "dtype": "str",
+          "description": "selection method (rank_top256 or thresh_T)"
+        },
+        {
+          "name": "threshold",
+          "dtype": "float",
+          "description": "R\u00b2 threshold (NaN for rank-based)"
+        },
+        {
+          "name": "mean_r2_selected",
+          "dtype": "float",
+          "description": "mean R\u00b2 of selected heads"
+        },
+        {
+          "name": "n_heads",
+          "dtype": "int",
+          "description": "number of heads selected"
+        },
+        {
+          "name": "true_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase, true SI subtraction"
+        },
+        {
+          "name": "perm_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase, permuted control"
+        },
+        {
+          "name": "norm_mean_delta",
+          "dtype": "float",
+          "description": "mean loss increase, norm-matched control"
+        },
+        {
+          "name": "per_head_true_delta",
+          "dtype": "float",
+          "description": "true_mean_delta / n_heads"
+        },
+        {
+          "name": "per_head_perm_delta",
+          "dtype": "float",
+          "description": "perm_mean_delta / n_heads"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-05-04 14:43:54",
+  "experiment": "7A",
+  "status": "completed",
+  "input_source": "experiment1/experiment1results.md",
+  "analysis_scope": {
+    "primary": "model_level",
+    "exploratory": "row_level_pseudoreplicated"
+  },
+  "n_track_a_rows": 36,
+  "n_models": 6,
+  "seq_lens": [
+    256,
+    1024
+  ],
+  "fit_alpha": null,
+  "prediction_vs_observed": {
+    "pearson_r": -0.9310026862378651,
+    "pearson_p": 0.006976708642606619,
+    "spearman_rho": -0.942857142857143,
+    "spearman_p": 0.004804664723032055,
+    "method": "leave_one_model_out_loglinear",
+    "n_valid": 6
+  },
+  "mu1_vs_observed": {
+    "pearson_r": 0.9314322273753192,
+    "pearson_p": 0.006891122120318066,
+    "spearman_rho": 0.6982532518267538,
+    "spearman_p": 0.12283946337339603,
+    "scope": "model_level"
+  },
+  "primary_model_level_correlation": {
+    "pearson_r": 0.7310329679780178,
+    "pearson_p": 0.0987859199273159,
+    "spearman_rho": 0.5161002296110789,
+    "spearman_p": 0.29458374146246064,
+    "perm_p_two_sided": 0.14792603698150925,
+    "n_models": 6
+  },
+  "exploratory_row_level_correlation": {
+    "pearson_r": 0.6089371166275661,
+    "pearson_p": 8.113601611000752e-05,
+    "spearman_rho": 0.22785971111394138,
+    "spearman_p": 0.1813631969767565,
+    "n_rows": 36,
+    "warning": "row-level entries are pseudo-replicated across datasets/lengths"
+  },
+  "artifacts": {
+    "coherence_profiles": "results/experiment7_fixcheck/exp7a_welch_r2/coherence_profiles.parquet",
+    "welch_gap_summary": "results/experiment7_fixcheck/exp7a_welch_r2/welch_gap_summary.parquet",
+    "prediction_table": "results/experiment7_fixcheck/exp7a_welch_r2/r2_prediction_table.parquet",
+    "model_level_prediction_table": "results/experiment7_fixcheck/exp7a_welch_r2/model_level_prediction_table.parquet"
+  }
+}

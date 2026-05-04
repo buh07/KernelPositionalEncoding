@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-04-28 15:13:05",
+  "experiment": "NEW-R12",
+  "model": "llama-3.1-8b",
+  "output_dir": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r12_ordering_control_shards/llama_a/llama-3.1-8b",
+  "runtime_sec": 82752.72427868843,
+  "aggregate": {
+    "timestamp": "2026-04-28 15:13:05",
+    "experiment": "NEW-R12",
+    "model": "llama-3.1-8b",
+    "n_orderings": 5,
+    "ordering_id_start": 0,
+    "ordering_id_stop": 5,
+    "n_threshold_majority": 4,
+    "fraction_threshold_majority": 0.8,
+    "robustness_assessment": "strong_replication",
+    "acceptance_thresholds": {
+      "strong_replication_ge": 0.8,
+      "partial_replication_ge": 0.5
+    },
+    "mean_random_bic_delta_linear_minus_threshold": 25.324802475094142,
+    "std_random_bic_delta_linear_minus_threshold": 7.052552722401318,
+    "mean_random_bic_delta_logistic_minus_threshold": 4.187970670946704,
+    "std_random_bic_delta_logistic_minus_threshold": 11.87038256388335,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 8,
+      "long_range_retrieval::span48": 8
+    },
+    "effective_batch_size_ntp": 4,
+    "ntp_coverage": {
+      "requested_total": 300,
+      "available_total": 300,
+      "effective_per_seed": 100,
+      "total_used": 300,
+      "reuse_mode": "strict_split"
+    }
+  },
+  "canonical_vs_random": {
+    "timestamp": "2026-04-28 15:13:05",
+    "experiment": "NEW-R12",
+    "model": "llama-3.1-8b",
+    "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/llama-3.1-8b/curve_fit_comparison.json",
+    "canonical_mean_bic_delta_linear_minus_threshold": 29.05269994714159,
+    "canonical_mean_bic_delta_logistic_minus_threshold": NaN,
+    "random_mean_bic_delta_linear_minus_threshold": 25.324802475094142,
+    "random_mean_bic_delta_logistic_minus_threshold": 4.187970670946704,
+    "random_distribution": [
+      19.936883026954174,
+      19.87665150164361,
+      23.01071291025397,
+      36.82043173904048,
+      26.97933319757847
+    ],
+    "random_distribution_logistic_minus_threshold": [
+      7.283946012866958,
+      7.343211914033195,
+      9.85368405291051,
+      13.078350763535985,
+      -16.619339388613128
+    ],
+    "ranked_ordering_outlier": {
+      "z_score": 0.5285883876069969,
+      "abs_z_gt_2": false
+    }
+  },
+  "runtime_metadata": {
+    "ordering_id_start": 0,
+    "ordering_id_stop": 5,
+    "effective_batch_size_synth": {
+      "local_key_match::span0": 8,
+      "long_range_retrieval::span48": 8
+    },
+    "effective_batch_size_ntp": 4,
+    "ntp_coverage": {
+      "requested_total": 300,
+      "available_total": 300,
+      "effective_per_seed": 100,
+      "total_used": 300,
+      "reuse_mode": "strict_split"
+    }
+  }
+}

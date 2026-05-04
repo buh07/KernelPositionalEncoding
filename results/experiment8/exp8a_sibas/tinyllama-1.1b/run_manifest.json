@@ -1,0 +1,82 @@
+{
+  "timestamp": "2026-04-15 13:18:18",
+  "experiment": "8A",
+  "status": "completed",
+  "model": "tinyllama-1.1b",
+  "device": "cuda:0",
+  "num_sequences": 24,
+  "seq_len": 512,
+  "summary": {
+    "model": "tinyllama-1.1b",
+    "n_sequences": 24,
+    "seq_len": 512,
+    "n_si_heads": 176,
+    "n_low_si_heads": 176,
+    "timestamp": "2026-04-15 13:18:17",
+    "bdi_high_si": [
+      0.00800332332137328,
+      [
+        0.0067586813094528235,
+        0.009247965333293737
+      ]
+    ],
+    "bdi_low_si": [
+      -0.0024604926203395717,
+      [
+        -0.002807856936482114,
+        -0.0021131283041970293
+      ]
+    ],
+    "bdi_delta": [
+      0.010463815941712853,
+      [
+        0.009101515682928187,
+        0.011826116200497519
+      ]
+    ],
+    "bdi_cohens_d": 4.581670683401219,
+    "h1_bdi_si_gt_zero": {
+      "t_statistic": 12.603233347143458,
+      "p_one_sided": 4.126761412051414e-12,
+      "significant": true
+    },
+    "h2_bdi_si_gt_nonsi": {
+      "t_statistic": 15.054742237261076,
+      "p_one_sided": 1.0597912373921403e-13,
+      "significant": true
+    },
+    "bac": [
+      -3.7317567241472602,
+      [
+        -4.681276964837851,
+        -2.782236483456669
+      ]
+    ],
+    "h3_bac_gt_1": {
+      "t_statistic": -9.767293820491311,
+      "p_one_sided": 0.9999999994050872,
+      "significant": false
+    },
+    "koa_high_si": [
+      0.9691497034830729,
+      [
+        0.965607651953283,
+        0.9726917550128629
+      ]
+    ],
+    "koa_median_dominant_offset": 1,
+    "koa_chance_level": 2.0,
+    "h4_koa_gt_chance": {
+      "t_statistic": -570.4226954860231,
+      "p_one_sided": 1.0,
+      "significant": false
+    },
+    "bdi_r2_correlation": {
+      "pearson_r": 0.17532954107608123,
+      "pearson_p": 2.868041200524491e-06,
+      "spearman_rho": 0.3293961221732779,
+      "spearman_p": 2.8070720044919604e-19,
+      "n_heads": 704
+    }
+  }
+}

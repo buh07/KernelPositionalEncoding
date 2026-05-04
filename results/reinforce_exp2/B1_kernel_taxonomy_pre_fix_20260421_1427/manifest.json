@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-20 15:24:48",
+  "experiment_id": "B1_kernel_taxonomy",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b1_kernel_taxonomy.py",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "n_boot": 200,
+  "seed": 20260417,
+  "output_root": "results/reinforce_exp2/B1_kernel_taxonomy"
+}

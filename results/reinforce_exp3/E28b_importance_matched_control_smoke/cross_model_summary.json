@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-05-03 15:56:58",
+  "experiment_id": "E28B",
+  "n_models": 3,
+  "n_model_pass": 2,
+  "interpretation": "si_over_importance_supported_with_caveat",
+  "pooled_mean_delta_true_si_vs_importance": 2.2152015931076474,
+  "per_model": [
+    {
+      "timestamp": "2026-05-03 14:52:48",
+      "experiment_id": "E28B",
+      "model": "llama-3.1-8b",
+      "n_eval_seqs": 12,
+      "n_cal_eval_seqs": 4,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 4.114731485644977,
+      "importance_mean_delta": 0.5748672038316727,
+      "delta_true_si_vs_importance": 3.5398642818133035,
+      "ci_delta_true_si_vs_importance": [
+        3.3646182442704835,
+        3.7333609645565353
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 2373.412933588028
+    },
+    {
+      "timestamp": "2026-05-03 14:30:37",
+      "experiment_id": "E28B",
+      "model": "mistral-7b-v0.1",
+      "n_eval_seqs": 12,
+      "n_cal_eval_seqs": 4,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 3.166336397329966,
+      "importance_mean_delta": 0.07432182629903157,
+      "delta_true_si_vs_importance": 3.092014571030935,
+      "ci_delta_true_si_vs_importance": [
+        2.9573376245796683,
+        3.220819381127755
+      ],
+      "p_one_gt_zero": 0.0001999600079984003,
+      "pass_model": true,
+      "elapsed_sec": 2231.0678203105927
+    },
+    {
+      "timestamp": "2026-05-03 15:56:31",
+      "experiment_id": "E28B",
+      "model": "olmo-2-7b",
+      "n_eval_seqs": 12,
+      "n_cal_eval_seqs": 4,
+      "n_high_si_heads": 256,
+      "n_importance_non_si_heads": 256,
+      "si_mean_delta": 0.031513859828313194,
+      "importance_mean_delta": 0.017787933349609375,
+      "delta_true_si_vs_importance": 0.013725926478703817,
+      "ci_delta_true_si_vs_importance": [
+        -0.0005901808540026345,
+        0.026553036272525785
+      ],
+      "p_one_gt_zero": 0.029394121175764846,
+      "pass_model": false,
+      "elapsed_sec": 2665.3308622837067
+    }
+  ]
+}

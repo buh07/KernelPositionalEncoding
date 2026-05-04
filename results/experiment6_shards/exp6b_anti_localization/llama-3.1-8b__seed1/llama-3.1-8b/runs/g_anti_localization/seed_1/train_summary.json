@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-14 22:20:08",
+  "model": "llama-3.1-8b",
+  "condition": "g_anti_localization",
+  "seed": 1,
+  "elapsed_sec": 288.7068672180176,
+  "lambda_anti_loc": 0.1,
+  "probe_interval": 5,
+  "lora": {
+    "trainable_params": 22030336,
+    "total_params": 8052291584
+  }
+}

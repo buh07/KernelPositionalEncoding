@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-04-18 21:06:33",
+  "experiment": "NEW-R12",
+  "model": "llama-3.1-8b",
+  "canonical_curve_fit_path": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3_phase2/exp3p2c_redundancy_quantification/llama-3.1-8b/curve_fit_comparison.json",
+  "canonical_mean_bic_delta_linear_minus_threshold": 29.05269994714159,
+  "random_mean_bic_delta_linear_minus_threshold": 25.172529888133045,
+  "random_distribution": [
+    19.936882980846523,
+    19.876651240782902,
+    23.010712728458817,
+    36.820431595134266,
+    26.979333357412816,
+    29.033926582132555,
+    22.674602888590567,
+    22.539779381709764,
+    23.614075844726585,
+    27.238902281535673
+  ],
+  "ranked_ordering_outlier": {
+    "z_score": 0.7612079580123629,
+    "abs_z_gt_2": false
+  }
+}

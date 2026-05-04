@@ -1,0 +1,5 @@
+{
+  "llama_naturalistic_importance_vs_si.json": "Top-line Llama add-on SI vs importance-matched summary.",
+  "llama_naturalistic_arm_trials.parquet": "Prompt-level trial table across SI/permuted/importance arms.",
+  "resultIII_addon_patch.md": "Paper-ready wording block for Result III add-on."
+}

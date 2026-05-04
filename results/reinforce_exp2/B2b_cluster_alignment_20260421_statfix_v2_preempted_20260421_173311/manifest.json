@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-04-21 17:31:19",
+  "experiment_id": "B2b_cluster_alignment",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b2b_cluster_alignment.py",
+  "model": "llama-3.1-8b+olmo-2-7b+mistral-7b-v0.1",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "b1_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_20260421_statfix_v2",
+  "b2a_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_20260421_statfix_v2",
+  "run_mode": "full",
+  "dependency_inputs": {
+    "depends_on": [
+      "B1_kernel_taxonomy",
+      "B2a_head_alignment"
+    ],
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_20260421_statfix_v2"
+  },
+  "resume_decision": "run",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/logs_20260421_statfix_v2/B2b_cluster_alignment/2026-04-21_17-31-17.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

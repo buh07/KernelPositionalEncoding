@@ -1,0 +1,98 @@
+{
+  "experiment_id": "E17",
+  "tables": [
+    {
+      "path": "<model>/permuted_arm_trials.parquet",
+      "description": "Per-trial mean loss deltas for offset-permuted control arm.",
+      "columns": [
+        {
+          "name": "trial",
+          "dtype": "int",
+          "description": "trial index"
+        },
+        {
+          "name": "trial_seed",
+          "dtype": "int",
+          "description": "trial seed"
+        },
+        {
+          "name": "mean_loss_delta",
+          "dtype": "float",
+          "description": "mean per-sequence loss increase"
+        },
+        {
+          "name": "std_loss_delta",
+          "dtype": "float",
+          "description": "std per-sequence loss increase"
+        }
+      ]
+    },
+    {
+      "path": "<model>/normmatched_arm_trials.parquet",
+      "description": "Per-trial mean loss deltas for norm-matched random control arm.",
+      "columns": [
+        {
+          "name": "trial",
+          "dtype": "int",
+          "description": "trial index"
+        },
+        {
+          "name": "trial_seed",
+          "dtype": "int",
+          "description": "trial seed"
+        },
+        {
+          "name": "mean_loss_delta",
+          "dtype": "float",
+          "description": "mean per-sequence loss increase"
+        },
+        {
+          "name": "std_loss_delta",
+          "dtype": "float",
+          "description": "std per-sequence loss increase"
+        }
+      ]
+    },
+    {
+      "path": "<model>/per_head_specificity.parquet",
+      "description": "Per-head subset comparison between true/permuted/normmatched deltas.",
+      "columns": [
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "head index"
+        },
+        {
+          "name": "true_mean_delta",
+          "dtype": "float",
+          "description": "true SI subtraction mean delta"
+        },
+        {
+          "name": "permuted_mean_delta",
+          "dtype": "float",
+          "description": "permuted control mean delta"
+        },
+        {
+          "name": "normmatched_mean_delta",
+          "dtype": "float",
+          "description": "norm-matched control mean delta"
+        },
+        {
+          "name": "ratio_true_over_permuted",
+          "dtype": "float",
+          "description": "true/permuted ratio"
+        },
+        {
+          "name": "ratio_true_over_normmatched",
+          "dtype": "float",
+          "description": "true/normmatched ratio"
+        }
+      ]
+    }
+  ]
+}

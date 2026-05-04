@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-04-30 14:58:53",
+  "model": "mistral-7b-v0.1",
+  "mean_tau_sequential": 0.2434593943794394,
+  "mean_tau_interleaved": 0.2631805993584015,
+  "mean_tau_r2ranked": 0.336021299516213,
+  "diff_seq_minus_int": -0.019721204978962098,
+  "p_seq_lt_int_one_sided": 0.3698,
+  "diff_seq_minus_r2": -0.09256190513677362,
+  "p_seq_lt_r2_one_sided": 0.1142,
+  "diff_int_minus_r2": -0.07284070015781152,
+  "p_int_lt_r2_one_sided": 0.2447,
+  "n_tau_fits_sequential": 3,
+  "n_tau_fits_interleaved": 3,
+  "n_tau_fits_r2ranked": 3,
+  "n_perm": 10000,
+  "bic_verdicts": {
+    "sequential": {
+      "threshold_votes": 3,
+      "linear_votes": 0,
+      "logistic_votes": 0,
+      "n_fits": 3,
+      "threshold_majority": true
+    },
+    "interleaved": {
+      "threshold_votes": 0,
+      "linear_votes": 1,
+      "logistic_votes": 2,
+      "n_fits": 3,
+      "threshold_majority": false
+    },
+    "r2ranked": {
+      "threshold_votes": 1,
+      "linear_votes": 0,
+      "logistic_votes": 2,
+      "n_fits": 3,
+      "threshold_majority": false
+    }
+  },
+  "acceptance_criteria": {
+    "cluster_structure_evidence": "p_seq_lt_int < 0.05 (Holm) in >= 2/3 models AND AUC_sequential >= 1.2 * AUC_interleaved",
+    "redundancy_consistent": "|mean_tau_seq - mean_tau_int| < 0.05 AND p_seq_lt_int > 0.20"
+  },
+  "rng_policy": {
+    "root_seed": 20260429,
+    "stream_ids": [
+      "seq_vs_int",
+      "seq_vs_r2",
+      "int_vs_r2"
+    ],
+    "stream_seed_derivation": "stream_seed(root_seed, f'{model}:{stream_id}')"
+  },
+  "model_verdict": "redundancy_consistent",
+  "p_seq_lt_int_holm": 1.0
+}

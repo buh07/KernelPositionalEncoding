@@ -1,0 +1,16 @@
+{
+  "experiment_id": "E28B",
+  "question": "Does SI-ranked kernel subtraction disrupt more than importance-matched non-SI controls?",
+  "primary_hypothesis": "delta_true_si_vs_importance > 0 under matched-cardinality design.",
+  "primary_endpoints": [
+    "delta_true_si_vs_importance",
+    "bootstrap_CI_delta_true_si_vs_importance"
+  ],
+  "acceptance_criteria": [
+    "model pass if CI lower bound > 0"
+  ],
+  "design": {
+    "importance_proxy": "single-head generic head-output zeroing on calibration sequences",
+    "matching": "equal head count, non-SI pool only"
+  }
+}

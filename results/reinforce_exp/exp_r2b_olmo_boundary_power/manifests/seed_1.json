@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-04-17 21:02:35",
+  "experiment_id": "EXP-R2B",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run-seed",
+  "model": "olmo-2-7b",
+  "seed_set": [
+    1
+  ],
+  "domains": [
+    "wiki",
+    "code",
+    "dialogue"
+  ],
+  "num_sequences": 64,
+  "synthetic_target_per_cell": 1200,
+  "output_root": "results/reinforce_exp/exp_r2b_olmo_boundary_power",
+  "elapsed_sec": 12035.778056144714,
+  "seed_results": [
+    {
+      "domain": "wiki",
+      "seed": 1,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.008357908618203229,
+      "cohens_d_fake_minus_real": -0.23880003322003718,
+      "p_one_sided_fake_gt_real": 0.9999999999996746,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_wiki/seed1/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 26124,
+      "elapsed_sec": 4386.402804613113
+    },
+    {
+      "domain": "code",
+      "seed": 1,
+      "n_sequences": 41,
+      "fake_minus_real_with_prefix": -0.004446252807559444,
+      "cohens_d_fake_minus_real": -0.1276053991065903,
+      "p_one_sided_fake_gt_real": 0.9999862047346748,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_code/seed1/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 9081,
+      "elapsed_sec": 3447.957646369934
+    },
+    {
+      "domain": "dialogue",
+      "seed": 1,
+      "n_sequences": 64,
+      "fake_minus_real_with_prefix": -0.00777923365787081,
+      "cohens_d_fake_minus_real": -0.22294737360388683,
+      "p_one_sided_fake_gt_real": 0.9999999999999957,
+      "prefix_following_artifact_flag": false,
+      "output_dir": "results/reinforce_exp/exp_r2b_olmo_boundary_power/domain_dialogue/seed1/olmo-2-7b",
+      "n_fake_with_prefix": 1200,
+      "n_real_with_prefix": 17939,
+      "elapsed_sec": 4201.417165994644
+    }
+  ]
+}

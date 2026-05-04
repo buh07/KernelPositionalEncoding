@@ -1,0 +1,30 @@
+{
+  "tables": [
+    {
+      "path": "all_model_cell_contrasts.parquet",
+      "description": "Per model-task-metric SI-vs-nonSI contrast statistics.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str"
+        },
+        {
+          "name": "task",
+          "dtype": "str"
+        },
+        {
+          "name": "metric_name",
+          "dtype": "str"
+        },
+        {
+          "name": "delta_bic_diff_high_minus_low",
+          "dtype": "float"
+        },
+        {
+          "name": "auc_diff_boot_mean",
+          "dtype": "float"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "model": "olmo-2-7b",
+  "cross_model": "llama-3.1-8b",
+  "n_total_heads": 1024,
+  "fractions": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    35,
+    50,
+    75
+  ],
+  "mask_types": [
+    "si_matched",
+    "si_mismatched",
+    "entropy",
+    "activation",
+    "random"
+  ],
+  "audc": {
+    "si_matched": {
+      "math_accuracy_audc": 0.16843750000000002,
+      "wiki_perplexity_audc": 722.7221149908316
+    },
+    "si_mismatched": {
+      "math_accuracy_audc": 0.250625,
+      "wiki_perplexity_audc": 334.0844383364732
+    },
+    "entropy": {
+      "math_accuracy_audc": 0.138125,
+      "wiki_perplexity_audc": 1035.5919769370455
+    },
+    "activation": {
+      "math_accuracy_audc": 0.185,
+      "wiki_perplexity_audc": 711.1038361091283
+    },
+    "random": {
+      "math_accuracy_audc": 0.268125,
+      "wiki_perplexity_audc": 335.40744782280296
+    }
+  },
+  "comparisons": {
+    "si_matched_vs_random_math_accuracy": {
+      "t_statistic": -3.0268745679407414,
+      "p_two_sided": 0.016387146541179592,
+      "mean_diff": -0.17916666666666664
+    },
+    "si_matched_vs_entropy_math_accuracy": {
+      "t_statistic": 0.5847155454135655,
+      "p_two_sided": 0.574854536390712,
+      "mean_diff": 0.02430555555555555
+    },
+    "si_matched_vs_activation_math_accuracy": {
+      "t_statistic": -1.2557963274151633,
+      "p_two_sided": 0.24462413298193045,
+      "mean_diff": -0.046527777777777786
+    },
+    "si_matched_vs_random_wiki_perplexity": {
+      "t_statistic": 1.1178073567626128,
+      "p_two_sided": 0.2960905154399729,
+      "mean_diff": 366.61060914701466
+    },
+    "si_matched_vs_entropy_wiki_perplexity": {
+      "t_statistic": -2.0396403763040385,
+      "p_two_sided": 0.07571608699129392,
+      "mean_diff": -229.13976016058143
+    },
+    "si_matched_vs_activation_wiki_perplexity": {
+      "t_statistic": 0.5737091925964642,
+      "p_two_sided": 0.5819300948757651,
+      "mean_diff": 30.67800935891037
+    },
+    "matched_vs_mismatched_math_accuracy": {
+      "t_statistic": -3.0926859546580427,
+      "p_two_sided": 0.014829095190578064,
+      "mean_diff": -0.1597222222222222
+    },
+    "matched_vs_mismatched_wiki_perplexity": {
+      "t_statistic": 1.1929156818781632,
+      "p_two_sided": 0.26707921139606394,
+      "mean_diff": 357.3449317238893
+    }
+  },
+  "timestamp": "2026-04-15 17:23:50"
+}

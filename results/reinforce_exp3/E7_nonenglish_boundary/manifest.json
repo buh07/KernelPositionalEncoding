@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E7",
+  "timestamp": "2026-04-29 18:00:38",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "languages": [
+    "zh",
+    "tr"
+  ],
+  "n_seqs_per_lang": 80,
+  "seed_base": 20260429
+}

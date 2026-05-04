@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E29C",
+  "question": "Does an extra 7B RoPE model show directional SI amplitude + disruption corroboration?",
+  "primary_hypothesis": "Qwen2.5-7B exhibits non-trivial SI R\u00b2 and true>permuted disruption under high-SI subtraction.",
+  "primary_endpoints": [
+    "si_mean_r2",
+    "true_mean_delta",
+    "perm_mean_delta",
+    "delta_true_minus_perm"
+  ]
+}

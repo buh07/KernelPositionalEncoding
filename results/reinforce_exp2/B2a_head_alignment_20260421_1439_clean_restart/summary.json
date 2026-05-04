@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-21 14:26:41",
+  "experiment_id": "B2a_head_alignment",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "criteria": {
+    "criterion_1_estimable_valid_variance": true,
+    "criterion_2_corrected_significance": false,
+    "criterion_3_practical_effect": false,
+    "criterion_4_directional_subclaim": false
+  },
+  "verdict": {
+    "B2a_supported": false
+  },
+  "run_mode": "full",
+  "dependency_inputs": {
+    "stage": "phase_b_core",
+    "run_id": "full_fix_20260421_1428",
+    "output_root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment"
+  },
+  "resume_decision": "rerun_missing_or_invalid",
+  "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_14-25-39.log",
+  "calibration_split_sha256": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "schema_validation_passed": true
+}

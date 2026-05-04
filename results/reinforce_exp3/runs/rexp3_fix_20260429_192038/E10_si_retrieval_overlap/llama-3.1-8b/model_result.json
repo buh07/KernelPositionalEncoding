@@ -1,0 +1,7 @@
+{
+  "model": "llama-3.1-8b",
+  "jaccard_si_retrieval": 0.03434343434343434,
+  "r2_retrieval_spearman_rho": -0.5482185086009584,
+  "cluster_enrichment_pval": NaN,
+  "status": "ok"
+}

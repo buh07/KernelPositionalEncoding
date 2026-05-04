@@ -1,0 +1,39 @@
+{
+  "experiment_id": "E23",
+  "question": "Is SI utility training-stage-sensitive during from-scratch tiny-RoPE pretraining?",
+  "primary_hypothesis": "Early/full SI augmentation improves unseen-offset generalization while late-only remains near baseline.",
+  "primary_endpoints": [
+    "joint_unseen_score_by_arm",
+    "delta_early_minus_baseline",
+    "delta_full_minus_baseline",
+    "delta_late_minus_baseline"
+  ],
+  "secondary_endpoints": [
+    "si_mean_r2_by_arm",
+    "kernel_specificity_support_rate_by_arm",
+    "offset_bucket_target_logprob"
+  ],
+  "model_family": "from_scratch_tiny_llama_rope",
+  "arm_definition": {
+    "baseline": "no SI augmentation",
+    "early_si_aug": "SI augmentation + consistency in first 40% steps",
+    "late_si_aug": "SI augmentation + consistency in last 40% steps",
+    "full_si_aug": "SI augmentation + consistency all steps"
+  },
+  "sample_size_plan": {
+    "arms": [
+      "baseline",
+      "early_si_aug",
+      "late_si_aug",
+      "full_si_aug"
+    ],
+    "seeds_per_arm": 2,
+    "token_budget_per_arm_seed": 40000000
+  },
+  "acceptance_criteria": [
+    "early-baseline >= +0.04",
+    "full-baseline >= +0.04",
+    "|late-baseline| <= 0.02"
+  ],
+  "fallback_interpretation_if_null": "Under this budget, SI shaping may require larger scale/longer training or different augmentation design."
+}

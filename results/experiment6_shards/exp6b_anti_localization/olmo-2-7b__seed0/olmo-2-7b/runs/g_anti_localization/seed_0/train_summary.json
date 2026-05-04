@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-17 03:06:04",
+  "model": "olmo-2-7b",
+  "condition": "g_anti_localization",
+  "seed": 0,
+  "elapsed_sec": 265.28105783462524,
+  "lambda_anti_loc": 0.1,
+  "probe_interval": 5,
+  "lora": {
+    "trainable_params": 20824064,
+    "total_params": 7319441408
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "tables": [
+    {
+      "path": "per_model_comparability_metrics.parquet",
+      "description": "Per-model raw, baseline-normalized, and control-normalized Result-I metrics.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str"
+        },
+        {
+          "name": "baseline_loss",
+          "dtype": "float"
+        },
+        {
+          "name": "true_nat_delta",
+          "dtype": "float"
+        },
+        {
+          "name": "true_pct_delta",
+          "dtype": "float"
+        },
+        {
+          "name": "nat_over_baseline",
+          "dtype": "float"
+        },
+        {
+          "name": "true_minus_permuted",
+          "dtype": "float"
+        },
+        {
+          "name": "ratio_true_over_permuted",
+          "dtype": "float"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "rows": [
+    {
+      "task": "lm_wiki",
+      "trial": 0,
+      "target_kl": 0.7309302892143767,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7604216536631556,
+      "rel_err": 0.040347711517711174
+    },
+    {
+      "task": "lm_wiki",
+      "trial": 1,
+      "target_kl": 0.7309302892143767,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7399311582880296,
+      "rel_err": 0.012314264720548387
+    },
+    {
+      "task": "lm_code",
+      "trial": 0,
+      "target_kl": 0.7085105142567493,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.7495847976134549,
+      "rel_err": 0.0579727223946618
+    },
+    {
+      "task": "lm_code",
+      "trial": 1,
+      "target_kl": 0.7085105142567493,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.8052810949010901,
+      "rel_err": 0.13658312572235623
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 0,
+      "target_kl": 0.7366366748155393,
+      "matched": true,
+      "alpha": 0.15,
+      "matched_kl": 0.6801173144654346,
+      "rel_err": 0.07672623734659656
+    },
+    {
+      "task": "lm_dialogue",
+      "trial": 1,
+      "target_kl": 0.7366366748155393,
+      "matched": true,
+      "alpha": 0.2,
+      "matched_kl": 0.8594886602858597,
+      "rel_err": 0.16677419095524082
+    },
+    {
+      "task": "icl",
+      "trial": 0,
+      "target_kl": 0.17111533562973458,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.16480394383423994,
+      "rel_err": 0.03688384663050572
+    },
+    {
+      "task": "icl",
+      "trial": 1,
+      "target_kl": 0.17111533562973458,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.15829366594034425,
+      "rel_err": 0.07492998591975598
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 0,
+      "target_kl": 0.17947021578499536,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.18887171429471805,
+      "rel_err": 0.05238472839964514
+    },
+    {
+      "task": "nonicl_reference",
+      "trial": 1,
+      "target_kl": 0.17947021578499536,
+      "matched": true,
+      "alpha": 0.07,
+      "matched_kl": 0.21119031323918222,
+      "rel_err": 0.17674296158526612
+    },
+    {
+      "task": "induction",
+      "trial": 0,
+      "target_kl": 0.5880506005109968,
+      "matched": true,
+      "alpha": 0.125,
+      "matched_kl": 0.682927145752864,
+      "rel_err": 0.1613407845505515
+    },
+    {
+      "task": "induction",
+      "trial": 1,
+      "target_kl": 0.5880506005109968,
+      "matched": true,
+      "alpha": 0.175,
+      "matched_kl": 0.5542904811125374,
+      "rel_err": 0.057410228591081976
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "experiment_id": "E6",
+  "status": "complete",
+  "model": "llama-3.1-8b",
+  "phase_run": "both",
+  "llama_boundary_status": "ambiguous",
+  "claim_status": "inconclusive",
+  "timestamp_start": "2026-04-29 17:58:22",
+  "timestamp_end": "2026-04-29 17:59:54"
+}

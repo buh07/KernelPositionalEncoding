@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-05-01 23:20:32",
+  "experiment_id": "E18",
+  "model": "llama-3.1-8b",
+  "n_high_si_heads": 256,
+  "n_control_heads": 256,
+  "primary_ratio": NaN,
+  "primary_gap_acc": 0.85,
+  "control_non_si_gap_acc": 0.425,
+  "control_label_shuffle_gap_acc": 0.025,
+  "control_positional_perturb_gap_acc": 0.55,
+  "primary_gap_lp": 10.600099945068358,
+  "control_non_si_gap_lp": 5.1595726013183585,
+  "control_label_shuffle_gap_lp": 0.5570312499999996,
+  "control_positional_perturb_gap_lp": 3.2522483825683595,
+  "acc_informative": false,
+  "lp_survives": true,
+  "acc_survives": true,
+  "survives_controls": true,
+  "model_level_status": "supported"
+}

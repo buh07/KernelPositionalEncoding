@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-02 07:49:52",
+  "experiment_id": "E20",
+  "mode": "proxy",
+  "model": "olmo-2-7b",
+  "seed": 1,
+  "runtime_sec": 2550.9507710933685,
+  "train_elapsed_sec": 4.516936540603638,
+  "final_total_loss": NaN,
+  "si_mean_r2": 0.12628932613045013,
+  "si_high_mean_r2": NaN,
+  "boundary_d": 0.396047691514437,
+  "boundary_artifact_flag": false,
+  "c1_overall_degradation_mean": 0.095703125,
+  "c1_local_keymatch_deg": 0.1328125,
+  "c1_longrange_deg": 0.05859375
+}

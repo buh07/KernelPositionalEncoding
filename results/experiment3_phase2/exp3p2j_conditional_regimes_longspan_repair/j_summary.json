@@ -1,69 +1,69 @@
 {
-  "timestamp": "2026-04-09 19:05:53",
+  "timestamp": "2026-04-09 23:50:15",
   "tier": "tier2_conditional_mechanistic",
   "primary_test_id": "3P2-J",
   "models": {
-    "olmo-2-7b": {
-      "model": "olmo-2-7b",
-      "timestamp": "2026-04-09 19:05:53",
+    "llama-3.1-8b": {
+      "model": "llama-3.1-8b",
+      "timestamp": "2026-04-09 21:07:44",
       "tier": "tier2_conditional_mechanistic",
       "primary_test_id": "3P2-J",
-      "regime_definition_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/olmo-2-7b/regime_definition_manifest.json",
-      "n_rows": 960,
+      "regime_definition_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/llama-3.1-8b/regime_definition_manifest.json",
+      "n_rows": 1280,
       "regime_tests": {
         "boundary_dense_contexts": {
-          "n_pairs": 904,
-          "mean_high": 3.5153849137264044,
-          "mean_low": 2.100481809292062,
-          "mean_delta_high_minus_low": 1.414903104434342,
-          "t_stat": 76.51278842361972,
+          "n_pairs": 1600,
+          "mean_high": 3.0652482487954558,
+          "mean_low": 0.9632275947880796,
+          "mean_delta_high_minus_low": 2.1020206540073763,
+          "t_stat": 186.55631878808057,
           "p_two_sided": 0.0,
           "p_one_sided": 0.0,
-          "cohens_d_paired": 2.544777489177024,
+          "cohens_d_paired": 4.663907969702014,
           "p_one_sided_holm": 0.0,
           "supports_high_gt_low": true
         },
         "high_uncertainty_tokens": {
-          "n_pairs": 904,
-          "mean_high": 1.3984861759122118,
-          "mean_low": 1.5263589018808599,
-          "mean_delta_high_minus_low": -0.12787272596864796,
-          "t_stat": -6.57695279246296,
-          "p_two_sided": 8.119125000661037e-11,
-          "p_one_sided": 0.9999999999594044,
-          "cohens_d_paired": -0.21874619600810397,
-          "p_one_sided_holm": 0.9999999999594044,
-          "supports_high_gt_low": false
+          "n_pairs": 1600,
+          "mean_high": 0.9598178397216909,
+          "mean_low": 0.17187927247771154,
+          "mean_delta_high_minus_low": 0.7879385672439793,
+          "t_stat": 68.2441219496513,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 1.7061030487412823,
+          "p_one_sided_holm": 0.0,
+          "supports_high_gt_low": true
         },
         "long_span_retrieval": {
-          "n_pairs": 904,
-          "mean_high": 2.682451082247712,
-          "mean_low": 1.8589405203332143,
-          "mean_delta_high_minus_low": 0.8235105619144975,
-          "t_stat": 43.01863122176037,
-          "p_two_sided": 7.720276545039573e-221,
-          "p_one_sided": 3.8601382725197867e-221,
-          "cohens_d_paired": 1.4307783914793142,
-          "p_one_sided_holm": 7.720276545039573e-221,
+          "n_pairs": 1600,
+          "mean_high": 2.4349123959770664,
+          "mean_low": 1.174310533448374,
+          "mean_delta_high_minus_low": 1.2606018625286923,
+          "t_stat": 106.79881896526538,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 2.669970474131634,
+          "p_one_sided_holm": 0.0,
           "supports_high_gt_low": true
         },
         "rare_token_contexts": {
-          "n_pairs": 904,
-          "mean_high": 5.048844826837928,
-          "mean_low": 2.9076408026813705,
-          "mean_delta_high_minus_low": 2.1412040241565578,
-          "t_stat": 57.075427853505204,
-          "p_two_sided": 8.33417935076808e-302,
-          "p_one_sided": 4.16708967538404e-302,
-          "cohens_d_paired": 1.8983004930181062,
-          "p_one_sided_holm": 1.250126902615212e-301,
+          "n_pairs": 1600,
+          "mean_high": 4.203408824870665,
+          "mean_low": 1.0491104617839822,
+          "mean_delta_high_minus_low": 3.1542983630866828,
+          "t_stat": 123.7891771083184,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 3.0947294277079593,
+          "p_one_sided_holm": 0.0,
           "supports_high_gt_low": true
         }
       },
-      "regime_coverage_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/olmo-2-7b/regime_coverage_manifest.json",
+      "regime_coverage_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/llama-3.1-8b/regime_coverage_manifest.json",
       "regime_coverage_complete": true,
       "interaction_model": {
-        "n_observations": 960,
+        "n_observations": 1280,
         "regimes": [
           "boundary_dense_contexts",
           "high_uncertainty_tokens",
@@ -74,66 +74,212 @@
           "high_si",
           "low_si"
         ],
-        "f_interaction": 182.50604409422093,
-        "p_value": 1.1102230246251565e-16,
-        "partial_eta_squared": 0.36512938423038305,
+        "f_interaction": 392.83280126094644,
+        "p_value": 1.1102230246251565E-16,
+        "partial_eta_squared": 0.48092192264381356,
         "cell_means": {
           "boundary_dense_contexts|high_si": {
-            "n": 120,
-            "mean": 0.7009767355297165
+            "n": 160,
+            "mean": 0.9737872634189026
           },
           "boundary_dense_contexts|low_si": {
-            "n": 120,
-            "mean": -0.41868744968912047
+            "n": 160,
+            "mean": -0.5857610296911046
           },
           "high_uncertainty_tokens|high_si": {
-            "n": 120,
-            "mean": -0.9754355823768736
+            "n": 160,
+            "mean": -0.5882908229562525
           },
           "high_uncertainty_tokens|low_si": {
-            "n": 120,
-            "mean": -0.8776034601394201
+            "n": 160,
+            "mean": -1.172884625723226
           },
           "long_span_retrieval|high_si": {
-            "n": 120,
-            "mean": 0.041861466792135954
+            "n": 160,
+            "mean": 0.506123350852271
           },
           "long_span_retrieval|low_si": {
-            "n": 120,
-            "mean": -0.6078792775441509
+            "n": 160,
+            "mean": -0.4291526557130859
           },
           "rare_token_contexts|high_si": {
-            "n": 120,
-            "mean": 1.917930350847269
+            "n": 160,
+            "mean": 1.8182206329575095
           },
           "rare_token_contexts|low_si": {
-            "n": 120,
-            "mean": 0.2188372165804436
+            "n": 160,
+            "mean": -0.5220421131450144
           }
         },
         "supports_conditional_specialization": true,
-        "p_value_holm": 1.1102230246251565e-16
+        "p_value_holm": 1.1102230246251565E-16
       },
-      "aggregate_delta_high_minus_low": 1.0676234449838593,
+      "aggregate_delta_high_minus_low": 1.8262148617166827,
       "regime_lifts": {
         "boundary_dense_contexts": {
-          "mean_delta_high_minus_low": 1.415982106449667,
-          "lift_over_aggregate": 0.34835866146580763,
+          "mean_delta_high_minus_low": 2.102020654007376,
+          "lift_over_aggregate": 0.27580579229069313,
           "n_seed_pairs": 16
         },
         "high_uncertainty_tokens": {
-          "mean_delta_high_minus_low": -0.11944168061859356,
-          "lift_over_aggregate": -1.187065125602453,
+          "mean_delta_high_minus_low": 0.7879385672439793,
+          "lift_over_aggregate": -1.0382762944727033,
           "n_seed_pairs": 16
         },
         "long_span_retrieval": {
-          "mean_delta_high_minus_low": 0.8192293487841613,
-          "lift_over_aggregate": -0.248394096199698,
+          "mean_delta_high_minus_low": 1.2606018625286923,
+          "lift_over_aggregate": -0.5656129991879904,
           "n_seed_pairs": 16
         },
         "rare_token_contexts": {
-          "mean_delta_high_minus_low": 2.154724005320202,
-          "lift_over_aggregate": 1.0871005603363426,
+          "mean_delta_high_minus_low": 3.1542983630866828,
+          "lift_over_aggregate": 1.32808350137,
+          "n_seed_pairs": 16
+        }
+      },
+      "mde_target": 0.35,
+      "achieved_power": 0.8,
+      "multiplicity_family": "tier2_holm_primary_tests",
+      "verdict": {
+        "supports_e10_conditional_specialization": true,
+        "weak_e10": false
+      },
+      "limitations": [
+        "Token-level regimes use heldout wiki slices and may shift with corpus composition.",
+        "Long-span regime uses repeated-token distance as an in-corpus proxy; it is not a full synthetic retrieval task battery."
+      ]
+    },
+    "olmo-2-7b": {
+      "model": "olmo-2-7b",
+      "timestamp": "2026-04-09 21:07:05",
+      "tier": "tier2_conditional_mechanistic",
+      "primary_test_id": "3P2-J",
+      "regime_definition_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/olmo-2-7b/regime_definition_manifest.json",
+      "n_rows": 1280,
+      "regime_tests": {
+        "boundary_dense_contexts": {
+          "n_pairs": 1600,
+          "mean_high": 3.535986116176381,
+          "mean_low": 2.1161520242458463,
+          "mean_delta_high_minus_low": 1.419834091930535,
+          "t_stat": 102.79397569607417,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 2.5698493924018537,
+          "p_one_sided_holm": 0.0,
+          "supports_high_gt_low": true
+        },
+        "high_uncertainty_tokens": {
+          "n_pairs": 1600,
+          "mean_high": 1.4178542532827236,
+          "mean_low": 1.5052768584380447,
+          "mean_delta_high_minus_low": -0.0874226051553212,
+          "t_stat": -6.163047231108584,
+          "p_two_sided": 9.014126105916047E-10,
+          "p_one_sided": 0.9999999995492937,
+          "cohens_d_paired": -0.1540761807777146,
+          "p_one_sided_holm": 0.9999999995492937,
+          "supports_high_gt_low": false
+        },
+        "long_span_retrieval": {
+          "n_pairs": 1600,
+          "mean_high": 2.710407311143914,
+          "mean_low": 1.8721840163348178,
+          "mean_delta_high_minus_low": 0.8382232948090959,
+          "t_stat": 55.27418631062022,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 1.3818546577655055,
+          "p_one_sided_holm": 0.0,
+          "supports_high_gt_low": true
+        },
+        "rare_token_contexts": {
+          "n_pairs": 1600,
+          "mean_high": 5.1159184795203165,
+          "mean_low": 2.9422459919779067,
+          "mean_delta_high_minus_low": 2.1736724875424094,
+          "t_stat": 75.36485884315645,
+          "p_two_sided": 0.0,
+          "p_one_sided": 0.0,
+          "cohens_d_paired": 1.8841214710789114,
+          "p_one_sided_holm": 0.0,
+          "supports_high_gt_low": true
+        }
+      },
+      "regime_coverage_manifest": "results/experiment3_phase2/exp3p2j_conditional_regimes_longspan_repair/olmo-2-7b/regime_coverage_manifest.json",
+      "regime_coverage_complete": true,
+      "interaction_model": {
+        "n_observations": 1280,
+        "regimes": [
+          "boundary_dense_contexts",
+          "high_uncertainty_tokens",
+          "long_span_retrieval",
+          "rare_token_contexts"
+        ],
+        "groups": [
+          "high_si",
+          "low_si"
+        ],
+        "f_interaction": 236.86843881516882,
+        "p_value": 1.1102230246251565E-16,
+        "partial_eta_squared": 0.3584199591068927,
+        "cell_means": {
+          "boundary_dense_contexts|high_si": {
+            "n": 160,
+            "mean": 0.6900262240910952
+          },
+          "boundary_dense_contexts|low_si": {
+            "n": 160,
+            "mean": -0.4182787706338697
+          },
+          "high_uncertainty_tokens|high_si": {
+            "n": 160,
+            "mean": -0.9633614051207184
+          },
+          "high_uncertainty_tokens|low_si": {
+            "n": 160,
+            "mean": -0.8951203968957578
+          },
+          "long_span_retrieval|high_si": {
+            "n": 160,
+            "mean": 0.04558958296745223
+          },
+          "long_span_retrieval|low_si": {
+            "n": 160,
+            "mean": -0.6087171910504725
+          },
+          "rare_token_contexts|high_si": {
+            "n": 160,
+            "mean": 1.9233019564978442
+          },
+          "rare_token_contexts|low_si": {
+            "n": 160,
+            "mean": 0.22656000014442834
+          }
+        },
+        "supports_conditional_specialization": true,
+        "p_value_holm": 1.1102230246251565E-16
+      },
+      "aggregate_delta_high_minus_low": 1.0860768172816797,
+      "regime_lifts": {
+        "boundary_dense_contexts": {
+          "mean_delta_high_minus_low": 1.4198340919305346,
+          "lift_over_aggregate": 0.33375727464885485,
+          "n_seed_pairs": 16
+        },
+        "high_uncertainty_tokens": {
+          "mean_delta_high_minus_low": -0.08742260515532124,
+          "lift_over_aggregate": -1.173499422437001,
+          "n_seed_pairs": 16
+        },
+        "long_span_retrieval": {
+          "mean_delta_high_minus_low": 0.838223294809096,
+          "lift_over_aggregate": -0.24785352247258374,
+          "n_seed_pairs": 16
+        },
+        "rare_token_contexts": {
+          "mean_delta_high_minus_low": 2.17367248754241,
+          "lift_over_aggregate": 1.0875956702607301,
           "n_seed_pairs": 16
         }
       },

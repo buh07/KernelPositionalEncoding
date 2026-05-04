@@ -1,0 +1,36 @@
+{
+  "experiment_id": "A0_claim_hygiene",
+  "question": "Are all main claims aligned with strict evidence tiers and latest reinforcement artifacts?",
+  "primary_hypothesis": "Claim language can be fully mapped to strict evidence statuses without contradiction.",
+  "primary_endpoints": [
+    "claim_matrix.json completeness",
+    "claim status consistency"
+  ],
+  "secondary_endpoints": [
+    "wording_changes.md generated"
+  ],
+  "model_list": [
+    "paper-level"
+  ],
+  "dataset_sources": [
+    "results/experiment3_phase2/*",
+    "results/reinforce_exp/*"
+  ],
+  "inclusion_exclusion_rules": [
+    "Strict artifacts only for canonical status labels."
+  ],
+  "sample_size_plan": {
+    "n_claims": 5
+  },
+  "seed_plan": {
+    "deterministic": true
+  },
+  "stopping_rule": "Complete when all core claims are mapped.",
+  "multiplicity_family": [
+    "Not applicable (documentation synthesis)."
+  ],
+  "acceptance_criteria": [
+    "No unresolved strict/evidence contradictions in generated matrix."
+  ],
+  "fallback_interpretation_if_null": "Mark unresolved claims as pending and route to A narrative only."
+}

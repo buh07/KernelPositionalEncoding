@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-05-03 17:26:19",
+  "experiment_id": "E28B",
+  "model": "olmo-2-7b",
+  "n_eval_seqs": 64,
+  "n_cal_eval_seqs": 8,
+  "n_high_si_heads": 256,
+  "n_importance_non_si_heads": 256,
+  "si_mean_delta": 0.0394468754529953,
+  "importance_mean_delta": 0.012757176533341408,
+  "delta_true_si_vs_importance": 0.026689698919653893,
+  "ci_delta_true_si_vs_importance": [
+    0.016723124030977487,
+    0.03813306130468844
+  ],
+  "p_one_gt_zero": 0.0001999600079984003,
+  "pass_model": true,
+  "elapsed_sec": 5360.670973777771
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-14 17:03:21",
+  "experiment": "7A",
+  "status": "completed",
+  "track_a_source": "experiment1/experiment1results.md",
+  "bootstrap_seed": 42,
+  "bootstrap_samples": 2000,
+  "artifacts": {
+    "coherence_profiles": "results/experiment7_smoke/exp7a_welch_r2/coherence_profiles.parquet",
+    "welch_gap_summary": "results/experiment7_smoke/exp7a_welch_r2/welch_gap_summary.parquet",
+    "r2_prediction_results": "results/experiment7_smoke/exp7a_welch_r2/r2_prediction_results.json",
+    "run_manifest": "results/experiment7_smoke/exp7a_welch_r2/run_manifest.json"
+  }
+}

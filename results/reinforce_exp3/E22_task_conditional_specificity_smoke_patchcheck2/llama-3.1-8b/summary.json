@@ -1,0 +1,237 @@
+{
+  "timestamp": "2026-05-02 11:23:17",
+  "experiment_id": "E22",
+  "model": "llama-3.1-8b",
+  "runtime_sec": 405.3078646659851,
+  "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/estimated_kernels.json",
+  "n_high_si_heads": 256,
+  "lm_domain_raw_counts": {
+    "wiki": 8,
+    "code": 8,
+    "dialogue": 8
+  },
+  "lm_sequences_balanced_per_domain": 8,
+  "primary_task_pass": {
+    "icl": false,
+    "induction": false
+  },
+  "model_primary_pass": false,
+  "tasks": {
+    "lm_wiki": {
+      "task": "lm_wiki",
+      "metric": "nll",
+      "n_units": 8,
+      "true_mean_damage": 3.9778988659381866,
+      "control_cis": {
+        "permuted": {
+          "mean": 2.500077098608017,
+          "ci_lo": 2.1803161203861237,
+          "ci_hi": 2.7692086160182954,
+          "p_one_gt_zero": 0.0004997501249375312
+        },
+        "normmatched": {
+          "mean": -3.08197683095932,
+          "ci_lo": -3.4010258302092553,
+          "ci_hi": -2.736031745374203,
+          "p_one_gt_zero": 1.0
+        },
+        "distortion_matched": {
+          "mean": 2.0062215626239777,
+          "ci_lo": 1.7685307018458842,
+          "ci_hi": 2.2752367109060287,
+          "p_one_gt_zero": 0.0004997501249375312
+        }
+      },
+      "control_pass": {
+        "permuted": true,
+        "normmatched": false,
+        "distortion_matched": true
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1
+    },
+    "lm_code": {
+      "task": "lm_code",
+      "metric": "nll",
+      "n_units": 8,
+      "true_mean_damage": 4.654190339148045,
+      "control_cis": {
+        "permuted": {
+          "mean": 3.854474052786827,
+          "ci_lo": 3.4285787388682367,
+          "ci_hi": 4.276385506987571,
+          "p_one_gt_zero": 0.0004997501249375312
+        },
+        "normmatched": {
+          "mean": -4.132499039173126,
+          "ci_lo": -4.822563752532005,
+          "ci_hi": -3.401356537640095,
+          "p_one_gt_zero": 1.0
+        },
+        "distortion_matched": {
+          "mean": 4.013814404606819,
+          "ci_lo": 3.561821321770549,
+          "ci_hi": 4.462033348530531,
+          "p_one_gt_zero": 0.0004997501249375312
+        }
+      },
+      "control_pass": {
+        "permuted": true,
+        "normmatched": false,
+        "distortion_matched": true
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1
+    },
+    "lm_dialogue": {
+      "task": "lm_dialogue",
+      "metric": "nll",
+      "n_units": 8,
+      "true_mean_damage": 4.561630621552467,
+      "control_cis": {
+        "permuted": {
+          "mean": 3.805307015776634,
+          "ci_lo": 3.5605610471218823,
+          "ci_hi": 4.080464259907603,
+          "p_one_gt_zero": 0.0004997501249375312
+        },
+        "normmatched": {
+          "mean": -1.4835200905799866,
+          "ci_lo": -1.7660400092601776,
+          "ci_hi": -1.2156616717576982,
+          "p_one_gt_zero": 1.0
+        },
+        "distortion_matched": {
+          "mean": 3.9912235885858536,
+          "ci_lo": 3.7372963916510344,
+          "ci_hi": 4.268657371029257,
+          "p_one_gt_zero": 0.0004997501249375312
+        }
+      },
+      "control_pass": {
+        "permuted": true,
+        "normmatched": false,
+        "distortion_matched": true
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1
+    },
+    "icl": {
+      "task": "icl",
+      "metric": "lp",
+      "n_units": 16,
+      "true_mean_damage": 0.341827392578125,
+      "control_cis": {
+        "permuted": {
+          "mean": -5.805328369140625,
+          "ci_lo": -7.10186538696289,
+          "ci_hi": -4.402387237548829,
+          "p_one_gt_zero": 1.0
+        },
+        "normmatched": {
+          "mean": -10.013336181640625,
+          "ci_lo": -12.170029449462891,
+          "ci_hi": -7.565011596679689,
+          "p_one_gt_zero": 1.0
+        },
+        "distortion_matched": {
+          "mean": -0.193389892578125,
+          "ci_lo": -0.69306640625,
+          "ci_hi": 0.22336349487304685,
+          "p_one_gt_zero": 0.7786106946526736
+        }
+      },
+      "control_pass": {
+        "permuted": false,
+        "normmatched": false,
+        "distortion_matched": false
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1,
+      "secondary": {
+        "accuracy_mean_damage": 0.0,
+        "accuracy_std_damage": 0.0
+      }
+    },
+    "nonicl_reference": {
+      "task": "nonicl_reference",
+      "metric": "lp",
+      "n_units": 16,
+      "true_mean_damage": -0.82421875,
+      "control_cis": {
+        "permuted": {
+          "mean": -0.517578125,
+          "ci_lo": -1.445556640625,
+          "ci_hi": 0.46503906249999893,
+          "p_one_gt_zero": 0.8510744627686156
+        },
+        "normmatched": {
+          "mean": -2.091796875,
+          "ci_lo": -3.669970703125,
+          "ci_hi": -0.30659179687500027,
+          "p_one_gt_zero": 0.9860069965017492
+        },
+        "distortion_matched": {
+          "mean": -1.75,
+          "ci_lo": -2.7580078125,
+          "ci_hi": -0.7479492187500005,
+          "p_one_gt_zero": 1.0
+        }
+      },
+      "control_pass": {
+        "permuted": false,
+        "normmatched": false,
+        "distortion_matched": false
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1,
+      "secondary": {
+        "accuracy_mean_damage": 0.0,
+        "accuracy_std_damage": 0.0
+      }
+    },
+    "induction": {
+      "task": "induction",
+      "metric": "lp",
+      "n_units": 16,
+      "true_mean_damage": 3.64990234375,
+      "control_cis": {
+        "permuted": {
+          "mean": -0.2578125,
+          "ci_lo": -3.0468994140625,
+          "ci_hi": 2.486889648437497,
+          "p_one_gt_zero": 0.5807096451774113
+        },
+        "normmatched": {
+          "mean": -2.96484375,
+          "ci_lo": -5.723779296875,
+          "ci_hi": 0.045190429687498535,
+          "p_one_gt_zero": 0.9730134932533733
+        },
+        "distortion_matched": {
+          "mean": 2.53125,
+          "ci_lo": 0.17265625,
+          "ci_hi": 5.039306640624998,
+          "p_one_gt_zero": 0.013493253373313344
+        }
+      },
+      "control_pass": {
+        "permuted": false,
+        "normmatched": false,
+        "distortion_matched": true
+      },
+      "task_pass": false,
+      "distortion_valid_trials": 1,
+      "distortion_total_trials": 1,
+      "secondary": {
+        "accuracy_mean_damage": 0.1875,
+        "accuracy_std_damage": 0.5439056290693574
+      }
+    }
+  }
+}

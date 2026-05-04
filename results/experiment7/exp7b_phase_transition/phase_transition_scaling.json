@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-05-04 15:07:57",
+  "experiment": "7B",
+  "status": "completed",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "seq_lens": [
+    256,
+    512,
+    1024
+  ],
+  "epsilon": 0.01,
+  "calibration": {
+    "requested_mode": "single_condition",
+    "mode_used": "single_condition",
+    "model": "llama-3.1-8b",
+    "seq_len": 256,
+    "c_hat": 7.057219330782029,
+    "c_hat_single": 7.057219330782029,
+    "c_hat_global": 7.834185303819713,
+    "single_condition_available": true
+  },
+  "prediction_vs_observed": {
+    "pearson_r": -0.9585454407963161,
+    "pearson_p": 0.002542101292783792,
+    "spearman_rho": -0.87831006565368,
+    "spearman_p": 0.021311641128756685
+  },
+  "prediction_vs_observed_out_of_sample": {
+    "excluded_condition": {
+      "model": "llama-3.1-8b",
+      "seq_len": 256
+    },
+    "pearson_r": -0.9863048961828002,
+    "pearson_p": 0.0019199401058779585,
+    "spearman_rho": -0.8660254037844386,
+    "spearman_p": 0.05766888562243736,
+    "n_conditions": 5
+  },
+  "artifacts": {
+    "effective_sparsity": "results/experiment7/exp7b_phase_transition/effective_sparsity.parquet",
+    "mstar_predictions": "results/experiment7/exp7b_phase_transition/mstar_predictions.parquet",
+    "c1_root": "results/experiment7/exp7b_phase_transition/c1_runs"
+  }
+}

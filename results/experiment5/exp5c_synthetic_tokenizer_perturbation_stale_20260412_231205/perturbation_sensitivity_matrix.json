@@ -1,0 +1,193 @@
+{
+  "timestamp": "2026-04-11 08:44:25",
+  "status": "completed",
+  "acceptance": {
+    "required_cells": 12,
+    "completed_cells": 12,
+    "coverage_cells_at_target": 12,
+    "target_positions_per_cell": 200,
+    "passed": true
+  },
+  "rows": [
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "fake_boundary_with_prefix",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.017422578822485355,
+      "effect_ci95": [
+        -0.010684790177724144,
+        0.06811345583167353
+      ],
+      "effect_p_two_sided": 8.788134950768623e-22,
+      "effect_p_one_sided_gt0": 4.394067475384312e-22,
+      "delta_local_r2_mean": 0.0008433868827247271,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "real_boundary_no_prefix",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": -0.0018426029578315622,
+      "effect_ci95": [
+        -0.016332428963874757,
+        0.015755768904349845
+      ],
+      "effect_p_two_sided": 0.0031512323552486785,
+      "effect_p_one_sided_gt0": 0.9984243838223756,
+      "delta_local_r2_mean": -8.943747399914326e-06,
+      "prefix_following_flag_shift": false,
+      "status": "completed"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "morpheme_internal_break",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.017422578822485355,
+      "effect_ci95": [
+        -0.010684790177724144,
+        0.06811345583167353
+      ],
+      "effect_p_two_sided": 8.788134950768623e-22,
+      "effect_p_one_sided_gt0": 4.394067475384312e-22,
+      "delta_local_r2_mean": 0.0008433868827247271,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "character_decompose",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.01656319744087841,
+      "effect_ci95": [
+        -0.017229025499217697,
+        0.04886163540204871
+      ],
+      "effect_p_two_sided": 4.458876806479509e-35,
+      "effect_p_one_sided_gt0": 2.2294384032397545e-35,
+      "delta_local_r2_mean": -0.0012660825716511704,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "merge_across_boundary",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.009885009223749719,
+      "effect_ci95": [
+        -0.01639679592162504,
+        0.06149051257624985
+      ],
+      "effect_p_two_sided": 2.1037004945181457e-10,
+      "effect_p_one_sided_gt0": 1.0518502472590729e-10,
+      "delta_local_r2_mean": 0.0004435437118023211,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "llama-3.1-8b",
+      "perturbation": "random_resegment",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.009818742070825415,
+      "effect_ci95": [
+        -0.03179527972042475,
+        0.075271794936068
+      ],
+      "effect_p_two_sided": 3.203761188982006e-08,
+      "effect_p_one_sided_gt0": 1.601880594491003e-08,
+      "delta_local_r2_mean": 0.00025212535500064527,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "fake_boundary_with_prefix",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.005188483081613263,
+      "effect_ci95": [
+        -0.005993675516373394,
+        0.027657634799146572
+      ],
+      "effect_p_two_sided": 1.7894091705960627e-11,
+      "effect_p_one_sided_gt0": 8.947045852980314e-12,
+      "delta_local_r2_mean": 0.0019836253288957463,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "real_boundary_no_prefix",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.0014375947978544534,
+      "effect_ci95": [
+        -0.00744691224388575,
+        0.017523311614631647
+      ],
+      "effect_p_two_sided": 0.0024291495298754077,
+      "effect_p_one_sided_gt0": 0.0012145747649377038,
+      "delta_local_r2_mean": 0.0010826174005844102,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "morpheme_internal_break",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.005188483081613263,
+      "effect_ci95": [
+        -0.005993675516373394,
+        0.027657634799146572
+      ],
+      "effect_p_two_sided": 1.7894091705960627e-11,
+      "effect_p_one_sided_gt0": 8.947045852980314e-12,
+      "delta_local_r2_mean": 0.0019836253288957463,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "character_decompose",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.01466475267845988,
+      "effect_ci95": [
+        -0.006913744763657802,
+        0.045446746653136756
+      ],
+      "effect_p_two_sided": 4.0082378540950414e-35,
+      "effect_p_one_sided_gt0": 2.0041189270475207e-35,
+      "delta_local_r2_mean": 0.008219408193756446,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "merge_across_boundary",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.0011601174444778742,
+      "effect_ci95": [
+        -0.014878900827656426,
+        0.02858659117778473
+      ],
+      "effect_p_two_sided": 0.10590049869579185,
+      "effect_p_one_sided_gt0": 0.052950249347895925,
+      "delta_local_r2_mean": 0.0019180854085231718,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    },
+    {
+      "model": "olmo-2-7b",
+      "perturbation": "random_resegment",
+      "n_positions": 200,
+      "effect_delta_high_prev_attn": 0.000497532182036096,
+      "effect_ci95": [
+        -0.046617373375688054,
+        0.02863366503578711
+      ],
+      "effect_p_two_sided": 0.6786788265064445,
+      "effect_p_one_sided_gt0": 0.33933941325322226,
+      "delta_local_r2_mean": 0.0032720891868889468,
+      "prefix_following_flag_shift": true,
+      "status": "completed"
+    }
+  ]
+}

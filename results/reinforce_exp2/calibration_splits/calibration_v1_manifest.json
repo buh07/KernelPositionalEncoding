@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-04-19 19:47:43",
+  "split_id": "calibration_v1",
+  "model_tokenizer": "llama-3.1-8b",
+  "seed": 20260417,
+  "target_n": 4096,
+  "token_filter": {
+    "min": 128,
+    "max": 512
+  },
+  "per_domain_counts": {
+    "code": 1365,
+    "dialogue": 1365,
+    "wiki": 1366
+  },
+  "loader_used_counts": {
+    "hf_loader": 4096
+  },
+  "loader_provenance": [
+    {
+      "domain": "wiki",
+      "loader_used": "hf_loader",
+      "dataset_id": "wikitext",
+      "config_name": "wikitext-103-raw-v1",
+      "split": "train",
+      "n_loaded": 1708,
+      "requires_replacement": false
+    },
+    {
+      "domain": "code",
+      "loader_used": "hf_loader",
+      "dataset_id": "code_search_net",
+      "config_name": "python",
+      "split": "train",
+      "n_loaded": 1706,
+      "requires_replacement": false
+    },
+    {
+      "domain": "dialogue",
+      "loader_used": "hf_loader",
+      "dataset_id": "OpenAssistant/oasst1",
+      "config_name": null,
+      "split": "train",
+      "n_loaded": 1706,
+      "requires_replacement": false
+    }
+  ],
+  "sha256_ids_parquet": "ee30db624a8668077ecca634655856a019fce245c180ff2b06988009926e90c8",
+  "ids_path": "results/reinforce_exp2/calibration_splits/calibration_v1_ids.parquet",
+  "tokens_path": "results/reinforce_exp2/calibration_splits/calibration_v1_tokens.parquet"
+}

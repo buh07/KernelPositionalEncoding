@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-05-03 17:38:36",
+  "experiment_id": "E28C",
+  "n_models": 3,
+  "n_model_pass": 0,
+  "interpretation": "no_generalization_beyond_short_probe",
+  "note": "No model passes the multi-family gate beyond the original short probe setting.",
+  "per_model": [
+    {
+      "timestamp": "2026-05-03 16:22:01",
+      "experiment_id": "E28C",
+      "model": "llama-3.1-8b",
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/llama-3.1-8b/estimated_kernels.json",
+      "n_families": 7,
+      "n_family_pass_lp": 4,
+      "n_family_pass_acc": 4,
+      "n_required_family_pass_lp": 6,
+      "model_primary_pass": false,
+      "model_level_status": "mixed",
+      "mean_delta_gap_lp": 1.0233235677083332,
+      "mean_delta_gap_acc": 0.022619047619047615
+    },
+    {
+      "timestamp": "2026-05-03 15:53:47",
+      "experiment_id": "E28C",
+      "model": "mistral-7b-v0.1",
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/theory8_position_ablation/mistral-7b-v0.1/estimated_kernels.json",
+      "n_families": 7,
+      "n_family_pass_lp": 4,
+      "n_family_pass_acc": 2,
+      "n_required_family_pass_lp": 6,
+      "model_primary_pass": false,
+      "model_level_status": "mixed",
+      "mean_delta_gap_lp": 0.3355153401692713,
+      "mean_delta_gap_acc": -0.07619047619047618
+    },
+    {
+      "timestamp": "2026-05-03 17:37:51",
+      "experiment_id": "E28C",
+      "model": "olmo-2-7b",
+      "n_high_si_heads": 256,
+      "kernel_source": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment3/theory8_position_ablation/olmo-2-7b/estimated_kernels.json",
+      "n_families": 7,
+      "n_family_pass_lp": 2,
+      "n_family_pass_acc": 1,
+      "n_required_family_pass_lp": 6,
+      "model_primary_pass": false,
+      "model_level_status": "mixed",
+      "mean_delta_gap_lp": -0.07708086286272291,
+      "mean_delta_gap_acc": -0.028571428571428574
+    }
+  ]
+}

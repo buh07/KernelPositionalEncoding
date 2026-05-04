@@ -1,0 +1,1 @@
+Across 3 RoPE-equipped 7--8B models, log high-SI kernel-ablation cost scales with mean SI strength: slope=14.032 (95% bootstrap CI [-0.164, 19.634]), $R^2=0.902$ ($n=3$; GPT-2 non-RoPE anchors excluded).

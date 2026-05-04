@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E12",
+  "claim_addressed": "SI-kernel ablation causes preferential ICL degradation (vs matched non-ICL task), linking SI infrastructure to the induction-head mechanism of in-context learning",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "ICL accuracy loss > non-ICL loss (ratio=46.14) in all 3 valid models. SI heads are preferentially serving ICL-relevant computation, linking them to the induction-head mechanism (Olsson et al. 2022).",
+  "mean_accuracy_sensitivity_ratio": 46.13636363636364,
+  "notes": [
+    "ICL accuracy loss > non-ICL loss (ratio=46.14) in all 3 valid models. SI heads are preferentially serving ICL-relevant computation, linking them to the induction-head mechanism (Olsson et al. 2022)."
+  ]
+}

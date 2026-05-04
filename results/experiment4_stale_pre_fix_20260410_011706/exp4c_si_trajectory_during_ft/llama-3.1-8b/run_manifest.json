@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-04-10 00:05:50",
+  "experiment": "4C",
+  "title": "Diagnostic: SI structure trajectory under standard math fine-tuning",
+  "status": "scaffold_only",
+  "model": "llama-3.1-8b",
+  "device": "cuda:0",
+  "seed": 0,
+  "math_mix_tasks": [
+    "digit_arithmetic",
+    "counting_chain",
+    "modular_arithmetic",
+    "sequence_continuation"
+  ],
+  "checkpoint_steps": [
+    0,
+    100,
+    500,
+    1000,
+    2000,
+    -1
+  ],
+  "eval_channels": [
+    "post_ft_r2_profile",
+    "post_ft_boundary_detection",
+    "si_head_identity_overlap"
+  ],
+  "acceptance_criteria": {
+    "min_checkpoint_count": 5,
+    "required_reports": [
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_during_ft.parquet",
+      "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_summary.json"
+    ]
+  },
+  "artifacts_contract": {
+    "run_manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/run_manifest.json",
+    "trajectory_table": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_during_ft.parquet",
+    "summary_report": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/si_trajectory_summary.json",
+    "checkpoint_audits_root": "/jumbo/lisp/f004ndc/Kernel PE/results/experiment4/exp4c_si_trajectory_during_ft/llama-3.1-8b/checkpoint_audits"
+  },
+  "notes": [
+    "This stage is the gate for 4A/4B. Do not schedule 4A/4B until 4C summary is reviewed.",
+    "Use the same math mix as Experiment 4A for comparability.",
+    "At each checkpoint compute R2 profiling and abbreviated 3P2-B boundary d.",
+    "Global eval channels available for downstream stages: math_accuracy, wiki_perplexity, post_ft_r2_profile, post_ft_boundary_detection, post_ft_c1_mini_curve"
+  ]
+}

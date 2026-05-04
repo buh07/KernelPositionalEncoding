@@ -1,0 +1,61 @@
+{
+  "experiment_id": "E11",
+  "tables": [
+    {
+      "path": "<model>/freq_decomposition.parquet",
+      "description": "Per-head DFT frequency decomposition of g_h kernel",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Head index"
+        },
+        {
+          "name": "peak_freq_idx",
+          "dtype": "int",
+          "description": "Index of peak DFT frequency"
+        },
+        {
+          "name": "peak_freq_normalized",
+          "dtype": "float",
+          "description": "Peak frequency normalized to [0, 1]"
+        },
+        {
+          "name": "freq_band",
+          "dtype": "str",
+          "description": "Frequency band label (very_low/low/medium/high/very_high)"
+        },
+        {
+          "name": "low_freq_power_frac",
+          "dtype": "float",
+          "description": "Fraction of DFT power in bottom 20% of frequencies"
+        },
+        {
+          "name": "local_sensitivity",
+          "dtype": "float",
+          "description": "Normalized sum of g_h(0) + g_h(1) \u2014 local offset sensitivity"
+        },
+        {
+          "name": "boundary_attn_score",
+          "dtype": "float",
+          "description": "Boundary attention score from B1 cluster membership"
+        },
+        {
+          "name": "is_high_si",
+          "dtype": "bool",
+          "description": "Top-quartile R\u00b2"
+        }
+      ]
+    }
+  ]
+}

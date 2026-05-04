@@ -1,0 +1,16 @@
+{
+  "true_vs_permuted": {
+    "mean": 3.131214328110218,
+    "ci_lo": 2.744793442264199,
+    "ci_hi": 3.516962118074298,
+    "p_one_gt_zero": 0.0004997501249375312
+  },
+  "true_vs_normmatched": {
+    "mean": -2.5066938996315002,
+    "ci_lo": -2.7963162936270236,
+    "ci_hi": -2.2074419409036636,
+    "p_one_gt_zero": 1.0
+  },
+  "ratio_true_over_permuted": 3.6222713702390754,
+  "ratio_true_over_normmatched": 0.6330947796100245
+}

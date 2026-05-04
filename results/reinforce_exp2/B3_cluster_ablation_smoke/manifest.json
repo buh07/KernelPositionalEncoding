@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "experiment_id": "B3_cluster_ablation",
+  "cwd": "/jumbo/lisp/f004ndc/Kernel PE",
+  "python": "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+  "command": "run_b3_cluster_ablation.py",
+  "model": "llama-3.1-8b",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "input_curve": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation_smoke/raw_curve_rows.parquet",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "seed": 20260417
+}

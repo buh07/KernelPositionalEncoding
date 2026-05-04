@@ -1,0 +1,570 @@
+{
+  "timestamp": "2026-05-02 16:59:57",
+  "experiment_id": "E23",
+  "arms": [
+    "baseline",
+    "early_si_aug",
+    "late_si_aug",
+    "full_si_aug"
+  ],
+  "seeds": [
+    0,
+    1
+  ],
+  "smoke": false,
+  "joint_unseen_score": {
+    "baseline": 0.5449999999999999,
+    "early_si_aug": 0.5525,
+    "late_si_aug": 0.5420833333333334,
+    "full_si_aug": 0.5508333333333333,
+    "delta_early_minus_baseline": 0.007500000000000062,
+    "delta_full_minus_baseline": 0.005833333333333357,
+    "delta_late_minus_baseline": -0.0029166666666665675
+  },
+  "gate": {
+    "pass_early_ge_0p04": false,
+    "pass_full_ge_0p04": false,
+    "pass_late_abs_le_0p02": true,
+    "stage_pattern_pass": false
+  },
+  "interpretation": "no_stage_signal",
+  "note": "Stage-sensitive pattern not observed under current budget/configuration.",
+  "arm_summaries": {
+    "baseline": {
+      "timestamp": "2026-05-02 15:39:42",
+      "experiment_id": "E23",
+      "arm": "baseline",
+      "n_seeds": 2,
+      "seed_summaries": [
+        {
+          "timestamp": "2026-05-02 15:22:34",
+          "experiment_id": "E23",
+          "arm": "baseline",
+          "seed": 0,
+          "runtime_sec": 1019.5570936203003,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.08166666666666667,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5408333333333333,
+            "arith_seen_acc": 0.10166666666666667,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.306094320217768,
+            "copy_unseen_logprob": -0.001056580000828641,
+            "si_mean_r2": 0.5143849261054856,
+            "si_median_r2": 0.5757728942477633,
+            "si_q75_r2": 0.6387608819264586,
+            "kernel_specificity_support": false
+          }
+        },
+        {
+          "timestamp": "2026-05-02 15:39:42",
+          "experiment_id": "E23",
+          "arm": "baseline",
+          "seed": 1,
+          "runtime_sec": 1027.334809064865,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.09833333333333333,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5491666666666667,
+            "arith_seen_acc": 0.10166666666666667,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.303737210830053,
+            "copy_unseen_logprob": -0.0011987957987003028,
+            "si_mean_r2": 0.47500384166627685,
+            "si_median_r2": 0.5321432853044461,
+            "si_q75_r2": 0.5971927934268995,
+            "kernel_specificity_support": false
+          }
+        }
+      ],
+      "arm_metrics": {
+        "joint_unseen_score_mean": 0.5449999999999999,
+        "joint_unseen_score_std": 0.005892556509887954,
+        "arith_unseen_acc_mean": 0.09,
+        "copy_unseen_acc_mean": 1.0,
+        "si_mean_r2_mean": 0.4946943838858812,
+        "kernel_specificity_support_rate": 0.0
+      }
+    },
+    "early_si_aug": {
+      "timestamp": "2026-05-02 16:03:03",
+      "experiment_id": "E23",
+      "arm": "early_si_aug",
+      "n_seeds": 2,
+      "seed_summaries": [
+        {
+          "timestamp": "2026-05-02 15:34:55",
+          "experiment_id": "E23",
+          "arm": "early_si_aug",
+          "seed": 0,
+          "runtime_sec": 1687.0088181495667,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.11833333333333333,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5591666666666667,
+            "arith_seen_acc": 0.11833333333333333,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.3039231419563295,
+            "copy_unseen_logprob": -0.0012156362022506073,
+            "si_mean_r2": 0.501691303597473,
+            "si_median_r2": 0.5699754464858102,
+            "si_q75_r2": 0.6211576779554024,
+            "kernel_specificity_support": false
+          }
+        },
+        {
+          "timestamp": "2026-05-02 16:03:03",
+          "experiment_id": "E23",
+          "arm": "early_si_aug",
+          "seed": 1,
+          "runtime_sec": 1688.5063121318817,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.09166666666666666,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5458333333333333,
+            "arith_seen_acc": 0.10833333333333334,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.30434241771698,
+            "copy_unseen_logprob": -0.0012374476034892723,
+            "si_mean_r2": 0.47559445382298826,
+            "si_median_r2": 0.5100044833215744,
+            "si_q75_r2": 0.6184783369208301,
+            "kernel_specificity_support": false
+          }
+        }
+      ],
+      "arm_metrics": {
+        "joint_unseen_score_mean": 0.5525,
+        "joint_unseen_score_std": 0.009428090415820694,
+        "arith_unseen_acc_mean": 0.105,
+        "copy_unseen_acc_mean": 1.0,
+        "si_mean_r2_mean": 0.48864287871023065,
+        "kernel_specificity_support_rate": 0.0
+      }
+    },
+    "late_si_aug": {
+      "timestamp": "2026-05-02 16:14:09",
+      "experiment_id": "E23",
+      "arm": "late_si_aug",
+      "n_seeds": 2,
+      "seed_summaries": [
+        {
+          "timestamp": "2026-05-02 15:40:46",
+          "experiment_id": "E23",
+          "arm": "late_si_aug",
+          "seed": 0,
+          "runtime_sec": 2001.1767601966858,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.08,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.54,
+            "arith_seen_acc": 0.11833333333333333,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.305243273973465,
+            "copy_unseen_logprob": -0.0010669515185873025,
+            "si_mean_r2": 0.48694453512473523,
+            "si_median_r2": 0.5489028793466715,
+            "si_q75_r2": 0.6184345170369769,
+            "kernel_specificity_support": false
+          }
+        },
+        {
+          "timestamp": "2026-05-02 16:14:09",
+          "experiment_id": "E23",
+          "arm": "late_si_aug",
+          "seed": 1,
+          "runtime_sec": 2002.1705920696259,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.08833333333333333,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5441666666666667,
+            "arith_seen_acc": 0.11833333333333333,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.303404064575831,
+            "copy_unseen_logprob": -0.0010260517708957195,
+            "si_mean_r2": 0.4959092957315807,
+            "si_median_r2": 0.5339738523529187,
+            "si_q75_r2": 0.6212762833871271,
+            "kernel_specificity_support": false
+          }
+        }
+      ],
+      "arm_metrics": {
+        "joint_unseen_score_mean": 0.5420833333333334,
+        "joint_unseen_score_std": 0.0029462782549439376,
+        "arith_unseen_acc_mean": 0.08416666666666667,
+        "copy_unseen_acc_mean": 1.0,
+        "si_mean_r2_mean": 0.491426915428158,
+        "kernel_specificity_support_rate": 0.0
+      }
+    },
+    "full_si_aug": {
+      "timestamp": "2026-05-02 16:59:32",
+      "experiment_id": "E23",
+      "arm": "full_si_aug",
+      "n_seeds": 2,
+      "seed_summaries": [
+        {
+          "timestamp": "2026-05-02 16:04:33",
+          "experiment_id": "E23",
+          "arm": "full_si_aug",
+          "seed": 0,
+          "runtime_sec": 3306.6172268390656,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.09666666666666666,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5483333333333333,
+            "arith_seen_acc": 0.12333333333333334,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.304853137731552,
+            "copy_unseen_logprob": -0.0010170250837109051,
+            "si_mean_r2": 0.5178137020307042,
+            "si_median_r2": 0.558633073873932,
+            "si_q75_r2": 0.6291889063977087,
+            "kernel_specificity_support": false
+          }
+        },
+        {
+          "timestamp": "2026-05-02 16:59:32",
+          "experiment_id": "E23",
+          "arm": "full_si_aug",
+          "seed": 1,
+          "runtime_sec": 3299.54061627388,
+          "smoke": false,
+          "token_budget": 40000000,
+          "steps": 4883,
+          "tokens_per_step": 8192,
+          "effective_tokens": 40001536,
+          "train_config": {
+            "seq_len": 128,
+            "micro_batch": 16,
+            "grad_accum": 4,
+            "lr": 0.0003,
+            "warmup_frac": 0.05,
+            "weight_decay": 0.01,
+            "grad_clip": 1.0,
+            "lambda_consistency": 0.2,
+            "seen_offsets": [
+              8,
+              16,
+              24,
+              32,
+              40
+            ],
+            "unseen_offsets": [
+              12,
+              20,
+              28,
+              36,
+              44
+            ]
+          },
+          "model_config": {
+            "hidden_size": 384,
+            "num_hidden_layers": 10,
+            "num_attention_heads": 6,
+            "num_key_value_heads": 6,
+            "intermediate_size": 1536,
+            "max_position_embeddings": 256,
+            "vocab_size": 192,
+            "rope_theta": 10000.0
+          },
+          "metrics": {
+            "arith_unseen_acc": 0.10666666666666667,
+            "copy_unseen_acc": 1.0,
+            "joint_unseen_score": 0.5533333333333333,
+            "arith_seen_acc": 0.08166666666666667,
+            "copy_seen_acc": 1.0,
+            "arith_unseen_logprob": -2.30443620522817,
+            "copy_unseen_logprob": -0.001006788806213687,
+            "si_mean_r2": 0.4578255271874739,
+            "si_median_r2": 0.5095274416995347,
+            "si_q75_r2": 0.5741151790610837,
+            "kernel_specificity_support": false
+          }
+        }
+      ],
+      "arm_metrics": {
+        "joint_unseen_score_mean": 0.5508333333333333,
+        "joint_unseen_score_std": 0.0035355339059327407,
+        "arith_unseen_acc_mean": 0.10166666666666667,
+        "copy_unseen_acc_mean": 1.0,
+        "si_mean_r2_mean": 0.48781961460908907,
+        "kernel_specificity_support_rate": 0.0
+      }
+    }
+  }
+}

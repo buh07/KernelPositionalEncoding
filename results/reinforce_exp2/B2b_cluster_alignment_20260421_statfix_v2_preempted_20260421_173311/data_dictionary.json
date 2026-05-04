@@ -1,0 +1,36 @@
+{
+  "experiment_id": "B2b_cluster_alignment",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_20260421_statfix_v2/cluster_alignment_depth_control.parquet",
+      "description": "Layer-stratified cluster depth-control rows.",
+      "columns": [
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model."
+        },
+        {
+          "name": "cluster",
+          "dtype": "int",
+          "description": "Cluster id."
+        },
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer."
+        },
+        {
+          "name": "hedges_g",
+          "dtype": "float",
+          "description": "Layer-specific effect size."
+        },
+        {
+          "name": "variance",
+          "dtype": "float",
+          "description": "Effect variance proxy."
+        }
+      ]
+    }
+  ]
+}

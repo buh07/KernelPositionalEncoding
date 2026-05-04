@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02 01:52:25",
+  "experiment_id": "E19",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "notes": [
+    "Cross-model SI contrasts remain stable under offset-reweighting and transfer robustness checks."
+  ],
+  "outcome_summary": "Cross-model SI contrasts remain stable under offset-reweighting and transfer robustness checks."
+}

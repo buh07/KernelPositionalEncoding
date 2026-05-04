@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "model_spec": {
+    "linear": "y = a + b*f",
+    "threshold_piecewise": "y = a + b1*f + b2*max(0, f-tau)",
+    "tau_bounds": [
+      0.1,
+      0.9
+    ],
+    "selection_metric": "AICc",
+    "k_linear": 2,
+    "k_threshold": 4
+  },
+  "analysis_mode": "analysis_only_from_existing_curves"
+}

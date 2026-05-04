@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-05-04 17:19:36",
+  "experiment_id": "SoftmaxRedistributionAudit",
+  "model": "olmo-2-7b",
+  "smoke": false,
+  "n_sequences": 40,
+  "n_high_si_heads": 64,
+  "mean_si_delta_loss": 0.01476029008626938,
+  "mean_perm_delta_loss": 0.0040191799402236935,
+  "mean_const_delta_loss": -0.00017421692609786987,
+  "si_vs_const_ratio": -84.72362827695335,
+  "si_vs_perm_ratio": 3.672463115808613,
+  "n_entropy_heads_analyzed": 64,
+  "mean_entropy_delta_si": -0.06375720726209694,
+  "mean_entropy_delta_perm": -0.028489414335592808,
+  "frac_heads_si_entropy_gt_perm": 0.578125,
+  "p_one_sided_ent_si_gt_perm": 0.962003799620038,
+  "position_specific_confirmed_by_entropy": false,
+  "position_specific_confirmed_by_loss_ratio": true,
+  "elapsed_sec": 417.4560556411743
+}

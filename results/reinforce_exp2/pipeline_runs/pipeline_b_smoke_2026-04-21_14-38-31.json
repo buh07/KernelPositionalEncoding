@@ -1,0 +1,148 @@
+{
+  "timestamp": "2026-04-21 14:38:31",
+  "phase": "B",
+  "mode": "smoke",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "device_map": "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2",
+  "resume_policy": "strict_artifact_check",
+  "strict_todo": true,
+  "log_root": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2",
+  "output_root_map": {
+    "preflight": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/preflight",
+    "calibration_v1": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+    "A0_claim_hygiene": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A0_claim_hygiene",
+    "A1_evidence_consolidation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A1_evidence_consolidation",
+    "A2_prediction_layer": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A2_prediction_layer",
+    "B1_kernel_taxonomy": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+    "B2a_head_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_smoke",
+    "B2b_cluster_alignment": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_smoke",
+    "B3_cluster_ablation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation_smoke",
+    "B4_confound_isolation": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation_smoke",
+    "C1_olmo_causal_trace": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C1_olmo_causal_trace_smoke",
+    "C2_carrier_class_predictions": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/C2_carrier_class_predictions_smoke"
+  },
+  "n_tasks": 5,
+  "n_failures": 0,
+  "rows": [
+    {
+      "experiment_id": "B2a_head_alignment",
+      "status": "dry_run",
+      "return_code": 0,
+      "timestamp": "2026-04-21 14:38:30",
+      "depends_on": [],
+      "resume_decision": "rerun_missing_or_invalid",
+      "schema_validation_passed": false,
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B2a_head_alignment/2026-04-21_14-38-30.log",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2a_head_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_smoke"
+      ]
+    },
+    {
+      "experiment_id": "B1_kernel_taxonomy",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-21 14:38:30",
+      "depends_on": [],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b1_kernel_taxonomy.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+        "--calibration-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2"
+      ]
+    },
+    {
+      "experiment_id": "B2b_cluster_alignment",
+      "status": "skipped_existing",
+      "return_code": 0,
+      "timestamp": "2026-04-21 14:38:31",
+      "depends_on": [
+        "B1_kernel_taxonomy",
+        "B2a_head_alignment"
+      ],
+      "resume_decision": "skip_existing_valid",
+      "schema_validation_passed": true,
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b2b_cluster_alignment.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2b_cluster_alignment_smoke",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+        "--b2a-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_smoke"
+      ]
+    },
+    {
+      "experiment_id": "B4_confound_isolation",
+      "status": "dry_run",
+      "return_code": 0,
+      "timestamp": "2026-04-21 14:38:31",
+      "depends_on": [
+        "B1_kernel_taxonomy"
+      ],
+      "resume_decision": "rerun_missing_or_invalid",
+      "schema_validation_passed": false,
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B4_confound_isolation/2026-04-21_14-38-31.log",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b4_confound_isolation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B4_confound_isolation_smoke",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+        "--calibration-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/calibration_splits",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2"
+      ]
+    },
+    {
+      "experiment_id": "B3_cluster_ablation",
+      "status": "dry_run",
+      "return_code": 0,
+      "timestamp": "2026-04-21 14:38:31",
+      "depends_on": [
+        "B1_kernel_taxonomy",
+        "B2a_head_alignment"
+      ],
+      "resume_decision": "rerun_missing_or_invalid",
+      "schema_validation_passed": false,
+      "log_path": "/jumbo/lisp/f004ndc/Kernel PE/logs/reinforce_exp2/B3_cluster_ablation/2026-04-21_14-38-31.log",
+      "command": [
+        "/jumbo/lisp/f004ndc/Kernel PE/.venv/bin/python",
+        "/jumbo/lisp/f004ndc/Kernel PE/reinforce_exp2/scripts/run_b3_cluster_ablation.py",
+        "--models",
+        "llama-3.1-8b,olmo-2-7b,mistral-7b-v0.1",
+        "--output-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation_smoke",
+        "--b1-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_smoke",
+        "--b2a-root",
+        "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B2a_head_alignment_smoke",
+        "--device-map",
+        "llama-3.1-8b:cuda:0,olmo-2-7b:cuda:1,mistral-7b-v0.1:cuda:2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-04-21 20:24:56",
+  "schema_version": 1,
+  "status": "ok",
+  "model": "mistral-7b-v0.1",
+  "config_hash": "c01162bd88f91a813f03e78cf7dcad17a3af8a607fba98ce7e035f368862df67",
+  "n_membership_rows": 1024,
+  "n_stability_rows": 8,
+  "n_enrichment_rows": 0,
+  "paths": {
+    "root": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1",
+    "manifest": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/partial_manifest.json",
+    "membership": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/cluster_membership.parquet",
+    "stability": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/cluster_stability_report.parquet",
+    "enrichment": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/cluster_function_enrichment.parquet",
+    "summary": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/model_summary.json",
+    "proto": "results/reinforce_exp2/B1_kernel_taxonomy/partials_statfix_v3/mistral-7b-v0.1/prototype_shape.json"
+  }
+}

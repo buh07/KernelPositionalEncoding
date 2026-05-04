@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-02 01:52:25",
+  "experiment_id": "E19",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "robust_cross_model",
+    "n_pass": 3,
+    "n_models": 3
+  },
+  "limitations": [
+    "Equal-count component uses reweighting proxy rather than full raw-diagonal bootstrap resampling.",
+    "Cross-corpus transfer uses fixed-kernel evaluation and does not isolate all tokenizer-domain confounds."
+  ]
+}

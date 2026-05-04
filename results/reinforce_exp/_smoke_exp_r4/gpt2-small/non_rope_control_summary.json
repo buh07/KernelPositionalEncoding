@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-04-16 16:53:57",
+  "model": "gpt2-small",
+  "model_spec": {
+    "hf_id": "openai-community/gpt2",
+    "norm": "LayerNorm",
+    "pe_scheme": "LearnedAbsolutePE"
+  },
+  "settings": {
+    "num_sequences": 8,
+    "seq_len": 256,
+    "top_k_dims": 16,
+    "synthetic_target_per_cell": 64,
+    "seed": 1
+  },
+  "r2_summary": {
+    "n_heads": 144,
+    "high_mean_r2": 0.701962098668592,
+    "low_mean_r2": 0.03653500273116031,
+    "overall_mean_r2": 0.35768719257608955,
+    "overall_std_r2": 0.2803597126380516
+  },
+  "boundary_control": {
+    "post_ablation_high_vs_low_d": 1.5812055261073021,
+    "fake_minus_real_with_prefix": 0.026901691711867987,
+    "prefix_following_artifact_flag": false,
+    "prefix_following_assessment": {
+      "n_fake_with_prefix": 64,
+      "n_real_with_prefix": 1152,
+      "mean_fake_with_prefix": 0.23464165868402787,
+      "mean_real_with_prefix": 0.2077399669721599,
+      "fake_minus_real_diff": 0.02690169171186796,
+      "t_statistic": 1.0522349653668446,
+      "p_two_sided": 0.29668144157605925,
+      "p_one_sided_fake_gt_real": 0.14834072078802962,
+      "cohens_d_fake_minus_real": 0.3880267609680417,
+      "rule": {
+        "alpha_one_sided": 0.05,
+        "min_cohens_d": 0.2,
+        "min_abs_diff": 0.005,
+        "decision": "artifact_if_diff_gt_0_and_p_one_lt_alpha_and_d_ge_min_and_abs_diff_ge_min"
+      },
+      "artifact_flag_statistical": false
+    }
+  },
+  "verdict": {
+    "si_structure_detected": true,
+    "boundary_non_trivial_after_control": true,
+    "rope_confound_weakened_for_anchor": true
+  }
+}

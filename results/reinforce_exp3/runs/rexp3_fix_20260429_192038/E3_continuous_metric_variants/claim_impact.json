@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E3",
+  "claim_addressed": "Result III threshold preference holds under continuous (log-probability) metrics, refuting the Schaeffer et al. metric-artifact objection",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "0/6 continuous-metric cells prefer linear BIC. Schaeffer objection refuted.",
+  "n_new_bic_cells": 6,
+  "n_new_linear_votes": 0,
+  "notes": [
+    "0/6 continuous-metric cells prefer linear BIC. Schaeffer objection refuted."
+  ]
+}

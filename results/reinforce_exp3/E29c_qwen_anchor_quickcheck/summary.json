@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-04 01:56:59",
+  "experiment_id": "E29C",
+  "analysis_tier": "quick_anchor",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "qwen_anchor_no_directional_corroboration",
+    "n_model_pass": 0,
+    "n_models": 1
+  },
+  "limitations": [
+    "Single extra-model quickcheck; non-primary corroboration only.",
+    "Kernel estimation is lightweight and not a full replication pipeline."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-05-04 01:44:30",
+  "experiment_id": "E29C",
+  "model": "qwen2.5-7b",
+  "profile_sequences": 8,
+  "eval_sequences": 12,
+  "n_total_heads": 784,
+  "n_high_si_heads": 196,
+  "n_low_si_heads": 196,
+  "si_mean_r2": 0.609074468490971,
+  "si_r2_std": 0.14264385234226687,
+  "true_mean_delta": 0.44012518723805744,
+  "perm_mean_delta": 0.5201255281766256,
+  "delta_true_minus_perm": -0.08000034093856817,
+  "true_over_perm": 0.8461903202116982,
+  "directional_support": false,
+  "adapter_fallback_used": true,
+  "adapter_error": "ValueError: No adapter registered for model qwen2.5-7b",
+  "elapsed_sec": 259.4065899848938
+}

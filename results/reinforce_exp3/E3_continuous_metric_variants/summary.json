@@ -1,0 +1,12 @@
+{
+  "experiment_id": "E3",
+  "status": "complete",
+  "models_run": [
+    "mistral-7b-v0.1"
+  ],
+  "n_new_bic_cells": 2,
+  "linear_votes_new": 0,
+  "outcome": "metric_artifact_refuted",
+  "timestamp_start": "2026-04-29 16:50:16",
+  "timestamp_end": "2026-04-29 17:59:34"
+}

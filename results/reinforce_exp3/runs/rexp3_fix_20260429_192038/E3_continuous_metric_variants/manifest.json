@@ -1,0 +1,25 @@
+{
+  "experiment_id": "E3",
+  "timestamp": "2026-04-30 19:08:21",
+  "models": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "fractions": [
+    0.0,
+    0.01,
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.5
+  ],
+  "n_seeds": 5,
+  "n_keymatch_examples": 200,
+  "n_retrieval_examples": 200,
+  "kv_pair_count": 10,
+  "seed_base": 20260429
+}

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-04-24 03:17:22",
+  "schema_version": 1,
+  "status": "ok",
+  "model": "olmo-2-7b",
+  "config_hash": "9d914b90aad89e5297cc04a264892bbd7e0105678adf28b9c0f85ae919dfd694",
+  "curve_rows": 297,
+  "diag_rows": 90,
+  "paths": {
+    "root": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b",
+    "manifest": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b/partial_manifest.json",
+    "curve": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b/curve.parquet",
+    "diag": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b/matching_diag_df.parquet",
+    "report": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b/model_report.json",
+    "matching": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B3_cluster_ablation/partials_b3split_v1/olmo-2-7b/matching_diag_model.json"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "experiment_id": "E4",
+  "claim_addressed": "SI strength is a learned property (R\u00b2 grows during training) rather than architecturally imposed by RoPE initialization",
+  "claim_status": "not_supported",
+  "supports_main_text": false,
+  "outcome_summary": "119 heads show architectural trajectories vs. 0 learned. Much of OLMo's SI structure appears geometrically induced by RoPE initialization.",
+  "trajectory_types": {
+    "architectural": 119,
+    "learned": 0,
+    "suppressed": 0,
+    "stable_low": 750,
+    "mixed": 155
+  },
+  "notes": [
+    "119 heads show architectural trajectories vs. 0 learned. Much of OLMo's SI structure appears geometrically induced by RoPE initialization."
+  ]
+}

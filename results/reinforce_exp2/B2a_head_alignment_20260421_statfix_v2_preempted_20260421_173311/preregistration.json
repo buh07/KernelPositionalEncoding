@@ -1,0 +1,40 @@
+{
+  "experiment_id": "B2a_head_alignment",
+  "question": "Do head kernels align with empirical boundary-offset profiles?",
+  "primary_hypothesis": "Observed alignment exceeds smoothness-preserving null baselines across reliability-eligible primary models.",
+  "primary_endpoints": [
+    "signed alignment",
+    "absolute alignment",
+    "model-level delta vs null"
+  ],
+  "secondary_endpoints": [
+    "directional subclaim eligibility"
+  ],
+  "model_list": [
+    "llama-3.1-8b",
+    "olmo-2-7b",
+    "mistral-7b-v0.1"
+  ],
+  "dataset_sources": [
+    "results/experiment3/theory8_position_ablation/*/estimated_kernels.json",
+    "wiki held-out sequences via experiment3/theory5b loader"
+  ],
+  "inclusion_exclusion_rules": [
+    "Model-level aggregate requires n_heads>=10 and finite positive SE."
+  ],
+  "sample_size_plan": {
+    "num_sequences": 32,
+    "n_null": 64
+  },
+  "seed_plan": {
+    "seed": 20260417
+  },
+  "stopping_rule": "Stop after all models complete alignment and null tests.",
+  "multiplicity_family": [
+    "{alignment_metric in [signed, absolute]} x {model}"
+  ],
+  "acceptance_criteria": [
+    "B2a.6 criteria per TODO."
+  ],
+  "fallback_interpretation_if_null": "Keep alignment claims descriptive/exploratory only."
+}

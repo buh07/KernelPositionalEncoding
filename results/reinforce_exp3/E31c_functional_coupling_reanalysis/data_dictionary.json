@@ -1,0 +1,5 @@
+{
+  "r2_vs_functional_gap_correlation.json": "Correlation metrics linking model SI amplitude to existing functional probe gaps.",
+  "functional_coupling_figure.csv": "Per-source per-model rows used for coupling plot and analysis.",
+  "scope_language_patch.md": "Paper-ready scope wording for directional functional coupling."
+}

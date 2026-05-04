@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-04-18 05:18:28",
+  "model": "olmo-2-7b",
+  "condition": "i_contrastive_channel",
+  "seed": 0,
+  "elapsed_sec": 258.4066548347473,
+  "lambda_contrast": 0.05,
+  "contrast_interval": 5,
+  "lora": {
+    "trainable_params": 20824064,
+    "total_params": 7319441408
+  }
+}

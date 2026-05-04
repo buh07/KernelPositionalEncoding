@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-05-02 18:01:30",
+  "experiment_id": "E21",
+  "claim_status": "proxy_specific",
+  "supports_main_text": true,
+  "notes": [
+    "Proxy matched training shows higher SI mean R2 for RoPE than NoPE across paired seeds.",
+    "Proxy result is not equivalent to pretraining-scale PE-family attribution."
+  ],
+  "outcome_summary": "Proxy matched training shows higher SI mean R2 for RoPE than NoPE across paired seeds."
+}

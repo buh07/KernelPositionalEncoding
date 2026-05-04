@@ -1,0 +1,7 @@
+{
+  "model": "mistral-7b-v0.1",
+  "jaccard_si_retrieval": 0.009861932938856016,
+  "r2_retrieval_spearman_rho": -0.6488756504363065,
+  "cluster_enrichment_pval": NaN,
+  "status": "ok"
+}

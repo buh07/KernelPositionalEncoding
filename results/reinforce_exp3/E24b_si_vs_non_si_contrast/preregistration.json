@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E24B",
+  "question": "How much stronger is SI-ranked cumulative-ablation non-linearity than matched non-SI non-linearity?",
+  "primary_metrics": [
+    "delta_bic_diff_high_minus_low",
+    "auc_diff_high_minus_low"
+  ],
+  "decision_rule": "Support requires mostly positive cell-level SI-minus-nonSI contrasts with positive bootstrap lower bounds."
+}

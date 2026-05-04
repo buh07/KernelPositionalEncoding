@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-05-03 17:27:09",
+  "experiment_id": "E28D",
+  "analysis_tier": "hardening",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "r2_excess_tracks_disruption_supported_with_caveat",
+    "n_model_pass": 2,
+    "n_models": 3
+  },
+  "limitations": [
+    "R\u00b2_local is fitted on kernel profiles and is an approximation to local-bias explainability.",
+    "Correlation uses bin-level disruption summaries from E28a, not fresh head-level interventions."
+  ]
+}

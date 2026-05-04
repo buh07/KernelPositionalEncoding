@@ -1,0 +1,36 @@
+{
+  "experiment_id": "E5",
+  "tables": [
+    {
+      "path": "gemma-2-9b/head_r2_summary.parquet",
+      "description": "Per-head R\u00b2 for the fourth model",
+      "columns": [
+        {
+          "name": "layer",
+          "dtype": "int",
+          "description": "Layer index"
+        },
+        {
+          "name": "head",
+          "dtype": "int",
+          "description": "Head index"
+        },
+        {
+          "name": "mean_r2",
+          "dtype": "float",
+          "description": "Shift-invariant R\u00b2"
+        },
+        {
+          "name": "is_high_si",
+          "dtype": "bool",
+          "description": "Top-quartile R\u00b2"
+        },
+        {
+          "name": "model",
+          "dtype": "str",
+          "description": "Model name"
+        }
+      ]
+    }
+  ]
+}

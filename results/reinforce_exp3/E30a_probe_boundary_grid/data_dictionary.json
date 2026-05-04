@@ -1,0 +1,15 @@
+{
+  "family_summary.parquet": {
+    "description": "Per-family preferential-gap metrics across boundary-grid conditions.",
+    "columns": {
+      "family": "Boundary-grid family id",
+      "context_band": "short/long",
+      "regularity_band": "high/low",
+      "mean_gap_true_lp": "Probe-control LP loss gap under true SI subtraction",
+      "mean_gap_true_minus_perm_lp": "True minus permuted preferential gap"
+    }
+  },
+  "prompt_level_gaps.parquet": {
+    "description": "Prompt-level LP preferential gaps for pooled inference."
+  }
+}

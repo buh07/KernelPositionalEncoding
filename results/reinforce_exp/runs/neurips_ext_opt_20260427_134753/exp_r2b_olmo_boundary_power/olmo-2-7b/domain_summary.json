@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-04-29 05:01:28",
+  "experiment": "EXP-R2B",
+  "model": "olmo-2-7b",
+  "domains": [
+    {
+      "domain": "wiki",
+      "adjudication_path": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/canonical/domain_wiki/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 24,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.00971019271715345,
+      "cluster_n": 1536,
+      "cluster_mean_delta": -0.00954013308595096,
+      "cluster_ci95": [
+        -0.010027805524173669,
+        -0.009041692529297157
+      ],
+      "cluster_cohens_d": -0.969454712343791,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    },
+    {
+      "domain": "code",
+      "adjudication_path": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/canonical/domain_code/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 24,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.004820014459643814,
+      "cluster_n": 984,
+      "cluster_mean_delta": -0.004850767415969678,
+      "cluster_ci95": [
+        -0.005311547637362571,
+        -0.004395795371093276
+      ],
+      "cluster_cohens_d": -0.6617319497729149,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    },
+    {
+      "domain": "dialogue",
+      "adjudication_path": "results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_r2b_olmo_boundary_power/canonical/domain_dialogue/olmo-2-7b/multiseed_gate_summary.json",
+      "assessment": "stable_clean",
+      "n_completed": 24,
+      "n_flagged": 0,
+      "meta_p_one": 1.0,
+      "pooled_diff_fake_minus_real_with_prefix": -0.0068770715982447266,
+      "cluster_n": 1535,
+      "cluster_mean_delta": -0.006688934282739217,
+      "cluster_ci95": [
+        -0.007169835769906069,
+        -0.006205254690233019
+      ],
+      "cluster_cohens_d": -0.6779572647230361,
+      "p_one_permutation": 1.0,
+      "artifact_positive": false,
+      "practical_positive": false,
+      "claim_direction_supported": false,
+      "p_one_permutation_holm": 1.0
+    }
+  ],
+  "summary": {
+    "n_domains": 3,
+    "n_domains_claim_supported": 0,
+    "n_domains_with_artifact_signal": 0,
+    "claim_direction_supported": false
+  }
+}

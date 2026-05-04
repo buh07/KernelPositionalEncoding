@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-18 18:32:54",
+  "experiment_id": "A1_evidence_consolidation",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "n_registry_rows": 9,
+  "n_discrepancies": 4,
+  "n_high_severity": 0,
+  "verdict": {
+    "completed": true,
+    "high_severity_discrepancies": 0
+  }
+}

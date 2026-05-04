@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-05-03 04:11:01",
+  "experiment_id": "E27",
+  "analysis_tier": "confirmatory",
+  "canonical_eligible": true,
+  "override_used": false,
+  "verdict": {
+    "interpretation": "threshold_robust_si_gradient_confirmed",
+    "direction_holds_at_T020": true,
+    "n_rank_replicates": 3,
+    "per_head_at_T020_by_model": {
+      "llama-3.1-8b": 0.005683355094785657,
+      "mistral-7b-v0.1": 0.006016561659202698,
+      "olmo-2-7b": 0.0003142230819772791
+    }
+  },
+  "limitations": [
+    "Per-head proxy (group delta / n_heads) conflates interaction effects.",
+    "OLMo has near-zero selected heads at T>=0.25; its T=0.20 row uses only 27 heads.",
+    "Thresholds are not optimized; T=0.20 selected as interpretable reference."
+  ]
+}

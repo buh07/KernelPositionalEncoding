@@ -38,6 +38,7 @@ shared_storage
 results/**/*.parquet
 results/**/*.pt
 results/**/*.jsonl
+results/**/estimated_kernels.json
 
 # Existing experiment outputs kept local-only
 results/track_a/

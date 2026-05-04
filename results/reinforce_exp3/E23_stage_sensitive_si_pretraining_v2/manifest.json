@@ -1,0 +1,15 @@
+{
+  "experiment_id": "E23",
+  "timestamp": "2026-05-02 20:30:01",
+  "arms": [
+    "baseline",
+    "early_si_aug",
+    "late_si_aug",
+    "full_si_aug"
+  ],
+  "seeds": [
+    0,
+    1
+  ],
+  "smoke": false
+}

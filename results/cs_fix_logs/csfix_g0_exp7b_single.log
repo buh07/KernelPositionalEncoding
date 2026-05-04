@@ -1,0 +1,4 @@
+[exp7] running 7B (phase transition) on device=cuda:0
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 3930.31it/s]
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:  10%|█         | 37/355 [00:00<00:00, 353.13it/s]Loading weights:  21%|██▏       | 76/355 [00:00<00:00, 361.97it/s]Loading weights:  32%|███▏      | 113/355 [00:00<00:00, 349.43it/s]Loading weights:  42%|████▏     | 148/355 [00:00<00:00, 346.24it/s]Loading weights:  52%|█████▏    | 183/355 [00:00<00:00, 338.74it/s]Loading weights:  61%|██████    | 217/355 [00:00<00:00, 310.67it/s]Loading weights:  72%|███████▏  | 256/355 [00:00<00:00, 326.37it/s]Loading weights:  84%|████████▍ | 298/355 [00:00<00:00, 352.12it/s]Loading weights:  96%|█████████▌| 340/355 [00:00<00:00, 368.71it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 355.94it/s]

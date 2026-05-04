@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-04-18 04:03:43",
+  "experiment": "R5B",
+  "model": "llama-3.1-8b",
+  "interaction_model": {
+    "f_interaction": 30.957288925472987,
+    "p_value": 9.348077867343818e-14,
+    "partial_eta_squared": 0.5134677295680296,
+    "supports_conditional_specialization": true,
+    "p_value_holm": 9.348077867343818e-14
+  },
+  "regime_tests": {
+    "boundary_dense": {
+      "n_pairs": 12,
+      "mean_delta_high_minus_low": -0.035818142361111104,
+      "p_one_sided": 0.9999999999466845,
+      "cohens_d": -6.706101475652243,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    },
+    "high_uncertainty": {
+      "n_pairs": 12,
+      "mean_delta_high_minus_low": -0.029687500000000002,
+      "p_one_sided": 0.9999999999322623,
+      "cohens_d": -6.5589757206260195,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    },
+    "long_span_retrieval": {
+      "n_pairs": 12,
+      "mean_delta_high_minus_low": 0.004926215277777775,
+      "p_one_sided": 0.005931119850072804,
+      "cohens_d": 0.8689615548371141,
+      "p_one_sided_holm": 0.023724479400291217,
+      "supports_high_gt_low": true
+    },
+    "rare_token_context": {
+      "n_pairs": 12,
+      "mean_delta_high_minus_low": -0.0012499999999999966,
+      "p_one_sided": 0.7671616162077943,
+      "cohens_d": -0.2181654277060267,
+      "p_one_sided_holm": 1.0,
+      "supports_high_gt_low": false
+    }
+  },
+  "sign_transfer": {
+    "n_matches": 1,
+    "n_compared": 2,
+    "fraction": 0.5,
+    "criterion": ">=3/4",
+    "passes": false
+  },
+  "verdict": {
+    "interaction_significant": true,
+    "supports_task_grounded_semantics": false
+  },
+  "runtime_sec": 51023.19242763519
+}

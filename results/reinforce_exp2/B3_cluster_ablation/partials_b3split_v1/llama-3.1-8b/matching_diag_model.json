@@ -1,0 +1,26 @@
+{
+  "model": "llama-3.1-8b",
+  "status": "ok",
+  "n_clusters_ge_5": 3,
+  "n_triplets": 9,
+  "fraction_grid": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+  ],
+  "n_confirmatory_fractions": 10,
+  "layer_match_pass_rate": 1.0,
+  "magnitude_match_pass_rate": 0.6888888888888889,
+  "model_selection_confirmatory": false,
+  "n_confirmatory_triplets": 9,
+  "n_confirmatory_rows": 213,
+  "reliability_eligible": true
+}

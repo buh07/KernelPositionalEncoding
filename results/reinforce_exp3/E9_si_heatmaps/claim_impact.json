@@ -1,0 +1,11 @@
+{
+  "experiment_id": "E9",
+  "claim_addressed": "Visualization of SI structure, cluster membership, boundary attention in layer-head space",
+  "claim_status": "supported",
+  "supports_main_text": true,
+  "outcome_summary": "Generated 3 multipanel heatmaps for 3 models",
+  "notes": [
+    "Figures written to results/reinforce_exp3/E9_si_heatmaps/figures/",
+    "Ready for inclusion in paper/neurips2026/figures/"
+  ]
+}

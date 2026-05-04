@@ -1,0 +1,5 @@
+{
+  "timestamp": "2026-05-04 17:19:36",
+  "experiment_id": "SoftmaxRedistributionAudit",
+  "impact": "Provides mechanistic grounding for SI load-bearingness claim via attention redistribution analysis"
+}

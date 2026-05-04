@@ -1,0 +1,4 @@
+Loading weights:   0%|          | 0/291 [00:00<?, ?it/s]Loading weights: 100%|██████████| 291/291 [00:00<00:00, 3932.31it/s]
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:  13%|█▎        | 47/355 [00:00<00:00, 469.81it/s]Loading weights:  29%|██▊       | 102/355 [00:00<00:00, 485.56it/s]Loading weights:  43%|████▎     | 151/355 [00:00<00:00, 481.43it/s]Loading weights:  56%|█████▋    | 200/355 [00:00<00:00, 450.27it/s]Loading weights:  69%|██████▉   | 246/355 [00:00<00:00, 437.00it/s]Loading weights:  84%|████████▍ | 299/355 [00:00<00:00, 448.33it/s]Loading weights:  97%|█████████▋| 344/355 [00:00<00:00, 444.43it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 460.38it/s]
+[B1] wrote /jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/B1_kernel_taxonomy_20260421_statfix_v2

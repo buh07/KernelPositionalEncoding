@@ -1,0 +1,13 @@
+{
+  "experiment_id": "E12",
+  "hypothesis": "SI-kernel ablation (zeroing high-SI head outputs) causes greater ICL accuracy degradation than a matched non-ICL task, with sensitivity ratio > 1.0.",
+  "primary_criterion": "ICL/non-ICL accuracy sensitivity ratio > 1.5 in \u2265 2/3 models.",
+  "models": [
+    "llama-3.1-8b"
+  ],
+  "n_eval_prompts": 200,
+  "n_icl_demos": 4,
+  "reference": "Olsson et al. 2022, In-context Learning and Induction Heads",
+  "dependency": "E10 (SI vs retrieval overlap) should run first to confirm SI/retrieval head distinctness",
+  "timestamp": "2026-04-29 18:02:32"
+}

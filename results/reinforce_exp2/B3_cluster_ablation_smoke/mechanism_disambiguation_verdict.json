@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-18 18:46:26",
+  "experiment_id": "B3_cluster_ablation",
+  "B3_redundancy_supported": false,
+  "B3_group_structure_supported": false,
+  "B3_inconclusive": true,
+  "B3_inconclusive_reason": "insufficient_eligible_models",
+  "per_model_mechanism_breakdown": [],
+  "models": {
+    "llama-3.1-8b": {
+      "status": "missing_curves"
+    }
+  }
+}

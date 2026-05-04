@@ -1,0 +1,5 @@
+{
+  "experiment_id": "E31A",
+  "question": "What is the non-stale breadth of observed SI amplitude across already-run models?",
+  "primary_endpoint": "model-level mean_r2 spread on canonical artifacts"
+}

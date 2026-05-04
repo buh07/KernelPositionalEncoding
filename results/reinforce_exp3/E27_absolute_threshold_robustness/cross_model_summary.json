@@ -1,0 +1,16 @@
+{
+  "start_ts": "2026-05-03 04:11:01",
+  "end_ts": "2026-05-03 04:11:01",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "interpretation": "threshold_robust_si_gradient_confirmed",
+  "direction_holds_at_T020": true,
+  "per_head_at_T020_by_model": {
+    "llama-3.1-8b": 0.005683355094785657,
+    "mistral-7b-v0.1": 0.006016561659202698,
+    "olmo-2-7b": 0.0003142230819772791
+  }
+}

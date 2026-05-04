@@ -1,0 +1,29 @@
+{
+  "experiment_id": "E25",
+  "timestamp": "2026-05-02 23:52:09",
+  "models": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "nat_rank_order": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "pct_rank_order": [
+    "llama-3.1-8b",
+    "mistral-7b-v0.1",
+    "olmo-2-7b"
+  ],
+  "control_rank_order_true_minus_permuted": [
+    "mistral-7b-v0.1",
+    "llama-3.1-8b",
+    "olmo-2-7b"
+  ],
+  "same_nat_vs_pct_rank": true,
+  "same_nat_vs_control_rank": false,
+  "interpretation": "baseline_normalized_axis_aligns_control_axis_mixed",
+  "claim_status": "supported_with_caveat",
+  "note": "Cross-model comparability remains bounded; this sensitivity panel adds baseline-normalized and control-normalized axes alongside raw nats."
+}

@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-04-14 14:05:55",
+  "model": "gpt2-small",
+  "condition": "f_gradient_routed",
+  "seed": 0,
+  "elapsed_sec": 14.952200889587402,
+  "lora": {
+    "trainable_params": 1179648,
+    "total_params": 125619456,
+    "si_attn_params": 0,
+    "non_si_attn_params": 0,
+    "mlp_params": 737280
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "experiment_id": "A1_evidence_consolidation",
+  "tables": [
+    {
+      "path": "/jumbo/lisp/f004ndc/Kernel PE/results/reinforce_exp2/A1_evidence_consolidation/evidence_registry.parquet",
+      "description": "Per-claim artifact existence/parse checks.",
+      "columns": [
+        {
+          "name": "claim_id",
+          "dtype": "str",
+          "description": "Claim identifier."
+        },
+        {
+          "name": "artifact_path",
+          "dtype": "str",
+          "description": "Artifact path."
+        },
+        {
+          "name": "exists",
+          "dtype": "bool",
+          "description": "Artifact exists."
+        },
+        {
+          "name": "json_parse_ok",
+          "dtype": "bool",
+          "description": "Artifact parse status."
+        }
+      ]
+    }
+  ]
+}
