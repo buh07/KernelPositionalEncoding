@@ -5,7 +5,7 @@
 \item {\bf Claims}
     \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
     \item[] Answer: \answerYes{}
-    \item[] Justification: The abstract and Sections 1--3 state the claim boundaries explicitly (non-architecture-causal, no circuit-identity, no language-scope claim), and Results I--III align promoted claims with explicit evidence-tier definitions documented in Appendix~L.
+    \item[] Justification: The abstract and Introduction (numbered contributions list) state the main claims. Claim boundaries and scope limits are explicit in Sections~4--6: Section~4 states the primary head-level specificity result with control-stack qualifications; Section~5 states the functional sensitivity result with explicit transfer limits; Section~6 consolidates scope boundaries and mixed outcomes. Non-architecture-causal, no circuit-identity, and no universal-transfer claims are made explicit at each result section, with full evidence-tier definitions in Appendix~L.
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that the abstract and introduction do not include the claims made in the paper.
@@ -17,7 +17,7 @@
 \item {\bf Limitations}
     \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
     \item[] Answer: \answerYes{}
-    \item[] Justification: Limitations are discussed in the main text (Scope boundary, Robustness and Scope Limits, Governance alignment) and appendix governance sections, including E7 exclusion, E2 heterogeneity, E4 non-promotion, and model-conditional caveats.
+    \item[] Justification: Limitations are discussed in Section~6 (Scope and Robustness Boundaries), Section~7 (Discussion, ``Open limitations'' paragraph), and the Conclusion. These cover the three-model primary scope, proxy-scale seed-variance decomposition, probe-scoped functional sensitivity, absence of matched 7--8B RoPE-vs-NoPE causal training contrasts, and the in-distribution nature of the $R^2$ metric. Experiment-level limitations (null fine-tuning outcomes in Experiments~4 and~6; mixed coherence-gap proxy in Experiment~7A; model-conditional OLMo boundary caveats) are documented per-experiment in the appendix sections and consolidated with claim-impact summaries in Appendix~L.
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that the paper has no limitation while the answer \answerNo{} means that the paper has limitations, but those are not discussed in the paper. 
@@ -136,7 +136,7 @@
 \item {\bf Broader impacts}
     \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
     \item[] Answer: \answerYes{}
-    \item[] Justification: Broader-impact discussion is included in the main paper's robustness/scope framing, emphasizing interpretability benefits and misuse limitations, with explicit claim-boundary controls to reduce over-interpretation.
+    \item[] Justification: Section~8 (Broader Impact) explicitly discusses positive societal impacts---an auditable interpretability methodology template and a pretraining design hypothesis for improving positional robustness---and negative impacts, namely the potential for structured logit-space interventions to be repurposed for targeted model degradation. The section includes explicit scope restrictions (restricting claims to tested-model regularities, reporting non-supporting controls) as mitigation.
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that there is no societal impact of the work performed.
@@ -161,8 +161,20 @@
 
 \item {\bf Licenses for existing assets}
     \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
-    \item[] Answer: \answerNo{}
-    \item[] Justification: Assets are cited and versioned in the text/appendix, but a complete explicit per-asset license table is not yet included in this draft.
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All model and dataset assets are cited and versioned in the paper and appendix. License summary:
+    Llama-3.1-8B and Llama-3.2-1B~\citep{dubey2024llama3} (Meta Llama~3 Community License);
+    Mistral-7B-v0.1~\citep{jiang2023mistral} (Apache~2.0);
+    OLMo-1B and OLMo-2-7B~\citep{groeneveld2024olmo} (Apache~2.0);
+    GPT-2 small and GPT-2 medium~\citep{radford2019language} (MIT);
+    Pythia-410M and Pythia-1.4B (Apache~2.0);
+    TinyLlama-1.1B~\citep{zhang2024tinyllama} (Apache~2.0);
+    Qwen2.5-7B (Tongyi Qianwen License Agreement);
+    Gemma-2-9B (Google Gemma Terms of Use);
+    wiki40b dataset (Apache~2.0; Wikipedia source content CC~BY-SA~3.0);
+    CodeSearchNet (Apache~2.0);
+    MATH benchmark~\citep{hendrycks2021math} (MIT).
+    All models are accessed via HuggingFace Hub under the respective terms stated above.
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that the paper does not use existing assets.
@@ -214,7 +226,7 @@
     \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research? Note that if the LLM is used only for writing, editing, or formatting purposes and does \emph{not} impact the core methodology, scientific rigor, or originality of the research, declaration is not required.
     %this research? 
     \item[] Answer: \answerNA{}
-    \item[] Justification: LLMs are analysis subjects in the experiments, not non-standard components used to generate the paper's methodology or core scientific evidence.
+    \item[] Justification: LLMs (Llama, Mistral, OLMo, GPT-2, etc.) are the subjects of analysis in this paper, not tools used to generate methodology. LLM-assisted writing tools were used for paper editing and figure-visualization scripting only; all experimental pipelines, statistical analyses, and inference from results were conducted by the authors independently. Per NeurIPS policy, declaration is not required when LLM assistance is limited to writing, editing, and formatting that does not affect scientific methodology, rigor, or originality.
     \item[] Guidelines:
     \begin{itemize}
         \item The answer \answerNA{} means that the core method development in this research does not involve LLMs as any important, original, or non-standard components.

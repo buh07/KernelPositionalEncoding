@@ -16,6 +16,8 @@
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{multirow}
+\usepackage{array}
+\usepackage{placeins}
 
 \title{The Missing Positional Story in LLMs: A Case Study of Shift-Invariant Attention}
 
@@ -50,20 +52,45 @@
 \maketitle
 
 \begin{abstract}
-Rotary positional embeddings (RoPE) are now the dominant positional mechanism in modern large language models. By construction, RoPE encodes a shift-invariant (SI) channel in attention: head logits can depend purely on the offset between tokens rather than their absolute positions. We show that trained models do not merely inherit this channel passively --- they actively learn to exploit it, and the exploitation is load-bearing: targeted SI interventions produce systematic degradation that scales tightly with per-head SI amplitude under a converging set of specificity controls, and SI structure emerges even in models trained with absolute positional encodings, confirming it is a learned computation rather than an architectural artifact. This SI exploitation is also functionally meaningful --- SI ablation preferentially disrupts offset-structured retrieval tasks across all three primary models, with directional extension to naturalistic long-context settings --- but our results simultaneously surface a deeper question: is the SI channel currently underutilized? Computations that should be position-invariant by nature, such as recognizing that a mathematical equivalence holds regardless of where it appears in context, are a natural domain for shift-invariant processing; yet our evidence suggests current models allocate SI channels primarily toward narrow positional and surface routing rather than richer invariances of this kind. Strikingly, SI exploitation amplitude varies markedly even across architecturally similar models, indicating the degree of use is a trainable property rather than an architectural given. This opens a concrete direction: pretraining pressure toward semantic invariance tasks could push models to exploit these channels for richer computation rather than the narrow positional routing we observe today.
+Rotary positional embeddings (RoPE) are now the dominant positional mechanism in modern large language models. By construction, RoPE encodes a shift-invariant (SI) channel in attention: head logits can depend purely on token offset rather than absolute position. We show that trained models do not just inherit this SI channel; they actively learn to exploit it. This exploitation is load-bearing: SI ablations produce systematic degradation that tracks per-head SI amplitude under converging specificity controls, and SI structure appears even in models trained with absolute positional encodings, indicating that this is learned computation rather than a purely architectural artifact. This SI exploitation is also functionally meaningful: SI ablation preferentially disrupts offset-structured retrieval, most robustly in Llama and Mistral, with directional extension to naturalistic long-context settings. At the same time, our results surface a deeper question: is the SI channel currently underutilized? Many computations are position-invariant by nature --- recognizing that a pattern holds regardless of where it appears in context --- yet our evidence suggests current models allocate SI channels mostly to narrow positional and surface routing rather than these richer invariances. Strikingly, SI exploitation amplitude varies more than sixfold, a spread that holds across eleven models spanning seven architecture families, indicating that degree of SI use is a trainable property rather than an architectural given. This points to a practical direction: pretraining pressure toward semantic invariance tasks may push models to exploit SI channels for richer computation than what we observe today.
 \end{abstract}
 
 \section{Introduction}
 
-RoPE gives attention a geometric route to relative-offset dependence \citep{vaswani2017attention,su2021roformer}: under rotary transformations, query--key interactions can be expressed as functions of position differences rather than absolute indices. This creates a built-in shift-invariant (SI) channel in modern LLMs, but what trained models actually do with that channel remains understudied.
+Whether attention heads develop computations that are stable across token positions---robust to \emph{where} in context a pattern appears, not just \emph{what} the pattern is---matters for long-context reasoning, in-context learning, and retrieval.
+Transformer attention \citep{vaswani2017attention} combined with rotary positional embeddings (RoPE) \citep{su2021roformer}, now the dominant positional mechanism in modern large language models, gives each head an architectural route to this property: query--key inner products under rotary transformations can depend purely on the \emph{difference} in token positions rather than their absolute values.
+We call this the \emph{shift-invariant} (SI) channel.
+Its existence is guaranteed by RoPE's geometry.
+What trained models actually do with it---whether they exploit it, how load-bearing that exploitation is, and how heterogeneous it is across architectures---has not been systematically studied.
 
-This paper studies that question as a three-model 7--8B case study. Our thesis is simple: RoPE exposes an SI channel, trained models use that channel in load-bearing but heterogeneous ways, and this opens a practical direction for pretraining design.
+This paper addresses those questions.
+We show that trained 7--8B RoPE models do not passively inherit the SI channel; they actively exploit it in structured, load-bearing ways.
+We operationalize per-head SI strength as the fraction of attention logit variance explained by an offset-only function ($R_h^2$), and intervene by subtracting the estimated SI kernel from selected heads at evaluation time.
+The central finding is a dose-response relationship: head-level disruption cost scales monotonically with $R_h^2$ under a converging set of specificity controls---permutation controls, importance-matched non-SI baselines, and kernel-transplant tests---ruling out generic head importance and local-bias artifacts as explanations.
+A constant-offset control, invariant under softmax, confirms that position-specificity of the learned kernel, not its magnitude, drives the effect.
 
-The primary result is the anchor contribution: SI intervention damage scales with per-head SI amplitude under a converging control stack, including permutation specificity, importance-matched non-SI baselines, kernel-transplant checks, and local-bias decomposition. This establishes strong head-level SI specificity under intervention. The supporting functional result shows that controlled offset-repetition retrieval probes are preferentially disrupted by SI-targeted ablation, with model-conditional transfer boundaries; a two-model (Llama and Mistral) naturalistic validation extends this in the same direction on natural-text long-context retrieval. Collective ablation organization is handled appendix-first as contextual regularity (Appendix~\ref{app:exp3p2}): ranked removal rejects linear depletion, but matched non-SI controls show it is not SI-unique.
+The motivating empirical observation is that SI exploitation is highly heterogeneous.
+Across three primary RoPE models, mean per-head $R^2$ spans 6.5$\times$ (Llama-3.1-8B: 0.380; Mistral-7B: 0.266; OLMo-2-7B: 0.058).
+A proxy-scale multi-seed variance decomposition confirms this spread reflects genuine between-model differences rather than training-run noise.
+A breadth consolidation across 11 models spanning 7 architecture families extends the spread to 140$\times$ max/min---and, strikingly, GPT-2 models trained with absolute positional encodings show non-trivial SI structure, establishing that SI exploitation is learned computation rather than a consequence of RoPE geometry alone.
+Degree of SI use is therefore a trainable property, not an architectural given, which points toward pretraining design as a lever for amplifying or redirecting it.
 
-The motivating empirical surprise is heterogeneity. Across three RoPE models (Llama, Mistral, OLMo), mean SI amplitude differs by 6.5$\times$ (0.380, 0.266, 0.058), including between architecturally similar models. Matched-setup multi-seed proxy variance decomposition indicates this spread is real rather than seed noise (between-model SI variance 0.04074 vs.\ within-model seed variance 0.000223; ratio 182.73), but the causal drivers remain open. A breadth consolidation over 11 existing model artifacts spanning 7 families preserves the same qualitative conclusion with a much wider max/min spread, indicating this heterogeneity pattern is not limited to the primary trio.
+SI exploitation is also functionally meaningful.
+Targeted ablation of high-SI heads preferentially disrupts offset-structured retrieval relative to matched controls, most robustly in Llama and Mistral.
+Transfer boundaries are explicit: sensitivity narrows under stricter format controls and broader probe families, and extends directionally to naturalistic long-context settings in the two high-SI models.
+Two interpretive lenses organize these findings.
+A \textit{frequency-domain lens} connects the oscillatory structure of learned SI kernels to their intervention cost: richer spectral content in a head's learned kernel predicts larger disruption, providing a mechanistic link between kernel shape and load-bearing capacity (Appendix~B).
+A \textit{representational-commitment hypothesis} frames current SI allocation as dominated by narrow positional and surface routing, with broader semantic invariance under-realized and representing a tractable pretraining target.
 
-Two forward-looking interpretive frameworks follow from this evidence. The primary lens is a \textit{frequency-domain grounding}: RoPE inner products decompose as a Fourier sum over position offset, and the oscillatory structure of learned offset kernels predicts disruption cost empirically (Spearman $\rho{=}0.437$, $p{=}2.2\times10^{-13}$, Llama; Appendix~B). A complementary working hypothesis is \textit{representational commitment}: SI channels in current models appear allocated primarily to narrow positional/surface routing, with broader semantic SI usage under-realized and potentially requiring pretraining-stage pressure. A supplemental compressed-sensing-inspired lens (Appendix~\ref{app:exp7}) is also developed as an additional predictive framework.
+\paragraph{Contributions.}
+\begin{enumerate}
+\item \textbf{Head-level SI specificity} (primary result): per-head $R_h^2$ is a strong predictor of disruption cost under SI-kernel ablation, confirmed by permutation, importance-matched, kernel-transplant, and local-bias controls across three 7--8B models (Section~\ref{sec:headlevel}).
+\item \textbf{Bounded functional sensitivity}: SI-targeted ablation preferentially disrupts offset-structured retrieval, with transfer scope explicitly characterized across controlled, format-matched, synthetic, and naturalistic long-context settings (Section~\ref{sec:functional}).
+\item \textbf{Cross-model heterogeneity}: SI exploitation amplitude spans 140$\times$ across 11 models and 7 architecture families; the spread is real (not seed noise) and appears in non-RoPE architectures, establishing SI exploitation as a trainable property (Section~\ref{sec:headlevel}; Appendix~L).
+\end{enumerate}
+
+\paragraph{Terminology.}
+We use \textit{load-bearing} to mean that an intervention on a measured component causes reliable performance degradation, and \textit{robustness controls} for post-hoc checks that bound confounds and scope.
 
 
 \section{Related Work}
@@ -79,6 +106,13 @@ Existing positional and interpretability studies do not jointly answer three que
 
 \section{Setup}
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.86\textwidth]{../neurips2026/figures/fig_overview_schematic.png}
+\caption{Overview of the SI channel, measurement, and intervention. \textbf{(a)} Pre-softmax attention logits decompose into an offset-only component $g_h(i{-}j)$ (shift-invariant) and a residual $r_h(i,j)$; diagonal stripes in the attention matrix reflect SI structure. \textbf{(b)} $R_h^2$ measures the fraction of logit variance explained by $g_h$; high-SI heads (blue) cluster near the identity line, low-SI heads (green) scatter widely. \textbf{(c)} Subtracting $\hat{g}_h$ from head logits at evaluation time reveals that disruption cost scales monotonically with $R_h^2$, establishing the dose-response relationship that anchors the primary finding.}
+\label{fig:overview}
+\end{figure}
+
 \subsection{SI operationalization}
 For each head $h$, we decompose pre-softmax attention logits as
 \begin{equation}
@@ -90,7 +124,8 @@ R_h^2 = 1 - \frac{\sum_{i,j}(A_h(i,j)-g_h(i-j))^2}{\sum_{i,j}(A_h(i,j)-\bar A_h)
 \end{equation}
 High-SI heads are the top quartile of $R_h^2$ within each model. Within-model rank designation is complemented by absolute-threshold robustness checks (Appendix~\ref{app:running}): the rank-based disruption result replicates at every tested absolute threshold in the range $[0.15, 0.40]$, and per-head disruption at $T{=}0.20$ tracks model-level mean $R^2$ across all three models.
 
-Because offset bins are frequency-imbalanced and content-position correlations can exist in natural corpora, this $R^2$ should be interpreted as in-distribution SI exploitation rather than corpus-free architectural SI. Pairwise weighting means common short offsets dominate the fit, while large-offset estimates are noisier due lower support. Since $R^2$ is variance-normalized, cross-model contrasts are triangulated with intervention deltas in Result I; absolute nats can vary with baseline entropy, so we also report percent and control-normalized sensitivity axes (Appendix~L). Completed robustness controls (Appendix~L) show bounded shifts under offset reweighting and corpus-transfer scoring while preserving cross-model ordering, so this threat is reduced but not eliminated.
+\paragraph{What $R^2$ does and does not identify.}
+Because offset bins are frequency-imbalanced and content-position correlations can exist in natural corpora, this $R^2$ identifies \emph{in-distribution} SI exploitation rather than corpus-free architectural SI. Pairwise weighting means common short offsets dominate the fit, while large-offset estimates are noisier due to lower support. Since $R^2$ is variance-normalized, cross-model contrasts are triangulated with intervention deltas in Section~4; absolute nats can vary with baseline entropy, so we also report percent and control-normalized sensitivity axes (Appendix~L). Two robustness checks directly target this limitation: offset-reweighting analyses reduce short-offset dominance, and corpus-transfer scoring evaluates stability across shifted text distributions. Both preserve cross-model ordering with bounded effect-size drift (Appendix~L), which narrows but does not eliminate the threat.
 
 A key alternative interpretation is that high $R^2$ may partly reflect local-distance attention bias rather than richer SI computation. We therefore treat $R^2$ as an offset-conditioned structure score, not a standalone mechanism identifier. Local-bias decomposition controls show model-conditional support for non-trivial excess beyond simple local-decay nulls: disruption tracks $R^2_{\text{excess}}$ over a local-decay fit in Llama ($\rho{=}0.893$, $p{=}1.2{\times}10^{-7}$) and Mistral ($\rho{=}0.812$, $p{=}1.4{\times}10^{-5}$), but not in OLMo ($\rho{=}0.206$, $p{=}0.38$), which narrows but does not eliminate this ambiguity.
 
@@ -101,63 +136,59 @@ We intervene at evaluation time by subtracting the estimated SI kernel from sele
 \end{equation}
 This intervention targets the offset-only pre-softmax component while leaving residual logits unchanged before softmax. Because subtraction is position-dependent, downstream attention can redistribute non-trivially through softmax renormalization. We therefore interpret measured effects as \emph{intervention sensitivity signatures}: evidence that offset-conditioned structure is load-bearing under this perturbation class, not a full causal decomposition of redistribution pathways.
 
-A constant-offset perturbation control provides direct evidence that position-specificity---not merely the magnitude of the kernel shift---is the load-bearing property. Applying a position-independent scalar equal to $\text{mean}(\hat{g}_h)$ per head preserves rank order and is invariant under softmax, so in theory it should not change LM loss. Empirically, this control leaves loss essentially unchanged in all three primary models: $\Delta \text{loss} = 0.00011$ nats (Llama; ratio $2913\times$ vs.\ true SI subtraction), $2.7\times10^{-5}$ nats (Mistral; ratio $21968\times$), and $-0.00017$ nats ($\approx 0$; OLMo, where both effects are near-zero consistent with low SI amplitude). True SI subtraction causes losses of $+0.320$, $+0.592$, and $+0.015$ nats respectively. This confirms that position-specificity of the kernel---not merely the norm of the shift---drives the disruption effect across all tested models.
+A constant-offset perturbation control provides direct evidence that position-specificity---not merely the magnitude of the kernel shift---is the load-bearing property. Applying a position-independent scalar equal to $\text{mean}(\hat{g}_h)$ per head preserves rank order and is invariant under softmax, so in theory it should not change LM loss. Empirically, this control leaves loss essentially unchanged in all three primary models: $\Delta \text{loss} = 0.00011$ nats (Llama; ratio $2913\times$ vs.\ true SI subtraction), $2.7\times10^{-5}$ nats (Mistral; ratio $21968\times$), and $-0.00017$ nats ($\approx 0$; OLMo, where both effects are near-zero consistent with low SI amplitude). In this local control setting, true SI subtraction causes losses of $+0.320$, $+0.592$, and $+0.015$ nats respectively; Section~4 reports larger values for the main ranked-head intervention protocol. This confirms that position-specificity of the kernel---not merely the norm of the shift---drives the disruption effect across all tested models.
 
 An entropy analysis of high-SI heads provides complementary evidence on the redistribution pathway. True SI subtraction concentrates attention (mean head-entropy change $-0.887$ nats in Llama, $-0.719$ nats in Mistral), while permuted-kernel subtraction leaves entropy approximately unchanged ($+0.031$ and $-0.110$ nats); in OLMo the changes are small in both arms ($-0.064$ vs.\ $-0.029$ nats), consistent with the lower SI amplitude. The concentration pattern in Llama and Mistral is consistent with attention-sink absorption of redistributed attention when position-specific routing is removed. Full redistribution analysis tables are in Appendix~D. Importance-matched, permutation, transplant, and local-bias controls further reduce key alternatives.
 
 \subsection{Models and evidence policy}
-Primary models: Llama-3.1-8B \citep{dubey2024llama3}, Mistral-7B-v0.1 \citep{jiang2023mistral}, OLMo-2-7B \citep{groeneveld2024olmo}. Llama and Mistral are architecturally close neighbors (both RoPE; mean $R^2$ 0.380 and 0.266 respectively) and provide the primary SI-specific evidence. OLMo is a more divergent weak-SI anchor (mean $R^2$ 0.058) that provides a near-null low-amplitude reference point; cross-model claims involving OLMo describe gradient direction, not symmetric replication. Additional anchors: GPT-2-small/medium \citep{radford2019language}, TinyLlama-NoPE control, and Gemma for redundancy replication. TinyLlama-NoPE is an informative low-SI control but not a scale-matched from-scratch 7--8B NoPE training counterfactual, so we use it as a scope-bound capacity anchor only. Confirmatory results are separated from exploratory overruns; effect sizes and replication consistency are primary.
+Primary models are Llama-3.1-8B \citep{dubey2024llama3}, Mistral-7B-v0.1 \citep{jiang2023mistral}, and OLMo-2-7B \citep{groeneveld2024olmo}. Llama and Mistral provide the strongest SI signal (mean $R^2$: 0.380, 0.266), while OLMo is a weak-SI anchor (0.058). Additional anchors (GPT-2-small/medium, TinyLlama-NoPE, Gemma) are used for scope and breadth checks, not matched-scale causal attribution.
 
-Main-paper design details (tasks, intervention units, and claim-bearing endpoints) are summarized in Appendix~\ref{app:running} (Table~\ref{tab:provenance_map}), including the 1B vs.\ 7--8B sourcing distinction for the NoPE anchor and TinyLlama proxy controls.
+The main intervention subtracts estimated SI kernels from selected heads and evaluates four specificity checks: permutation controls, importance-matched non-SI baselines, kernel-transplant checks, and local-bias decomposition. Main-text results focus on effect sizes and cross-model consistency; extended controls are reported in Appendix~\ref{app:running}.
 
-\paragraph{Main design at a glance.}
-\begin{itemize}
-\item \textbf{Models}: Llama-3.1-8B, Mistral-7B-v0.1, OLMo-2-7B as the primary trio.
-\item \textbf{Measurement}: per-head SI $R^2$ from offset-only kernel fits to pre-softmax logits.
-\item \textbf{Primary intervention}: SI-kernel subtraction with permutation, importance-matched, transplant, and local-bias controls.
-\item \textbf{Primary endpoint}: head-level disruption scaling with SI amplitude under the control stack.
-\item \textbf{Functional endpoint}: preferential disruption on controlled offset-structured retrieval with explicit transfer-boundary checks.
-\end{itemize}
-
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.86\textwidth]{../neurips2026/figures/fig2_r2_distributions.png}
-\caption{Setup anchor: per-head SI-strength distributions. TinyLlama-NoPE has near-zero early-layer SI, while RoPE models show broad but heterogeneous SI strength. GPT-2 anchors show non-trivial SI under absolute PE.}
+\includegraphics[width=0.88\textwidth]{../neurips2026/figures/fig_r2_heterogeneity.png}
+\caption{SI exploitation amplitude varies widely across models. \textbf{Left}: per-head $R^2$ distributions for the three primary 7--8B models (violin = full distribution; box = IQR; line = median; diamond = mean). Cross-model spread is 6.5$\times$ (mean $R^2$: Llama 0.380, Mistral 0.266, OLMo 0.058). \textbf{Right}: mixed-scale breadth consolidation across 11 models spanning 7 architecture families (1.1B--9B); mean-$R^2$ range 0.006--0.868 (140$\times$ max/min). Pythia models anchor the minimum end; TinyLlama-NoPE is a low-SI NoPE control above that minimum; GPT-2 models (absolute PE, purple) show non-trivial SI, indicating this is learned computation rather than a RoPE-only artifact.}
 \label{fig:setup_capacity}
 \end{figure}
 
-\section{Result I: RoPE Provides SI Capacity; Trained Models Exploit It Heterogeneously}
+\section{Head-Level Shift Invariance Under Intervention}
+\label{sec:headlevel}
 
-Result I is the main contribution of this paper: SI intervention damage is load-bearing and systematically stratified by per-head SI amplitude under a converging specificity-control stack.
+\textbf{Head-Level Shift Invariance} is the main empirical result: SI intervention damage is load-bearing and systematically stratified by per-head SI amplitude. The most decisive specificity checks are permutation controls, importance-matched non-SI baselines, and kernel-transplant tests, with local-bias decomposition providing additional model-conditional support.
 
-RoPE-equipped models exhibit non-trivial SI structure with a large cross-model range (mean $R^2$: Llama 0.380, Mistral 0.266, OLMo 0.058). At 1.1B proxy scale, TinyLlama-NoPE shows early-layer $R^2<0.01$. We treat this as weak directional capacity evidence (proxy-scale only), not a matched 7--8B causal positional-family contrast. Because $R^2$ is a ratio, we interpret this spread jointly with absolute disruption deltas below rather than as a standalone measure of absolute SI magnitude. An expanded breadth consolidation spanning all tested models---the three primary models plus eight additional architectures across four further families (Gemma-2-9B; Qwen2.5-7B; GPT-2-small, GPT-2-medium; TinyLlama-1.1B-RoPE, TinyLlama-1.1B-NoPE; Pythia-1.4B, Pythia-410M); 11 models total, 7 families; Appendix~L---shows mean-$R^2$ values ranging from 0.006 to 0.868 (max/min ratio $140\times$), reinforcing that SI exploitation amplitude is broadly heterogeneous across architectures and training regimes.
+RoPE-equipped models exhibit non-trivial SI structure with a large cross-model range (mean $R^2$: Llama 0.380, Mistral 0.266, OLMo 0.058). At 1.1B proxy scale, TinyLlama-NoPE shows early-layer $R^2<0.01$; this proxy early-layer signal is distinct from TinyLlama-NoPE's full-model mean ($R^2{=}0.0868$). We treat the proxy result as weak directional capacity evidence only, not a matched 7--8B causal positional-family contrast. Because $R^2$ is a ratio, we interpret this spread jointly with absolute disruption deltas below rather than as a standalone measure of absolute SI magnitude. An expanded, mixed-scale breadth consolidation spanning all tested models---the three primary models plus eight additional architectures across four further families (Gemma-2-9B; Qwen2.5-7B; GPT-2-small, GPT-2-medium; TinyLlama-1.1B-RoPE, TinyLlama-1.1B-NoPE; Pythia-1.4B, Pythia-410M); 11 models total, 7 families; Appendix~L---shows mean-$R^2$ values ranging from 0.006 to 0.868 (max/min ratio $140\times$), reinforcing that SI exploitation amplitude is broadly heterogeneous across architectures and training regimes.
 
-Under SI-kernel subtraction, LM loss increases by $+4.15$ nats in Llama (+206\%, $d=11.6$), $+3.43$ in Mistral (+185\%, $d=14.6$), and $+0.058$ in OLMo (+2.8\%, $d=0.81$). Permutation-specificity controls (Appendix~D) show true-minus-permuted effects in all three models (Llama 3.2774, Mistral 3.1926, OLMo 0.0427; all $p=2.0\times10^{-4}$), indicating disruption cost specific to correct-offset structure rather than arbitrary offset subtraction.
+Under the main ranked-head SI intervention protocol (distinct from the local control-setting magnitudes in Section~3), LM loss increases by $+4.15$ nats in Llama (+206\%, $d=11.6$), $+3.43$ in Mistral (+185\%, $d=14.6$), and $+0.058$ in OLMo (+2.8\%, $d=0.81$). Permutation-specificity contrasts are positive in all three models (true-minus-permuted: Llama $+3.2774$, Mistral $+3.1926$, OLMo $+0.0427$; one-sided bootstrap $p=2.0\times10^{-4}$ each), indicating disruption cost specific to correct-offset structure rather than arbitrary offset subtraction.
 
-Norm-matched perturbation controls (Appendix~L) place an upper bound on this effect: in all three models, true subtraction exceeds the permuted control but is weaker than norm-matched random perturbation. We therefore frame Result I as permutation-specific disruption cost that is load-bearing under intervention, bounded above by equal-norm random perturbation.
+Norm-matched perturbation controls (Appendix~L) place an upper bound on this effect: in all three models, true subtraction exceeds the permuted control but is weaker than norm-matched random perturbation. We therefore frame this finding as permutation-specific disruption cost that is load-bearing under intervention, bounded above by equal-norm random perturbation.
 
-GPT-2 anchors (absolute PE) still show measurable SI structure (Figure~\ref{fig:setup_capacity}), indicating SI behavior is learned rather than a RoPE-only artifact. OLMo-only checkpoint trajectory analyses and toy-model causal probes are retained in Appendix~D/M as non-central context.\footnote{Exploratory toy-model causal probes are reported in Appendix~\ref{app:e23}; they provide future-work motivation but are not scale-matched, claim-bearing evidence for Results~I--III.}
+GPT-2 anchors (absolute PE) still show measurable SI structure (Figure~\ref{fig:setup_capacity}), indicating SI behavior is learned rather than a RoPE-only artifact. OLMo-only checkpoint trajectory analyses and toy-model causal probes are retained in Appendix~D/M as non-central context.\footnote{Exploratory toy-model causal probes are reported in Appendix~\ref{app:e23}; they provide future-work motivation but are not scale-matched primary evidence for the main-paper claims.}
 
-\begin{figure}[t]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.94\textwidth]{../neurips2026/figures/fig_dose_response_controls.png}
 \caption{Head-level dose-response and specificity controls (primary finding). \textbf{Left}: 20-bin Spearman correlation between per-head $R^2$ and disruption cost under SI-kernel subtraction (Llama $\rho{=}0.959$, Mistral $\rho{=}0.964$, OLMo $\rho{=}0.684$; all one-tailed permutation $p < 0.001$). \textbf{Center}: SI-ranked intervention minus importance-matched non-SI intervention (positive in all three models, ruling out generic head-importance as the driver). \textbf{Right}: Kernel-transplant specificity --- transplanting norm-matched high-SI kernels onto low-SI heads versus low-head self-subtraction (positive in all three models).}
 \label{fig:dose_response}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\small
-\caption{Compact Result I hardening snapshot (main-text proof-of-stack).}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Head-Level Shift Invariance: model-by-model specificity summary. Each row is one model; columns report (i) head-level dose-response correlation, (ii) excess disruption of SI-ranked vs.\ importance-matched non-SI ablation, (iii) excess disruption of kernel transplant vs.\ low-head self-ablation, and (iv) whether the local-bias decomposition passes. Positive deltas indicate stronger SI-specific disruption.}
 \label{tab:result1_hardening_snapshot}
-\begin{tabular}{p{2.8cm}p{6.4cm}}
+\begin{tabular}{lcccc}
 \toprule
-Control & Main-text outcome \\
+Model &
+\begin{tabular}[c]{@{}c@{}}Dose-response\\$\rho$\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}$\Delta$ vs matched\\non-SI (nats)\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}$\Delta$ transplant\\vs self (nats)\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}Local-bias\\check\end{tabular} \\
 \midrule
-20-bin dose-response & Positive in all three models (Llama $\rho=0.959$, Mistral $\rho=0.964$, OLMo $\rho=0.684$; all one-tailed permutation $p<0.001$). \\
-SI $>$ importance-matched & SI-ranked minus non-SI importance-matched deltas are positive in all models ($+3.60$, $+3.21$, $+0.0267$). \\
-Kernel-transplant specificity & Transplanted high-SI kernels on low-SI heads are more disruptive than low-head self-subtraction in all models ($+0.947$, $+0.374$, $+0.0174$). \\
-Local-bias decomposition & Disruption tracks $R^2_{\text{excess}}$ over local-decay null in 2/3 models (Llama $\rho{=}0.893$, $p{=}1.2{\times}10^{-7}$; Mistral $\rho{=}0.812$, $p{=}1.4{\times}10^{-5}$; OLMo $\rho{=}0.206$, $p{=}0.38$; non-pass). \\
+Llama & 0.959 & +3.60 & +0.947 & pass \\
+Mistral & 0.964 & +3.21 & +0.374 & pass \\
+OLMo & 0.684 & +0.0267 & +0.0174 & fail \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -165,70 +196,92 @@ Local-bias decomposition & Disruption tracks $R^2_{\text{excess}}$ over local-de
 \paragraph{Head-level dose-response and specificity controls (Figure~\ref{fig:dose_response}).}
 The control stack is consistent across models: permutation specificity is positive in all three, SI-ranked intervention exceeds importance-matched non-SI baselines (SI-minus-importance-matched deltas: $+3.60$, $+3.21$, and $+0.027$ nats in Llama, Mistral, and OLMo respectively), and kernel-transplant controls show that transplanting high-SI kernels onto low-SI heads is more disruptive than low-head self-subtraction. Local-bias decomposition remains model-conditional (Llama/Mistral supported, OLMo non-pass). The 20-bin dose-response is positive in all three models (Llama $\rho=0.959$, Mistral $\rho=0.964$, OLMo $\rho=0.684$; all one-tailed permutation $p<0.001$). Absolute-threshold robustness and multi-axis comparability details are reported in Appendix~\ref{app:running}.
 
-\section{Result II (Context): Collective Ranked-Ablation Nonlinearity Is Robust but Not SI-Unique}
+\section{Bounded Functional Sensitivity Under Offset-Structured Probes}
+\label{sec:functional}
 
-At the collective level, ranked cumulative ablation robustly rejects linear depletion across tasks and models, showing that disruption accumulates nonlinearly under ordered head removal (BIC model comparison: 0/18 cells prefer linear over threshold-piecewise or logistic-sigmoid fits across all three primary models; full adjudication in Appendix~\ref{app:exp3p2}). However, matched non-SI controls show that this collective nonlinearity is not specific to SI-ranked heads (SI-ranked 0/9 linear; matched non-SI 1/9 linear, delta-BIC CI spans zero). We therefore treat Result II as contextual organizational evidence rather than a standalone SI-specific mechanism claim. In narrative terms, the organizational signal that is SI-specific is head-level (Result I), while collective nonlinearity is a broader regularity of ranked ablation behavior. Full BIC/cell-level adjudication and matched-control breakdowns are reported in Appendix~\ref{app:exp3p2} and Appendix~L.
-
-\section{Functional Sensitivity: SI Intervention Preferentially Disrupts Offset-Repetition Retrieval}
-
-\begin{table}[t]
+\begin{table}[htbp]
 \centering
-\small
-\caption{SI-head ablation on a controlled offset-repetition retrieval probe. \textit{Offset-repetition} = repeated key$\rightarrow$value mapping (4 demonstrations); \textit{matched-control} = independent key/value pairs, matched token count. Protocol: 200 prompts per condition per model; matched prompt length ($2\times4+1=9$ tokens).}
-\label{tab:e12_main}
-\begin{tabular}{lccccc}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Bounded functional sensitivity summary. \textbf{Panel A} reports the core controlled-probe effect at model level. \textbf{Panel B} reports transfer scope across progressively stricter settings. Positive preferential gaps indicate larger SI-ablation damage in offset-structured conditions than matched controls.}
+\label{tab:functional_summary}
+\begingroup
+\renewcommand{\arraystretch}{1.08}
+\noindent\begin{minipage}{\columnwidth}
+\centering
+\textbf{Panel A: Controlled offset-repetition probe (core quantitative effect)}\\[2pt]
+\begin{tabular}{@{}lcccc@{}}
 \toprule
-Model & offset-repetition acc.\ $\Delta$ & matched-control acc.\ $\Delta$ & offset-repetition lp $\Delta$ & matched-control lp $\Delta$ & Preferential \\
+Model &
+\begin{tabular}[c]{@{}c@{}}Offset-rep\\acc.\ $\Delta$\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}Matched-ctrl\\acc.\ $\Delta$\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}Preferential\\acc.\ gap\end{tabular} &
+\begin{tabular}[c]{@{}c@{}}Preferential\\lp gap\end{tabular} \\
 \midrule
-Llama-3.1-8B & 0.910 & $-0.005$ & 11.121 & 2.612 & yes \\
-Mistral-7B-v0.1 & 0.715 & $-0.005$ & 6.826 & 0.059 & yes \\
-OLMo-2-7B & 0.345 & $-0.055$ & 3.174 & $-1.401$ & yes \\
+Llama-3.1-8B & 0.910 & $-0.005$ & +0.915 & +8.509 \\
+Mistral-7B-v0.1 & 0.715 & $-0.005$ & +0.720 & +6.767 \\
+OLMo-2-7B & 0.345 & $-0.055$ & +0.400 & +4.575 \\
 \bottomrule
 \end{tabular}
-\end{table}
-
-This section is a tightly scoped mechanistic sensitivity probe, not a naturalistic long-context ICL benchmark. On the controlled 4-shot key$\rightarrow$value probe used here, SI intervention is directionally more damaging for offset-repetition conditions than matched controls in all 3 models by absolute accuracy gaps of $+0.915$ (Llama), $+0.720$ (Mistral), and $+0.400$ (OLMo). In log-probability units, modelwise contrasts are also positive but heterogeneous (Llama 11.121 vs 2.612; Mistral 6.826 vs 0.059; OLMo 3.174 vs $-1.401$). Semi-naturalistic long-context probe families (wiki/code passkey contexts 256--512; Appendix~L) show a bounded extension: pooled preferential LP gap is positive in Llama and Mistral, negative in OLMo (2/3 model directional passes). A 2$\times$2 boundary grid over context length and offset-regularity (Appendix~L) reproduces the same model split (Llama/Mistral directional passes, OLMo non-pass). We therefore promote this as a directional preferential-degradation result under intervention with explicit transfer boundaries, not as a stable scalar-ratio claim.
-
-\begin{table}[t]
+\end{minipage}
+\vspace{4pt}
+\noindent\begin{minipage}{\columnwidth}
 \centering
-\small
-\caption{Result III boundary snapshot (minimal main-text scope map).}
-\label{tab:result3_boundary_snapshot}
-\begin{tabular}{p{3.0cm}p{6.2cm}}
+\textbf{Panel B: Transfer boundary scope (where the effect persists)}\\[2pt]
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.8cm}>{\centering\arraybackslash}p{1.1cm}>{\raggedright\arraybackslash}p{3.7cm}@{}}
 \toprule
-Check & Outcome \\
+Setting & Model passes & Interpretation \\
 \midrule
-Controlled probe (E12) & Directional preferential disruption in 3/3 primary models. \\
-Strict format controls (E18) & Strict survival in 1/3 primary models. \\
-Broader synthetic transfer (E28C) & Model-level non-pass: 0/3 pass (family-pass counts 4/7, 4/7, 2/7). \\
-Natural-text long-context (E29B) & Directional positive in Llama/Mistral, negative in OLMo (2/3). \\
-Boundary grid (E30A) & Same split as E29B: Llama/Mistral pass directionally, OLMo non-pass (2/3). \\
+Controlled offset-repetition probe & 3/3 & Strongest and most consistent setting. \\
+Strict format-matched variant & 1/3 & Sensitive to demonstration-format confounds. \\
+Broader synthetic probe families & 0/3 & No model-level transfer pass. \\
+Natural-text long-context extension & 2/3 & Positive in Llama/Mistral, negative in OLMo. \\
+2$\times$2 context/regularity boundary grid & 2/3 & Same split as natural-text extension. \\
 \bottomrule
 \end{tabular}
+\end{minipage}
+\endgroup
 \end{table}
 
-Strict format-confound controls are mixed/model-conditional (1/3 strict survival).\footnote{Strict format controls replace offset-repetition demonstrations with random-order demonstrations matched for token count; survival requires the preferential gap to persist under this swap.} Broader 7-family synthetic transfer is non-passing at model level (0/3).\footnote{The 7 probe families span offset-regularity and context-length combinations (full grid in Appendix~L); a model passes if $\geq$5/7 families show directional preferential disruption.} A two-model natural-text long-context extension (Llama and Mistral; 60 prompts each; Appendix~L) shows the same directional effect: SI-targeted ablation exceeds importance-matched non-SI ablation by $+3.64$ nats (Llama) and $+3.12$ nats (Mistral; $p{=}3.3{\times}10^{-5}$, one-sided permutation, CI $[2.21,\,4.04]$). The combined E28C/E29B/E30A pattern indicates a boundary: sensitivity is strongest when probes preserve explicit offset-structured retrieval under contextual distraction, and weakens under broader synthetic family diversity.
+This section is a tightly scoped mechanistic sensitivity probe, not a naturalistic long-context ICL benchmark. Table~\ref{tab:functional_summary} Panel A reports the core controlled-probe effect: SI intervention is directionally more damaging for offset-repetition conditions than matched controls in all three models, with preferential accuracy gaps of $+0.915$ (Llama), $+0.720$ (Mistral), and $+0.400$ (OLMo), and preferential log-probability gaps of $+8.509$, $+6.767$, and $+4.575$. Table~\ref{tab:functional_summary} Panel B summarizes transfer boundaries: semi-naturalistic long-context probe families (wiki/code passkey contexts 256--512; Appendix~L) are positive in Llama and Mistral but negative in OLMo (2/3 model directional passes), and the 2$\times$2 context/regularity boundary grid reproduces the same split. We therefore promote this as a directional preferential-degradation result under intervention with explicit transfer boundaries, not as a stable scalar-ratio claim.
 
-Result III is therefore claim-bearing as a bounded functional signal under intervention, not as a universal transfer law or a circuit-identity claim.
+Strict format-confound controls are mixed/model-conditional (1/3 strict survival).\footnote{Strict format controls replace offset-repetition demonstrations with random-order demonstrations matched for token count; survival requires the preferential gap to persist under this swap.} Broader 7-family synthetic transfer is non-passing at model level (0/3).\footnote{The 7 probe families span offset-regularity and context-length combinations (full grid in Appendix~L); a model passes if $\geq$5/7 families show directional preferential disruption.} A two-model natural-text long-context extension (Llama and Mistral; 60 prompts each; Appendix~L) shows the same directional effect: SI-targeted ablation exceeds importance-matched non-SI ablation by $+3.64$ nats in Llama and $+3.12$ nats in Mistral (95\% CI $[2.21,\,4.04]$, one-sided permutation $p{=}3.3{\times}10^{-5}$). Taken together, these checks indicate a clear boundary: sensitivity is strongest when probes preserve explicit offset-structured retrieval under contextual distraction, and weakens under broader synthetic family diversity.
 
-\section{Robustness and Remaining Scope Limits}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.84\textwidth]{../neurips2026/figures/fig_functional_sensitivity.png}
+\caption{Functional sensitivity under SI-head ablation. \textbf{Left}: accuracy change under SI-head removal for offset-repetition (solid) vs.\ matched-control conditions (hatched); preferential gap ($\Delta$) is positive in all three models but decreases with SI amplitude (Llama $>$ Mistral $>$ OLMo). \textbf{Right}: transfer-scope summary across four probe settings; filled circles = model pass, empty = fail. Sensitivity is robust under the controlled probe (3/3) but narrows under stricter format controls (1/3) and broader synthetic families (0/3); natural-text long-context extension passes in Llama/Mistral (2/3).}
+\label{fig:func_sensitivity}
+\end{figure}
 
-\paragraph{Strongly supported.}
-Result I remains the strongest evidence tier: head-level SI disruption specificity is positive under permutation, importance-matched, transplant, dose-response, and threshold-robustness controls. Constant-offset and entropy analyses support position-specific redistribution effects, and measurement robustness preserves cross-model ordering under reweighting and corpus transfer (Appendix~D/L).
+This result is therefore supportable as a bounded functional signal under intervention, not as a universal transfer law or a circuit-identity claim.
 
-\paragraph{Bounded or mixed.}
-Result III is claim-bearing but bounded: strict format controls are mixed, broader synthetic transfer is non-passing, and natural-text transfer is positive in Llama/Mistral but negative in OLMo. Result II remains contextual: collective ranked-ablation nonlinearity is robust but not SI-unique under matched non-SI controls (Appendix~\ref{app:exp3p2}).
+\section{Scope and Robustness Boundaries}
+
+\paragraph{Functional boundary.}
+The functional sensitivity result is strongest on the controlled offset-repetition probe and narrows under stricter and broader transfer settings: strict format controls are mixed, broader synthetic transfer is non-passing, and natural-text transfer is positive in Llama/Mistral but negative in OLMo.
+
+\paragraph{Collective-ablation context.}
+Ranked cumulative ablation robustly rejects linear depletion across tasks and models (0/18 linear BIC wins), showing non-linear accumulation of disruption under ordered head removal. However, matched non-SI controls show that this nonlinearity is not SI-unique (SI-ranked 0/9 linear vs.\ matched non-SI 1/9 linear; delta-BIC CI spans zero). We therefore treat this pattern as contextual organizational regularity, not as primary SI-specific mechanism evidence (Appendix~\ref{app:exp3p2}).
+
+\paragraph{Integrated reading.}
+These mixed secondary outcomes do not overturn the primary result; they bound its scope. They rule out broad claims of universal SI transfer and SI-unique collective organization, while leaving the strongest supported statement intact: head-level SI structure is intervention-sensitive in a specific, reproducible way. The main open alternatives concern \emph{where} this sensitivity transfers and \emph{which} training factors determine exploitation amplitude.
 
 \paragraph{Open limitations.}
-Cross-model causal attribution remains open because architecture, tokenizer, corpus, normalization, and optimization vary jointly; pretraining data volume and source are the most proximal candidate drivers given the Llama/Mistral vs.\ OLMo split, but this is untested. Llama/Mistral provide the strongest positive signal, OLMo is a weak-SI directional anchor, and the Qwen quickcheck does not directionally corroborate. The SI metric remains in-distribution and pair-weighted, and the theoretical lenses are framework-level rather than confirmed mechanisms. Full evidence-tier definitions, promotion rules, and control artifacts are provided in Appendix~L.
+Cross-model causal attribution remains open because architecture, tokenizer, corpus, normalization, and optimization vary jointly; pretraining data volume and source are the most proximal candidate drivers given the Llama/Mistral vs.\ OLMo split, but this is untested. Specifically, we hypothesize that the density of code and formal mathematics in the pretraining corpus---domains governed by strict relative-offset rules such as syntax indentation and bracket matching---might exert the structural pressure necessary to develop high-capacity SI channels. This aligns with the stronger code emphasis in Llama and Mistral compared with OLMo's broader web-text mix. Llama/Mistral provide the strongest positive signal, OLMo is a weak-SI directional anchor, and the Qwen quickcheck does not directionally corroborate. The SI metric remains in-distribution and pair-weighted, and the theoretical lenses are framework-level rather than confirmed mechanisms. Finally, the seed-variance decomposition is proxy-scale (1.1B) and should not be read as a direct 7--8B seed-variance estimate. Full evidence-tier definitions, promotion rules, and control analyses are provided in Appendix~L.
 
 \section{Discussion}
 
-The evidence is best read as an organizing empirical frame, not an identified causal chain: RoPE provides SI capacity, training modulates exploitation amplitude, and intervention reveals structured SI usage. Within that frame, evidence strength is stratified rather than uniform.
+The evidence is best read as an organizing empirical frame, not an identified causal chain: RoPE provides SI capacity, training modulates exploitation amplitude, and intervention reveals structured SI usage. A notable anchor for this interpretation is that GPT-2 (absolute PE) still exhibits measurable SI structure, which supports a learned-computation reading rather than a RoPE-only artifact explanation. Within this frame, evidence strength is stratified rather than uniform.
 
-\textbf{Established empirical findings.} The central contribution is a converging head-level specificity result: across all three primary models, SI-kernel intervention is load-bearing, and per-head disruption scales with SI amplitude under permutation-specificity, importance-matched, kernel-transplant, and local-bias controls. The head-level structure is strongest in Llama/Mistral and directionally present but compressed in OLMo. A broader 11-model consolidation shows that SI amplitude heterogeneity extends well beyond the primary trio. Functional sensitivity is a supporting bound: controlled probe disruption is directionally consistent across models, with transfer scope limited to offset-structured retrieval contexts; a two-model (Llama, Mistral) naturalistic validation provides cross-architecture extension in the same direction. Cumulative ablation organization (Appendix~\ref{app:exp3p2}) is supporting context: collective nonlinearity is robust but not SI-unique.
+\textbf{Established empirical findings.} The central contribution is a converging head-level specificity result: across all three primary models, SI-kernel intervention is load-bearing, and per-head disruption scales with SI amplitude under permutation-specificity, importance-matched, kernel-transplant, and local-bias controls. The head-level structure is strongest in Llama/Mistral and directionally present but compressed in OLMo. A broader 11-model consolidation shows that SI amplitude heterogeneity extends well beyond the primary trio. The functional sensitivity finding provides a supporting bound: controlled probe disruption is directionally consistent across models, with transfer scope limited to offset-structured retrieval contexts; a two-model (Llama, Mistral) naturalistic validation provides cross-architecture extension in the same direction. Cumulative ablation organization (Appendix~\ref{app:exp3p2}) is supporting context: collective nonlinearity is robust but not SI-unique.
 
-\textbf{Interpretive framework.} We treat two primary lenses as complementary and provisional. The first is a \textit{frequency-domain lens} grounded in RoPE's structure. RoPE inner products decompose as a Fourier sum over offset: $Q_i \cdot R_{\theta}^{(i-j)} K_j = \sum_d [a_d \cos((i{-}j)\theta_d) + b_d \sin((i{-}j)\theta_d)]$. Shift-invariant heads are those where this expansion is approximately constant over offset---the offset-only component $g_h$ dominates. Importantly, the oscillatory structure of the learned kernel $g_h$ predicts disruption cost empirically: heads with higher DFT frequency content in their $g_h$ kernels (richer offset-specific routing patterns) show significantly larger disruption under SI-kernel subtraction (Spearman $\rho{=}0.437$, $p{=}2.2\times10^{-13}$, Llama; Appendix~B). This connects the theoretical framework directly to the intervention evidence, and explains why removing the SI kernel is not equivalent to a generic head perturbation. The second is \textit{representational commitment}: SI channels in current models appear stably allocated toward narrow positional/surface routing, with broader semantic SI usage under-realized. A supplemental compressed-sensing-inspired lens is developed in Appendix~H. All three generate testable predictions but none is a confirmed mechanism.
+\textbf{Interpretive framework.} We treat two primary lenses as complementary and provisional. The first is a \textit{frequency-domain lens} grounded in RoPE's structure. RoPE inner products decompose as a Fourier sum over offset: $Q_i \cdot R_{\theta}^{(i-j)} K_j = \sum_d [a_d \cos((i{-}j)\theta_d) + b_d \sin((i{-}j)\theta_d)]$. Shift-invariant heads are those where this expansion is approximately constant over offset---the offset-only component $g_h$ dominates. Importantly, the oscillatory structure of the learned kernel $g_h$ predicts disruption cost empirically: heads with higher DFT frequency content in their $g_h$ kernels (richer offset-specific routing patterns) show significantly larger disruption under SI-kernel subtraction (Spearman $\rho{=}0.437$, $p{=}2.2\times10^{-13}$, Llama; Appendix~B). This connects the theoretical framework directly to the intervention evidence, and explains why removing the SI kernel is not equivalent to a generic head perturbation. Representative kernels and spectra are shown in Appendix Figure~\ref{fig:kernels}. The second is \textit{Representational-Commitment Hypothesis (not an established mechanism)}: SI channels in current models appear stably allocated toward narrow positional/surface routing, with broader semantic SI usage under-realized. Two falsifiable predictions follow:
+\begin{enumerate}
+\item Continued pretraining with explicit SI-consistency pressure on semantic-invariance tasks should increase SI-linked functional disruption signatures on those tasks.
+\item Short-horizon fine-tuning without such pretraining pressure should produce weaker or inconsistent retargeting of SI-linked functional signatures.
+\end{enumerate}
+A supplemental compressed-sensing-inspired lens is developed in Appendix~H. All three lenses are predictive frameworks rather than confirmed mechanisms.
 
 \textbf{Actionable future test.} A concrete next step follows from both lenses: full-weight continued pretraining with explicit SI-consistency pressure on semantic invariance tasks. The prediction is that this should increase SI-linked disruption signatures on those tasks, while short-horizon fine-tuning should show weaker retargeting. Disconfirmation would be equally informative: if SI channels retarget quickly under short adaptation, or if pretraining-stage SI pressure does not shift SI-linked behavior, the commitment framing should be revised.
 
@@ -240,7 +293,7 @@ Potential negative impact is targeted degradation or steering of model behavior 
 
 \section{Conclusion}
 
-This paper establishes a bounded empirical result: in three 7--8B RoPE models, SI structure is load-bearing under intervention, and head-level SI amplitude is a strong predictor of disruption cost under a converging control stack. The strongest positive evidence is concentrated in Llama and Mistral, with OLMo as a compressed directional anchor. A broader 11-model consolidation reinforces that SI amplitude heterogeneity is widespread rather than a single-pair artifact.
+This paper establishes a bounded empirical result: in three 7--8B RoPE models, SI structure is load-bearing under intervention, and head-level SI amplitude is a strong predictor of disruption cost under a converging control stack. The strongest positive evidence is concentrated in Llama and Mistral, with OLMo as a compressed directional anchor. A broader 11-model consolidation reinforces that SI amplitude heterogeneity is widespread rather than a single-pair anomaly.
 
 What remains unresolved is equally clear. We do not identify causal drivers of the 6.5$\times$ cross-model SI-amplitude spread, do not provide matched-scale 7--8B RoPE-vs-NoPE causal training contrasts, and do not establish SI-unique collective organization or broad extra-family generalization. Functional probe sensitivity is model-conditional and probe-scoped; the naturalistic validation covers Llama and Mistral but not OLMo or non-RoPE architectures. Cumulative ablation organization is real but not SI-specific.
 
@@ -249,65 +302,34 @@ Why this matters is forward-looking: SI channels are present, load-bearing, and 
 \bibliographystyle{plainnat}
 \bibliography{../neurips2026/references}
 \appendix
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\theHfigure}{appendix.figure.\arabic{figure}}
+\renewcommand{\theHtable}{appendix.table.\arabic{table}}
 
 \textit{This document is the supplementary material accompanying the main submission.
-The main paper reports one central contribution and one supporting functional result:
-(I) RoPE-provided SI capacity is load-bearing with model-conditional exploitation amplitude, established under a converging specificity-control stack;
-and (II) SI intervention shows directional preferential disruption on controlled offset-structured retrieval probes with bounded transfer scope.
-Ranked cumulative ablation organization is reported here in Appendix~D as supporting context (collective nonlinearity is robust but not SI-unique).
-The appendix provides full experimental details, additional analyses, and secondary
-investigations (frequency-band interventions, fine-tuning experiments, tokenizer
-attribution, frequency-domain framework, and tokenizer diagnostics/pruning)
-that are boundary conditions and future-work anchors rather than load-bearing
-evidence for the main-paper claims.
-References to equations (e.g., Eq.~1), sections (e.g., Section~2), figures, and tables
-prefixed with Arabic numbers refer to the main paper. Appendix sections are labeled
-A, B, C, \ldots\ and are self-contained where possible.}
+It provides full experimental details, extended results, and robustness analyses for the
+main claims in the paper. References using Arabic numbering refer to the main paper;
+appendix sections are lettered and can be read independently.}
 
 \section*{Appendix overview}
 
-The appendix is organized as follows.
-Sections A, C, and D cover the primary evidence supporting the main-paper claims.
-Sections B, E--I are secondary investigations providing boundary conditions
-and future-work anchors. Section L summarizes completed claim-hardening
-and attribution controls plus residual scale-transfer scope limits.
-
 \begin{itemize}
-\item \textbf{A. SI measurement} (supports central contribution):
-    Full $R^2$ tables across 6 models, 3 datasets, 2 sequence lengths.
-\item \textbf{B. Frequency-band interventions} (informs frequency-domain lens):
-    H1 supported at 7--8B scale; H2 reversed (low-frequency channels serve all dependency ranges rather than concentrating in SI heads), indicating that the frequency-domain lens operates at the level of the learned kernel shape ($g_h$ DFT structure) rather than strict RoPE-band segregation.
-\item \textbf{C. Mechanistic theory battery} (supports central contribution and functional sensitivity):
-    All 10 pre-specified theories on Llama-3.1-8B and OLMo-2-7B, including
-    kernel ablation and boundary detection.
-\item \textbf{D. Phase 2 adjudication} (cumulative ablation supporting context and functional sensitivity):
-    Full results for all Phase 2 sub-experiments: strict tokenizer controls,
-    cumulative ablation (non-SI-unique result), context-regime analysis, and non-RoPE anchor.
-\item \textbf{E. Fine-tuning stability} (boundary condition):
-    SI structure stable under 250--300 steps; SI-guided LoRA routing null.
-\item \textbf{F. Tokenizer attribution} (secondary):
-    Causal perturbation evidence for the tokenizer $\to$ boundary $\to$ SI chain.
-\item \textbf{G. SI knowledge localization} (secondary):
-    Post-hoc routing interventions; all completed sub-experiments null or harmful.
-\item \textbf{H. Frequency-domain and predictive framework} (secondary):
-    RoPE frequency-subspace lens linking low-frequency head projections to SI amplitude; proxy coherence-gap relation suggestive at small-$n$ ($r = +0.731$, eff.\ $n = 6$, two-sided permutation $p=0.141$); phase-transition analogue preliminary ($r = -0.959$, eff.\ $n \approx 2$); expanded proxy refresh mixed/non-promotional.
-\item \textbf{I. Tokenizer diagnostics and pruning} (secondary):
-    BDI/BAC/KOA metrics; SI-matched pruning model-conditional
-    (Llama gain $p = 0.034$; OLMo reversal).
-\item \textbf{J. Statistical methodology.}
-\item \textbf{K. Compute resources.}
-\item \textbf{L. Completed claim-hardening and attribution controls}:
-    Finalized E17/E18/E19 plus completed E20/E21 proxy-attribution outcomes,
-    E24/E24b/E25 Result-II/Result-I hardening controls, E26/E27
-    head-level dose-response and absolute-threshold robustness, and the
-    E28/E29/E30/E31 hardening bundle (importance-matched, local-bias, transplant,
-    specificity, probe-transfer, extra-model quick-anchor, breadth consolidation,
-    coherence refresh, functional-coupling reanalysis, and naturalistic add-on controls).
-\item \textbf{M. Exploratory causal probe --- stage-sensitive SI pretraining (E23)}:
-    Controlled toy-model training showing SI-consistency augmentation increases
-    probability of offset-invariant computation; strict stage-sensitivity
-    hypothesis not supported; exploratory motivation only.
+\item \textbf{A--D}: Primary measurement, intervention, and functional analyses.
+\item \textbf{E--I}: Secondary analyses for scope limits and alternative explanations.
+\item \textbf{J--K}: Statistical methodology and compute resources.
+\item \textbf{L}: Consolidated robustness and attribution controls.
+\item \textbf{M}: Exploratory toy-model causal probe (future-work motivation only).
 \end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{../neurips2026/figures/fig_kernel_examples.png}
+\caption{Representative $g_h(\Delta)$ kernel shapes (top) and their DFT magnitude spectra (bottom) for high-, medium-, and low-SI heads. High-SI heads exhibit richer oscillatory structure with higher DFT energy, while low-SI heads are near-flat. This aligns with the main-text frequency-domain observation that higher DFT content predicts larger disruption under SI-kernel subtraction (Spearman $\rho{=}0.437$, $p{=}2.2\times10^{-13}$, Llama).}
+\label{fig:kernels}
+\end{figure}
 
 \section{Experiment 1: Measurement of shift-invariant structure}
 \label{app:exp1}
@@ -336,10 +358,10 @@ logits via least-squares regression per head, reporting $R^2$ as the SI metric.
 estimation. Preregistered threshold: early-layer (layers 0--1) pooled $R^2 > 0.80$ for
 strong support; $0.40$--$0.80$ partial; $< 0.40$ falsification region.
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
-\caption{Main-text 7--8B SI-strength anchors (reported in Result I; included here to reconcile appendix scale).}
+\caption{Main-text 7--8B SI-strength anchors (reported in Section~4; included here to reconcile appendix scale).}
 \label{tab:appa_7b_r2_anchor}
 \begin{tabular}{lc}
 \toprule
@@ -352,10 +374,10 @@ OLMo-2-7B & 0.058 \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
-\caption{7--8B per-head SI-strength distribution summary (same underlying head-level data used by Results I and E26).}
+\caption{7--8B per-head SI-strength distribution summary (same underlying head-level data used by Section~4 and RC10).}
 \label{tab:appa_7b_r2_quantiles}
 \begin{tabular}{lccccc}
 \toprule
@@ -370,19 +392,14 @@ OLMo-2-7B & 0.0576 & 0.0584 & 0.0153 & 0.0457 & 0.0814 \\
 
 \subsection{Detailed results}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{../neurips2026/figures/fig2_r2_distributions.png}
-\caption{Per-head $R^2$ distributions across the five tested models (violin plots,
-Wikipedia/512 conditions; dashed lines mark the top-quartile cutoff defining high-SI heads).
-RoPE-equipped 7--8B models differ markedly in SI concentration; GPT-2 anchors (right) show
-intermediate $R^2$ without RoPE, inconsistent with a strictly RoPE-specific artifact explanation.
-OLMo's narrow, low-$R^2$ distribution illustrates the weak-SI regime where SI-guided
-classification degrades. Referenced in main text Section~3.}
+\caption{Model-level Track-A SI summary across tested models (1B proxy scale; early layers vs.\ all layers). RoPE-equipped models are substantially above the TinyLlama-NoPE anchor in early layers, while GPT-2 anchors (absolute PE) remain non-trivial. This 1B proxy measurement motivates but does not replace the 7--8B primary-model heterogeneity reported in Section~4 and Figure~\ref{fig:setup_capacity}.}
 \label{fig:r2_dist}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Track A early-layer $R^2$ by model, dataset, and sequence length (selected rows).}
     \centering
     \small
@@ -434,7 +451,7 @@ Mistral-7B~\citep{jiang2023mistral}.
 
 \subsection{Detailed results}
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Complete Experiment 2 results across all analysis branches.}
     \centering
     \small
@@ -465,7 +482,7 @@ shows same direction). Low-frequency channels serve all dependency ranges.
 Ten competing theories tested on Llama-3.1-8B~\citep{dubey2024llama3} and
 OLMo-2-7B~\citep{groeneveld2024olmo}. High-SI heads defined as top quartile by per-head $R^2$.
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Full Experiment 3 theory battery results. Theories T2, T4, and T6 were not
     executed as part of the core Experiment 3 battery in this program; they appear as
     reserved entries in the theory numbering scheme.\textsuperscript{$\dagger$}}
@@ -480,11 +497,11 @@ OLMo-2-7B~\citep{groeneveld2024olmo}. High-SI heads defined as top quartile by p
         T3 & Cross-term corr. & Descriptive & Descriptive & $\rho$: $-0.11$ / $+0.05$ \\
         T5 & Subword continuation & \textcolor{red}{Not supp.} & \textcolor{red}{Not supp.}
             & Interaction reversed \\
-        T5b & Boundary detection & \textcolor{blue}{Supported} & \textcolor{blue}{Supported}
+        T5a & Boundary detection & \textcolor{blue}{Supported} & \textcolor{blue}{Supported}
             & All criteria met \\
         T7 & Induction feeders & \textcolor{blue}{Supported} & \textcolor{blue}{Supported}
             & High-SI feeds induction \\
-        T7b & Activation patching & \textcolor{red}{Not supp.} & \textcolor{blue}{Supported}
+        T7a & Activation patching & \textcolor{red}{Not supp.} & \textcolor{blue}{Supported}
             & $\rho = 0.06$ (NS) / $0.21$ \\
         T8 & Kernel ablation & \textcolor{blue}{Supported} & \textcolor{blue}{Supported}
             & Significant loss increase \\
@@ -494,17 +511,17 @@ OLMo-2-7B~\citep{groeneveld2024olmo}. High-SI heads defined as top quartile by p
         \bottomrule
     \end{tabular}
 \end{table}
-\noindent\textsuperscript{$\dagger$}T2, T4, and T6 are reserved placeholder slots in the preregistered theory numbering schema: T2 for causal training-dynamics tests, T4 for cross-layer propagation tests, and T6 for multi-model circuit-identity tests. These slots were not executed in the core battery for this submission window. All executed theories appear in this table; no executed theory is excluded. The complete preregistration schema, including all reserved and deferred slots, is available in the supplementary preregistration artifacts (Appendix~\ref{app:stats}).
+\noindent\textsuperscript{$\dagger$}Only executed theories are reported in this table.
 
 \paragraph{Note on T1 vs.\ T8.}
 T1 failure (no per-head SI--task correlation; $p > 0.97$) is consistent with T8 support
 (significant collective kernel ablation): when SI contributions are small and redundant
 across heads, per-head SI--performance correlation is expected to be near zero even as
 collective ablation cost is large.
-T1 non-significance is therefore structurally predicted by Result~III (distributed
+T1 non-significance is therefore structurally predicted by the functional sensitivity finding (distributed
 redundancy), not a contradiction of it.
 
-\paragraph{T5b details.} Boundary detection criteria: (A) boundary attention $>$ chance,
+\paragraph{T5a details.} Boundary detection criteria: (A) boundary attention $>$ chance,
 (B) high-SI $>$ low-SI boundary attention, (C) effect survives content controls.
 All three criteria met for Llama; A and C met for OLMo with B marginal.
 
@@ -522,7 +539,7 @@ ICL-relevant routing, but do not claim an induction-unique SI circuit identity.
 
 Eleven sub-experiments targeting unresolved mechanisms from the core battery.
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Phase 2 adjudication: full results across 11 sub-experiments.}
     \centering
     \small
@@ -530,25 +547,25 @@ Eleven sub-experiments targeting unresolved mechanisms from the core battery.
         \toprule
         Exp & Target & Key outcome \\
         \midrule
-        3P2-A & Positional broadcast & Model-conditional: Llama specialized, OLMo uniform \\
-        3P2-B & Boundary triviality & Non-trivial baseline signal; strict status model-conditional (Mistral clean, OLMo directional-null caveat, Llama gate-ambiguous) \\
-        3P2-B ext & Tokenizer feature audit & Llama expanded feature ablations block/reverse boundary signal, consistent with tokenizer-mediated routing \\
-        3P2-C.1 & Redundancy model & Linear rejected in all 3-way cells (0/18 linear; 12/18 threshold, 6/18 logistic) \\
-        3P2-C.2 & Superlinearity test & No superlinear support \\
-        3P2-C.3 & Low-SI backup & Directional support for distributed backup \\
-        3P2-D & Architecture tiebreaker & Weak unique-SI after prev-token control (Mistral) \\
-        3P2-E & T5 vs T5b reconciliation & Boundary-primary resolution \\
-        3P2-F & Proxy $R^2$ confound & Retained ($\Delta R^2 = 0.003$); underpowered \\
-        3P2-G & Dose-response saturation & Mixed: OLMo early slope, Llama null \\
-        3P2-H & Source/target spec & Mixed: Llama recovered specificity, OLMo null \\
-        3P2-I & Tokenizer invariance & OLMo strict-pass ($0.75$); Llama strict-ambiguous (neither pass nor blocked) \\
-        3P2-J & Conditional specialization & Interaction significant in both models; proxy-to-task sign transfer not yet stable \\
-        3P2-K & Non-RoPE anchor & SI detected in GPT-2-medium and GPT-2-small; strict non-trivial boundary signal in both \\
+        A & Positional broadcast & Model-conditional: Llama specialized, OLMo uniform \\
+        B & Boundary triviality & Non-trivial baseline signal; strict status model-conditional (Mistral clean, OLMo directional-null caveat, Llama gate-ambiguous) \\
+        B-ext & Tokenizer feature audit & Llama expanded feature ablations block/reverse boundary signal, consistent with tokenizer-mediated routing \\
+        C.1 & Redundancy model & Linear rejected in all 3-way cells (0/18 linear; 12/18 threshold, 6/18 logistic) \\
+        C.2 & Superlinearity test & No superlinear support \\
+        C.3 & Low-SI backup & Directional support for distributed backup \\
+        D & Architecture tiebreaker & Weak unique-SI after prev-token control (Mistral) \\
+        E & T5 vs T5a reconciliation & Boundary-primary resolution \\
+        F & Proxy $R^2$ confound & Retained ($\Delta R^2 = 0.003$); underpowered \\
+        G & Dose-response saturation & Mixed: OLMo early slope, Llama null \\
+        H & Source/target spec & Mixed: Llama recovered specificity, OLMo null \\
+        I & Tokenizer invariance & OLMo strict-pass ($0.75$); Llama strict-ambiguous (neither pass nor blocked) \\
+        J & Conditional specialization & Interaction significant in both models; proxy-to-task sign transfer not yet stable \\
+        K & Non-RoPE anchor & SI detected in GPT-2-medium and GPT-2-small; strict non-trivial boundary signal in both \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-\paragraph{3P2-C.1 details.} All three models (Llama, OLMo, Mistral) give zero BIC votes
+\paragraph{C.1: Redundancy-model details.} All three models (Llama, OLMo, Mistral) give zero BIC votes
 to linear degradation in a 3-way comparison (threshold-piecewise, logistic-sigmoid, linear).
 Per-model votes: 4/2/0 (threshold/logistic/linear), identical across all three; totals
 are 12/18 threshold, 6/18 logistic, 0/18 linear.
@@ -559,8 +576,8 @@ This is the primary evidence for the distributed redundancy claim in the main pa
 The threshold finding is also directionally consistent with the phase-transition
 prediction in Exp.~7B (see Appendix~H).
 
-\paragraph{E5 fourth-family protocol details (Gemma).}
-E5 executes on \texttt{google/gemma-2-9b} with the same cumulative-ablation fraction grid
+\paragraph{Gemma-2-9B fourth-family replication.}
+The fourth-family replication executes on \texttt{google/gemma-2-9b} with the same cumulative-ablation fraction grid
 $\{0,0.01,0.02,0.05,0.10,0.15,0.20,0.25,0.50\}$ and 5 seeds.
 Per-head SI strength uses $n=500$ random-sequence evaluations (length 128; max offset 64).
 Kernel-ablation LM loss uses 40 random sequences (length 128).
@@ -568,319 +585,88 @@ Cumulative-ablation curves use 40 key-match and 40 long-range retrieval prompts 
 plus LM-loss evaluations on up to 20 random sequences per fraction/seed.
 Observed BIC votes are threshold in all 3 task cells (0/3 linear).
 
-\subsection{Reinforcement experiments (R1--R5 + follow-ups)}
+\subsection{Reinforcement analyses (R1--R8)}
 \label{app:reinforcement}
 
-\paragraph{Evidence timestamp and provenance.}
-Appendix reinforcement evidence includes artifacts through April 28, 2026.
-This includes the completed R3 core replication report and the follow-up
-reinforcement controls NEW-R12, NEW-R14, NEW-R15, R2B, and R5B.
+\paragraph{Evidence window.}
+This subsection summarizes reinforcement analyses finalized by April 28, 2026. These checks were designed to tighten claim scope, stress-test key conclusions, and separate robust findings from model-conditional or mixed outcomes.
 
-\begin{table}[h]
-    \caption{Reinforcement evidence map: sources, prereg acceptance criteria, outcomes, and claim-scope impact.}
+\begin{table}[htbp]
+    \caption{Reinforcement analyses: prespecified criteria, outcomes, and claim impact.}
     \centering
     \small
-    \begin{tabular}{p{0.9cm}p{3.1cm}p{2.6cm}p{2.7cm}p{3.0cm}}
+    \begin{tabular}{p{0.8cm}p{2.3cm}p{2.5cm}p{2.7cm}p{2.9cm}}
         \toprule
-        ID & Source artifact path & Preregistered criterion & Outcome & Claim-scope impact \\
+        ID & Analysis & Prespecified criterion & Outcome & Claim impact \\
         \midrule
         R1 &
-        Multidomain gate summary JSON &
-        Stable blocked or stable clean under multidomain pooled rule &
-        Ambiguous overall; domain split is wiki ambiguous, code stable-clean, dialogue ambiguous; strict gate neither passes nor blocks &
-        Keep Llama strict status as ambiguous; do not claim strict blocked or strict clean \\
+        Multidomain strict-gate adjudication &
+        Stable blocked or stable clean under pooled multidomain rule &
+        Ambiguous overall (wiki ambiguous, code stable-clean, dialogue ambiguous); neither aggregate gate passes &
+        Keep Llama strict status as ambiguous; avoid strict blocked/strict clean claim \\
 
         R2 &
-        Dependence reanalysis claim table &
-        Direction consistency after sequence-cluster sensitivity checks &
+        Dependence-aware sensitivity reanalysis &
+        Direction consistency under sequence-cluster sensitivity checks &
         7/8 directional checks supported; unsupported cell is OLMo boundary non-triviality &
-        Main narrative retained with one explicit OLMo boundary caveat \\
+        Main narrative retained with explicit OLMo boundary caveat \\
 
         R3 &
-        Core replication output directory &
-        Core battery completion (T8, strict B, C1, C2, J) with final synthesis report &
-        Completed; headline verdict is positive (kernel-load-bearing, strict-B clean, C1 threshold-supported) &
-        Upgrades ``pending'' to three-model core-battery support with attribution caveat \\
+        Core-battery replication &
+        Completion of T8 (kernel ablation), T5a (boundary detection), Phase-2 C.1/C.2, and interaction checks &
+        Positive overall replication (kernel load-bearing, strict-B clean, C1 threshold-supported) &
+        Upgrades prior pending status to three-model core-battery support with attribution caveat \\
 
         R4 &
-        PE-scheme comparison JSON &
-        Non-RoPE anchors show SI structure plus strict non-trivial boundary signal &
-        Positive in both GPT-2 anchors (gpt2-medium and gpt2-small); 2/2 positive replications &
-        RoPE-only confound narrowed (not eliminated) \\
+        PE-scheme comparison &
+        Non-RoPE anchors should show SI structure with non-trivial boundary signal &
+        Positive in both GPT-2 anchors (2/2 replications) &
+        Narrows RoPE-only confound \\
 
         R5 &
-        Task-grounded interaction transfer JSON &
+        Task-grounded transfer check &
         Significant interaction and sign-concordance $\geq 3/4$ per model &
         Interaction significant in both models, but sign transfer fails (Llama 1/4, OLMo 2/4) &
         Keep interaction-level claim; downgrade regime semantics to proxy-specific \\
 
-        R2B &
-        OLMo boundary power reinforcement &
-        Domain-level practical-positive support for boundary non-triviality under sequence-block inference &
-        Stable-clean artifact status in all domains, but directional support fails in all domains ($0/3$) &
-        Reinforces conservative OLMo boundary caveat language \\
+        R2a &
+        OLMo boundary-power reinforcement &
+        Domain-level practical-positive support for boundary non-triviality &
+        Stable-clean statuses appear by domain, but directional support fails in all domains (0/3) &
+        Reinforces conservative OLMo boundary caveat \\
 
-        R5B &
+        R5a &
         Regime-alignment reinforcement &
-        Significant interaction plus sign-concordance threshold in mapped regime battery &
-        Interaction significant in both models; transfer still fails (Llama 1/2, OLMo 1/2) &
-        Confirms interaction-level signal but keeps regime semantics proxy-specific \\
+        Significant interaction plus sign-concordance threshold in mapped regimes &
+        Interaction remains significant; transfer still fails (Llama 1/2, OLMo 1/2) &
+        Confirms interaction-level signal; regime semantics remain proxy-specific \\
 
-        NEW-R12 &
+        R6 &
         Random-order ablation control &
-        Threshold preference should survive non-ranked ablation orderings &
-        Strong replication with model-conditional rates (Llama 7/10, Mistral 9/10, OLMo 10/10; 26/30 total threshold-majority) &
-        Strengthens E2 claim against ranking-artifact criticism \\
+        Threshold preference should survive non-ranked removal order &
+        Strong replication (Llama 7/10, Mistral 9/10, OLMo 10/10; 26/30 threshold-majority) &
+        Strengthens collective ablation robustness against ranking-order artifacts \\
 
-        NEW-R14 &
-        Kernel permutation specificity (Llama, Mistral, OLMo) &
-        True SI-kernel perturbation should exceed offset-permuted perturbations &
-        Supported in all three primary models (Llama $3.2774$, Mistral $3.1926$, OLMo $0.0427$; all one-sided bootstrap $p=2.0\times10^{-4}$) &
-        Strengthens mechanistic specificity of T8 channel \\
+        R7 &
+        Kernel-permutation specificity &
+        True SI-kernel perturbation should exceed offset-permuted perturbation &
+        Supported in all primary models (Llama 3.2774, Mistral 3.1926, OLMo 0.0427; one-sided bootstrap $p=2.0\times10^{-4}$ each) &
+        Strengthens perturbation-specific mechanism interpretation \\
 
-        NEW-R15 &
-        High-SI head identity stability &
-        Cross-domain high-SI set overlap should exceed random expectation &
-        Partially stable in both models (Llama 3-way Jaccard 0.594, OLMo 0.427; both above random) &
-        Supports head-set reuse with caveat (not high-confidence stable; small code shard) \\
+        R8 &
+        High-SI head-identity stability &
+        Cross-domain overlap should exceed random expectation &
+        Partial stability in both models (Llama 3-way Jaccard 0.594, OLMo 0.427; both above random) &
+        Supports head-set reuse with caveat (not high-confidence stable) \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-\paragraph{Full artifact paths.}
-\begin{itemize}
-\item R1: \url{results/reinforce_exp/exp_r1_multidomain_gate/multidomain_gate_summary_v1.json}
-\item R2: \url{results/reinforce_exp/exp_r2_dependence_reanalysis/claim_stability_table.json}
-\item R3: \url{results/reinforce_exp/exp_r3_core_replication/mistral-7b-v0.1/}
-\item R4: \url{results/reinforce_exp/exp_r4_pe_scheme_contrast/pe_scheme_comparison.json}
-\item R5: \url{results/reinforce_exp/exp_r5_task_grounded/interaction_comparison_proxy_vs_task.json}
-\item R2B: \url{results/reinforce_exp/exp_r2b_olmo_boundary_power/olmo-2-7b/claim_impact.json}
-\item R5B: \url{results/reinforce_exp/exp_r5b_regime_alignment/interaction_transfer_report.json}
-\item NEW-R12 (Llama): \url{results/reinforce_exp/exp_new_r12_ordering_control/llama-3.1-8b/summary.json}
-\item NEW-R12 (OLMo): \url{results/reinforce_exp/exp_new_r12_ordering_control/olmo-2-7b/summary.json}
-\item NEW-R12 (Mistral): \url{results/reinforce_exp/exp_new_r12_ordering_control/mistral-7b-v0.1/summary.json}
-\item NEW-R14 (Llama): \url{results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r14_kernel_permutation/llama-3.1-8b/specificity_test.json}
-\item NEW-R14 (Mistral): \url{results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r14_kernel_permutation/mistral-7b-v0.1/specificity_test.json}
-\item NEW-R14 (OLMo): \url{results/reinforce_exp/runs/neurips_ext_opt_20260427_134753/exp_new_r14_kernel_permutation/olmo-2-7b/specificity_test.json}
-\item NEW-R15 (Llama): \url{results/reinforce_exp/exp_new_r15_head_stability/llama-3.1-8b/stability_summary.json}
-\item NEW-R15 (OLMo): \url{results/reinforce_exp/exp_new_r15_head_stability/olmo-2-7b/stability_summary.json}
-\end{itemize}
+\paragraph{Reinforcement summary.}
+The reinforcement checks are consistent with the main-paper framing: kernel-level specificity and ranked-ablation robustness replicate, strict multidomain adjudication remains mixed, and transfer-direction claims remain model-conditional.
 
-\paragraph{R1 prereg decision rule (explicit).}
-The multidomain strict adjudication uses two preregistered aggregate gates
-recorded in the R1 artifact under \texttt{decision\_rule}.
-Let \texttt{assessment\_domain} be the per-domain strict status from domain-level
-multiseed summaries.
-Aggregate \texttt{stable\_blocked} requires:
-\begin{align}
-\#\{\text{stable\_blocked domains}\} &\ge 2, \\
-p_{\mathrm{meta}} &< 0.01, \\
-\Delta_{\mathrm{pooled\ mean}} &\ge \delta_{\min}.
-\end{align}
-Aggregate \texttt{stable\_clean} requires:
-\begin{align}
-\#\{\text{stable\_clean domains}\} &\ge 2, \\
-\#\{\text{stable\_blocked domains}\} &= 0, \\
-p_{\mathrm{meta}} &> 0.2, \\
-\Delta_{\mathrm{pooled\ mean}} &\le 0.
-\end{align}
-If neither gate passes, the preregistered outcome is \texttt{ambiguous}
-(the observed R1 outcome).
-
-\paragraph{R5 prereg transfer rule (explicit).}
-R5 uses a two-gate confirmatory rule for regime-transfer interpretation:
-\begin{enumerate}
-\item Interaction gate: SI-group $\times$ regime interaction must be significant
-in each model after family correction
-(\texttt{interaction\_model.p\_value\_holm} $< 0.05$).
-\item Transfer gate: proxy-to-task sign concordance must satisfy
-\texttt{n\_matches / n\_compared} $\ge 3/4$ per model
-(\texttt{proxy\_vs\_task\_sign\_match} fields).
-\end{enumerate}
-In the current R5 artifacts, the interaction gate passes in both models while
-the transfer gate fails (Llama 1/4, OLMo 2/4), yielding the proxy-specific
-semantic interpretation used in main text.
-
-\paragraph{R2 dependence-aware sensitivity caveat.}
-EXP-R2 preserves the directional signal for 7 of 8 audited claim cells, strengthening
-the overall causal picture under sequence-cluster sensitivity checks.
-However, OLMo's strict boundary non-triviality check in the R2 frame
-(\texttt{B\_boundary\_nontriviality}) is direction-unsupported.
-Accordingly, OLMo boundary claims in main text are presented as supported with caveat
-rather than fully unconstrained support.
-
-\paragraph{R5 proxy-to-task discrepancy (required scope downgrade).}
-EXP-R5 confirms SI-group $\times$ regime interaction remains statistically significant
-for both primary models in task-grounded settings.
-But the preregistered transfer criterion for regime-direction stability fails:
-proxy-to-task sign concordance is 1/4 for Llama and 2/4 for OLMo, below the 3/4
-acceptance threshold.
-This does not remove the interaction claim; it narrows interpretation to
-interaction-level specialization with proxy-specific regime semantics pending replication.
-
-\paragraph{R5B reinforcement update (required scope retained).}
-R5B repeats transfer analysis with tighter regime mapping and increased paired support.
-Interaction remains significant in both models, but transfer still fails:
-Llama 1/2 and OLMo 1/2 sign matches (criterion remains $\ge 3/4$).
-This independently confirms that the interaction-level claim is robust while
-regime-direction semantics remain proxy-specific.
-
-\paragraph{R3 completion outcome (resolved).}
-EXP-R3 now provides \texttt{core\_replication\_report.json} with a positive headline:
-kernel load-bearing is replicated, strict-B prefix artifact is negative, and
-C1 threshold support replicates in Mistral.
-Accordingly, this work now supports ``three-model core battery replication''
-for T8/B/C1-level claims, while maintaining conservative attribution language
-because model-family differences are not isolated causally.
-This R3 C1-threshold signal should be read as endpoint-specific and does not
-override the separate \texttt{reinforce\_exp2} C1 two-carrier-class mixed/null outcome.
-
-\paragraph{NEW-R12 random-order control.}
-Threshold preference remains robust under random head-removal orderings:
-Llama 7/10, Mistral 9/10, and OLMo 10/10 random orderings
-(\texttt{aggregate\_threshold\_majority}=26/30), supporting
-\texttt{robustness\_assessment=strong\_replication}.
-
-\paragraph{NEW-R14 kernel-specificity control.}
-In all three primary models, true SI-kernel perturbation effects exceed offset-permuted controls:
-Llama mean true-minus-permuted difference $=3.2774$ (95\% CI $[3.2138,\,3.3415]$),
-Mistral $=3.1926$ (95\% CI $[3.1416,\,3.2486]$), and
-OLMo $=0.0427$ (95\% CI $[0.0329,\,0.0541]$),
-with one-sided bootstrap $p_{\mathrm{one}}=2.0\times10^{-4}$ in each model.
-This directly supports perturbation specificity for the T8 mechanism channel across the primary set.
-
-\paragraph{NEW-R15 head-identity stability control.}
-High-SI head identity is partially stable across domains in both models
-(Llama three-way Jaccard $=0.594$, OLMo $=0.427$; both above random expectation),
-with strong pairwise SI-rank correlations.
-Because high-confidence stability criteria are not met and the code-domain sample is small,
-these results strengthen but do not fully lock head-identity invariance claims.
-
-\paragraph{E12 protocol details (reproducibility clarification).}
-E12 uses 3 primary models, 200 prompts/condition/model, and 2 conditions:
-\texttt{icl} and \texttt{non\_icl}.
-ICL prompts are 4-shot key$\rightarrow$value demonstrations followed by a query key;
-non-ICL prompts match token count but break mapping consistency via independent key/value pairs and a novel query key.
-Evaluation reports both accuracy and mean target-token log-probability under intact vs.
-high-SI-head ablated models.
-Denominator guards are preregistered:
-\texttt{abs(non\_icl\_acc\_loss) >= 0.01} and
-\texttt{abs(non\_icl\_lp\_loss) >= 0.05}.
-Model-level support is assigned by preferential-degradation votes over valid metrics, so
-directional vote outcomes are primary and ratio magnitudes are secondary.
-
-\subsection{\texttt{reinforce\_exp2} Path A/B consolidation (as of April 24, 2026)}
-\label{app:reinforce_exp2_ab}
-
-\paragraph{Evidence window and scope.}
-This subsection summarizes \texttt{reinforce\_exp2} Path A/B artifacts with evidence
-window closed on April 24, 2026 (America/New\_York). Full Path C analysis remains
-excluded from this revision; we include only a status-only note for C1/C2 below.
-
-\begin{table*}[t]
-    \caption{\texttt{reinforce\_exp2} Path A/B evidence map: module intent, prereg/criteria gates, observed outcomes, and paper-claim impact.}
-    \label{tab:reinforce_exp2_ab_map}
-    \centering
-    \scriptsize
-    \begin{tabular}{p{0.9cm}p{2.4cm}p{2.6cm}p{2.6cm}p{2.2cm}p{4.2cm}}
-        \toprule
-        Module & What was run & Prereg/criteria gate & Observed result & Claim impact & Artifact path \\
-        \midrule
-        A0 &
-        Claim-hygiene matrix generation and status assignment &
-        Complete claim-map with strict-only tagging &
-        \texttt{n\_claims}=5; status mix includes pending/proxy/mixed &
-        Governance support with caveat &
-        \url{results/reinforce_exp2/A0_claim_hygiene/claim_matrix.json} \\[0.15em]
-
-        A1 &
-        Evidence registry and discrepancy scan &
-        Structural integrity checks over referenced artifacts &
-        \texttt{n\_registry\_rows}=9; \texttt{n\_high\_severity}=0 &
-        Governance support (traceability gate passed) &
-        \url{results/reinforce_exp2/A1_evidence_consolidation/evidence_registry.json} \\[0.15em]
-
-        A2 &
-        Prediction-layer prereg freeze &
-        At least one directional prediction with failure interpretation &
-        \texttt{n\_predictions}=1 (\texttt{P1\_shuffle\_sensitivity}) &
-        Governance support (falsifiability retained) &
-        \url{results/reinforce_exp2/A2_prediction_layer/predictions_preregistered.json} \\[0.15em]
-
-        B1 &
-        Kernel taxonomy + prototype/enrichment gates &
-        Criteria 1/2/6 required with depth/directional/spectral checks &
-        Criteria 1/2/6 pass; 3/4/5 fail; Mistral shard-wise gate still has \texttt{n\_valid\_layers=0} at 200-seq calibration; \texttt{B1\_supported=false} &
-        Mixed (taxonomy not promoted as main mechanistic unit) &
-        \url{results/reinforce_exp2/B1_kernel_taxonomy/kernel_taxonomy_summary.json} \\[0.15em]
-
-        B2a &
-        Head-level signed/absolute alignment vs null &
-        Criteria 1--4 (variance, Holm significance, practical effect, directional) &
-        Criterion 1 pass; 2/3/4 fail; \texttt{B2a\_supported=false} &
-        Mixed (no promoted cross-model directional head-level claim) &
-        \url{results/reinforce_exp2/B2a_head_alignment/alignment_null_tests.json} \\[0.15em]
-
-        B2b &
-        Cluster-level alignment enrichment with depth controls &
-        Criteria 1--3 (Holm, depth retention, practical) &
-        All criteria pass; \texttt{B2b\_supported=true} &
-        Supported (confirmatory reinforcement channel) &
-        \url{results/reinforce_exp2/B2b_cluster_alignment/summary.json} \\[0.15em]
-
-        B3 &
-        Matched-triplet cluster ablation disambiguation &
-        Cross-model mechanism verdict with Holm-controlled family &
-        \texttt{B3\_inconclusive}; reason \texttt{insufficient\_clusters}; family p-values $=1.0$ &
-        Mixed/inconclusive (no disambiguation promotion) &
-        \url{results/reinforce_exp2/B3_cluster_ablation/mechanism_disambiguation_verdict.json} \\[0.15em]
-
-        B4 &
-        Confound-isolated high-vs-low SI contrasts &
-        Criteria 1--3 (direction/statistical/practical retention) &
-        Criteria fail overall; \texttt{B4\_supported=false}, \texttt{B4\_mixed=true} &
-        Mixed (confound-isolated claim remains non-load-bearing) &
-        \url{results/reinforce_exp2/B4_confound_isolation/summary.json} \\
-        \bottomrule
-    \end{tabular}
-\end{table*}
-
-\paragraph{Path C status-only note (as of April 25, 2026).}
-\texttt{C2} has a strict endpoint-null outcome
-(\texttt{C2\_supported=false}; \texttt{C2.1} and \texttt{C2.2} fail strict gates) and is
-kept \texttt{mixed}/non-promotional at claim tier. \texttt{C1} is now completed and
-returns \texttt{C1\_two\_carrier\_class\_supported=false} (criteria 1--4 fail; criterion 5
-disjointness passes), so C-path evidence remains mixed and is not promoted
-to core claim support in this manuscript revision.
-
-\paragraph{B1 mixed outcome (criteria split).}
-\texttt{B1} passes reliability/structure requirements (criteria 1/2/6) but fails
-depth-controlled enrichment and secondary concordance gates (criteria 3/4/5).
-The intended-mode Mistral shard-wise reliability rerun keeps this status unchanged
-(\texttt{n\_valid\_layers=0} with the available 200-sequence calibration split).
-This supports using taxonomy outputs as structured exploratory context, not as
-standalone confirmatory mechanistic proof.
-
-\paragraph{B2a mixed outcome (directional heterogeneity under Holm correction).}
-\texttt{B2a} shows strong model-specific signals in opposite channels
-(e.g., Llama absolute alignment Holm-corrected $1.75\times10^{-16}$;
-Mistral signed alignment Holm-corrected $6.60\times10^{-15}$),
-while OLMo is null under corrected thresholds (absolute/signed Holm-corrected
-$0.823$). Because preregistered cross-criterion consistency is not met,
-\texttt{B2a} remains mixed.
-
-\paragraph{B3 inconclusive outcome (insufficient clusters).}
-\texttt{B3} returns \texttt{B3\_inconclusive} with reason
-\texttt{insufficient\_clusters}; model-level mechanism verdicts for eligible models
-are ``neither'' and Holm family p-values are 1.0.
-Hence redundancy-vs-group disambiguation is not promoted beyond conservative
-threshold-capacity wording.
-
-\paragraph{B4 mixed outcome (cross-model asymmetry).}
-\texttt{B4} is asymmetric at model level:
-Llama passes retention (\texttt{retention\_ok=true}), while OLMo and Mistral do not.
-Because preregistered cross-model retention criteria fail at family level,
-\texttt{B4} remains mixed and non-load-bearing for central claim promotion.
+\paragraph{Functional sensitivity probe protocol.}
+E12 evaluates three primary models on 200 prompts per condition (offset-repetition and matched control), reporting both accuracy and target-token log-probability under intact vs.\ high-SI-head ablation. Model-level support is assigned by preferential-degradation direction on valid metrics.
 
 \section{Experiment 4: SI-guided fine-tuning}
 \label{app:exp4}
@@ -919,7 +705,7 @@ is stable in the short-to-medium fine-tuning regime; behavior under extended fin
 \paragraph{4A: SI-aware LoRA comparison (cross-model).} 30 runs
 (5 conditions $\times$ 3 seeds $\times$ 2 models):
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Exp.~4A results: all SI-routing conditions vs.\ baseline, by model.}
     \centering
     \small
@@ -975,7 +761,7 @@ vs.\ continuation positions across $n \approx 512 \times 24 = 12{,}288$ position
 model (24 sequences $\times$ 512 positions). The large $n$ explains the extreme $p$-values; the
 effect sizes ($\Delta \approx +0.017$) are small in absolute terms. No correction for the
 12-cell family is reported.
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Exp.~5C perturbation effects on SI attention.}
     \centering
     \small
@@ -1016,10 +802,6 @@ improves reasoning performance in the finalized evidence set:
 \item 6B: Anti-localization loss (penalize attention localization in non-SI heads)
 \end{enumerate}
 
-Exploratory placeholders 6C--6E (two-phase SI distillation, contrastive channel assignment,
-SI-optimized tokenizer formatting) are excluded from this submission's finalized
-claim-bearing evidence set.
-
 Models: Llama-3.1-8B~\citep{dubey2024llama3} and TinyLlama-1.1B~\citep{zhang2024tinyllama}
 (6A, 6B, 6C); OLMo-2-7B~\citep{groeneveld2024olmo} (6A). 3 seeds per model per condition.
 Evaluation: math accuracy (4-shot), wiki perplexity.
@@ -1027,7 +809,7 @@ Evaluation: math accuracy (4-shot), wiki perplexity.
 \subsection{Results}
 
 \paragraph{6A: Gradient routing.}
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Exp.~6A gradient routing results.}
     \centering
     \small
@@ -1085,7 +867,7 @@ reported out-of-sample. A global-fit reference ($C=7.834$) is reported separatel
 
 \paragraph{7A: Coherence-gap proxy relation is mixed at model level.}
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{Exp.~7A: coherence gap vs.\ $\bar{R}^2$ correlation results.}
     \centering
     \small
@@ -1101,17 +883,17 @@ reported out-of-sample. A global-fit reference ($C=7.834$) is reported separatel
     \end{tabular}
 \end{table}
 
-This analysis is now explicitly proxy/model-level and non-promotional. The model-level
-relation is directionally positive but not conventionally significant, and the 36-row
-correlation is exploratory because coherence features repeat by model/length. We therefore
-retain 7A as a framework-building signal rather than confirmatory explanatory evidence.
+This is a proxy-scale, model-level analysis. The model-level relation is directionally
+positive but not statistically decisive, and the 36-row correlation is exploratory because
+coherence features repeat by model/length. We therefore treat 7A as suggestive
+framework evidence rather than confirmatory mechanism evidence.
 
-\paragraph{E31B refresh note (expanded proxy panel).}
-An expanded coherence refresh over an 11-model breadth panel (Appendix~L, E31B) is mixed:
+\paragraph{Expanded coherence-gap proxy panel (11 models).}
+An expanded coherence refresh over an 11-model breadth panel (Appendix~L) is mixed:
 Pearson $r=0.577$ (two-sided $p=0.063$), Spearman $\rho=0.500$ ($p=0.117$), and
 permutation two-sided $p=0.070$. Direction is consistent with 7A, but significance is
-non-decisive at this panel size. We therefore retain the coherence-gap
-lens as framework-level and non-promotional for mechanism claims at current scale.
+non-decisive at this panel size. We therefore treat the coherence-gap lens as
+framework-level rather than established mechanism evidence at current scale.
 
 \paragraph{7B: Phase-transition critical point.}
 
@@ -1120,7 +902,7 @@ Pearson $r=-0.959$ ($p=0.0025$) and Spearman $\rho=-0.878$ ($p=0.021$) between p
 and observed thresholds across 6 conditions. Out-of-sample (excluding the calibrated
 condition), Pearson remains strong ($r=-0.986$, $p=0.0019$) while Spearman is directional
 but marginal ($\rho=-0.866$, $p=0.058$, $n=5$). BIC model comparison remains threshold-piecewise
-preferred in 6/6 cases (consistent with 3P2-C.1 unanimous preference). This remains
+preferred in 6/6 cases (consistent with Phase-2 sub-experiment C.1 unanimous preference). This remains
 preliminary evidence ($n=6$ conditions, effective $n \approx 2$ independent model families
 due to sequence-length correlation within models) requiring replication across additional
 distinct model families.
@@ -1162,7 +944,7 @@ are not used for preregistered 8A claim adjudication.
 An exploratory all-model SIBAS variant was run separately and is not used for the
 preregistered BDI/BAC/KOA claims reported here.
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{8A boundary discrimination full results (small models only; 7--8B-scale pending).}
     \centering
     \small
@@ -1187,7 +969,7 @@ and $0.329$ (TinyLlama, $p < 0.001$) confirm boundary discrimination as continuo
 
 \subsection{Results: 8B}
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{8B tokenizer-aware pruning on Llama-3.1-8B: early-ablation comparison.}
     \centering
     \small
@@ -1215,7 +997,7 @@ vs.\ Llama's $0.380$): with noisy SI classification, the top-quartile SI heads a
 reliably the most important for tokenizer-driven processing. SI-matched pruning should
 therefore be treated as a model-conditional tool.
 
-\begin{table}[h]
+\begin{table}[htbp]
     \caption{8B primary matched-vs-mismatched comparison by model (AUDC summary).}
     \centering
     \small
@@ -1238,53 +1020,10 @@ estimation. Stouffer meta-analysis combines evidence across models. Exploratory 
 are clearly demarcated and non-retroactive to confirmatory labels. Preregistered hypothesis
 families are locked before execution with explicit confirmatory/exploratory split. The
 BDI, BAC, and KOA hypotheses (Exp.~8A) were preregistered before small-model execution.
+In main-text reporting, we standardize summary order as effect size $\rightarrow$ confidence interval $\rightarrow$ $p$-value (when reported), and we include practical-magnitude interpretation alongside significance tests.
 
-\paragraph{Preregistration traceability artifacts.}
-This submission includes machine-readable preregistration artifacts in the anonymous
-supplementary package rather than an identified external registry. Entry points are
-\url{reinforce_exp2/schemas/preregistration.schema.json},
-\url{reinforce_exp3/schemas/preregistration.schema.json}, and
-\url{results/reinforce_exp2/A2_prediction_layer/predictions_preregistered.json},
-with per-module \texttt{preregistration.json} files at the result paths listed throughout
-Appendix~D and Appendix~J. The supplementary package also provides an anonymized
-GitHub repository mirror containing code, execution scripts, environment files, and
-reproduction commands mapped to these artifact paths.
-Because this is an anonymous submission snapshot, we do not include an identified external
-registry link here; a timestamped external archival mirror will be provided at camera-ready.
-
-\section{Full Path A/B Governance Matrix}
-\label{app:governance}
-
-The table below contains the complete \texttt{reinforce\_exp2} Path A/B governance outcomes
-referenced in the Robustness section of the main text.
-Path A modules (A0--A2) are governance infrastructure and all pass.
-In Path B, only \texttt{B2b} is supported; modules \texttt{B1}/\texttt{B2a}/\texttt{B3}/\texttt{B4}
-are mixed or inconclusive and are not promoted as central claims.
-
-\begin{table}[h]
-\centering
-\small
-\caption{\texttt{reinforce\_exp2} Path A/B governance matrix.}
-\label{tab:path_ab_governance}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{p{1.0cm}p{3.0cm}p{3.6cm}p{2.0cm}p{4.2cm}}
-\toprule
-Module & Intent & Decisive criterion/stat & Verdict & Paper-claim impact \\
-\midrule
-A0 & Claim hygiene & 5 mapped claims; status counts: pending 2, proxy-specific 1, supported-with-caveat 1, mixed 1 & supported with caveat & Enforces explicit status-tagged claim wording and caveat visibility \\
-A1 & Evidence consolidation & Registry rows 9; discrepancies 4; high-severity discrepancies 0 & supported & Governance gate passes for claim-evidence traceability \\
-A2 & Prediction layer freeze & 1 preregistered prediction (C2.1, beta-shuffle endpoint) & supported & Preserves falsifiability; reduces retrospective-only interpretation risk \\
-B1 & Kernel taxonomy & Criteria 1/2/6 pass; criteria 3/4/5 fail (Mistral shard-wise reliability gate underpowered: 200-seq calibration $\Rightarrow$ \texttt{n\_valid\_layers=0}; prototype pairing passes) & mixed & Taxonomy retained as exploratory context, not promoted as main mechanistic unit \\
-B2a & Head-level alignment & Criterion 1 pass; criteria 2/3/4 fail (Holm: Llama absolute $1.75\!\times\!10^{-16}$, OLMo absolute $0.823$) & mixed & No promoted cross-model directional head-level alignment claim \\
-B2b & Cluster-level alignment & Criteria 1/2/3 pass; confirmatory clusters: Llama=3, OLMo=3, Mistral=4 & \textbf{supported} & Confirmatory reinforcement for cluster-level alignment narrative \\
-B3 & Cluster ablation disambiguation & Inconclusive due to insufficient clusters; Holm family $p$-values all 1.0 & inconclusive & Keep threshold-capacity wording conservative; do not promote redundancy-vs-group disambiguation \\
-B4 & Confound isolation & Criteria 1/2/3 fail; retention at model level: Llama true, OLMo false, Mistral false & mixed & Confound-isolated high-vs-low SI claim remains non-load-bearing \\
-C1 & Two-carrier-class prediction & Criteria 1--4 fail; criterion 5 (disjointness) passes & mixed/null & Non-promotional; does not demote B2b \\
-C2 & Carrier-class prediction & \texttt{C2.1}/\texttt{C2.2} both fail strict gates; \texttt{C2\_supported=false} & null & Non-promotional; strict endpoint null \\
-\bottomrule
-\end{tabular}
-}
-\end{table}
+\paragraph{Preregistration and reproducibility materials.}
+Preregistration documents, analysis scripts, and reproduction instructions are provided in the anonymous supplementary package. We use this package as the canonical source during review; a persistent external archive will be released at camera-ready.
 
 \section{Compute resources}
 \label{app:compute}
@@ -1296,10 +1035,10 @@ Exp.~8B: 24. Total: $\sim$260 GPU-hours reported; additional compute for prelimi
 failed runs not included. Exp.~8B on OLMo required a 48GB GPU (A6000) due to OOM on 16GB
 cards during multi-fraction evaluation.
 
-\section{Completed Claim-Hardening and Attribution Controls}
+\section{Completed Robustness and Attribution Controls}
 \label{app:running}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
 \caption{Evidence provenance map for headline claims (addresses 1B vs.\ 7--8B sourcing). All headline claims use 7--8B primary models; 1B models serve as scope anchors and proxy controls only.}
@@ -1308,13 +1047,13 @@ cards during multi-fraction evaluation.
 \toprule
 Headline claim & Primary scale & Provenance in this paper \\
 \midrule
-SI-strength heterogeneity (0.380/0.266/0.058) and kernel-subtraction load-bearing deltas (Appendix D, T8) & 7--8B & Main text Results I--III; 7--8B primary models \\
-Breadth heterogeneity extension (11-model panel; max/min mean-$R^2$ ratio $140\times$) & Mixed-scale breadth panel & Appendix L, E31A (descriptive consolidation; non-promotional for causal attribution) \\
+SI-strength heterogeneity (0.380/0.266/0.058) and kernel-subtraction load-bearing deltas (Appendix D, T8) & 7--8B & Main text Sections 4--5; 7--8B primary models \\
+Breadth heterogeneity extension (11-model panel; max/min mean-$R^2$ ratio $140\times$) & Mixed-scale breadth panel & Appendix~L (descriptive breadth consolidation; non-promotional for causal attribution) \\
 NoPE anchor (early-layer $R^2<0.01$) & 1.1B control & Main text scope anchor; detailed measurement tables in Appendix A \\
 Checkpoint trajectory consistency (Appendix D, E4) & 7B (OLMo only) & Main-text scope/consistency note; not promoted as cross-model dynamics proof \\
 Linear rejection (0/18, 26/30, 0/6) + Gemma directional replication (0/3) & 7--8B (+simplified Gemma protocol) & Appendix-first contextual ablation regularity (non-SI-unique); concise main-text scope note in robustness \\
-Offset-repetition retrieval probe preferential degradation plus strict, broadened, semi-naturalistic, and boundary-grid transfer controls (Appendix L, E18/E28C/E29B/E30A) & 7--8B & Main text Result III; strict control mixed, broader synthetic transfer non-passing (0/3), long-context transfer model-conditional (2/3), and boundary-grid transfer 2/3 with non-universal factor directionality \\
-Naturalistic SI-vs-importance intervention validation (Llama + Mistral replication) & 8B (two models) & Appendix L; cross-model replication of practical extension within Result III scope ($p{=}3.33\times10^{-5}$ both models) \\
+Offset-repetition retrieval probe preferential degradation plus strict, broadened, semi-naturalistic, and boundary-grid transfer controls (Appendix~L, RC2/RC3/RC16/RC18) & 7--8B & Main text Section~5 (Functional Sensitivity); strict control mixed, broader synthetic transfer non-passing (0/3), long-context transfer model-conditional (2/3), and boundary-grid transfer 2/3 with non-universal factor directionality \\
+Naturalistic SI-vs-importance intervention validation (Llama + Mistral replication) & 8B (two models) & Appendix L; cross-model replication of practical extension within Functional Sensitivity scope ($p{=}3.33\times10^{-5}$ both models) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -1323,99 +1062,87 @@ The following controls are completed and integrated into main-paper claim wordin
 Rows marked \textbf{required} were identified as validity-gap closers and are now
 reported with finalized outcomes.
 
-\begin{table*}[h]
+\begin{table}[htbp]
 \centering
-\small
-\caption{Completed hardening and attribution controls with claim impact (E17--E21, E24, E24b, E25, E26, E27, E28A, E28B, E28C, E28D, E29A, E29B, E29C, E30A, E30B).}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Completed robustness and attribution controls with claim impact (RC1--RC19), Part I.}
 \label{tab:running_controls}
-\begin{tabular}{p{1.3cm}p{1.6cm}p{4.1cm}p{4.3cm}p{2.6cm}}
+\begin{tabular}{p{1.1cm}p{1.5cm}p{3.4cm}p{3.7cm}p{2.5cm}}
 \toprule
 ID & Priority & Why required & Finalized outcome & Claim impact \\
 \midrule
-E17 & Required & T8/NEW-R14 do not isolate SI-specific disruption from generic large-amplitude perturbation. & \texttt{not\_supported}: in all 3 models, true subtraction exceeds permuted control but is weaker than norm-matched random perturbation. & Result I retained as load-bearing under intervention; SI-specific exclusivity downgraded. \\
+RC1 & Required & T8/R7 do not isolate SI-specific disruption from generic large-amplitude perturbation. & Not supported: in all 3 models, true subtraction exceeds permuted control but is weaker than norm-matched random perturbation. & SI-specificity finding retained as load-bearing under intervention; SI-specific exclusivity downgraded. \\
 
-E18 & Required & E12 directional result required stricter format-confound adjudication. & \texttt{mixed / model\_conditional}: SI-selective degradation survives full control battery in 1/3 primary models. & Result III wording remains directional and model-conditional under strict controls. \\
+RC2 & Required & Functional sensitivity probe directional result required stricter format-confound adjudication. & Mixed / model-conditional: SI-selective degradation survives full control battery in 1/3 primary models. & Functional sensitivity wording remains directional and model-conditional under strict controls. \\
 
-E28C & Hardening & Result-III scope required testing beyond a single maximally aligned 9-token probe format. & \texttt{not\_supported}: broader 7-family probe-diversity transfer does not pass model-level gates (0/3 model passes; Llama 4/7, Mistral 4/7, OLMo 2/7 LP family passes; pass threshold 6/7). & Result III narrowed to controlled offset-repetition probe sensitivity with non-passing broader-format transfer. \\
+RC3 & Hardening & The functional sensitivity scope required testing beyond a single maximally aligned 9-token probe format. & Not supported: broader 7-family probe-diversity transfer does not pass model-level gates (0/3 model passes; Llama 4/7, Mistral 4/7, OLMo 2/7 LP family passes; pass threshold 6/7). & Functional sensitivity narrowed to controlled offset-repetition probe sensitivity with non-passing broader-format transfer. \\
 
-E19 & Required & Track-A SI score may be influenced by offset support and corpus composition. & \texttt{supported / robust\_cross\_model}: bounded deltas under offset reweighting, equal-count proxy, and corpus-transfer scoring with preserved cross-model contrast. & Measurement caveat narrowed from unresolved to bounded-supported. \\
+RC4 & Required & Track-A SI score may be influenced by offset support and corpus composition. & Supported / robust cross-model: bounded deltas under offset reweighting, equal-count proxy, and corpus-transfer scoring with preserved cross-model contrast. & Measurement caveat narrowed from unresolved to bounded-supported. \\
 
-E20 & Required & Needed to separate cross-model heterogeneity from training-run seed variance under matched setup. & \texttt{model\_family\_dominant}: between-model SI variance 0.04074 vs.\ within-model seed variance 0.000223 (ratio 182.73; 9/9 seeds complete). & Heterogeneity claim upgraded from descriptive-only to variance-decomposed in tested proxy setup; still non-causal across confounded family differences. \\
+RC5 & Required & Needed to separate cross-model heterogeneity from training-run seed variance under matched setup. & Model-family dominant: between-model SI variance 0.04074 vs.\ within-model seed variance 0.000223 (ratio 182.73; 9/9 seeds complete). & Heterogeneity claim upgraded from descriptive-only to variance-decomposed in tested proxy setup; still non-causal across confounded family differences. \\
 
-E21 & Required & Needed to move beyond single NoPE anchor and test controlled RoPE-vs-NoPE SI separation. & \texttt{rope\_gt\_nope\_proxy}: paired TinyLlama $\Delta R^2=0.4665$ (95\% CI [0.4553, 0.4872]); RoPE 0.5511 vs.\ NoPE 0.0846 (6/6 seeds complete). & Capacity framing strengthened with matched proxy evidence; matched-scale 7--8B PE-family generalization remains open. \\
+RC6 & Required & Needed to move beyond single NoPE anchor and test controlled RoPE-vs-NoPE SI separation. & RoPE-greater-than-NoPE proxy: paired TinyLlama $\Delta R^2=0.4665$ (95\% CI [0.4553, 0.4872]); RoPE 0.5511 vs.\ NoPE 0.0846 (6/6 seeds complete). & Capacity framing strengthened with matched proxy evidence; matched-scale 7--8B PE-family generalization remains open. \\
 
-E24 & Required & Result-II SI-specific organization required matched non-SI cumulative-ablation baseline. & \texttt{supported\_with\_caveat}: SI-ranked cells 0/9 linear votes; matched non-SI cells 1/9 linear votes (8/9 non-linear). & Result II reframed as strong SI-ranked linear rejection with limited SI-specificity evidence; generic nonlinearity remains plausible. \\
+RC7 & Required & Collective ablation SI-specific organization required matched non-SI cumulative-ablation baseline. & Supported with caveat: SI-ranked cells 0/9 linear votes; matched non-SI cells 1/9 linear votes (8/9 non-linear). & Collective ablation dynamics reframed as strong SI-ranked linear rejection with limited SI-specificity evidence; generic nonlinearity remains plausible. \\
 
-E24b & Required & E24 left residual SI-enrichment magnitude unresolved; needed direct SI-vs-non-SI contrast quantification. & \texttt{mixed}: 5/9 SI-vs-non-SI contrast cells favor stronger SI nonlinearity, but cross-cell uncertainty spans zero (delta-BIC CI includes 0). & Result II narrowed further to ranked-ablation nonlinearity; SI-specific enrichment treated as mixed/non-decisive. \\
+RC8 & Required & RC7 left residual SI-enrichment magnitude unresolved; needed direct SI-vs-non-SI contrast quantification. & Mixed: 5/9 SI-vs-non-SI contrast cells favor stronger SI nonlinearity, but cross-cell uncertainty spans zero (delta-BIC CI includes 0). & Collective ablation dynamics narrowed further to ranked-ablation nonlinearity; SI-specific enrichment treated as mixed/non-decisive. \\
 
-E25 & Supporting & Cross-model Result-I comparability required explicit baseline-normalized and control-normalized sensitivity panel. & \texttt{supported\_with\_caveat}: raw-nat and percent rankings align, but control-normalized ranking is mixed. & Main text now reports cross-model contrasts on multiple axes and keeps bounded comparability caveat explicit. \\
-
-E26 & Hardening & Result-I and E24 left head-level $R^2 \to$ disruption specificity untested under the original 5-bin design. & \texttt{supported}: original quintile dose-response is positive in all three models; final interpretation now relies on the stronger E28A 20-bin hardening and E28B/E28D controls. & Serves as predecessor evidence; main-text numeric reporting promoted from E28A/B/D. \\
-
-E27 & Hardening & Weakness-1 (within-model threshold not principled): does the rank-based SI-disruption result replicate under absolute cross-model $R^2$ thresholds? Does per-head disruption track model-level $R^2$ at fixed threshold? & \texttt{supported}: all 18 threshold$\times$model conditions show true $>$ permuted (frac\_true$>$perm $= 1.00$). At $T{=}0.20$: per-head disruption is $0.00568$ (Llama), $0.00602$ (Mistral), $0.000314$ (OLMo); Llama/OLMo ratio $18{\times}$; Mistral/OLMo $19{\times}$. & Result-I threshold choice validated; cross-model per-head gradient at fixed $T$ tracks model-level $R^2$, supporting bounded cross-model comparability. \\
-
-E28A & Hardening & E26 remained statistically fragile with 5 bins and approximate p-value language. & \texttt{supported}: 20-bin dose-response with one-tailed permutation testing is positive in all models (Llama $\rho=0.959$, $p=5.0\times10^{-6}$; Mistral $\rho=0.964$, $p=5.0\times10^{-6}$; OLMo $\rho=0.684$, $p=7.05\times10^{-4}$). & Replaces stale E26 p-value wording and strengthens Result-I head-level gradient evidence with higher-resolution bins. \\ 
-
-E28B & Hardening & Needed to test whether SI-ranked disruption exceeds a matched non-SI importance control. & \texttt{supported}: SI-ranked minus importance-matched disruption is positive in all models (Llama $+3.60$ [3.51, 3.70], Mistral $+3.21$ [3.14, 3.28], OLMo $+0.0267$ [0.0167, 0.0381]). & Strengthens Result-I specificity against a generic head-importance explanation in this intervention setup. \\ 
-
-E28D & Hardening & Needed to test whether disruption tracks non-trivial SI beyond simple local-distance bias. & \texttt{supported\_with\_caveat}: disruption tracks $R^2_{\text{excess}}$ over local-decay null in 2/3 models (Llama/Mistral supported; OLMo not supported). & Adds model-conditional evidence that SI effect is not only a trivial local-bias proxy. \\
-
-E29A & Hardening & Needed a direct structure-level anti-tautology check beyond subtraction and importance-matched controls. & \texttt{supported}: kernel-transplant specificity positive in all 3 models (low-transplant-minus-low-self: Llama $+0.947$ [0.902, 0.999], Mistral $+0.374$ [0.350, 0.398], OLMo $+0.0174$ [0.0150, 0.0202]). & Strengthens Result-I specificity: SI-structured kernel content itself contributes disruption beyond low-head self subtraction. \\
-
-E29B & Hardening & Needed semi-naturalistic long-context functional extension beyond short aligned probe families. & \texttt{supported\_with\_caveat}: natural-text long-context preferential gap is positive in Llama/Mistral and negative in OLMo (2/3 model directional passes). & Extends Result III beyond 9-token probes with explicit model-conditional transfer boundary. \\
-
-E29C & Supporting & Needed low-cost extra-model directional anchor outside the three-model primary set. & \texttt{not\_supported}: Qwen2.5-7B quickcheck shows high SI mean $R^2$ (0.605) but no directional true$>$permuted corroboration (delta true-minus-perm $-0.167$); non-primary adapter fallback path used. & No claim promotion from extra-model anchor; used only as bounded directional context. \\
-
-E30A & Hardening & Needed explicit 2$\times$2 transfer-boundary test (short/long context $\times$ high/low offset regularity) to reconcile E28C vs E29B. & \texttt{supported\_with\_caveat}: boundary grid reproduces 2/3 model directional passes (Llama/Mistral pass, OLMo non-pass), but factor-direction contrasts are not universal across models. & Narrows Result III to model-conditional structure sensitivity with bounded transfer; no universal boundary law promoted. \\
-
-E30B & Hardening & Needed stronger local-bias alternative test beyond single exponential-decay null. & \texttt{supported\_with\_caveat}: disruption tracks $R^2_{\text{excess}}$ over best local-bias family fit (exponential/power-law/window) in 2/3 models (Llama/Mistral pass; OLMo non-pass). & Strengthens Result-I metric-validity posture as model-conditional non-trivial SI evidence beyond simple local-bias proxies. \\
+RC9 & Supporting & Cross-model SI-specificity comparability required explicit baseline-normalized and control-normalized sensitivity panel. & Supported with caveat: raw-nat and percent rankings align, but control-normalized ranking is mixed. & Main text now reports cross-model contrasts on multiple axes and keeps bounded comparability caveat explicit. \\
 
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 
-Additional rapid hardening add-ons (E31A--E31D) are reported as a compact extension layer rather than folded into Table~\ref{tab:running_controls}: E31A breadth consolidation over 11 models/7 families shows a $140\times$ max/min mean-$R^2$ spread; E31B expanded proxy coherence refresh is mixed (Pearson $r=0.577$, $p=0.063$; Spearman $\rho=0.500$, $p=0.117$); E31C functional-coupling reanalysis across E12/E29B/E30A rows is directionally positive (Pearson $r=0.956$, one-sided grouped permutation $p=0.0046$); and E31D Llama natural-text passkey add-on supports SI-targeted $>$ importance-matched degradation (mean $+3.64$, 95\% CI [2.13, 5.03], one-sided $p=3.33\times10^{-5}$; 60 prompts).
+\begin{table}[htbp]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\caption{Completed robustness and attribution controls with claim impact, Part II.}
+\begin{tabular}{p{1.1cm}p{1.5cm}p{3.4cm}p{3.7cm}p{2.5cm}}
+\toprule
+ID & Priority & Why required & Finalized outcome & Claim impact \\
+\midrule
+ 
+RC10 & Hardening & The SI-specificity finding and RC7 left head-level $R^2 \to$ disruption specificity untested under the original 5-bin design. & Supported: original quintile dose-response is positive in all three models; final interpretation now relies on the stronger RC12 20-bin hardening and RC13/RC14 controls. & Serves as predecessor evidence; main-text numeric reporting promoted from RC12/13/14. \\
 
-These outcomes tighten claim scope and strengthen attribution posture: central results remain positive but are explicitly non-exclusive (E17) and model-conditional under strict offset-structured retrieval controls (E18), with broader probe-family transfer non-passing at model level (E28C), measurement robustness upgraded from unresolved to bounded-supported (E19), heterogeneity now variance-decomposed in proxy setup (E20), RoPE-over-NoPE separation confirmed in matched paired-seed proxy training (E21), and Result-II SI-specificity narrowed from caveated support (E24) to mixed residual enrichment after direct contrast quantification (E24b). E25 adds a multi-axis comparability panel that supports bounded cross-model ordering claims while preserving control-normalized caveats. E28A provides stronger 20-bin head-level dose-response evidence with permutation-tested p-values; E28B adds SI-vs-importance matched separation; E28D and E30B provide convergent local-bias-disambiguation support in 2/3 models; E29A adds direct kernel-transplant specificity support in all three models. These complement E24's collective-level finding. E27 validates threshold robustness and cross-model comparability at fixed absolute $R^2$ threshold, with per-head disruption tracking model-level $R^2$ across all three models. E29B and E30A jointly provide model-conditional transfer extension (2/3 passes) with explicit non-universal boundary directionality, while E29C adds a non-promoted extra-model quick anchor that does not directionally corroborate. E31A extends heterogeneity evidence to an 11-model breadth panel, E31C adds directional functional-coupling support across existing probe suites, and E31D adds a short naturalistic SI-vs-importance intervention check. E31B keeps the coherence-gap extension explicitly mixed, so the CS lens remains framework-level.
+RC11 & Hardening & Weakness-1 (within-model threshold not principled): does the rank-based SI-disruption result replicate under absolute cross-model $R^2$ thresholds? Does per-head disruption track model-level $R^2$ at fixed threshold? & Supported: all 18 threshold$\times$model conditions show true $>$ permuted (frac\_true$>$perm $= 1.00$). At $T{=}0.20$: per-head disruption is $0.00568$ (Llama), $0.00602$ (Mistral), $0.000314$ (OLMo); Llama/OLMo ratio $18{\times}$; Mistral/OLMo $19{\times}$. & SI-specificity threshold choice validated; cross-model per-head gradient at fixed $T$ tracks model-level $R^2$, supporting bounded cross-model comparability. \\
 
-E24 artifact root: \texttt{results/reinforce\_exp3/E24\_non\_si\_matched\_baseline/}.
-E24b artifact root: \texttt{results/reinforce\_exp3/E24b\_si\_vs\_non\_si\_contrast/}.
-E25 artifact root: \texttt{results/reinforce\_exp3/E25\_cross\_model\_comparability/}.
-E26 artifact root: \texttt{results/reinforce\_exp3/E26\_r2\_disruption\_dose\_response/}.
-E27 artifact root: \texttt{results/reinforce\_exp3/E27\_absolute\_threshold\_robustness/}.
-E28A artifact root: \texttt{results/reinforce\_exp3/E28a\_e26\_20bin\_exact/}.
-E28B artifact root: \texttt{results/reinforce\_exp3/E28b\_importance\_matched\_control/}.
-E28C artifact root: \texttt{results/reinforce\_exp3/E28c\_probe\_diversity\_transfer/}.
-E28D artifact root: \texttt{results/reinforce\_exp3/E28d\_r2\_localbias\_decomposition/}.
-E29A artifact root: \texttt{results/reinforce\_exp3/E29a\_kernel\_transplant\_specificity/}.
-E29B artifact root: \texttt{results/reinforce\_exp3/E29b\_naturaltext\_longcontext\_probe/}.
-E29C artifact root: \texttt{results/reinforce\_exp3/E29c\_qwen\_anchor\_quickcheck/}.
-E30A artifact root: \texttt{results/reinforce\_exp3/E30a\_probe\_boundary\_grid/}.
-E30B artifact root: \texttt{results/reinforce\_exp3/E30b\_localbias\_null\_family/}.
-E31A artifact root: \texttt{results/reinforce\_exp3/E31a\_breadth\_consolidation/}.
-E31B artifact root: \texttt{results/reinforce\_exp3/E31b\_coherence\_refresh/}.
-E31C artifact root: \texttt{results/reinforce\_exp3/E31c\_functional\_coupling\_reanalysis/}.
-E31D artifact root: \texttt{results/reinforce\_exp3/E31d\_llama\_naturalistic\_importance\_control/}.
+RC12 & Hardening & RC10 remained statistically fragile with 5 bins and approximate p-value language. & Supported: 20-bin dose-response with one-tailed permutation testing is positive in all models (Llama $\rho=0.959$, $p=5.0\times10^{-6}$; Mistral $\rho=0.964$, $p=5.0\times10^{-6}$; OLMo $\rho=0.684$, $p=7.05\times10^{-4}$). & Replaces stale RC10 p-value wording and strengthens SI-specificity head-level gradient evidence with higher-resolution bins. \\
 
-\paragraph{Residual scope note after E20/E21 completion.}
-E20/E21 close the prior deferred-control gap for proxy attribution. Remaining limitation is scale transfer: E21 is a controlled TinyLlama-scale proxy and does not replace a full matched-scale 7--8B RoPE-vs-ALiBi/NoPE pretraining suite.
+RC13 & Hardening & Needed to test whether SI-ranked disruption exceeds a matched non-SI importance control. & Supported: SI-ranked minus importance-matched disruption is positive in all models (Llama $+3.60$ [3.51, 3.70], Mistral $+3.21$ [3.14, 3.28], OLMo $+0.0267$ [0.0167, 0.0381]). & Strengthens SI-specificity against a generic head-importance explanation in this intervention setup. \\ 
 
-\paragraph{Tokenizer toy-model pretraining experiments (ongoing exploratory work).}
-Separate exploratory toy-model tokenizer/pretraining runs are active to test
-when tokenizer-mediated SI routing emerges during training. These runs are not part of
-the claim-hardening table above and are not used for any promoted claim in this submission.
+RC14 & Hardening & Needed to test whether disruption tracks non-trivial SI beyond simple local-distance bias. & Supported with caveat: disruption tracks $R^2_{\text{excess}}$ over local-decay null in 2/3 models (Llama/Mistral supported; OLMo not supported). & Adds model-conditional evidence that SI effect is not only a trivial local-bias proxy. \\
 
-\paragraph{E23: Exploratory stage-sensitive SI pretraining causal probe.}
-E23 trains a tiny from-scratch LlamaForCausalLM (384 hidden units, 10 layers, 6 heads; vocab\_size=192; synthetic arithmetic/copy tasks) with SI-consistency augmentation active in different training-stage windows. The v1 run failed due to a CE-masking bug (filler tokens dominating the gradient, discovered and fixed for v2). V2 results show bimodal outcomes: seeds either achieve 100\% accuracy on unseen offsets (offset-invariant solution) or stay near 10\% chance. SI augmentation at any stage (early, late, or full) increases the probability of perfect generalization relative to the no-augmentation baseline (baseline 0/2 perfect events; early 1/2; late 1/2; full 1/2). The strict stage-sensitivity hypothesis (early augmentation specifically critical; late arm stays near baseline) is not supported---the late arm improves substantially. Kernel specificity support is False in all seeds including perfect-generalization ones, indicating the model learns an offset-invariant computational strategy without raising measurable $\bar{R}^2_{\text{SI}}$. This is exploratory causal probe evidence for the training-modulates-exploitation framing. Full details in Appendix~\ref{app:e23}.
+RC15 & Hardening & Needed a direct structure-level anti-tautology check beyond subtraction and importance-matched controls. & Supported: kernel-transplant specificity positive in all 3 models (low-transplant-minus-low-self: Llama $+0.947$ [0.902, 0.999], Mistral $+0.374$ [0.350, 0.398], OLMo $+0.0174$ [0.0150, 0.0202]). & Strengthens SI-specificity: SI-structured kernel content itself contributes disruption beyond low-head self subtraction. \\
+
+RC16 & Hardening & Needed semi-naturalistic long-context functional extension beyond short aligned probe families. & Supported with caveat: natural-text long-context preferential gap is positive in Llama/Mistral and negative in OLMo (2/3 model directional passes). & Extends the functional sensitivity finding beyond 9-token probes with explicit model-conditional transfer boundary. \\
+
+RC17 & Supporting & Needed low-cost extra-model directional anchor outside the three-model primary set. & Not supported: Qwen2.5-7B quickcheck shows high SI mean $R^2$ (0.605) but no directional true$>$permuted corroboration (delta true-minus-perm $-0.167$); non-primary adapter fallback path used. & No claim promotion from extra-model anchor; used only as bounded directional context. \\
+
+RC18 & Hardening & Needed explicit 2$\times$2 transfer-boundary test (short/long context $\times$ high/low offset regularity) to reconcile RC3 vs RC16. & Supported with caveat: boundary grid reproduces 2/3 model directional passes (Llama/Mistral pass, OLMo non-pass), but factor-direction contrasts are not universal across models. & Narrows the functional sensitivity finding to model-conditional structure sensitivity with bounded transfer; no universal boundary law promoted. \\
+
+RC19 & Hardening & Needed stronger local-bias alternative test beyond single exponential-decay null. & Supported with caveat: disruption tracks $R^2_{\text{excess}}$ over best local-bias family fit (exponential/power-law/window) in 2/3 models (Llama/Mistral pass; OLMo non-pass). & Strengthens SI-specificity metric-validity posture as model-conditional non-trivial SI evidence beyond simple local-bias proxies. \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+Additional breadth and extension controls (BC1--BC4) extend the robustness layer: BC1 confirms broad cross-model heterogeneity, BC2 is mixed for coherence-gap correlations, BC3 is directionally positive for functional coupling, and BC4 provides a short naturalistic validation in Llama.
+
+Overall, these controls preserve the same interpretation used in the main paper: the primary SI-specificity result is robust, while transfer and attribution claims remain explicitly bounded. Full experiment-level outputs and scripts are included in the anonymous supplementary package.
+
+\paragraph{Residual scope note.}
+The proxy-scale variance decomposition (RC5) and RoPE-vs-NoPE checks (RC6) are proxy-scale controls and do not replace a matched-scale 7--8B causal pretraining comparison.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Exploratory Causal Probe: Stage-Sensitive SI Pretraining (E23)}
+\section{Exploratory Causal Probe: Stage-Sensitive SI Pretraining}
 \label{app:e23}
 
 \subsection{Motivation}
 
-The capacity-versus-exploitation framing in the main text claims that RoPE provides SI capacity at initialization and training determines how strongly each model exploits it. E4 (OLMo checkpoint analysis) provides consistency evidence for architectural initiation, but cannot directly probe whether and when training modulations of SI capacity occur. E23 is an exploratory causal probe: by training a tiny RoPE model from scratch with SI-consistency augmentation active in different training-stage windows, we test whether \textit{when} augmentation is applied influences whether the model converges to an offset-invariant computational solution. This experiment is explicitly exploratory---the synthetic setting does not generalize to 7--8B models, and no promoted claims in the main text depend on E23.
+The capacity-versus-exploitation framing in the main text claims that RoPE provides SI capacity at initialization and training determines how strongly each model exploits it. The OLMo checkpoint trajectory analysis (Appendix~D) provides consistency evidence for architectural initiation, but cannot directly probe whether and when training modulations of SI capacity occur. This appendix reports an exploratory causal probe: by training a tiny RoPE model from scratch with SI-consistency augmentation active in different training-stage windows, we test whether \textit{when} augmentation is applied influences whether the model converges to an offset-invariant computational solution. This experiment is explicitly exploratory---the synthetic setting does not generalize to 7--8B models, and no promoted claims in the main text depend on this probe.
 
 \subsection{Setup}
 
@@ -1442,14 +1169,14 @@ where $\mathcal{L}_{\mathrm{CE}}$ is cross-entropy masked to non-filler position
 \end{itemize}
 Total training budget: 40M tokens (4,883 steps at 8,192 tokens/step). Optimizer: AdamW, lr $= 3{\times}10^{-4}$, 5\% linear warmup, weight decay 0.01, gradient clip 1.0.
 
-\paragraph{Implementation note: v1 CE-masking bug.} The original E23 run (v1) produced all-null results: all arms showed arith accuracy $\approx 10\%$ (random chance) and symKL $= 0.0000$ throughout. Root cause: \texttt{\_forward\_ce\_loss} computed cross-entropy over all 128 token positions uniformly, including $\sim$120 random filler tokens ($\sim$92\% of the sequence). The arithmetic task received only $\approx 1/128$ of the total gradient budget, preventing any learning. Fix: mask CE to positions where labels $< 128$ (FILLER\_BASE), concentrating gradient on the 8--14 task-relevant tokens per sequence. Verified by CE dropping from $3.88 \to 0.897$ at step 100 in the repaired v2 run (v1 flatlined at 3.88 indefinitely).
+\paragraph{Implementation note.} A preliminary run used incorrect loss masking and is excluded. All reported results use corrected masking over task-relevant tokens.
 
 \subsection{Results}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
-\caption{E23 v2 seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar{R}^2_{\mathrm{SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes.}
+\caption{Seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar{R}^2_{\mathrm{SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes.}
 \label{tab:e23_results}
 \begin{tabular}{llccccc}
 \toprule
@@ -1467,10 +1194,10 @@ full\_si\_aug  & 1 & 0.082 & 0.102 & 0.551 & 0.357 & $\times$ \\
 \end{tabular}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[htbp]
 \centering
 \small
-\caption{E23 v2 arm means at submission cutoff. Std is across available seeds.}
+\caption{Arm means at submission cutoff. Std is across available seeds.}
 \label{tab:e23_arm_means}
 \begin{tabular}{lcccc}
 \toprule
@@ -1488,13 +1215,13 @@ full\_si\_aug  & $0.775 \pm 0.318$ & 0.551 & 0.376 & 1/2 \\
 
 \paragraph{Strict stage-sensitivity hypothesis not supported.} The pre-registered gate required late augmentation to stay near baseline ($|\text{late} - \text{baseline}| \leq 0.02$). The late arm improved substantially (mean $\Delta = +0.269$), failing the gate. The correct characterization is that \textit{augmentation at any stage increases P(offset-invariant solution)}, not that there is a critical early-stage window.
 
-\paragraph{Kernel specificity.} \texttt{kernel\_specificity\_support = False} in all seeds, including perfect-generalization ones. Seeds that achieve 100\% accuracy on unseen offsets show $\bar{R}^2_{\mathrm{SI}} \approx 0.39$--$0.44$, indistinguishable from chance-level seeds ($0.40$--$0.43$). The model learns an offset-invariant computational \textit{strategy} (correct generalization to unseen offsets) without developing a measurably more shift-invariant \textit{attention kernel}. This is consistent with the main paper's finding that high SI $R^2$ and task-level positional generalization can be dissociated.
+\paragraph{Kernel specificity.} The kernel-specificity gate does not pass in any seed, including perfect-generalization seeds. Seeds that achieve 100\% accuracy on unseen offsets show $\bar{R}^2_{\mathrm{SI}} \approx 0.39$--$0.44$, indistinguishable from chance-level seeds ($0.40$--$0.43$). The model learns an offset-invariant computational \textit{strategy} (correct generalization to unseen offsets) without developing a measurably more shift-invariant \textit{attention kernel}. This is consistent with the main paper's finding that high SI $R^2$ and task-level positional generalization can be dissociated.
 
 \subsection{Interpretation and Scope}
 
-E23 provides exploratory causal probe evidence that training-stage interventions can influence solution-basin convergence in a controlled synthetic setting. SI-consistency augmentation lowers the barrier to the offset-invariant solution, consistent with the main-paper framing that training modulates how the RoPE-provided SI capacity is exploited.
+This appendix provides exploratory causal probe evidence that training-stage interventions can influence solution-basin convergence in a controlled synthetic setting. SI-consistency augmentation lowers the barrier to the offset-invariant solution, consistent with the main-paper framing that training modulates how the RoPE-provided SI capacity is exploited.
 
-Critical limitations preclude generalization: (a) the model has 384 hidden units and 10 layers, orders of magnitude below 7--8B scale; (b) tasks are synthetic, highly structured, and involve only token-ID arithmetic, not natural language; (c) $n{=}2$ seeds per arm is too small for statistical confidence (the difference between 0/2 and 1/2 is not statistically distinguishable); (d) the strict stage-sensitive critical-period hypothesis is falsified. E23 is therefore exploratory motivation for future large-scale causal probing---not a promoted claim---and the results do not modify any main-text claim.
+Critical limitations preclude generalization: (a) the model has 384 hidden units and 10 layers, orders of magnitude below 7--8B scale; (b) tasks are synthetic, highly structured, and involve only token-ID arithmetic, not natural language; (c) $n{=}2$ seeds per arm is too small for statistical confidence (the difference between 0/2 and 1/2 is not statistically distinguishable); (d) the strict stage-sensitive critical-period hypothesis is falsified. This probe is therefore exploratory motivation for future large-scale causal probing---not a promoted claim---and the results do not modify any main-text claim.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

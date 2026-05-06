@@ -2,7 +2,8 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{vaswani2017attention,su2021roformer}
+\citation{vaswani2017attention}
+\citation{su2021roformer}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \citation{vaswani2017attention,shaw2018self,press2022train,su2021roformer}
 \citation{chen2023extending,peng2023yarn}
@@ -10,44 +11,49 @@
 \citation{clark2019analyzing,voita2019analyzing,michel2019sixteen,conmy2023acdc}
 \citation{meng2022locating,chan2022causal}
 \citation{elhage2021framework,olsson2022context,wu2024retrieval,xiao2023efficient}
+\@writefile{toc}{\contentsline {paragraph}{Contributions.}{2}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Terminology.}{2}{section*.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{2}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{RoPE, positional structure, and offset-conditioned computation.}{2}{section*.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Head specialization, mechanistic intervention, and retrieval behavior.}{2}{section*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{What prior work does not yet resolve.}{2}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Setup}{2}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}SI operationalization}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{RoPE, positional structure, and offset-conditioned computation.}{2}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Head specialization, mechanistic intervention, and retrieval behavior.}{2}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What prior work does not yet resolve.}{3}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Setup}{3}{section.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of the SI channel, measurement, and intervention. \textbf  {(a)} Pre-softmax attention logits decompose into an offset-only component $g_h(i{-}j)$ (shift-invariant) and a residual $r_h(i,j)$; diagonal stripes in the attention matrix reflect SI structure. \textbf  {(b)} $R_h^2$ measures the fraction of logit variance explained by $g_h$; high-SI heads (blue) cluster near the identity line, low-SI heads (green) scatter widely. \textbf  {(c)} Subtracting $\hat  {g}_h$ from head logits at evaluation time reveals that disruption cost scales monotonically with $R_h^2$, establishing the dose-response relationship that anchors the primary finding.}}{3}{figure.1}\protected@file@percent }
+\newlabel{fig:overview}{{1}{3}{Overview of the SI channel, measurement, and intervention. \textbf {(a)} Pre-softmax attention logits decompose into an offset-only component $g_h(i{-}j)$ (shift-invariant) and a residual $r_h(i,j)$; diagonal stripes in the attention matrix reflect SI structure. \textbf {(b)} $R_h^2$ measures the fraction of logit variance explained by $g_h$; high-SI heads (blue) cluster near the identity line, low-SI heads (green) scatter widely. \textbf {(c)} Subtracting $\hat {g}_h$ from head logits at evaluation time reveals that disruption cost scales monotonically with $R_h^2$, establishing the dose-response relationship that anchors the primary finding}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}SI operationalization}{3}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What $R^2$ does and does not identify.}{3}{section*.6}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{jiang2023mistral}
 \citation{groeneveld2024olmo}
-\citation{radford2019language}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Intervention}{3}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Models and evidence policy}{3}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Setup anchor: per-head SI-strength distributions. TinyLlama-NoPE has near-zero early-layer SI, while RoPE models show broad but heterogeneous SI strength. GPT-2 anchors show non-trivial SI under absolute PE.}}{4}{figure.1}\protected@file@percent }
-\newlabel{fig:setup_capacity}{{1}{4}{Setup anchor: per-head SI-strength distributions. TinyLlama-NoPE has near-zero early-layer SI, while RoPE models show broad but heterogeneous SI strength. GPT-2 anchors show non-trivial SI under absolute PE}{figure.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Main design at a glance.}{4}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Result I: RoPE Provides SI Capacity; Trained Models Exploit It Heterogeneously}{4}{section.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Head-level dose-response and specificity controls (primary finding). \textbf  {Left}: 20-bin Spearman correlation between per-head $R^2$ and disruption cost under SI-kernel subtraction (Llama $\rho {=}0.959$, Mistral $\rho {=}0.964$, OLMo $\rho {=}0.684$; all one-tailed permutation $p < 0.001$). \textbf  {Center}: SI-ranked intervention minus importance-matched non-SI intervention (positive in all three models, ruling out generic head-importance as the driver). \textbf  {Right}: Kernel-transplant specificity --- transplanting norm-matched high-SI kernels onto low-SI heads versus low-head self-subtraction (positive in all three models).}}{5}{figure.2}\protected@file@percent }
-\newlabel{fig:dose_response}{{2}{5}{Head-level dose-response and specificity controls (primary finding). \textbf {Left}: 20-bin Spearman correlation between per-head $R^2$ and disruption cost under SI-kernel subtraction (Llama $\rho {=}0.959$, Mistral $\rho {=}0.964$, OLMo $\rho {=}0.684$; all one-tailed permutation $p < 0.001$). \textbf {Center}: SI-ranked intervention minus importance-matched non-SI intervention (positive in all three models, ruling out generic head-importance as the driver). \textbf {Right}: Kernel-transplant specificity --- transplanting norm-matched high-SI kernels onto low-SI heads versus low-head self-subtraction (positive in all three models)}{figure.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compact Result I hardening snapshot (main-text proof-of-stack).}}{5}{table.1}\protected@file@percent }
-\newlabel{tab:result1_hardening_snapshot}{{1}{5}{Compact Result I hardening snapshot (main-text proof-of-stack)}{table.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Head-level dose-response and specificity controls (Figure~\ref {fig:dose_response}).}{5}{section*.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces SI-head ablation on a controlled offset-repetition retrieval probe. \textit  {Offset-repetition} = repeated key$\rightarrow $value mapping (4 demonstrations); \textit  {matched-control} = independent key/value pairs, matched token count. Protocol: 200 prompts per condition per model; matched prompt length ($2\times 4+1=9$ tokens).}}{6}{table.2}\protected@file@percent }
-\newlabel{tab:e12_main}{{2}{6}{SI-head ablation on a controlled offset-repetition retrieval probe. \textit {Offset-repetition} = repeated key$\rightarrow $value mapping (4 demonstrations); \textit {matched-control} = independent key/value pairs, matched token count. Protocol: 200 prompts per condition per model; matched prompt length ($2\times 4+1=9$ tokens)}{table.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Result III boundary snapshot (minimal main-text scope map).}}{6}{table.3}\protected@file@percent }
-\newlabel{tab:result3_boundary_snapshot}{{3}{6}{Result III boundary snapshot (minimal main-text scope map)}{table.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Result II (Context): Collective Ranked-Ablation Nonlinearity Is Robust but Not SI-Unique}{6}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Functional Sensitivity: SI Intervention Preferentially Disrupts Offset-Repetition Retrieval}{6}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}Robustness and Remaining Scope Limits}{7}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Strongly supported.}{7}{section*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Bounded or mixed.}{7}{section*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Open limitations.}{7}{section*.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{7}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Intervention}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Models and evidence policy}{4}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Head-Level Shift Invariance Under Intervention}{4}{section.4}\protected@file@percent }
+\newlabel{sec:headlevel}{{4}{4}{Head-Level Shift Invariance Under Intervention}{section.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces SI exploitation amplitude varies widely across models. \textbf  {Left}: per-head $R^2$ distributions for the three primary 7--8B models (violin = full distribution; box = IQR; line = median; diamond = mean). Cross-model spread is 6.5$\times $ (mean $R^2$: Llama 0.380, Mistral 0.266, OLMo 0.058). \textbf  {Right}: mixed-scale breadth consolidation across 11 models spanning 7 architecture families (1.1B--9B); mean-$R^2$ range 0.006--0.868 (140$\times $ max/min). Pythia models anchor the minimum end; TinyLlama-NoPE is a low-SI NoPE control above that minimum; GPT-2 models (absolute PE, purple) show non-trivial SI, indicating this is learned computation rather than a RoPE-only artifact.}}{5}{figure.2}\protected@file@percent }
+\newlabel{fig:setup_capacity}{{2}{5}{SI exploitation amplitude varies widely across models. \textbf {Left}: per-head $R^2$ distributions for the three primary 7--8B models (violin = full distribution; box = IQR; line = median; diamond = mean). Cross-model spread is 6.5$\times $ (mean $R^2$: Llama 0.380, Mistral 0.266, OLMo 0.058). \textbf {Right}: mixed-scale breadth consolidation across 11 models spanning 7 architecture families (1.1B--9B); mean-$R^2$ range 0.006--0.868 (140$\times $ max/min). Pythia models anchor the minimum end; TinyLlama-NoPE is a low-SI NoPE control above that minimum; GPT-2 models (absolute PE, purple) show non-trivial SI, indicating this is learned computation rather than a RoPE-only artifact}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Head-level dose-response and specificity controls (primary finding). \textbf  {Left}: 20-bin Spearman correlation between per-head $R^2$ and disruption cost under SI-kernel subtraction (Llama $\rho {=}0.959$, Mistral $\rho {=}0.964$, OLMo $\rho {=}0.684$; all one-tailed permutation $p < 0.001$). \textbf  {Center}: SI-ranked intervention minus importance-matched non-SI intervention (positive in all three models, ruling out generic head-importance as the driver). \textbf  {Right}: Kernel-transplant specificity --- transplanting norm-matched high-SI kernels onto low-SI heads versus low-head self-subtraction (positive in all three models).}}{6}{figure.3}\protected@file@percent }
+\newlabel{fig:dose_response}{{3}{6}{Head-level dose-response and specificity controls (primary finding). \textbf {Left}: 20-bin Spearman correlation between per-head $R^2$ and disruption cost under SI-kernel subtraction (Llama $\rho {=}0.959$, Mistral $\rho {=}0.964$, OLMo $\rho {=}0.684$; all one-tailed permutation $p < 0.001$). \textbf {Center}: SI-ranked intervention minus importance-matched non-SI intervention (positive in all three models, ruling out generic head-importance as the driver). \textbf {Right}: Kernel-transplant specificity --- transplanting norm-matched high-SI kernels onto low-SI heads versus low-head self-subtraction (positive in all three models)}{figure.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Head-Level Shift Invariance: model-by-model specificity summary. Each row is one model; columns report (i) head-level dose-response correlation, (ii) excess disruption of SI-ranked vs.\ importance-matched non-SI ablation, (iii) excess disruption of kernel transplant vs.\ low-head self-ablation, and (iv) whether the local-bias decomposition passes. Positive deltas indicate stronger SI-specific disruption.}}{6}{table.1}\protected@file@percent }
+\newlabel{tab:result1_hardening_snapshot}{{1}{6}{Head-Level Shift Invariance: model-by-model specificity summary. Each row is one model; columns report (i) head-level dose-response correlation, (ii) excess disruption of SI-ranked vs.\ importance-matched non-SI ablation, (iii) excess disruption of kernel transplant vs.\ low-head self-ablation, and (iv) whether the local-bias decomposition passes. Positive deltas indicate stronger SI-specific disruption}{table.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Head-level dose-response and specificity controls (Figure~\ref {fig:dose_response}).}{6}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Bounded Functional Sensitivity Under Offset-Structured Probes}{6}{section.5}\protected@file@percent }
+\newlabel{sec:functional}{{5}{6}{Bounded Functional Sensitivity Under Offset-Structured Probes}{section.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Bounded functional sensitivity summary. \textbf  {Panel A} reports the core controlled-probe effect at model level. \textbf  {Panel B} reports transfer scope across progressively stricter settings. Positive preferential gaps indicate larger SI-ablation damage in offset-structured conditions than matched controls.}}{7}{table.2}\protected@file@percent }
+\newlabel{tab:functional_summary}{{2}{7}{Bounded functional sensitivity summary. \textbf {Panel A} reports the core controlled-probe effect at model level. \textbf {Panel B} reports transfer scope across progressively stricter settings. Positive preferential gaps indicate larger SI-ablation damage in offset-structured conditions than matched controls}{table.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Functional sensitivity under SI-head ablation. \textbf  {Left}: accuracy change under SI-head removal for offset-repetition (solid) vs.\ matched-control conditions (hatched); preferential gap ($\Delta $) is positive in all three models but decreases with SI amplitude (Llama $>$ Mistral $>$ OLMo). \textbf  {Right}: transfer-scope summary across four probe settings; filled circles = model pass, empty = fail. Sensitivity is robust under the controlled probe (3/3) but narrows under stricter format controls (1/3) and broader synthetic families (0/3); natural-text long-context extension passes in Llama/Mistral (2/3).}}{7}{figure.4}\protected@file@percent }
+\newlabel{fig:func_sensitivity}{{4}{7}{Functional sensitivity under SI-head ablation. \textbf {Left}: accuracy change under SI-head removal for offset-repetition (solid) vs.\ matched-control conditions (hatched); preferential gap ($\Delta $) is positive in all three models but decreases with SI amplitude (Llama $>$ Mistral $>$ OLMo). \textbf {Right}: transfer-scope summary across four probe settings; filled circles = model pass, empty = fail. Sensitivity is robust under the controlled probe (3/3) but narrows under stricter format controls (1/3) and broader synthetic families (0/3); natural-text long-context extension passes in Llama/Mistral (2/3)}{figure.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Scope and Robustness Boundaries}{8}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Functional boundary.}{8}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Collective-ablation context.}{8}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Integrated reading.}{8}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Open limitations.}{8}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{8}{section.7}\protected@file@percent }
 \bibstyle{plainnat}
 \bibdata{../neurips2026/references}
 \bibcite{barbero2024round}{{1}{2024}{{Barbero et~al.}}{{Barbero, Vitvitskyi, Perivolaropoulos, Pascanu, and Velickovic}}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Broader Impact}{9}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{9}{section.9}\protected@file@percent }
 \bibcite{chan2022causal}{{2}{2022}{{Chan et~al.}}{{Chan, Garriga-Alonso, Goldowsky-Dill, Greenblatt, Nanda, Pearce, Radhakrishnan, Ruhkamp, Schiefer, Schubert, et~al.}}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Broader Impact}{8}{section.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{8}{section.10}\protected@file@percent }
 \bibcite{chen2023extending}{{3}{2023}{{Chen et~al.}}{{Chen, Li, Shen, Yang, Zhang, Gan, Tao, and Carin}}}
 \bibcite{clark2019analyzing}{{4}{2019}{{Clark et~al.}}{{Clark, Khandelwal, Levy, and Manning}}}
 \bibcite{conmy2023acdc}{{5}{2023}{{Conmy et~al.}}{{Conmy, Mavor-Parker, Lynch, Heimersheim, and Garriga-Alonso}}}
@@ -78,180 +84,164 @@
 \@writefile{toc}{\contentsline {section}{\numberline {A}Experiment 1: Measurement of shift-invariant structure}{11}{appendix.A}\protected@file@percent }
 \newlabel{app:exp1}{{A}{11}{Experiment 1: Measurement of shift-invariant structure}{appendix.A}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Setup}{11}{subsection.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Models.}{11}{section*.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Datasets.}{11}{section*.12}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Sequence lengths.}{11}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Measurement.}{11}{section*.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Main-text 7--8B SI-strength anchors (reported in Result I; included here to reconcile appendix scale).}}{11}{table.4}\protected@file@percent }
-\newlabel{tab:appa_7b_r2_anchor}{{4}{11}{Main-text 7--8B SI-strength anchors (reported in Result I; included here to reconcile appendix scale)}{table.4}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 7--8B per-head SI-strength distribution summary (same underlying head-level data used by Results I and E26).}}{11}{table.5}\protected@file@percent }
-\newlabel{tab:appa_7b_r2_quantiles}{{5}{11}{7--8B per-head SI-strength distribution summary (same underlying head-level data used by Results I and E26)}{table.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Models.}{11}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Datasets.}{11}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Sequence lengths.}{11}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Measurement.}{11}{section*.17}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Detailed results}{11}{subsection.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Depth dependence.}{11}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Depth dependence.}{11}{section*.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A1}{\ignorespaces Representative $g_h(\Delta )$ kernel shapes (top) and their DFT magnitude spectra (bottom) for high-, medium-, and low-SI heads. High-SI heads exhibit richer oscillatory structure with higher DFT energy, while low-SI heads are near-flat. This aligns with the main-text frequency-domain observation that higher DFT content predicts larger disruption under SI-kernel subtraction (Spearman $\rho {=}0.437$, $p{=}2.2\times 10^{-13}$, Llama).}}{12}{figure.appendix.figure.1}\protected@file@percent }
+\newlabel{fig:kernels}{{A1}{12}{Representative $g_h(\Delta )$ kernel shapes (top) and their DFT magnitude spectra (bottom) for high-, medium-, and low-SI heads. High-SI heads exhibit richer oscillatory structure with higher DFT energy, while low-SI heads are near-flat. This aligns with the main-text frequency-domain observation that higher DFT content predicts larger disruption under SI-kernel subtraction (Spearman $\rho {=}0.437$, $p{=}2.2\times 10^{-13}$, Llama)}{figure.appendix.figure.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A1}{\ignorespaces Main-text 7--8B SI-strength anchors (reported in Section~4; included here to reconcile appendix scale).}}{12}{table.appendix.table.1}\protected@file@percent }
+\newlabel{tab:appa_7b_r2_anchor}{{A1}{12}{Main-text 7--8B SI-strength anchors (reported in Section~4; included here to reconcile appendix scale)}{table.appendix.table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A2}{\ignorespaces 7--8B per-head SI-strength distribution summary (same underlying head-level data used by Section~4 and RC10).}}{12}{table.appendix.table.2}\protected@file@percent }
+\newlabel{tab:appa_7b_r2_quantiles}{{A2}{12}{7--8B per-head SI-strength distribution summary (same underlying head-level data used by Section~4 and RC10)}{table.appendix.table.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A3}{\ignorespaces Track A early-layer $R^2$ by model, dataset, and sequence length (selected rows).}}{12}{table.appendix.table.3}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
 \citation{zhang2024tinyllama}
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
 \citation{jiang2023mistral}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Per-head $R^2$ distributions across the five tested models (violin plots, Wikipedia/512 conditions; dashed lines mark the top-quartile cutoff defining high-SI heads). RoPE-equipped 7--8B models differ markedly in SI concentration; GPT-2 anchors (right) show intermediate $R^2$ without RoPE, inconsistent with a strictly RoPE-specific artifact explanation. OLMo's narrow, low-$R^2$ distribution illustrates the weak-SI regime where SI-guided classification degrades. Referenced in main text Section~3.}}{12}{figure.3}\protected@file@percent }
-\newlabel{fig:r2_dist}{{3}{12}{Per-head $R^2$ distributions across the five tested models (violin plots, Wikipedia/512 conditions; dashed lines mark the top-quartile cutoff defining high-SI heads). RoPE-equipped 7--8B models differ markedly in SI concentration; GPT-2 anchors (right) show intermediate $R^2$ without RoPE, inconsistent with a strictly RoPE-specific artifact explanation. OLMo's narrow, low-$R^2$ distribution illustrates the weak-SI regime where SI-guided classification degrades. Referenced in main text Section~3}{figure.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Track A early-layer $R^2$ by model, dataset, and sequence length (selected rows).}}{12}{table.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Dataset sensitivity.}{12}{section*.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Track A vs Track B.}{12}{section*.17}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B}Experiment 2: Causal frequency interventions}{12}{appendix.B}\protected@file@percent }
-\newlabel{app:exp2}{{B}{12}{Experiment 2: Causal frequency interventions}{appendix.B}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Setup}{12}{subsection.B.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Hypotheses.}{12}{section*.18}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Intervention.}{12}{section*.19}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Task suite.}{12}{section*.20}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Models.}{12}{section*.21}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A2}{\ignorespaces Model-level Track-A SI summary across tested models (1B proxy scale; early layers vs.\ all layers). RoPE-equipped models are substantially above the TinyLlama-NoPE anchor in early layers, while GPT-2 anchors (absolute PE) remain non-trivial. This 1B proxy measurement motivates but does not replace the 7--8B primary-model heterogeneity reported in Section~4 and Figure~\ref {fig:setup_capacity}.}}{13}{figure.appendix.figure.2}\protected@file@percent }
+\newlabel{fig:r2_dist}{{A2}{13}{Model-level Track-A SI summary across tested models (1B proxy scale; early layers vs.\ all layers). RoPE-equipped models are substantially above the TinyLlama-NoPE anchor in early layers, while GPT-2 anchors (absolute PE) remain non-trivial. This 1B proxy measurement motivates but does not replace the 7--8B primary-model heterogeneity reported in Section~4 and Figure~\ref {fig:setup_capacity}}{figure.appendix.figure.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Dataset sensitivity.}{13}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Track A vs Track B.}{13}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B}Experiment 2: Causal frequency interventions}{13}{appendix.B}\protected@file@percent }
+\newlabel{app:exp2}{{B}{13}{Experiment 2: Causal frequency interventions}{appendix.B}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Setup}{13}{subsection.B.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Hypotheses.}{13}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Intervention.}{13}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Task suite.}{13}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Models.}{13}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Detailed results}{13}{subsection.B.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A4}{\ignorespaces Complete Experiment 2 results across all analysis branches.}}{13}{table.appendix.table.4}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
-\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Detailed results}{13}{subsection.B.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Complete Experiment 2 results across all analysis branches.}}{13}{table.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{H2 interpretation.}{13}{section*.22}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {C}Experiment 3: Mechanistic theory battery}{13}{appendix.C}\protected@file@percent }
-\newlabel{app:exp3}{{C}{13}{Experiment 3: Mechanistic theory battery}{appendix.C}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Setup}{13}{subsection.C.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Full Experiment 3 theory battery results. Theories T2, T4, and T6 were not executed as part of the core Experiment 3 battery in this program; they appear as reserved entries in the theory numbering scheme.\textsuperscript  {$\dagger $}}}{13}{table.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Note on T1 vs.\ T8.}{13}{section*.23}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{T5b details.}{13}{section*.24}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{T8 details.}{13}{section*.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{T7/T10 interpretation boundary.}{14}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{H2 interpretation.}{14}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C}Experiment 3: Mechanistic theory battery}{14}{appendix.C}\protected@file@percent }
+\newlabel{app:exp3}{{C}{14}{Experiment 3: Mechanistic theory battery}{appendix.C}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Setup}{14}{subsection.C.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A5}{\ignorespaces Full Experiment 3 theory battery results. Theories T2, T4, and T6 were not executed as part of the core Experiment 3 battery in this program; they appear as reserved entries in the theory numbering scheme.\textsuperscript  {$\dagger $}}}{14}{table.appendix.table.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Note on T1 vs.\ T8.}{14}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{T5a details.}{14}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{T8 details.}{14}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{T7/T10 interpretation boundary.}{14}{section*.29}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {D}Experiment 3 Phase 2: Adjudication layer}{14}{appendix.D}\protected@file@percent }
 \newlabel{app:exp3p2}{{D}{14}{Experiment 3 Phase 2: Adjudication layer}{appendix.D}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Phase 2 adjudication: full results across 11 sub-experiments.}}{14}{table.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{3P2-C.1 details.}{14}{section*.27}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{E5 fourth-family protocol details (Gemma).}{14}{section*.28}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Reinforcement experiments (R1--R5 + follow-ups)}{14}{subsection.D.1}\protected@file@percent }
-\newlabel{app:reinforcement}{{D.1}{14}{Reinforcement experiments (R1--R5 + follow-ups)}{subsection.D.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Evidence timestamp and provenance.}{14}{section*.29}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Full artifact paths.}{15}{section*.30}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R1 prereg decision rule (explicit).}{15}{section*.31}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R5 prereg transfer rule (explicit).}{16}{section*.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R2 dependence-aware sensitivity caveat.}{16}{section*.33}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R5 proxy-to-task discrepancy (required scope downgrade).}{16}{section*.34}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R5B reinforcement update (required scope retained).}{16}{section*.35}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{R3 completion outcome (resolved).}{16}{section*.36}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{NEW-R12 random-order control.}{16}{section*.37}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{NEW-R14 kernel-specificity control.}{16}{section*.38}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{NEW-R15 head-identity stability control.}{16}{section*.39}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{E12 protocol details (reproducibility clarification).}{16}{section*.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{C.1: Redundancy-model details.}{14}{section*.30}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
+\@writefile{lot}{\contentsline {table}{\numberline {A6}{\ignorespaces Phase 2 adjudication: full results across 11 sub-experiments.}}{15}{table.appendix.table.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Gemma-2-9B fourth-family replication.}{15}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1}Reinforcement analyses (R1--R8)}{15}{subsection.D.1}\protected@file@percent }
+\newlabel{app:reinforcement}{{D.1}{15}{Reinforcement analyses (R1--R8)}{subsection.D.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Evidence window.}{15}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reinforcement summary.}{15}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Functional sensitivity probe protocol.}{15}{section*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {E}Experiment 4: SI-guided fine-tuning}{15}{appendix.E}\protected@file@percent }
+\newlabel{app:exp4}{{E}{15}{Experiment 4: SI-guided fine-tuning}{appendix.E}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.1}Setup}{15}{subsection.E.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A7}{\ignorespaces Reinforcement analyses: prespecified criteria, outcomes, and claim impact.}}{16}{table.appendix.table.7}\protected@file@percent }
 \citation{hendrycks2021math}
-\@writefile{toc}{\contentsline {subsection}{\numberline {D.2}\texttt  {reinforce\_exp2} Path A/B consolidation (as of April 24, 2026)}{17}{subsection.D.2}\protected@file@percent }
-\newlabel{app:reinforce_exp2_ab}{{D.2}{17}{\texttt {reinforce\_exp2} Path A/B consolidation (as of April 24, 2026)}{subsection.D.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Evidence window and scope.}{17}{section*.41}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Path C status-only note (as of April 25, 2026).}{17}{section*.42}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{B1 mixed outcome (criteria split).}{17}{section*.43}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{B2a mixed outcome (directional heterogeneity under Holm correction).}{17}{section*.44}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{B3 inconclusive outcome (insufficient clusters).}{17}{section*.45}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{B4 mixed outcome (cross-model asymmetry).}{17}{section*.46}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {E}Experiment 4: SI-guided fine-tuning}{17}{appendix.E}\protected@file@percent }
-\newlabel{app:exp4}{{E}{17}{Experiment 4: SI-guided fine-tuning}{appendix.E}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {E.1}Setup}{17}{subsection.E.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Models.}{17}{section*.47}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Training.}{17}{section*.48}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Evaluation.}{17}{section*.49}\protected@file@percent }
 \citation{touvron2023llama2}
 \citation{dubey2024llama3}
-\@writefile{toc}{\contentsline {paragraph}{SI head definition.}{18}{section*.50}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {E.2}Results}{18}{subsection.E.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{4C: SI trajectory under fine-tuning (Llama-3.1-8B and OLMo-2-7B).}{18}{section*.51}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{4A: SI-aware LoRA comparison (cross-model).}{18}{section*.52}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {F}Experiment 5: Tokenizer effect audit}{18}{appendix.F}\protected@file@percent }
-\newlabel{app:exp5}{{F}{18}{Experiment 5: Tokenizer effect audit}{appendix.F}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {F.1}Setup}{18}{subsection.F.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5A.}{18}{section*.53}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5B.}{18}{section*.54}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5C.}{18}{section*.55}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5D.}{18}{section*.56}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {F.2}Results}{18}{subsection.F.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5B: Head identity shuffles with tokenizer.}{18}{section*.57}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5C: Causal perturbation results.}{18}{section*.58}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5D: Domain robustness.}{18}{section*.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Models.}{17}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training.}{17}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Evaluation.}{17}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{SI head definition.}{17}{section*.38}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.2}Results}{17}{subsection.E.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{4C: SI trajectory under fine-tuning (Llama-3.1-8B and OLMo-2-7B).}{17}{section*.39}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{4A: SI-aware LoRA comparison (cross-model).}{17}{section*.40}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A8}{\ignorespaces Exp.~4A results: all SI-routing conditions vs.\ baseline, by model.}}{17}{table.appendix.table.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {F}Experiment 5: Tokenizer effect audit}{17}{appendix.F}\protected@file@percent }
+\newlabel{app:exp5}{{F}{17}{Experiment 5: Tokenizer effect audit}{appendix.F}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {F.1}Setup}{17}{subsection.F.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5A.}{17}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5B.}{17}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5C.}{17}{section*.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5D.}{17}{section*.44}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{zhang2024tinyllama}
 \citation{groeneveld2024olmo}
+\@writefile{toc}{\contentsline {subsection}{\numberline {F.2}Results}{18}{subsection.F.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5B: Head identity shuffles with tokenizer.}{18}{section*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5C: Causal perturbation results.}{18}{section*.46}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A9}{\ignorespaces Exp.~5C perturbation effects on SI attention.}}{18}{table.appendix.table.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5D: Domain robustness.}{18}{section*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5A: Cross-family.}{18}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {G}Experiment 6: SI-guided knowledge localization}{18}{appendix.G}\protected@file@percent }
+\newlabel{app:exp6}{{G}{18}{Experiment 6: SI-guided knowledge localization}{appendix.G}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {G.1}Setup}{18}{subsection.G.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {G.2}Results}{18}{subsection.G.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A10}{\ignorespaces Exp.~6A gradient routing results.}}{18}{table.appendix.table.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{6A: Gradient routing.}{18}{table.appendix.table.10}\protected@file@percent }
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
-\@writefile{toc}{\contentsline {paragraph}{5A: Cross-family.}{19}{section*.60}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {G}Experiment 6: SI-guided knowledge localization}{19}{appendix.G}\protected@file@percent }
-\newlabel{app:exp6}{{G}{19}{Experiment 6: SI-guided knowledge localization}{appendix.G}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {G.1}Setup}{19}{subsection.G.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {G.2}Results}{19}{subsection.G.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{6A: Gradient routing.}{19}{table.14}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{6B: Anti-localization.}{19}{section*.62}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Submission scope note.}{19}{section*.63}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Combined interpretation.}{19}{section*.64}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{6B: Anti-localization.}{19}{section*.50}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Submission scope note.}{19}{section*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Combined interpretation.}{19}{section*.52}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {H}Experiment 7: CS-inspired framework validation}{19}{appendix.H}\protected@file@percent }
 \newlabel{app:exp7}{{H}{19}{Experiment 7: CS-inspired framework validation}{appendix.H}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {H.1}Setup}{19}{subsection.H.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{7A: Welch-gap proxy relation (audited).}{19}{section*.65}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{7B: Phase-transition analogue.}{19}{section*.66}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{7A: Welch-gap proxy relation (audited).}{19}{section*.53}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{7B: Phase-transition analogue.}{19}{section*.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {H.2}Results}{19}{subsection.H.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A11}{\ignorespaces Exp.~7A: coherence gap vs.\ $\bar  {R}^2$ correlation results.}}{19}{table.appendix.table.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{7A: Coherence-gap proxy relation is mixed at model level.}{19}{table.appendix.table.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Expanded coherence-gap proxy panel (11 models).}{19}{section*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{7B: Phase-transition critical point.}{19}{section*.57}\protected@file@percent }
 \citation{radford2019language}
 \citation{zhang2024tinyllama}
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
 \citation{dubey2024llama3}
 \citation{groeneveld2024olmo}
-\@writefile{toc}{\contentsline {subsection}{\numberline {H.2}Results}{20}{subsection.H.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{7A: Coherence-gap proxy relation is mixed at model level.}{20}{table.15}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{E31B refresh note (expanded proxy panel).}{20}{section*.68}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{7B: Phase-transition critical point.}{20}{section*.69}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {I}Experiment 8: Tokenizer analysis via SI structure}{20}{appendix.I}\protected@file@percent }
 \newlabel{app:exp8}{{I}{20}{Experiment 8: Tokenizer analysis via SI structure}{appendix.I}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {I.1}Setup}{20}{subsection.I.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{8A: Boundary discrimination metrics.}{20}{section*.70}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{8B: Tokenizer-aware pruning.}{20}{section*.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{8A: Boundary discrimination metrics.}{20}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{8B: Tokenizer-aware pruning.}{20}{section*.59}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {I.2}Results: 8A}{20}{subsection.I.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {I.3}Results: 8B}{21}{subsection.I.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A12}{\ignorespaces 8A boundary discrimination full results (small models only; 7--8B-scale pending).}}{20}{table.appendix.table.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {I.3}Results: 8B}{20}{subsection.I.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A13}{\ignorespaces 8B tokenizer-aware pruning on Llama-3.1-8B: early-ablation comparison.}}{21}{table.appendix.table.13}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A14}{\ignorespaces 8B primary matched-vs-mismatched comparison by model (AUDC summary).}}{21}{table.appendix.table.14}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {J}Statistical methodology}{21}{appendix.J}\protected@file@percent }
 \newlabel{app:stats}{{J}{21}{Statistical methodology}{appendix.J}{}}
-\@writefile{toc}{\contentsline {paragraph}{Preregistration traceability artifacts.}{21}{section*.72}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {K}Full Path A/B Governance Matrix}{21}{appendix.K}\protected@file@percent }
-\newlabel{app:governance}{{K}{21}{Full Path A/B Governance Matrix}{appendix.K}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {L}Compute resources}{21}{appendix.L}\protected@file@percent }
-\newlabel{app:compute}{{L}{21}{Compute resources}{appendix.L}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {M}Completed Claim-Hardening and Attribution Controls}{22}{appendix.M}\protected@file@percent }
-\newlabel{app:running}{{M}{22}{Completed Claim-Hardening and Attribution Controls}{appendix.M}{}}
-\@writefile{toc}{\contentsline {paragraph}{Residual scope note after E20/E21 completion.}{22}{section*.73}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Tokenizer toy-model pretraining experiments (ongoing exploratory work).}{22}{section*.74}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{E23: Exploratory stage-sensitive SI pretraining causal probe.}{23}{section*.75}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {N}Exploratory Causal Probe: Stage-Sensitive SI Pretraining (E23)}{23}{appendix.N}\protected@file@percent }
-\newlabel{app:e23}{{N}{23}{Exploratory Causal Probe: Stage-Sensitive SI Pretraining (E23)}{appendix.N}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {N.1}Motivation}{23}{subsection.N.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {N.2}Setup}{23}{subsection.N.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Model.}{23}{section*.76}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Tasks.}{23}{section*.77}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{SI augmentation mechanism.}{23}{section*.78}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Training arms ($n{=}2$ seeds each).}{23}{section*.79}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Implementation note: v1 CE-masking bug.}{24}{section*.80}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {N.3}Results}{24}{subsection.N.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Bimodal outcome distribution.}{24}{section*.81}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Strict stage-sensitivity hypothesis not supported.}{24}{section*.82}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Kernel specificity.}{24}{section*.83}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {N.4}Interpretation and Scope}{24}{subsection.N.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Reinforcement evidence map: sources, prereg acceptance criteria, outcomes, and claim-scope impact.}}{32}{table.10}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces \texttt  {reinforce\_exp2} Path A/B evidence map: module intent, prereg/criteria gates, observed outcomes, and paper-claim impact.}}{33}{table.11}\protected@file@percent }
-\newlabel{tab:reinforce_exp2_ab_map}{{11}{33}{\texttt {reinforce\_exp2} Path A/B evidence map: module intent, prereg/criteria gates, observed outcomes, and paper-claim impact}{table.11}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Exp.~4A results: all SI-routing conditions vs.\ baseline, by model.}}{33}{table.12}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Exp.~5C perturbation effects on SI attention.}}{33}{table.13}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Exp.~6A gradient routing results.}}{33}{table.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Exp.~7A: coherence gap vs.\ $\bar  {R}^2$ correlation results.}}{33}{table.15}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces 8A boundary discrimination full results (small models only; 7--8B-scale pending).}}{34}{table.16}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces 8B tokenizer-aware pruning on Llama-3.1-8B: early-ablation comparison.}}{34}{table.17}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces 8B primary matched-vs-mismatched comparison by model (AUDC summary).}}{34}{table.18}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {19}{\ignorespaces \texttt  {reinforce\_exp2} Path A/B governance matrix.}}{34}{table.19}\protected@file@percent }
-\newlabel{tab:path_ab_governance}{{19}{34}{\texttt {reinforce\_exp2} Path A/B governance matrix}{table.19}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {20}{\ignorespaces Evidence provenance map for headline claims (addresses 1B vs.\ 7--8B sourcing). All headline claims use 7--8B primary models; 1B models serve as scope anchors and proxy controls only.}}{35}{table.20}\protected@file@percent }
-\newlabel{tab:provenance_map}{{20}{35}{Evidence provenance map for headline claims (addresses 1B vs.\ 7--8B sourcing). All headline claims use 7--8B primary models; 1B models serve as scope anchors and proxy controls only}{table.20}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {21}{\ignorespaces Completed hardening and attribution controls with claim impact (E17--E21, E24, E24b, E25, E26, E27, E28A, E28B, E28C, E28D, E29A, E29B, E29C, E30A, E30B).}}{36}{table.21}\protected@file@percent }
-\newlabel{tab:running_controls}{{21}{36}{Completed hardening and attribution controls with claim impact (E17--E21, E24, E24b, E25, E26, E27, E28A, E28B, E28C, E28D, E29A, E29B, E29C, E30A, E30B)}{table.21}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {22}{\ignorespaces E23 v2 seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar  {R}^2_{\mathrm  {SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes.}}{37}{table.22}\protected@file@percent }
-\newlabel{tab:e23_results}{{22}{37}{E23 v2 seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar {R}^2_{\mathrm {SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes}{table.22}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {23}{\ignorespaces E23 v2 arm means at submission cutoff. Std is across available seeds.}}{37}{table.23}\protected@file@percent }
-\newlabel{tab:e23_arm_means}{{23}{37}{E23 v2 arm means at submission cutoff. Std is across available seeds}{table.23}{}}
-\gdef \@abspage@last{37}
+\@writefile{toc}{\contentsline {paragraph}{Preregistration and reproducibility materials.}{21}{section*.60}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {K}Compute resources}{21}{appendix.K}\protected@file@percent }
+\newlabel{app:compute}{{K}{21}{Compute resources}{appendix.K}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {L}Completed Robustness and Attribution Controls}{21}{appendix.L}\protected@file@percent }
+\newlabel{app:running}{{L}{21}{Completed Robustness and Attribution Controls}{appendix.L}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A15}{\ignorespaces Evidence provenance map for headline claims (addresses 1B vs.\ 7--8B sourcing). All headline claims use 7--8B primary models; 1B models serve as scope anchors and proxy controls only.}}{22}{table.appendix.table.15}\protected@file@percent }
+\newlabel{tab:provenance_map}{{A15}{22}{Evidence provenance map for headline claims (addresses 1B vs.\ 7--8B sourcing). All headline claims use 7--8B primary models; 1B models serve as scope anchors and proxy controls only}{table.appendix.table.15}{}}
+\@writefile{toc}{\contentsline {paragraph}{Residual scope note.}{22}{section*.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {M}Exploratory Causal Probe: Stage-Sensitive SI Pretraining}{22}{appendix.M}\protected@file@percent }
+\newlabel{app:e23}{{M}{22}{Exploratory Causal Probe: Stage-Sensitive SI Pretraining}{appendix.M}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {M.1}Motivation}{22}{subsection.M.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {M.2}Setup}{22}{subsection.M.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Model.}{22}{section*.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tasks.}{22}{section*.63}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A16}{\ignorespaces Completed robustness and attribution controls with claim impact (RC1--RC19), Part I.}}{23}{table.appendix.table.16}\protected@file@percent }
+\newlabel{tab:running_controls}{{A16}{23}{Completed robustness and attribution controls with claim impact (RC1--RC19), Part I}{table.appendix.table.16}{}}
+\@writefile{toc}{\contentsline {paragraph}{SI augmentation mechanism.}{23}{section*.64}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Training arms ($n{=}2$ seeds each).}{23}{section*.65}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A17}{\ignorespaces Completed robustness and attribution controls with claim impact, Part II.}}{24}{table.appendix.table.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Implementation note.}{25}{section*.66}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {M.3}Results}{25}{subsection.M.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {A18}{\ignorespaces Seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar  {R}^2_{\mathrm  {SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes.}}{25}{table.appendix.table.18}\protected@file@percent }
+\newlabel{tab:e23_results}{{A18}{25}{Seed-level evaluation results available at submission cutoff. arith\_seen/unseen: accuracy on seen/unseen offsets. joint\_unseen: geometric mean of arith\_unseen and copy\_unseen (copy\_unseen=1.00 in all seeds). $\bar {R}^2_{\mathrm {SI}}$: mean per-head SI score across all heads. kernel\_spec: whether the kernel\_specificity gate passes}{table.appendix.table.18}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A19}{\ignorespaces Arm means at submission cutoff. Std is across available seeds.}}{25}{table.appendix.table.19}\protected@file@percent }
+\newlabel{tab:e23_arm_means}{{A19}{25}{Arm means at submission cutoff. Std is across available seeds}{table.appendix.table.19}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bimodal outcome distribution.}{25}{section*.67}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Strict stage-sensitivity hypothesis not supported.}{25}{section*.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Kernel specificity.}{25}{section*.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {M.4}Interpretation and Scope}{26}{subsection.M.4}\protected@file@percent }
+\citation{dubey2024llama3}
+\citation{jiang2023mistral}
+\citation{groeneveld2024olmo}
+\citation{radford2019language}
+\citation{zhang2024tinyllama}
+\citation{hendrycks2021math}
+\gdef \@abspage@last{33}
