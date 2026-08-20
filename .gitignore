@@ -76,6 +76,17 @@ overview_*.pdf
 # Local environment backups / run scratch
 .venv_broken_*/
 
+# Agent state and generated paper intermediates
+/.generated/
+/.workspace/
+paper/**/*.aux
+paper/**/*.blg
+paper/**/*.fdb_latexmk
+paper/**/*.fls
+paper/**/*.log
+paper/**/*.out
+paper/**/*.synctex.gz
+
 # Local scratch files excluded from current experiment-3 repair commit
 experiment2/experiment2_operations_log.md
 experiment2/experiment2_unexecuted_phases.md

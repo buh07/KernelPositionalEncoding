@@ -1,0 +1,133 @@
+{
+  "dataset": {
+    "config": "wikitext-103-raw-v1",
+    "fingerprint": "7dabb830ac9ebb0d",
+    "repository": "Salesforce/wikitext",
+    "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+    "row_count": 1801350,
+    "split": "train"
+  },
+  "documents": {
+    "cross_partition_content_hash_count": 146,
+    "total_count": 29443,
+    "unique_content_hash_count": 29001
+  },
+  "models": {
+    "llama-3.1-8b": {
+      "selected_document_content_overlap_count": 0,
+      "selected_document_id_overlap_count": 0,
+      "selected_eval_chunk_count": 100,
+      "selected_eval_document_ids": [
+        "wiki:1104609:1104687",
+        "wiki:1351649:1351669",
+        "wiki:1584467:1584500",
+        "wiki:1600608:1600667",
+        "wiki:256950:257052",
+        "wiki:293087:293113",
+        "wiki:305157:305191",
+        "wiki:372153:372211",
+        "wiki:432595:432751",
+        "wiki:745089:745206",
+        "wiki:961467:961628"
+      ],
+      "selected_fit_chunk_count": 50,
+      "selected_fit_document_ids": [
+        "wiki:1798325:1798364",
+        "wiki:212360:212417",
+        "wiki:475268:475354",
+        "wiki:585830:585935",
+        "wiki:595625:595662",
+        "wiki:781128:781261",
+        "wiki:878064:878114"
+      ],
+      "selected_token_hash_overlap_count": 0,
+      "tokenizer_tree_sha256": "afe108ea6ee025b12beeb9fdc495ae6fd6d0936498cdd8167cfa9a08e38db952"
+    },
+    "mistral-7b-v0.1": {
+      "selected_document_content_overlap_count": 0,
+      "selected_document_id_overlap_count": 0,
+      "selected_eval_chunk_count": 100,
+      "selected_eval_document_ids": [
+        "wiki:1104609:1104687",
+        "wiki:1351649:1351669",
+        "wiki:1584467:1584500",
+        "wiki:1600608:1600667",
+        "wiki:256950:257052",
+        "wiki:293087:293113",
+        "wiki:305157:305191",
+        "wiki:372153:372211",
+        "wiki:432595:432751",
+        "wiki:961467:961628"
+      ],
+      "selected_fit_chunk_count": 50,
+      "selected_fit_document_ids": [
+        "wiki:1798325:1798364",
+        "wiki:212360:212417",
+        "wiki:475268:475354",
+        "wiki:585830:585935",
+        "wiki:595625:595662",
+        "wiki:878064:878114"
+      ],
+      "selected_token_hash_overlap_count": 0,
+      "tokenizer_tree_sha256": "990bfba0e432465dfcbdfc82c6844925718ea69bd055ebff790d02d247693b2f"
+    },
+    "olmo-2-7b": {
+      "selected_document_content_overlap_count": 0,
+      "selected_document_id_overlap_count": 0,
+      "selected_eval_chunk_count": 100,
+      "selected_eval_document_ids": [
+        "wiki:1104609:1104687",
+        "wiki:1351649:1351669",
+        "wiki:1584467:1584500",
+        "wiki:1600608:1600667",
+        "wiki:256950:257052",
+        "wiki:293087:293113",
+        "wiki:305157:305191",
+        "wiki:372153:372211",
+        "wiki:432595:432751",
+        "wiki:745089:745206",
+        "wiki:961467:961628"
+      ],
+      "selected_fit_chunk_count": 50,
+      "selected_fit_document_ids": [
+        "wiki:1798325:1798364",
+        "wiki:212360:212417",
+        "wiki:475268:475354",
+        "wiki:585830:585935",
+        "wiki:595625:595662",
+        "wiki:781128:781261",
+        "wiki:878064:878114"
+      ],
+      "selected_token_hash_overlap_count": 0,
+      "tokenizer_tree_sha256": "1fc4aeb0efa51200ae514a08d64ffcd6cb468ff787e798aff1b384f1378a8105"
+    }
+  },
+  "schema_version": 1,
+  "selected_union": {
+    "content_hash_overlap_count": 0,
+    "document_id_overlap_count": 0,
+    "eval_document_ids": [
+      "wiki:1104609:1104687",
+      "wiki:1351649:1351669",
+      "wiki:1584467:1584500",
+      "wiki:1600608:1600667",
+      "wiki:256950:257052",
+      "wiki:293087:293113",
+      "wiki:305157:305191",
+      "wiki:372153:372211",
+      "wiki:432595:432751",
+      "wiki:745089:745206",
+      "wiki:961467:961628"
+    ],
+    "fit_document_ids": [
+      "wiki:1798325:1798364",
+      "wiki:212360:212417",
+      "wiki:475268:475354",
+      "wiki:585830:585935",
+      "wiki:595625:595662",
+      "wiki:781128:781261",
+      "wiki:878064:878114"
+    ],
+    "source_row_overlap_count": 0
+  }
+}

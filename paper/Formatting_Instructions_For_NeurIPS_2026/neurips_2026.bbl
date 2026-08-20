@@ -1,4 +1,4 @@
-\begin{thebibliography}{24}
+\begin{thebibliography}{26}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -6,26 +6,25 @@
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
 \bibitem[Barbero et~al.(2024)Barbero, Vitvitskyi, Perivolaropoulos, Pascanu,
-  and Velickovic]{barbero2024round}
+  and Veli{\v{c}}kovi{\'c}]{barbero2024round}
 Federico Barbero, Alex Vitvitskyi, Christos Perivolaropoulos, Razvan Pascanu,
-  and Petar Velickovic.
+  and Petar Veli{\v{c}}kovi{\'c}.
 \newblock Round and round we go! what makes rotary positional encodings useful?
 \newblock \emph{arXiv preprint arXiv:2410.06205}, 2024.
 
 \bibitem[Chan et~al.(2022)Chan, Garriga-Alonso, Goldowsky-Dill, Greenblatt,
-  Nanda, Pearce, Radhakrishnan, Ruhkamp, Schiefer, Schubert,
-  et~al.]{chan2022causal}
-Lawrence Chan, Adri{\`a} Garriga-Alonso, Noah Goldowsky-Dill, Ryan Greenblatt,
-  Neel Nanda, Adam Pearce, Ansh Radhakrishnan, Thomas Ruhkamp, Nicholas
-  Schiefer, Ludwig Schubert, et~al.
+  Nitishinskaya, Radhakrishnan, Shlegeris, and Thomas]{chan2022causal}
+Lawrence Chan, Adri{\`a} Garriga-Alonso, Nicholas Goldowsky-Dill, Ryan
+  Greenblatt, Jenny Nitishinskaya, Ansh Radhakrishnan, Buck Shlegeris, and Nate
+  Thomas.
 \newblock Causal scrubbing: A method for rigorously testing interpretability
   hypotheses.
-\newblock \emph{arXiv preprint arXiv:2212.06800}, 2022.
+\newblock AI Alignment Forum, 2022.
+\newblock
+  \url{https://www.alignmentforum.org/posts/JvZhhzycHu2Yd57RN/causal-scrubbing-a-method-for-rigorously-testing}.
 
-\bibitem[Chen et~al.(2023)Chen, Li, Shen, Yang, Zhang, Gan, Tao, and
-  Carin]{chen2023extending}
-Shouyuan Chen, Liyuan Li, Junxian Shen, Deyi Yang, Yizhe Zhang, Zhe Gan,
-  Dacheng Tao, and Lawrence Carin.
+\bibitem[Chen et~al.(2023)Chen, Wong, Chen, and Tian]{chen2023extending}
+Shouyuan Chen, Sherman Wong, Liangjian Chen, and Yuandong Tian.
 \newblock Extending context window of large language models via positional
   interpolation.
 \newblock \emph{arXiv preprint arXiv:2306.15595}, 2023.
@@ -64,6 +63,15 @@ Dirk Groeneveld, Iz~Beltagy, Pete Walsh, Akshita Bhagia, Rodney Kinney, Oyvind
 \newblock Olmo: Accelerating the science of language models.
 \newblock \emph{arXiv preprint arXiv:2402.00838}, 2024.
 
+\bibitem[Haviv et~al.(2022)Haviv, Ram, Press, Izsak, and
+  Levy]{haviv2022transformer}
+Adi Haviv, Ori Ram, Ofir Press, Peter Izsak, and Omer Levy.
+\newblock Transformer language models without positional encodings still learn
+  positional information.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2022}, pages 1382--1390, 2022.
+\newblock \doi{10.18653/v1/2022.findings-emnlp.99}.
+
 \bibitem[Hendrycks et~al.(2021)Hendrycks, Burns, Kadavath, Arora, Basart, Tang,
   Song, and Steinhardt]{hendrycks2021math}
 Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric
@@ -71,18 +79,27 @@ Dan Hendrycks, Collin Burns, Saurav Kadavath, Akul Arora, Steven Basart, Eric
 \newblock Measuring mathematical problem solving with the math dataset.
 \newblock In \emph{Advances in Neural Information Processing Systems}, 2021.
 
-\bibitem[Jiang et~al.(2023)Jiang, Sablayrolles, Mensch, Bamford, Devins,
-  Bressand, et~al.]{jiang2023mistral}
+\bibitem[Hong et~al.(2024)Hong, Jiang, Qi, Meng, Yu, Zhou, and
+  Zhou]{hong2024tokendistance}
+Xiangyu Hong, Che Jiang, Biqing Qi, Fandong Meng, Mo~Yu, Bowen Zhou, and Jie
+  Zhou.
+\newblock On the token distance modeling ability of higher {RoPE} attention
+  dimension.
+\newblock In \emph{Findings of the Association for Computational Linguistics:
+  EMNLP 2024}, 2024.
+\newblock \doi{10.18653/v1/2024.findings-emnlp.338}.
+
+\bibitem[Jiang et~al.(2023)Jiang, Sablayrolles, Mensch, Bamford, Chaplot,
+  de~las Casas, Bressand, et~al.]{jiang2023mistral}
 Albert~Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford,
-  Shreya~Ghosh Devins, Florian Bressand, et~al.
+  Devendra~Singh Chaplot, Diego de~las Casas, Florian Bressand, et~al.
 \newblock Mistral 7b.
 \newblock \emph{arXiv preprint arXiv:2310.06825}, 2023.
 
-\bibitem[Meng et~al.(2022)Meng, Sharma, Andonian, Belinkov, and
-  Bau]{meng2022locating}
-Kevin Meng, Arnab Sharma, Alex Andonian, Yonatan Belinkov, and David Bau.
+\bibitem[Meng et~al.(2022)Meng, Bau, Andonian, and Belinkov]{meng2022locating}
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov.
 \newblock Locating and editing factual associations in gpt.
-\newblock \emph{Advances in Neural Information Processing Systems}, 2022.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2022.
 
 \bibitem[Michel et~al.(2019)Michel, Levy, and Neubig]{michel2019sixteen}
 Paul Michel, Omer Levy, and Graham Neubig.
@@ -119,10 +136,10 @@ Peter Shaw, Jakob Uszkoreit, and Ashish Vaswani.
 \newblock Self-attention with relative position representations.
 \newblock In \emph{NAACL}, 2018.
 
-\bibitem[Su et~al.(2024)Su, Lu, Pan, Murtadha, Wen, and Liu]{su2021roformer}
-Jianlin Su, Yu~Lu, Shengfeng Pan, Ahmed Murtadha, Bo~Wen, and Yunfeng Liu.
+\bibitem[Su et~al.(2024)Su, Ahmed, Lu, Pan, Bo, and Liu]{su2021roformer}
+Jianlin Su, Murtadha Ahmed, Yu~Lu, Shengfeng Pan, Wen Bo, and Yunfeng Liu.
 \newblock Roformer: Enhanced transformer with rotary position embedding.
-\newblock \emph{Neurocomputing}, 2024.
+\newblock \emph{Neurocomputing}, 568:\penalty0 127063, 2024.
 
 \bibitem[Touvron et~al.(2023)Touvron, Martin, Stone, Albert, Almahairi,
   et~al.]{touvron2023llama2}
@@ -145,7 +162,7 @@ Elena Voita, David Talbot, Fedor Moiseev, Rico Sennrich, and Ivan Titov.
 \newblock In \emph{ACL}, 2019.
 
 \bibitem[Wu et~al.(2024)Wu, Wang, Xiao, Peng, and Fu]{wu2024retrieval}
-Yuxiang Wu, Yizhong Wang, Guangxuan Xiao, Hao Peng, and Jingjing Fu.
+Wenhao Wu, Yizhong Wang, Guangxuan Xiao, Hao Peng, and Yao Fu.
 \newblock Retrieval head mechanistically explains long-context factuality.
 \newblock \emph{arXiv preprint arXiv:2404.15574}, 2024.
 
@@ -155,7 +172,7 @@ Guangxuan Xiao, Yuandong Tian, Beidi Chen, Song Han, and Mike Lewis.
 \newblock \emph{arXiv preprint arXiv:2309.17453}, 2023.
 
 \bibitem[Zhang et~al.(2024)Zhang, Zeng, Wang, and Lu]{zhang2024tinyllama}
-Peiyuan Zhang, Guangtao Zeng, Tianhao Wang, and Wei Lu.
+Peiyuan Zhang, Guangtao Zeng, Tianduo Wang, and Wei Lu.
 \newblock Tinyllama: An open-source small language model.
 \newblock \emph{arXiv preprint arXiv:2401.02385}, 2024.
 

@@ -1,0 +1,98 @@
+schema_version = 1
+seed_namespace = 29039
+
+[paths]
+project_root = ".."
+runs_root_env = "SI_REBUTTAL_RUNS_ROOT"
+data_root_env = "SI_REBUTTAL_DATA_ROOT"
+models_root_env = "SI_REBUTTAL_MODELS_ROOT"
+logs_root_env = "SI_REBUTTAL_LOGS_ROOT"
+cache_root_env = "SI_REBUTTAL_CACHE_ROOT"
+
+[runtime]
+torch_dtype = "bfloat16"
+attn_implementation = "eager"
+chunk_length = 512
+
+[datasets.wikipedia]
+domain = "wikipedia"
+repository = "Salesforce/wikitext"
+revision = "b08601e04326c79dfdd32d625aee71d232d685c3"
+config = "wikitext-103-raw-v1"
+split = "train"
+field = "text"
+document_title_regex = "^ = [^=]+ = $"
+
+[datasets.code]
+domain = "code"
+repository = "code-search-net/code_search_net"
+revision = "bd0cf261e357a3eb5c8fba490d23ec1a1cd59555"
+config = "python"
+split = "train"
+field = "whole_func_string"
+repository_field = "repository_name"
+
+[counts]
+fit_sequences = 50
+eval_sequences = 100
+head_bins = 20
+
+[controls]
+offset_permutation_trials = 3
+norm_trials = 3
+
+[statistics]
+bootstrap_resamples = 10000
+bootstrap_percentiles = [2.5, 97.5]
+bootstrap_method = "linear"
+spearman_permutations = 200000
+
+[validation]
+zero_kernel_atol = 0.02
+zero_kernel_rtol = 0.02
+zero_kernel_nll_abs = 0.001
+constant_kernel_atol = 0.005
+constant_kernel_rtol = 0.005
+constant_kernel_nll_abs = 0.001
+toeplitz_max_abs = 0.000001
+attention_reconstruction_atol = 0.005
+attention_reconstruction_rtol = 0.005
+
+[benchmark]
+fit_sequences = 2
+eval_sequences = 4
+max_lane_hours = 120.0
+min_free_space_gib = 20.0
+artifact_margin_multiplier = 2.0
+
+[placement]
+gpu0_models = ["llama-3.1-8b", "olmo-2-7b"]
+gpu1_models = ["mistral-7b-v0.1"]
+logical_device = "cuda:0"
+
+[models."llama-3.1-8b"]
+weight_env = "SI_REBUTTAL_MODEL_LLAMA_3_1_8B"
+tokenizer_env = "SI_REBUTTAL_TOKENIZER_LLAMA_3_1_8B"
+layers = 32
+query_heads = 32
+kv_heads = 8
+kv_repetition = 4
+norm = "RMSNorm"
+
+[models."mistral-7b-v0.1"]
+weight_env = "SI_REBUTTAL_MODEL_MISTRAL_7B_V0_1"
+tokenizer_env = "SI_REBUTTAL_TOKENIZER_MISTRAL_7B_V0_1"
+layers = 32
+query_heads = 32
+kv_heads = 8
+kv_repetition = 4
+norm = "RMSNorm"
+
+[models."olmo-2-7b"]
+weight_env = "SI_REBUTTAL_MODEL_OLMO_2_7B"
+tokenizer_env = "SI_REBUTTAL_TOKENIZER_OLMO_2_7B"
+layers = 32
+query_heads = 32
+kv_heads = 32
+kv_repetition = 1
+norm = "LayerNorm"

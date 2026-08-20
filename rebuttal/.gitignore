@@ -1,0 +1,6 @@
+/runs/
+/logs/
+/.cache/
+/cache/
+/data/materialized/
+/data/local/
